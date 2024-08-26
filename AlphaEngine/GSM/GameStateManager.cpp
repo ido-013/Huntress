@@ -36,7 +36,7 @@ void GSM::GameStateManager::Update()
 {
     if (currentLevel)
     {
-        AEGfxSetBackgroundColor(0, 0, 0);
+        AEGfxSetBackgroundColor(255, 255, 255);
 
         ComponentManager<LogicComponent>::GetInstance().Update();
         ComponentManager<EngineComponent>::GetInstance().Update();

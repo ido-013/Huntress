@@ -2,32 +2,24 @@
 #include "TransformComp.h"
 #include "../ResourceManager/ResourceManager.h"
 
-SpriteComp::SpriteComp(GameObject* _owner) : GraphicComponent(_owner), color(), tex(nullptr), mesh(nullptr), textureName()
+SpriteComp::SpriteComp(GameObject* _owner) : GraphicComponent(_owner), color(), tex(nullptr), mesh(nullptr), textureName() 
 {
-	//Create quad
-	AEGfxMeshStart();
-
-	AEGfxTriAdd(
-		-0.5f, -0.5f, 0xFFFFFFFF, 0.0f, 1.0f,
-		0.5f, -0.5f, 0xFFFFFFFF, 1.0f, 1.0f,
-		-0.5f, 0.5f, 0xFFFFFFFF, 0.0f, 0.0f);
-
-	AEGfxTriAdd(
-		0.5f, -0.5f, 0xFFFFFFFF, 1.0f, 1.0f,
-		0.5f, 0.5f, 0xFFFFFFFF, 1.0f, 0.0f,
-		-0.5f, 0.5f, 0xFFFFFFFF, 0.0f, 0.0f);
-
-	mesh = AEGfxMeshEnd();	
+	SetMesh();
 }
 
 SpriteComp::~SpriteComp()
 {
 	ResourceManager::GetInstance().UnloadResource(textureName);
-	AEGfxMeshFree(mesh);
+
+	if (mesh)
+		AEGfxMeshFree(mesh);
 }
 
 void SpriteComp::Update()
 {
+	if (!mesh)
+		return;
+
 	//Set render mode
 	AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
 
@@ -53,6 +45,43 @@ void SpriteComp::Update()
 
 	//call DrawMesh
 	AEGfxMeshDraw(mesh, AE_GFX_MDM_TRIANGLES);
+}
+
+void SpriteComp::SetMesh()
+{
+	//Create quad
+	AEGfxMeshStart();
+
+	if (owner->GetType() == Entity::LeftTri)
+	{
+		AEGfxTriAdd(
+			-0.5f, -0.5f, 0xFFFFFFFF, 0.0f, 1.0f,
+			0.5f, -0.5f, 0xFFFFFFFF, 1.0f, 1.0f,
+			-0.5f, 0.5f, 0xFFFFFFFF, 0.0f, 0.0f);
+	}
+
+	else if (owner->GetType() == Entity::RightTri)
+	{
+		AEGfxTriAdd(
+			0.5f, -0.5f, 0xFFFFFFFF, 1.0f, 1.0f,
+			0.5f, 0.5f, 0xFFFFFFFF, 1.0f, 0.0f,
+			-0.5f, -0.5f, 0xFFFFFFFF, 0.0f, 1.0f);
+	}
+
+	else
+	{
+		AEGfxTriAdd(
+			-0.5f, -0.5f, 0xFFFFFFFF, 0.0f, 1.0f,
+			0.5f, -0.5f, 0xFFFFFFFF, 1.0f, 1.0f,
+			-0.5f, 0.5f, 0xFFFFFFFF, 0.0f, 0.0f);
+
+		AEGfxTriAdd(
+			0.5f, -0.5f, 0xFFFFFFFF, 1.0f, 1.0f,
+			0.5f, 0.5f, 0xFFFFFFFF, 1.0f, 0.0f,
+			-0.5f, 0.5f, 0xFFFFFFFF, 0.0f, 0.0f);
+	}
+
+	mesh = AEGfxMeshEnd();
 }
 
 void SpriteComp::SetColor(const unsigned char& r, const unsigned char& g, const unsigned char& b)
@@ -85,6 +114,8 @@ void SpriteComp::LoadFromJson(const json& data)
 		it = compData->find("textureName");
 		textureName = it.value();
 		SetTexture(textureName);
+
+		SetMesh();
 	}
 }
 

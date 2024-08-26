@@ -5,6 +5,7 @@
 #include "AEEngine.h"
 #include "GSM/GameStateManager.h"
 #include "Level/EditLevel.h"
+#include "Level/TestLevel.h"
 #include "Utils/Utils.h"
 // ---------------------------------------------------------------------------
 // main
@@ -27,14 +28,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	AESysInit(hInstance, nCmdShow, 1600, 900, 1, 60, true, NULL);
 
 	// Changing the window title
-	AESysSetWindowTitle("Pac-Man");
+	AESysSetWindowTitle("New-GAME");
 
 	GSM::GameStateManager& gsm = GSM::GameStateManager::GetInstance();
 
 	// reset the system modules
 	AESysReset();
 
-	GSM::GameStateManager::GetInstance().ChangeLevel(new level::EditLevel);
+	GSM::GameStateManager::GetInstance().ChangeLevel(new level::TestLevel);
 
 	// Game Loop
 	while (gsm.ShouldExit() == false && gGameRunning)
