@@ -1,0 +1,48 @@
+{
+  "components": [
+    {
+      "type": "PlayerComp",
+      "compData": {
+        "speed": 500.0
+      }
+    },
+    {
+      "type": "RigidbodyComp",
+      "compData": {
+        "velocity": [
+          0.0,
+          0.0
+        ],
+        "maxVelocity": [
+          100.0,
+          100.0
+        ]
+      }
+    },
+    {
+      "type": "SpriteComp",
+      "compData": {
+        "color": [
+          0,
+          0,
+          0
+        ],
+        "textureName": "../Assets/Character/ArrowAttack/sprite/ScoutAttackArrow1.png"
+      }
+    },
+    {
+      "type": "TransformComp",
+      "compData": {
+        "position": [
+          0.0,
+          0.0
+        ],
+        "scale": [
+          90.0,
+          120.0
+        ],
+        "rotation": 0.0
+      }
+    }
+  ]
+}
