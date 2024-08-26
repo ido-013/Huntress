@@ -78,9 +78,6 @@
     <ClCompile Include="GameObjectManager\GameObejectManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Level\InitialLevel.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Level\EditLevel.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -97,15 +94,6 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Utils\Utils.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\EnemyComp.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Level\GameOver.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Level\GameClear.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -185,9 +173,6 @@
     <ClInclude Include="Level\BaseLevel.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Level\InitialLevel.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Level\EditLevel.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -212,19 +197,10 @@
     <ClInclude Include="Map\Map.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Components\EnemyComp.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Utils\Size.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Event\DeathEvent.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Level\GameOver.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Level\GameClear.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Event\SuperModeEvent.h">

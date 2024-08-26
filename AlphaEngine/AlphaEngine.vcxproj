@@ -104,7 +104,6 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="CollisionManager\CollisionManager.cpp" />
     <ClCompile Include="ComponentManager\EngineComponent.cpp" />
     <ClCompile Include="Components\AnimatorComp.cpp" />
-    <ClCompile Include="Components\EnemyComp.cpp" />
     <ClCompile Include="GameObject\GameObject.cpp" />
     <ClCompile Include="ComponentManager\GraphicComponent.cpp" />
     <ClCompile Include="ComponentManager\LogicComponent.cpp" />
@@ -118,9 +117,6 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="Event\Event.cpp" />
     <ClCompile Include="GameObjectManager\GameObejectManager.cpp" />
     <ClCompile Include="GSM\GameStateManager.cpp" />
-    <ClCompile Include="Level\GameClear.cpp" />
-    <ClCompile Include="Level\GameOver.cpp" />
-    <ClCompile Include="Level\InitialLevel.cpp" />
     <ClCompile Include="Level\EditLevel.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Prefab\Prefab.cpp" />
@@ -139,7 +135,6 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="ComponentManager\ComponentManager.h" />
     <ClInclude Include="ComponentManager\EngineComponent.h" />
     <ClInclude Include="Components\AnimatorComp.h" />
-    <ClInclude Include="Components\EnemyComp.h" />
     <ClInclude Include="Event\DestroyEvent.h" />
     <ClInclude Include="Event\DeathEvent.h" />
     <ClInclude Include="Event\RestartEvent.h" />
@@ -159,9 +154,6 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="GameObjectManager\GameObjectManager.h" />
     <ClInclude Include="Level\BaseLevel.h" />
     <ClInclude Include="GSM\GameStateManager.h" />
-    <ClInclude Include="Level\GameClear.h" />
-    <ClInclude Include="Level\GameOver.h" />
-    <ClInclude Include="Level\InitialLevel.h" />
     <ClInclude Include="Level\EditLevel.h" />
     <ClInclude Include="Map\Map.h" />
     <ClInclude Include="Prefab\Prefab.h" />

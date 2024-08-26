@@ -13,6 +13,6 @@ void AudioResource::LoadData(const std::string& name)
 
 void AudioResource::UnloadData()
 {
-	AEAudioUnloadAudio(audio);
+	//AEAudioUnloadAudio(audio);
 	data = nullptr;
 }
