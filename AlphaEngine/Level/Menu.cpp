@@ -58,7 +58,9 @@ void level::Menu::Init()
 }
 void level::Menu::Update()
 {
-	
+	//s32 mouseX, mouseY;
+	//AEInputGetCursorPosition(&mouseX, &mouseY);
+	//t->SetPos({ 800, -(float)mouseY + 450 });
 }
 void level::Menu::Exit()
 {
