@@ -1,4 +1,4 @@
-#include "EditLevel.h"
+#include "PrefabLevel.h"
 #include "../GSM/GameStateManager.h"
 #include "../ComponentManager/ComponentManager.h"
 #include "../GameObject/GameObject.h"
@@ -12,7 +12,7 @@
 #include "../Prefab/Prefab.h"
 #include <iostream>
 
-void level::EditLevel::Init()
+void level::PrefabLevel::Init()
 {
 	GameObject* temp = nullptr;
 	TransformComp* tt = nullptr;
@@ -73,12 +73,12 @@ void level::EditLevel::Init()
 	Prefab::SavePrefab("LeftTri", temp);
 }
 
-void level::EditLevel::Update()
+void level::PrefabLevel::Update()
 {
 
 }
 
-void level::EditLevel::Exit()
+void level::PrefabLevel::Exit()
 {
 
 }

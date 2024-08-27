@@ -46,8 +46,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)Extern\AlphaEngine\include;$(SolutionDir)Extern\json;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Extern\AlphaEngine\lib;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)</OutDir>
-    <IntDir>$(SolutionDir).tmp\$(Configuration)-$(Platform)</IntDir>
+    <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir).tmp\$(Configuration)-$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)Extern\json;$(SolutionDir)Extern\AlphaEngine\include;$(IncludePath)</IncludePath>
@@ -118,6 +118,8 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="GameObjectManager\GameObejectManager.cpp" />
     <ClCompile Include="GSM\GameStateManager.cpp" />
     <ClCompile Include="Level\EditLevel.cpp" />
+    <ClCompile Include="Level\PrefabLevel.cpp" />
+    <ClCompile Include="Level\TestLevel.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Prefab\Prefab.cpp" />
     <ClCompile Include="Resource\AudioResource.cpp" />
@@ -135,9 +137,6 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="ComponentManager\ComponentManager.h" />
     <ClInclude Include="ComponentManager\EngineComponent.h" />
     <ClInclude Include="Components\AnimatorComp.h" />
-    <ClInclude Include="Event\DestroyEvent.h" />
-    <ClInclude Include="Event\DeathEvent.h" />
-    <ClInclude Include="Event\RestartEvent.h" />
     <ClInclude Include="Event\SuperModeEvent.h" />
     <ClInclude Include="GameObject\GameObject.h" />
     <ClInclude Include="ComponentManager\GraphicComponent.h" />
@@ -155,6 +154,8 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="Level\BaseLevel.h" />
     <ClInclude Include="GSM\GameStateManager.h" />
     <ClInclude Include="Level\EditLevel.h" />
+    <ClInclude Include="Level\PrefabLevel.h" />
+    <ClInclude Include="Level\TestLevel.h" />
     <ClInclude Include="Map\Map.h" />
     <ClInclude Include="Prefab\Prefab.h" />
     <ClInclude Include="Resource\AudioResource.h" />

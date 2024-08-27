@@ -25,7 +25,7 @@ private:
 
 	//texture
 	AEGfxTexture* tex = nullptr;
-	AEGfxVertexList* mesh;
+	AEGfxVertexList* mesh = nullptr;
 
 	//Render mode?
 	//Blend mode?
@@ -41,6 +41,8 @@ public:
 	void Update() override;
 
 	//Gettors/Settors
+	void SetMesh();
+
 	Color& GetColor() { return color; }
 	void SetColor(const unsigned char& r, const unsigned char& g, const unsigned char& b);
 

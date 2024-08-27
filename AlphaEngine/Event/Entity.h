@@ -7,7 +7,9 @@ public:
 	enum Type
 	{
 		None,
-		Wall,
+		Square,
+		LeftTri,
+		RightTri,
 		Player,
 	};
 

@@ -21,6 +21,7 @@ inline T* GameObject::AddComponent(BaseComponent* comp)
 	}
 
 	component.insert({ T::TypeName, comp });
+	return temp;
 }
 
 

@@ -16,12 +16,10 @@ public:
 
 private:
 	float speed = 500;	
-	s8 pFont;
 
 public:
 	PlayerComp(GameObject* _owner);
 	~PlayerComp();
-	void AddScore(int _score, bool isEnemy); 
 	void Update() override;
 
 	void LoadFromJson(const json&) override;

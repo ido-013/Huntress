@@ -16,7 +16,6 @@ PlayerComp::PlayerComp(GameObject* _owner) : LogicComponent(_owner)
 
 PlayerComp::~PlayerComp()
 {
-	AEGfxDestroyFont(pFont);
 }
 
 void PlayerComp::Update()
