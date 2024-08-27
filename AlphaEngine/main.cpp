@@ -6,6 +6,8 @@
 #include "GSM/GameStateManager.h"
 #include "Level/EditLevel.h"
 #include "Utils/Utils.h"
+#include "Level/Menu.h"
+#include "Level/CombatUI.h"
 // ---------------------------------------------------------------------------
 // main
 
@@ -34,7 +36,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// reset the system modules
 	AESysReset();
 
-	GSM::GameStateManager::GetInstance().ChangeLevel(new level::EditLevel);
+	GSM::GameStateManager::GetInstance().ChangeLevel(new level::CombatUI);
 
 	// Game Loop
 	while (gsm.ShouldExit() == false && gGameRunning)
