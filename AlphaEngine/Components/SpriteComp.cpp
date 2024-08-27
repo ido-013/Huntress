@@ -11,8 +11,7 @@ SpriteComp::~SpriteComp()
 {
 	ResourceManager::GetInstance().UnloadResource(textureName);
 
-	if (mesh)
-		AEGfxMeshFree(mesh);
+	AEGfxMeshFree(mesh);
 }
 
 void SpriteComp::Update()
@@ -114,8 +113,6 @@ void SpriteComp::LoadFromJson(const json& data)
 		it = compData->find("textureName");
 		textureName = it.value();
 		SetTexture(textureName);
-
-		SetMesh();
 	}
 }
 

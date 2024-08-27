@@ -25,7 +25,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// Initialization of your own variables go here
 
 	// Using custom window procedure
-	AESysInit(hInstance, nCmdShow, 1600, 900, 1, 60, true, NULL);
+	AESysInit(hInstance, nCmdShow, 900, 900, 1, 60, true, NULL);
 
 	// Changing the window title
 	AESysSetWindowTitle("New-GAME");

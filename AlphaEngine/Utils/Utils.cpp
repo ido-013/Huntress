@@ -13,11 +13,13 @@ int PosToMapY(float y)
 float MapToPosX(int ind)
 {
     return (windowWidth / width) * ind - (windowWidth / 2) + ((windowWidth / width) / 2);
+    //return ind * width;
 }
 
 float MapToPosY(int ind)
 {
     return -((windowHeight / height) * ind - (windowHeight / 2) + ((windowHeight / height) / 2));
+    //return -ind * height;
 }
 
 float GetSqDistance(float ax, float ay, float bx, float by)
