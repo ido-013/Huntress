@@ -13,7 +13,7 @@ Prefab::~Prefab()
 
 void Prefab::SavePrefab(const std::string& _name, GameObject* obj)
 {
-	std::string filename = _name + ".prefab";
+	std::string filename = "Assets/Prefab/" + _name + ".prefab";
 
 	json prefab;
 	prefab["entityType"] = obj->GetType();
@@ -39,7 +39,7 @@ void Prefab::SavePrefab(const std::string& _name, GameObject* obj)
 
 void Prefab::LoadPrefab()
 {
-	std::string filename = name + ".prefab";
+	std::string filename = "Assets/Prefab/" + name + ".prefab";
 	std::fstream file;
 
 	file.open(filename, std::fstream::in);
