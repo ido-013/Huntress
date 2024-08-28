@@ -138,6 +138,8 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="ComponentManager\ComponentManager.h" />
     <ClInclude Include="ComponentManager\EngineComponent.h" />
     <ClInclude Include="Components\AnimatorComp.h" />
+    <ClInclude Include="Event\Button.h" />
+    <ClInclude Include="Event\ButtonClickEvent.h" />
     <ClInclude Include="Event\DestroyEvent.h" />
     <ClInclude Include="Event\DeathEvent.h" />
     <ClInclude Include="Event\RestartEvent.h" />
@@ -170,6 +172,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="RTTI\BaseRTTI.h" />
     <ClInclude Include="RTTI\Registry.h" />
     <ClInclude Include="Serializer\Serializer.h" />
+    <ClInclude Include="UIM\BtnManager.h" />
     <ClInclude Include="Utils\Size.h" />
     <ClInclude Include="Utils\Utils.h" />
   </ItemGroup>

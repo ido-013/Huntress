@@ -9,6 +9,7 @@ public:
 		None,
 		Wall,
 		Player,
+		Button
 	};
 
 	virtual void OnEvent(Event* event) = 0;

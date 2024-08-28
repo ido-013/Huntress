@@ -37,7 +37,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// reset the system modules
 	AESysReset();
 
-	GSM::GameStateManager::GetInstance().ChangeLevel(new level::StoreUI);
+	GSM::GameStateManager::GetInstance().ChangeLevel(new level::Menu);
 
 	// Game Loop
 	while (gsm.ShouldExit() == false && gGameRunning)
