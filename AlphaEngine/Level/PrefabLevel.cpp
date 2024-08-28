@@ -13,63 +13,7 @@ void level::PrefabLevel::Init()
 	TransformComp* tt = nullptr;
 	SpriteComp* ts = nullptr;
 	RigidbodyComp* tr = nullptr;
-
-	temp = new GameObject();
-
-	temp->type = GameObject::Square;
-
-	temp->AddComponent<TransformComp>();
-	temp->AddComponent<SpriteComp>();
-	temp->AddComponent<ColliderComp>();
-
-	tt = temp->GetComponent<TransformComp>();
-	tt->SetScale({ 100, 100 });
-	tt->SetPos({ 0, 0 });
-
-	ts = temp->GetComponent<SpriteComp>();
-	ts->SetColor(0, 0, 0);
-
-	Prefab::SavePrefab("Square", temp);
-
-	//
-
-	temp = new GameObject();
-
-	temp->type = GameObject::RightTri;
-
-	temp->AddComponent<TransformComp>();
-	temp->AddComponent<SpriteComp>();
-
-	tt = temp->GetComponent<TransformComp>();
-	tt->SetScale({ 100, 100 });
-	tt->SetPos({ 0, 0 });
-
-	ts = temp->GetComponent<SpriteComp>();
-	ts->SetColor(0, 0, 0);
-	//ts->SetTexture("Assets/PlanetTexture.png");
-
-	Prefab::SavePrefab("RightTri", temp);
-
-	//
-
-	temp = new GameObject();
-
-	temp->type = GameObject::LeftTri;
-
-	temp->AddComponent<TransformComp>();
-	temp->AddComponent<SpriteComp>();
-
-	tt = temp->GetComponent<TransformComp>();
-	tt->SetScale({ 100, 100 });
-	tt->SetPos({ 0, 0 });
-
-	ts = temp->GetComponent<SpriteComp>();
-	ts->SetColor(0, 0, 0);
-	//ts->SetTexture("Assets/PlanetTexture.png");
-
-	Prefab::SavePrefab("LeftTri", temp);
-
-	//
+	ColliderComp* tc = nullptr;
 
 	temp = new GameObject();
 
@@ -91,6 +35,66 @@ void level::PrefabLevel::Init()
 	tr->useGravity = true;
 
 	Prefab::SavePrefab("Point", temp);
+
+	temp = new GameObject();
+
+	temp->type = GameObject::Square;
+
+	temp->AddComponent<TransformComp>();
+	temp->AddComponent<SpriteComp>();
+	temp->AddComponent<ColliderComp>();
+
+	tt = temp->GetComponent<TransformComp>();
+	tt->SetScale({ 100, 100 });
+	tt->SetPos({ 0, 0 });
+
+	ts = temp->GetComponent<SpriteComp>();
+	ts->SetColor(0, 0, 0);
+
+	tc = temp->GetComponent<ColliderComp>();
+	tc->SetCollider();
+
+	Prefab::SavePrefab("Square", temp);
+
+	//
+
+	//temp = new GameObject();
+
+	//temp->type = GameObject::RightTri;
+
+	//temp->AddComponent<TransformComp>();
+	//temp->AddComponent<SpriteComp>();
+
+	//tt = temp->GetComponent<TransformComp>();
+	//tt->SetScale({ 100, 100 });
+	//tt->SetPos({ 0, 0 });
+
+	//ts = temp->GetComponent<SpriteComp>();
+	//ts->SetColor(0, 0, 0);
+	////ts->SetTexture("Assets/PlanetTexture.png");
+
+	//Prefab::SavePrefab("RightTri", temp);
+
+	//
+
+	//temp = new GameObject();
+
+	//temp->type = GameObject::LeftTri;
+
+	//temp->AddComponent<TransformComp>();
+	//temp->AddComponent<SpriteComp>();
+
+	//tt = temp->GetComponent<TransformComp>();
+	//tt->SetScale({ 100, 100 });
+	//tt->SetPos({ 0, 0 });
+
+	//ts = temp->GetComponent<SpriteComp>();
+	//ts->SetColor(0, 0, 0);
+	////ts->SetTexture("Assets/PlanetTexture.png");
+
+	//Prefab::SavePrefab("LeftTri", temp);
+
+	//
 }
 
 void level::PrefabLevel::Update()

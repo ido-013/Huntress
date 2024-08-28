@@ -5,26 +5,6 @@
 
 ColliderComp::ColliderComp(GameObject* _owner) : EngineComponent(_owner), pos(), scale(), rot(0), isCollision(false)
 {
-	TransformComp* t = _owner->GetComponent<TransformComp>();
-
-	if (t)
-	{
-		pos.x = t->GetPos().x;
-		pos.y = t->GetPos().y;
-
-		scale.x = t->GetScale().x;
-		scale.y = t->GetScale().y;
-	}
-
-	else
-	{
-		pos.x = 0;
-		pos.y = 0;
-
-		scale.x = 1;
-		scale.y = 1;
-	}
-
 	CollisionManager::GetInstance().AddCollider(this);
 	EventManager::GetInstance().AddEntity(this);
 }
@@ -37,7 +17,11 @@ ColliderComp::~ColliderComp()
 
 void ColliderComp::Update()
 {
-
+	if (isCollision)
+	{
+		isCollision = false;
+		oppoCollider = nullptr;
+	}
 }
 
 void ColliderComp::OnEvent(Event* e)
@@ -45,7 +29,7 @@ void ColliderComp::OnEvent(Event* e)
 	if (dynamic_cast<CollisionEvent*>(e) != nullptr)
 	{
 		isCollision = true;
-		//colliderList.push_back(e->src);
+		oppoCollider = dynamic_cast<ColliderComp*>(e->src);
 	}
 }
 
@@ -62,6 +46,31 @@ void ColliderComp::SetScale(const AEVec2& otherScale)
 void ColliderComp::SetRot(const float& otherRot)
 {
 	this->rot = otherRot;
+}
+
+void ColliderComp::SetCollider()
+{
+	TransformComp* t = owner->GetComponent<TransformComp>();
+	if (!t) return;
+
+	pos.x = t->GetPos().x;
+	pos.y = t->GetPos().y;
+
+	scale.x = t->GetScale().x;
+	scale.y = t->GetScale().y;
+
+	rot = t->GetRot();
+}
+
+void ColliderComp::SetCollider(float posX, float posY, float scaleX, float scaleY, float _rot)
+{
+	pos.x = posX;
+	pos.y = posY;
+
+	scale.x = scaleX;
+	scale.y = scaleY;
+
+	rot = _rot;
 }
 
 void ColliderComp::LoadFromJson(const json& data)

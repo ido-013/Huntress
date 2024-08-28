@@ -32,14 +32,16 @@ void PointComp::Update()
 
 	speed = 50;
 
+	r->SetVelocityX(0);
+
 	if (AEInputCheckCurr(AEVK_A))
 	{
-		r->AddVelocity(-speed, 0);
+		r->SetVelocityX(-speed);
 	}
 
 	if (AEInputCheckCurr(AEVK_D))
 	{
-		r->AddVelocity(speed, 0);
+		r->SetVelocityX(speed);
 	}
 }
 

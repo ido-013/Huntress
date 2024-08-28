@@ -12,8 +12,6 @@ private:
 	AEVec2 scale;
 	float rot;
 
-	std::list<Entity*> colliderList;
-
 public:
 	ColliderComp(GameObject* _owner);
 	~ColliderComp();
@@ -32,7 +30,11 @@ public:
 	void SetScale(const AEVec2& otherScale);
 	void SetRot(const float& otherRot);
 
+	void SetCollider();
+	void SetCollider(float posX, float posY, float scaleX, float scaleY, float _rot);
+
 	bool isCollision;
+	ColliderComp* oppoCollider;
 
 	void LoadFromJson(const json&) override;
 	json SaveToJson() override;

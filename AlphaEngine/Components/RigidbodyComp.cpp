@@ -15,8 +15,8 @@ RigidbodyComp::RigidbodyComp(GameObject* _owner) : EngineComponent(_owner), velo
 {
 	velocity.x = 0;
 	velocity.y = 0;
-	maxVelocity.x = 100;
-	maxVelocity.y = 100;
+	maxVelocity.x = 500;
+	maxVelocity.y = 500;	 
 
 	acceleration.x = 0;
 	acceleration.y = 0;
@@ -56,6 +56,16 @@ void RigidbodyComp::SetVelocity(const AEVec2& other)
 void RigidbodyComp::SetVelocity(float x, float y)
 {
 	velocity.x = x;
+	velocity.y = y;
+}
+
+void RigidbodyComp::SetVelocityX(float x)
+{
+	velocity.x = x;
+}
+
+void RigidbodyComp::SetVelocityY(float y)
+{
 	velocity.y = y;
 }
 
@@ -124,20 +134,24 @@ void RigidbodyComp::Update()
 	float tw = t->GetScale().x;
 	float th = t->GetScale().y;
 
-	collisionPos[UP]->		SetPos({ tx, ty + th });
-	collisionPos[DOWN]->	SetPos({ tx, ty - th });
-	collisionPos[LEFT]->	SetPos({ tx - tw, ty });
-	collisionPos[RIGHT]->	SetPos({ tx + tw, ty });
-
+	collisionPos[UP]->		SetPos({ tx, ty + th - 1 });
+	collisionPos[DOWN]->	SetPos({ tx, ty - th + 1 });
+	collisionPos[RIGHT]->	SetPos({ tx + tw - 1, ty });
+	collisionPos[LEFT]->	SetPos({ tx - tw + 1, ty });
+	
 	collisionPos[UP]->		SetScale({ tw, 1 });
 	collisionPos[DOWN]->	SetScale({ tw, 1 });
 	collisionPos[LEFT]->	SetScale({ 1, th });
 	collisionPos[RIGHT]->	SetScale({ 1, th });
 
+	//
+
 	if (useGravity)
-		acceleration.y = -50.f;
+		acceleration.y = -500.f;
 	else
 		acceleration.y = 0.f;
+
+	//
 
 	velocity.x += acceleration.x * dt;
 	velocity.y += acceleration.y * dt;
@@ -145,8 +159,7 @@ void RigidbodyComp::Update()
 	velocity.x = AEClamp(velocity.x, -maxVelocity.x, maxVelocity.x);
 	velocity.y = AEClamp(velocity.y, -maxVelocity.y, maxVelocity.y);
 
-	if (collisionPos[DOWN]->isCollision)
-		velocity.y = 0;
+	//
 
 	float x = t->GetPos().x + velocity.x * dt;
 	float y = t->GetPos().y + velocity.y * dt;
@@ -160,6 +173,16 @@ void RigidbodyComp::Update()
 
 	if (CheckEpsilon(velocity.y) == false)
 		velocity.y = 0;
+
+	if (collisionPos[DOWN]->isCollision)
+	{
+		velocity.y = 0;
+
+		float oy = collisionPos[DOWN]->oppoCollider->GetPos().y;
+		float oh = collisionPos[DOWN]->oppoCollider->GetScale().y / 2;
+
+		y = (t->GetScale().y / 2) + oh + oy;
+	}
 
 	t->SetPos({ x, y });
 }
