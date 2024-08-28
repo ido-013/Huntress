@@ -10,9 +10,11 @@
 #include "AEMath.h"
 
 bool CombatComp::isDrawDirection = false;
+bool CombatComp::isChaseDirection = false;
 
-CombatComp::CombatComp(GameObject* _owner) : EngineComponent(_owner)
+CombatComp::CombatComp(GameObject* _owner) : EngineComponent(_owner), pAngle(0)
 {
+	
 }
 
 CombatComp::~CombatComp()
@@ -83,7 +85,6 @@ float AngleBetweenSegments(const AEVec2& p1, const AEVec2& p2, const AEVec2& p3,
 	// 선분 1과 선분 2의 벡터 계산
 	AEVec2 v1 = VectorFromPoints(p1, p2);
 	AEVec2 v2 = VectorFromPoints(p3, p4);
-	std::cout << "v1 : " << v1.x << ", " << v1.y << " v2 : " << v2.x << ", " << v2.y << std::endl;
 	
 	// 두 벡터 사이의 각도 계산
 	return v2.x < 0 ? AngleBetweenVectors(v1, v2) : -AngleBetweenVectors(v1, v2);
@@ -133,9 +134,7 @@ void CombatComp::DrawDirectionPegline(GameObject& directionArrow,
 			angle = ag2; // second도에 더 가까운 경우
 		}
 	}
-
-	std::cout << AERadToDeg(angle) << std::endl;
-
+	SetPlayerAngle(angle);
 	// Step3. Based on the mouse position pos,rot setting
 
 	dtf->SetPos(
@@ -148,32 +147,41 @@ void CombatComp::DrawDirectionPegline(GameObject& directionArrow,
 	dtf->SetRot(angle);
 }
 
+void CombatComp::SetPlayerAngle(float angle)
+{
+	pAngle = angle;
+	std::cout << "Set Pangle : " << angle << std::endl;
+}
+
+float CombatComp::GetPlayerAngle()
+{
+	return pAngle;
+}
+
 void CombatComp::Update()
 {
 	if (isDrawDirection)
 	{
+		if (AEInputCheckTriggered(AEVK_LBUTTON))
+		{
+			isChaseDirection = false;
+		}
+		GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
+		GameObject* player = GameObjectManager::GetInstance().GetObj("player");
 		s32 px, py;
 		AEInputGetCursorPosition(&px, &py);
 		px -= 800;
 		py -= 450;
-		py = -py;
-		GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
-		GameObject* player = GameObjectManager::GetInstance().GetObj("player");
-		/*std::cout << "mouse : " << px << ", " << py << " player : " << 
-			player->GetComponent<TransformComp>()->GetPos().x << 
-			", " << 
-			player->GetComponent<TransformComp>()->GetPos().y << 
-			" arrow : " << 
-			directionArrow->GetComponent<TransformComp>()->GetPos().x << 
-			", " 
-			<< directionArrow->GetComponent<TransformComp>()->GetPos().y << std::endl;*/
 		directionArrow->GetComponent<SpriteComp>()->SetAlpha(1);
-		directionArrow->
-			GetComponent<CombatComp>()->
-			DrawDirectionPegline(*directionArrow,
-			*player,
-			{ (float)px, (float)py },
-			{ -120.f, 120.f});
+		if (isChaseDirection)
+		{
+			directionArrow->
+				GetComponent<CombatComp>()->
+				DrawDirectionPegline(*directionArrow,
+					*player,
+					{ (float)px, (float)-py },
+					{ -120.f, 120.f });
+		}
 	}
 	else
 	{

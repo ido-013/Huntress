@@ -7,11 +7,16 @@
 
 class CombatComp : public EngineComponent
 {
+	float pAngle;
 public:
 	CombatComp(GameObject* _owner);
 	~CombatComp();
 	
 	static bool isDrawDirection;
+	static bool isChaseDirection;
+
+	void SetPlayerAngle(float angle);
+	float GetPlayerAngle();
 
 	void DrawDirectionPegline(GameObject& directionArrow,
 		GameObject& player, const AEVec2& DirectionPoint, 
