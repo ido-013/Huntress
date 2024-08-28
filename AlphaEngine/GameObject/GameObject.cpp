@@ -6,9 +6,16 @@
 #include "../Components/AudioComp.h"
 #include "../EventManager/EventManager.h"
 
-GameObject::GameObject() : component()
+
+GameObject::GameObject()
 {
 	GameObjectManager::GetInstance().AddObject(this);
+	EventManager::GetInstance().AddEntity(this);
+}
+
+GameObject::GameObject(std::string str)
+{
+	GameObjectManager::GetInstance().InsertObject(this, str);
 	EventManager::GetInstance().AddEntity(this);
 }
 

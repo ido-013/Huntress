@@ -22,7 +22,7 @@ private:
 
 	//color
 	Color color;
-
+	float Alpha;
 	//texture
 	AEGfxTexture* tex = nullptr;
 	AEGfxVertexList* mesh;
@@ -45,7 +45,8 @@ public:
 	void SetColor(const unsigned char& r, const unsigned char& g, const unsigned char& b);
 
 	void SetTexture(std::string s);
-
+	void SetAlpha(float alpha);
+	float GetAlpha();
 	void LoadFromJson(const json&) override;
 	json SaveToJson() override;
 

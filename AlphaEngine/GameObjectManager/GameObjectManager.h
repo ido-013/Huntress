@@ -6,7 +6,7 @@
 class GameObjectManager
 {
 private:
-	std::list<GameObject*> objects;
+	std::map<GameObject*, std::string> objects;
 
 	GameObjectManager();
 	~GameObjectManager();
@@ -17,15 +17,19 @@ private:
 	static GameObjectManager* ptr;
 
 public:
-	std::list<GameObject*>& GetAllObjects() { return objects; }
+	std::map<GameObject*, std::string>& GetAllObjects() { return objects; }
 
 	static GameObjectManager& GetInstance()
 	{
 		static GameObjectManager instance;
 		return instance;
 	}
-
+	void InsertObject(GameObject* obj, std::string str);
 	void AddObject(GameObject* obj);
+	GameObject* GetObj(const std::string& id);
+	GameObject* GetLastObject();
 	void RemoveObject(GameObject* obj);
 	void RemoveAllObject();
+
+	static int counter;
 };

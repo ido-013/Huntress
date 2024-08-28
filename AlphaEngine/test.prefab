@@ -34,14 +34,14 @@
       "type": "TransformComp",
       "compData": {
         "position": [
-          0.0,
-          0.0
+          -700.0,
+          -280.0
         ],
         "scale": [
           90.0,
           120.0
         ],
-        "rotation": 0.0
+        "rotation": -0.5
       }
     }
   ]

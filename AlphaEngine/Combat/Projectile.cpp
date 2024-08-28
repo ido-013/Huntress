@@ -1,3 +1,5 @@
+// Author : sinu
+
 #include "Projectile.h"
 
 float vxt(float t, float vx0, float ax)

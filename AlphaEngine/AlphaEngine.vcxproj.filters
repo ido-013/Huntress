@@ -96,7 +96,13 @@
     <ClCompile Include="Utils\Utils.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Projectile\Projectile.cpp">
+    <ClCompile Include="Combat\Projectile.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Combat\Combat.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Level\CombatLevel.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -212,7 +218,13 @@
     <ClInclude Include="Event\RestartEvent.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Projectile\Projectile.h">
+    <ClInclude Include="Combat\Projectile.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Combat\Combat.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Level\CombatLevel.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

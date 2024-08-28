@@ -14,6 +14,7 @@ private:
 
 public:
 	GameObject();
+	GameObject(std::string str);
 	GameObject(const GameObject& other) = delete;
 	GameObject& operator=(const GameObject& other) = delete;
 

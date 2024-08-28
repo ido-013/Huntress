@@ -102,6 +102,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
   <ItemGroup>
     <ClCompile Include="Animation\Animation.cpp" />
     <ClCompile Include="CollisionManager\CollisionManager.cpp" />
+    <ClCompile Include="Combat\Combat.cpp" />
     <ClCompile Include="ComponentManager\EngineComponent.cpp" />
     <ClCompile Include="Components\AnimatorComp.cpp" />
     <ClCompile Include="GameObject\GameObject.cpp" />
@@ -117,10 +118,11 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="Event\Event.cpp" />
     <ClCompile Include="GameObjectManager\GameObejectManager.cpp" />
     <ClCompile Include="GSM\GameStateManager.cpp" />
+    <ClCompile Include="Level\CombatLevel.cpp" />
     <ClCompile Include="Level\EditLevel.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Prefab\Prefab.cpp" />
-    <ClCompile Include="Projectile\Projectile.cpp" />
+    <ClCompile Include="Combat\Projectile.cpp" />
     <ClCompile Include="Resource\AudioResource.cpp" />
     <ClCompile Include="Resource\Resource.cpp" />
     <ClCompile Include="ResourceManager\ResourceManager.cpp" />
@@ -132,6 +134,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
   <ItemGroup>
     <ClInclude Include="Animation\Animation.h" />
     <ClInclude Include="CollisionManager\CollisionManager.h" />
+    <ClInclude Include="Combat\Combat.h" />
     <ClInclude Include="ComponentManager\BaseComponent.h" />
     <ClInclude Include="ComponentManager\ComponentManager.h" />
     <ClInclude Include="ComponentManager\EngineComponent.h" />
@@ -155,10 +158,11 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="GameObjectManager\GameObjectManager.h" />
     <ClInclude Include="Level\BaseLevel.h" />
     <ClInclude Include="GSM\GameStateManager.h" />
+    <ClInclude Include="Level\CombatLevel.h" />
     <ClInclude Include="Level\EditLevel.h" />
     <ClInclude Include="Map\Map.h" />
     <ClInclude Include="Prefab\Prefab.h" />
-    <ClInclude Include="Projectile\Projectile.h" />
+    <ClInclude Include="Combat\Projectile.h" />
     <ClInclude Include="Resource\AudioResource.h" />
     <ClInclude Include="Resource\Resource.h" />
     <ClInclude Include="ResourceManager\ResourceManager.h" />

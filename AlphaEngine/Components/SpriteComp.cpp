@@ -16,7 +16,7 @@ SpriteComp::SpriteComp(GameObject* _owner) : GraphicComponent(_owner), color(), 
 		0.5f, -0.5f, 0xFFFFFFFF, 1.0f, 1.0f,
 		0.5f, 0.5f, 0xFFFFFFFF, 1.0f, 0.0f,
 		-0.5f, 0.5f, 0xFFFFFFFF, 0.0f, 0.0f);
-
+	Alpha = 1;
 	mesh = AEGfxMeshEnd();	
 }
 
@@ -38,7 +38,7 @@ void SpriteComp::Update()
 	AEGfxSetBlendMode(AE_GFX_BM_BLEND);
 
 	//Set transparency
-	AEGfxSetTransparency(1);
+	AEGfxSetTransparency(Alpha);
 
 	//Set color to add
 	AEGfxSetColorToAdd(color.r / 255.f, color.g / 255.f, color.b / 255.f, 0.f);
@@ -69,6 +69,16 @@ void SpriteComp::SetTexture(std::string name)
 	
 	textureName = name;
 	tex = ResourceManager::GetInstance().GetResource<AEGfxTexture>(name);
+}
+
+void SpriteComp::SetAlpha(float alpha)
+{
+	Alpha = alpha;
+}
+
+float SpriteComp::GetAlpha()
+{
+	return Alpha;
 }
 
 void SpriteComp::LoadFromJson(const json& data)

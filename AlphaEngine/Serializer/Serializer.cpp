@@ -58,13 +58,13 @@ void Serializer::SaveLevel(const std::string& filename)
 	// Counter instead of name as I do not have one
 	int i = 0;
 
-	for (GameObject* go : GameObjectManager::GetInstance().GetAllObjects())
+	for (auto go : GameObjectManager::GetInstance().GetAllObjects())
 	{
 		json obj;
-		obj["object"] = go->name;
+		obj["object"] = go.first->name;
 
 		json components;
-		components.push_back(go->GetComponent<TransformComp>()->SaveToJson());
+		components.push_back(go.first->GetComponent<TransformComp>()->SaveToJson());
 		obj["components"] = components;
 
 		allData.push_back(obj);

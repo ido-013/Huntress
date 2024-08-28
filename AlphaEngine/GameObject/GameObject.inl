@@ -9,6 +9,7 @@ inline T* GameObject::AddComponent()
 
 	T* comp = new T(this);
 	component.insert({ T::TypeName, comp });
+	return temp;
 }
 
 template <typename T>
@@ -21,6 +22,7 @@ inline T* GameObject::AddComponent(BaseComponent* comp)
 	}
 
 	component.insert({ T::TypeName, comp });
+	return temp;
 }
 
 
