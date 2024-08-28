@@ -1,4 +1,4 @@
-#include "PlayerComp.h"
+#include "PointComp.h"
 #include <string>
 #include "TransformComp.h"
 #include "RigidbodyComp.h"
@@ -9,16 +9,17 @@
 #include "../Prefab/Prefab.h"
 #include "../GameObjectManager/GameObjectManager.h"
 
-PlayerComp::PlayerComp(GameObject* _owner) : LogicComponent(_owner)
+PointComp::PointComp(GameObject* _owner) : LogicComponent(_owner)
 {
-	
+
 }
 
-PlayerComp::~PlayerComp()
+PointComp::~PointComp()
 {
+
 }
 
-void PlayerComp::Update()
+void PointComp::Update()
 {
 	TransformComp* t = owner->GetComponent<TransformComp>();
 	if (!t) return;
@@ -31,29 +32,18 @@ void PlayerComp::Update()
 
 	speed = 50;
 
-	r->SetVelocity(0, 0);
-
-	if (AEInputCheckCurr(AEVK_W))
-	{
-		r->AddVelocity(0, speed);
-	}
-	if (AEInputCheckCurr(AEVK_S))
-	{
-		r->AddVelocity(0, -speed);
-	}
 	if (AEInputCheckCurr(AEVK_A))
 	{
 		r->AddVelocity(-speed, 0);
 	}
+
 	if (AEInputCheckCurr(AEVK_D))
 	{
 		r->AddVelocity(speed, 0);
 	}
-
-	//r->SetAcceleration(0, -50.f);
 }
 
-void PlayerComp::LoadFromJson(const json& data)
+void PointComp::LoadFromJson(const json& data)
 {
 	auto compData = data.find("compData");
 
@@ -64,7 +54,7 @@ void PlayerComp::LoadFromJson(const json& data)
 	}
 }
 
-json PlayerComp::SaveToJson()
+json PointComp::SaveToJson()
 {
 	json data;
 	data["type"] = TypeName;
@@ -76,9 +66,9 @@ json PlayerComp::SaveToJson()
 	return data;
 }
 
-BaseRTTI* PlayerComp::CreatePlayerComponent(GameObject* owner)
+BaseRTTI* PointComp::CreatePointComponent(GameObject* owner)
 {
-	BaseRTTI* p = new PlayerComp(owner);
-	owner->AddComponent<PlayerComp>(static_cast<BaseComponent*>(p));
+	BaseRTTI* p = new PointComp(owner);
+	owner->AddComponent<PointComp>(static_cast<BaseComponent*>(p));
 	return p;
 }

@@ -2,75 +2,105 @@
 #include "../GSM/GameStateManager.h"
 #include "../ComponentManager/ComponentManager.h"
 #include "../GameObject/GameObject.h"
-#include "../Components/AudioComp.h"
-#include "../Components/TransformComp.h"
-#include "../Components/SpriteComp.h"
-#include "../Components/PlayerComp.h"
-#include "../Components/RigidbodyComp.h"
-#include "../Components/AnimatorComp.h"
+#include "../Components.h"
 #include "../EventManager/EventManager.h"
 #include "../Prefab/Prefab.h"
+#include "../Utils/Utils.h"
+#include "../GameObjectManager/GameObjectManager.h"
 #include <iostream>
+
+std::string map[20] =
+{
+	"--------------------",
+	"--------------------",
+	"--------------------",
+	"--------------------",
+	"--------------------",
+	"--------------------",
+	"--------------------",
+	"--------------------",
+	"--------------------",
+	"--------------------",
+	"--------r-l---------",
+	"--------------------",
+	"-----R--------------",
+	"------L-------------",
+	"--------------------",
+	"--SSSSSSSSSSS-------",
+	"--------------------",
+	"--------------------",
+	"--------------------",
+	"--------------------"
+};
 
 void level::EditLevel::Init()
 {
-	GameObject* temp = nullptr;
-	TransformComp* tt = nullptr;
-	SpriteComp* ts = nullptr;
+	GameObject* go = nullptr;
+	TransformComp* t = nullptr;
 
-	temp = new GameObject();
+	Prefab s("Square");
+	Prefab l("LeftTri");
+	Prefab r("RightTri");
+	Prefab p("Point");
 
-	temp->SetType(Entity::Square);
+	for (int i = 0; i < 20; i++)
+	{
+		for (int j = 0; j < 20; j++)
+		{
+			if (map[i][j] == '-')
+				continue;
 
-	temp->AddComponent<TransformComp>();
-	temp->AddComponent<SpriteComp>();
+			else if (map[i][j] == 'S')
+			{
+				go = s.NewGameObject();
+			}
 
-	tt = temp->GetComponent<TransformComp>();
-	tt->SetScale({ 100, 100 });
-	tt->SetPos({ 0, 0 });
+			else if (map[i][j] == 'r')
+			{
+				go = r.NewGameObject();
+			}
 
-	ts = temp->GetComponent<SpriteComp>();
-	ts->SetColor(0, 0, 0);
+			else if (map[i][j] == 'l')
+			{
+				go = l.NewGameObject();
+			}
 
-	Prefab::SavePrefab("Square", temp);
+			else if (map[i][j] == 'R')
+			{
+				go = r.NewGameObject();
+				t = go->GetComponent<TransformComp>();
+				t->SetScale({ windowWidth / width * 2, windowHeight / height });
+				//t->SetScale({ width * 2, height });
+				float x = MapToPosX(j);
+				float y = MapToPosY(i);
+				t->SetPos({ x + (windowWidth / width / 2), y });
+				//t->SetPos({ x + width / 2, y });
+				continue;
+			}
 
-	//
+			else if (map[i][j] == 'L')
+			{
+				go = l.NewGameObject();
+				t = go->GetComponent<TransformComp>();
+				t->SetScale({ windowWidth / width * 2, windowHeight / height });
+				//t->SetScale({ width * 2, height });
+				float x = MapToPosX(j);
+				float y = MapToPosY(i);
+				t->SetPos({ x + (windowWidth / width / 2), y });
+				//t->SetPos({ x + width / 2, y });
+				continue;
+			}
 
-	temp = new GameObject();
+			t = go->GetComponent<TransformComp>();
+			t->SetScale({ windowWidth / width, windowHeight / height });
+			//t->SetScale({ width, height }); 
+			float x = MapToPosX(j);
+			float y = MapToPosY(i);
+			t->SetPos({ x, y });
+		}
+	}
 
-	temp->SetType(Entity::RightTri);
-
-	temp->AddComponent<TransformComp>();
-	temp->AddComponent<SpriteComp>();
-
-	tt = temp->GetComponent<TransformComp>();
-	tt->SetScale({ 100, 100 });
-	tt->SetPos({ 0, 0 });
-
-	ts = temp->GetComponent<SpriteComp>();
-	ts->SetColor(0, 0, 0);
-	//ts->SetTexture("Assets/PlanetTexture.png");
-
-	Prefab::SavePrefab("RightTri", temp);
-
-	//
-
-	temp = new GameObject();
-
-	temp->SetType(Entity::LeftTri);
-
-	temp->AddComponent<TransformComp>();
-	temp->AddComponent<SpriteComp>();
-
-	tt = temp->GetComponent<TransformComp>();
-	tt->SetScale({ 100, 100 });
-	tt->SetPos({ 0, 0 });
-
-	ts = temp->GetComponent<SpriteComp>();
-	ts->SetColor(0, 0, 0);
-	//ts->SetTexture("Assets/PlanetTexture.png");
-
-	Prefab::SavePrefab("LeftTri", temp);
+	p.NewGameObject();
 }
 
 void level::EditLevel::Update()
@@ -80,5 +110,6 @@ void level::EditLevel::Update()
 
 void level::EditLevel::Exit()
 {
-
+	EventManager::GetInstance().DeleteUndispahchEvent();
+	GameObjectManager::GetInstance().RemoveAllObject();
 }

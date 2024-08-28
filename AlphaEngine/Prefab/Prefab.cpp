@@ -16,7 +16,7 @@ void Prefab::SavePrefab(const std::string& _name, GameObject* obj)
 	std::string filename = "Assets/Prefab/" + _name + ".prefab";
 
 	json prefab;
-	prefab["entityType"] = obj->GetType();
+	prefab["entityType"] = obj->type;
 
 	json components;
 	for (auto comp : obj->component)
@@ -60,7 +60,7 @@ GameObject* Prefab::NewGameObject()
 	if (typeIt == data->end())
 		return nullptr;
 	
-	obj->SetType(typeIt.value());
+	obj->type = typeIt.value();
 
 	auto compIt = data->find("components");
 	if (compIt == data->end())

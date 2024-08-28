@@ -2,24 +2,69 @@
 #include "AEEngine.h"
 #include "../Utils/Utils.h"
 
-CollisionManager::CollisionManager() {}
+CollisionManager::CollisionManager() 
+{
+
+}
 
 CollisionManager::~CollisionManager()
 {
 
 }
 
-bool CollisionManager::isCollisionAABBAABB(TransformComp* a, TransformComp* b) const
-{
-	double aX = a->GetPos().x;
-	double aY = a->GetPos().y;
-	double aW = a->GetScale().x / 2;
-	double aH = a->GetScale().y / 2;
+bool CollisionManager::isCollisionPointTri(ColliderComp* a, ColliderComp* b) const
+{ 
+	if (!isCollisionPointAABB(a, b)) return false;
 
-	double bX = b->GetPos().x;
-	double bY = b->GetPos().y;
-	double bW = b->GetScale().x / 2;
-	double bH = b->GetScale().y / 2;
+	float aX = a->GetPos().x;
+	float aY = a->GetPos().y;
+
+	float bX = b->GetPos().x;
+	float bY = b->GetPos().y;
+	float bW = b->GetScale().x / 2;
+	float bH = b->GetScale().y / 2;
+
+	float grad;
+
+	if (b->GetOwner()->type == GameObject::RightTri)
+		grad = bH / bW;
+	else
+		grad = -bH / bW;
+
+	if ((grad * aX) + bY - (grad * bX) < aY) return false;
+
+	return true;
+}
+
+bool CollisionManager::isCollisionPointAABB(ColliderComp* a, ColliderComp* b) const
+{
+	float aX = a->GetPos().x;
+	float aY = a->GetPos().y;
+
+	float bX = b->GetPos().x;
+	float bY = b->GetPos().y;
+	float bW = b->GetScale().x / 2;
+	float bH = b->GetScale().y / 2;
+
+	if (aX > bX + bW) return false;
+	if (aX < bX - bW) return false;
+	if (aY > bY + bH) return false;
+	if (aY < bY - bH) return false;
+
+	return true;
+}
+
+bool CollisionManager::isCollisionAABBAABB(ColliderComp* a, ColliderComp* b) const
+{
+	float aX = a->GetPos().x;
+	float aY = a->GetPos().y;
+	float aW = a->GetScale().x / 2;
+	float aH = a->GetScale().y / 2;
+
+	float bX = b->GetPos().x;
+	float bY = b->GetPos().y;
+	float bW = b->GetScale().x / 2;
+	float bH = b->GetScale().y / 2;
 
 	if (aX - aW > bX + bW) return false;
 	if (bX - bW > aX + aW) return false;
@@ -29,31 +74,107 @@ bool CollisionManager::isCollisionAABBAABB(TransformComp* a, TransformComp* b) c
 	return true;
 }
 
-bool CollisionManager::isCollisionCircleCircle(TransformComp* a, TransformComp* b) const
+bool CollisionManager::isCollisionCircleCircle(ColliderComp* a, ColliderComp* b) const
 {
-	double aX = a->GetPos().x;
-	double aY = a->GetPos().y;
-	double aR = a->GetScale().x / 2;
+	float aX = a->GetPos().x;
+	float aY = a->GetPos().y;
+	float aR = a->GetScale().x / 2;
 
-	double bX = b->GetPos().x;
-	double bY = b->GetPos().y;
-	double bR = b->GetScale().y / 2;
+	float bX = b->GetPos().x;
+	float bY = b->GetPos().y;
+	float bR = b->GetScale().y / 2;
 
 	return ((aR + bR) * (aR + bR)) >= GetSqDistance(aX, aY, bX, bY);
 }
 
-void CollisionManager::AddTrans(TransformComp* trans)
+bool CollisionManager::PointTriCheck(ColliderComp* a, ColliderComp* b)
 {
-	transformList.push_back(trans);
+	EventManager& em = EventManager::GetInstance();
+
+	if (a->GetOwner()->type == GameObject::Point && (b->GetOwner()->type == GameObject::LeftTri || b->GetOwner()->type == GameObject::RightTri))
+	{
+		if (isCollisionPointTri(a, b))
+		{
+			em.AddEvent<CollisionEvent>(a, b);
+			em.AddEvent<CollisionEvent>(b, a);
+		}
+
+		return true;
+	}
+
+	else if (b->GetOwner()->type == GameObject::Point && (a->GetOwner()->type == GameObject::LeftTri || a->GetOwner()->type == GameObject::RightTri))
+	{
+		if (isCollisionPointTri(b, a))
+		{
+			em.AddEvent<CollisionEvent>(a, b);
+			em.AddEvent<CollisionEvent>(b, a);
+		}
+
+		return true;
+	}
+
+	return false;
 }
 
-void CollisionManager::DelTrans(TransformComp* trans)
+bool CollisionManager::PointAABBCheck(ColliderComp* a, ColliderComp* b)
 {
-	for (auto it = transformList.begin(); it != transformList.end(); it++)
+	EventManager& em = EventManager::GetInstance();
+
+	if (a->GetOwner()->type == GameObject::Point && b->GetOwner()->type == GameObject::Square)
+	{
+		if (isCollisionPointAABB(a, b))
+		{
+			em.AddEvent<CollisionEvent>(a, b);
+			em.AddEvent<CollisionEvent>(b, a);
+		}
+
+		return true;
+	}
+
+	else if (b->GetOwner()->type == GameObject::Point && a->GetOwner()->type == GameObject::Square)
+	{
+		if (isCollisionPointAABB(b, a))
+		{
+			em.AddEvent<CollisionEvent>(a, b);
+			em.AddEvent<CollisionEvent>(b, a);
+		}
+
+		return true;
+	}
+
+	return false;
+}
+
+bool CollisionManager::AABBAABBCheck(ColliderComp* a, ColliderComp* b)
+{
+	EventManager& em = EventManager::GetInstance();
+
+	if (a->GetOwner()->type == GameObject::Square && b->GetOwner()->type == GameObject::Square)
+	{
+		if (isCollisionAABBAABB(a, b))
+		{
+			em.AddEvent<CollisionEvent>(a, b);
+			em.AddEvent<CollisionEvent>(b, a);
+		}
+
+		return true;
+	}
+
+	return false;
+}
+
+void CollisionManager::AddCollider(ColliderComp* trans)
+{
+	colliderList.push_back(trans);
+}
+
+void CollisionManager::DelCollider(ColliderComp* trans)
+{
+	for (auto it = colliderList.begin(); it != colliderList.end(); it++)
 	{
 		if (*it == trans)
 		{
-			transformList.erase(it);
+			colliderList.erase(it);
 			break;
 		}
 	}
@@ -61,23 +182,21 @@ void CollisionManager::DelTrans(TransformComp* trans)
 
 void CollisionManager::Update()
 {
-	if (transformList.empty())
+	if (colliderList.empty())
 		return;
 
 	EventManager& em = EventManager::GetInstance();
 
-	for (int i = 0; i < transformList.size() - 1; i++)
+	for (int i = 0; i < colliderList.size() - 1; i++)
 	{
-		for (int j = i + 1; j < transformList.size(); j++)
+		for (int j = i + 1; j < colliderList.size(); j++)
 		{
-			TransformComp* a = transformList[i];
-			TransformComp* b = transformList[j];
+			ColliderComp* a = colliderList[i];
+			ColliderComp* b = colliderList[j];
 
-			if (isCollisionAABBAABB(a, b))
-			{
-				em.AddEvent<CollisionEvent>(a->GetOwner(), b->GetOwner());
-				em.AddEvent<CollisionEvent>(b->GetOwner(), a->GetOwner());
-			}
+			if (PointTriCheck(a, b)) continue;
+			if (PointAABBCheck(a, b)) continue;
+			if (AABBAABBCheck(a, b)) continue;
 		}
 	}
 }

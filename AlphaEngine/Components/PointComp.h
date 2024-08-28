@@ -3,21 +3,21 @@
 #include "../ComponentManager/LogicComponent.h"
 #include "../Event/Entity.h"
 
-class PlayerComp : public LogicComponent
+class PointComp : public LogicComponent
 {
 private:
-	float speed = 500;	
+	float speed = 500;
 
 public:
-	PlayerComp(GameObject* _owner);
-	~PlayerComp();
+	PointComp(GameObject* _owner);
+	~PointComp();
 	void Update() override;
 
 	void LoadFromJson(const json&) override;
 	json SaveToJson() override;
 
-	static BaseRTTI* CreatePlayerComponent(GameObject* owner);
-	static constexpr const char* TypeName = "PlayerComp";
+	static BaseRTTI* CreatePointComponent(GameObject* owner);
+	static constexpr const char* TypeName = "PointComp";
 
 	friend GameObject;
 };

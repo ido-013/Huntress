@@ -1,9 +1,11 @@
 #pragma once
 #include "AEVec2.h"
 #include "../ComponentManager/EngineComponent.h"
+#include "ColliderComp.h"
 
 class RigidbodyComp : public EngineComponent
 {
+private:	
 	float drag = 1.01f;
 
 	AEVec2 velocity;
@@ -11,10 +13,15 @@ class RigidbodyComp : public EngineComponent
 	AEVec2 acceleration;
 	AEVec2 maxAcceleration;
 
+	ColliderComp* collisionPos[4];
+
 	bool CheckEpsilon(float v, float EP = EPSILON);
 
 public:
+	bool useGravity = false;
+
 	RigidbodyComp(GameObject* _owner);
+	~RigidbodyComp();
 
 	void AddVelocity(const AEVec2& otherVec);
 	void AddVelocity(float x, float y);
@@ -24,6 +31,8 @@ public:
 
 	void AddAcceleration(const AEVec2& otherVec);
 	void AddAcceleration(float x, float y);
+	void SetAcceleration(const AEVec2& otherVec);
+	void SetAcceleration(float x, float y);
 	void ClearAcceleration();
 
 	void Update() override;

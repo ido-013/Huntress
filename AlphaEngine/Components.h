@@ -1,0 +1,13 @@
+#pragma once
+#include "ComponentManager/BaseComponent.h"
+#include "ComponentManager/LogicComponent.h"
+#include "ComponentManager/EngineComponent.h"
+#include "ComponentManager/GraphicComponent.h"
+#include "Components/TransformComp.h"
+#include "Components/AudioComp.h"
+#include "Components/PlayerComp.h"
+#include "Components/SpriteComp.h"
+#include "Components/RigidBodyComp.h"
+#include "Components/AnimatorComp.h"
+#include "Components/PointComp.h"
+#include "Components/ColliderComp.h"

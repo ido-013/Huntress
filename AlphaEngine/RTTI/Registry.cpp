@@ -1,10 +1,4 @@
 #include "Registry.h"
-#include "../Components/TransformComp.h"
-#include "../Components/AudioComp.h"
-#include "../Components/PlayerComp.h"
-#include "../Components/SpriteComp.h"
-#include "../Components/RigidBodyComp.h"
-#include "../Components/AnimatorComp.h"
 
 Registry::Registry()
 {
@@ -15,6 +9,8 @@ Registry::Registry()
     rttiMap.insert({ SpriteComp::TypeName, &SpriteComp::CreateSpriteComponent });
     rttiMap.insert({ RigidbodyComp::TypeName, &RigidbodyComp::CreateRigidBodyComponent });
     rttiMap.insert({ AnimatorComp::TypeName, &AnimatorComp::CreateAnimatorComponent });
+    rttiMap.insert({ PointComp::TypeName, &PointComp::CreatePointComponent });
+    rttiMap.insert({ ColliderComp::TypeName, &ColliderComp::CreateColliderComponent });
 }
 
 BaseRTTI* Registry::FindAndCreate(const std::string& type, GameObject* owner)

@@ -104,6 +104,8 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="CollisionManager\CollisionManager.cpp" />
     <ClCompile Include="ComponentManager\EngineComponent.cpp" />
     <ClCompile Include="Components\AnimatorComp.cpp" />
+    <ClCompile Include="Components\ColliderComp.cpp" />
+    <ClCompile Include="Components\PointComp.cpp" />
     <ClCompile Include="GameObject\GameObject.cpp" />
     <ClCompile Include="ComponentManager\GraphicComponent.cpp" />
     <ClCompile Include="ComponentManager\LogicComponent.cpp" />
@@ -113,7 +115,6 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="Components\SpriteComp.cpp" />
     <ClCompile Include="Components\TransformComp.cpp" />
     <ClCompile Include="EventManager\EventManager.cpp" />
-    <ClCompile Include="Event\Entity.cpp" />
     <ClCompile Include="Event\Event.cpp" />
     <ClCompile Include="GameObjectManager\GameObejectManager.cpp" />
     <ClCompile Include="GSM\GameStateManager.cpp" />
@@ -136,7 +137,11 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="ComponentManager\BaseComponent.h" />
     <ClInclude Include="ComponentManager\ComponentManager.h" />
     <ClInclude Include="ComponentManager\EngineComponent.h" />
+    <ClInclude Include="Components.h" />
     <ClInclude Include="Components\AnimatorComp.h" />
+    <ClInclude Include="Components\ColliderComp.h" />
+    <ClInclude Include="Components\PointComp.h" />
+    <ClInclude Include="Event\Entity.h" />
     <ClInclude Include="Event\SuperModeEvent.h" />
     <ClInclude Include="GameObject\GameObject.h" />
     <ClInclude Include="ComponentManager\GraphicComponent.h" />
@@ -147,7 +152,6 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="Components\SpriteComp.h" />
     <ClInclude Include="Components\TransformComp.h" />
     <ClInclude Include="Event\CollisionEvent.h" />
-    <ClInclude Include="Event\Entity.h" />
     <ClInclude Include="Event\Event.h" />
     <ClInclude Include="EventManager\EventManager.h" />
     <ClInclude Include="GameObjectManager\GameObjectManager.h" />
@@ -165,6 +169,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="RTTI\BaseRTTI.h" />
     <ClInclude Include="RTTI\Registry.h" />
     <ClInclude Include="Serializer\Serializer.h" />
+    <ClInclude Include="Utils\Direction.h" />
     <ClInclude Include="Utils\Size.h" />
     <ClInclude Include="Utils\Utils.h" />
   </ItemGroup>

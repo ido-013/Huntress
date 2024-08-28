@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "../Components/TransformComp.h"
+#include "../Components/ColliderComp.h"
 #include "../EventManager/EventManager.h"
 #include "../Event/CollisionEvent.h"
 
@@ -15,10 +15,16 @@ private:
 
 	static CollisionManager* ptr;
 
-	std::vector<TransformComp*> transformList;
+	std::vector<ColliderComp*> colliderList;
 
-	bool isCollisionAABBAABB(TransformComp*, TransformComp*) const;
-	bool isCollisionCircleCircle(TransformComp*, TransformComp*) const;
+	bool isCollisionPointTri(ColliderComp*, ColliderComp*) const;
+	bool isCollisionPointAABB(ColliderComp*, ColliderComp*) const;
+	bool isCollisionAABBAABB(ColliderComp*, ColliderComp*) const;
+	bool isCollisionCircleCircle(ColliderComp*, ColliderComp*) const;
+
+	bool PointTriCheck(ColliderComp*, ColliderComp*);
+	bool PointAABBCheck(ColliderComp*, ColliderComp*);
+	bool AABBAABBCheck(ColliderComp*, ColliderComp*);
 
 public:
 	static CollisionManager& GetInstance()
@@ -27,8 +33,8 @@ public:
 		return instance;
 	}
 
-	void AddTrans(TransformComp* trans);
-	void DelTrans(TransformComp* trans);
+	void AddCollider(ColliderComp* trans);
+	void DelCollider(ColliderComp* trans);
 
 	void Update();
 };

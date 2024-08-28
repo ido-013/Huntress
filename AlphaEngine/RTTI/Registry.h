@@ -2,6 +2,7 @@
 #include <string>
 #include <map>
 #include "BaseRTTI.h"
+#include "../Components.h"
 #include "../GameObject/GameObject.h"
 
 class Registry
