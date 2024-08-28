@@ -58,9 +58,58 @@ void level::Menu::Init()
 }
 void level::Menu::Update()
 {
-	//s32 mouseX, mouseY;
-	//AEInputGetCursorPosition(&mouseX, &mouseY);
-	//t->SetPos({ 800, -(float)mouseY + 450 });
+	// Get the mouse position
+	s32 mouseX, mouseY;
+	AEInputGetCursorPosition(&mouseX, &mouseY);
+
+	// Assuming the screen coordinates are centered, adjust as needed
+	mouseY = -mouseY + 450;
+	mouseX = mouseX - 800;
+	// Check if the mouse is over the start button
+	TransformComp* transStart = start->GetComponent<TransformComp>();
+	SpriteComp* startSprite = start->GetComponent<SpriteComp>();
+
+	AEVec2 startPos = transStart->GetPos();
+	AEVec2 startScale = transStart->GetScale();
+
+	if (mouseX > startPos.x - startScale.x / 2 && mouseX < startPos.x + startScale.x / 2 &&
+		mouseY > startPos.y - startScale.y / 2 && mouseY < startPos.y + startScale.y / 2) {
+		// Mouse is over the start button
+		startSprite->SetColor(200, 0, 0);  // Change color on hover
+		std::cout << "Start" << std::endl;
+		if (AEInputCheckCurr(AEVK_LBUTTON)) {
+			// Trigger start event (e.g., change game state)
+			//StartGame();
+			std::cout << "Started" << std::endl;
+		}
+	}
+	else {
+		// Revert to original color
+		startSprite->SetColor(255, 255, 255);
+	}
+
+	// Check if the mouse is over the quit button
+	TransformComp* transQuit = Quit->GetComponent<TransformComp>();
+	SpriteComp* quitSprite = Quit->GetComponent<SpriteComp>();
+
+	AEVec2 quitPos = transQuit->GetPos();
+	AEVec2 quitScale = transQuit->GetScale();
+
+	if (mouseX > quitPos.x - quitScale.x / 2 && mouseX < quitPos.x + quitScale.x / 2 &&
+		mouseY > quitPos.y - quitScale.y / 2 && mouseY < quitPos.y + quitScale.y / 2) {
+		// Mouse is over the quit button
+		quitSprite->SetColor(200, 0, 200);  // Change color on hover
+		std::cout << "Quit" << std::endl;
+		if (AEInputCheckCurr(AEVK_LBUTTON)) {
+			// Trigger quit event (e.g., exit the game)
+			//QuitGame();
+			std::cout << "Quited" << std::endl;
+		}
+	}
+	else {
+		// Revert to original color
+		quitSprite->SetColor(255, 255, 255);
+	}
 }
 void level::Menu::Exit()
 {
