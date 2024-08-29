@@ -3,16 +3,21 @@
 //include
 #include "Combat.h"
 #include "../Components/TransformComp.h"
+#include "../Components/RigidbodyComp.h"
 #include "../GameObjectManager/GameObjectManager.h"
 #include "../Components/SpriteComp.h"
+#include "../Combat/Projectile.h"
 #include <cmath>
 #include "AEInput.h"
 #include "AEMath.h"
 
 bool CombatComp::isDrawDirection = false;
 bool CombatComp::isChaseDirection = false;
+bool CombatComp::isReadyLaunch = false;
 
-CombatComp::CombatComp(GameObject* _owner) : EngineComponent(_owner), pAngle(0)
+GameObject* projectile = new GameObject("projectile");
+
+CombatComp::CombatComp(GameObject* _owner) : EngineComponent(_owner), pAngle(0), eAngle(0), pVelocity(0), eVelocity(0)
 {
 	
 }
@@ -92,7 +97,7 @@ float AngleBetweenSegments(const AEVec2& p1, const AEVec2& p2, const AEVec2& p3,
 
 // 각도를 -180에서 180도 사이로 정규화
 float NormalizedAngle(float angle) {
-	angle = fmod(angle + 180, 360);
+	angle = fmodf(angle + 180, 360);
 	if (angle < 0) {
 		angle += 360;
 	}
@@ -100,13 +105,15 @@ float NormalizedAngle(float angle) {
 	return angle - 180;
 }
 
+// dealer => 0(player) , 1(enemy)
 void CombatComp::DrawDirectionPegline(GameObject& directionArrow,
-	GameObject& player, const AEVec2& DirectionPoint, 
+	int dealer, const AEVec2& DirectionPoint, 
 	const std::pair<float, float> AngleRange)
 {
+	GameObject* player = dealer == 0 ? GameObjectManager::GetInstance().GetObj("player") : GameObjectManager::GetInstance().GetObj("enemy");
 	// Variable Simplification
 	TransformComp* dtf = directionArrow.GetComponent<TransformComp>();
-	TransformComp* ptf = player.GetComponent<TransformComp>();
+	TransformComp* ptf = player->GetComponent<TransformComp>();
 
 	// Step1. Default pos,rot setting
 	dtf->SetPos({ ptf->GetPos().x , ptf->GetPos().y + dtf->GetScale().y / 2 });
@@ -134,7 +141,7 @@ void CombatComp::DrawDirectionPegline(GameObject& directionArrow,
 			angle = ag2; // second도에 더 가까운 경우
 		}
 	}
-	SetPlayerAngle(angle);
+	dealer == 0 ? SetPlayerAngle(angle + (float)AEDegToRad(90)) : SetEnemyAngle(angle + (float)AEDegToRad(90));
 	// Step3. Based on the mouse position pos,rot setting
 
 	dtf->SetPos(
@@ -145,6 +152,31 @@ void CombatComp::DrawDirectionPegline(GameObject& directionArrow,
 		)
 	);
 	dtf->SetRot(angle);
+}
+
+// dealer => 0(player) , 1(enemy)
+void CombatComp::FireAnArrow(int dealer, GameObject& directionArrow)
+{
+	GameObject* player = dealer == 0 ?
+		GameObjectManager::GetInstance().GetObj("player") :
+		GameObjectManager::GetInstance().GetObj("enemy");
+	projectile->AddComponent<TransformComp>();
+	projectile->AddComponent<RigidbodyComp>();
+	projectile->AddComponent<SpriteComp>();
+	projectile->AddComponent<Projectile>();
+
+	projectile->GetComponent<TransformComp>()->SetPos(player->GetComponent<TransformComp>()->GetPos());
+	projectile->GetComponent<TransformComp>()->SetScale({ 28, 10 });
+
+	projectile->GetComponent<SpriteComp>()->SetTexture("../Assets/Character/ArrowAttack/Arrow/Arrow.png");
+	projectile->GetComponent<SpriteComp>()->SetAlpha(1);
+	pVelocity = 19;
+	projectile->GetComponent<Projectile>()->SetVelocity(dealer == 0 ? pVelocity : eVelocity);
+	projectile->GetComponent<Projectile>()->SetTheta(dealer == 0 ? pAngle : eAngle);
+	projectile->GetComponent<Projectile>()->SetProjectileObject(*projectile);
+	projectile->GetComponent<Projectile>()->CalculateProjectileMotion();
+	projectile->GetComponent<Projectile>()->isLaunchProjectile = true;
+	isReadyLaunch = false;
 }
 
 void CombatComp::SetPlayerAngle(float angle)
@@ -158,6 +190,36 @@ float CombatComp::GetPlayerAngle()
 	return pAngle;
 }
 
+void CombatComp::SetEnemyAngle(float angle)
+{
+	eAngle = angle;
+}
+
+float CombatComp::GetEnemyAngle()
+{
+	return eAngle;
+}
+
+void CombatComp::SetPlayerVelocity(float velocity)
+{
+	pVelocity = velocity;
+}
+
+float CombatComp::GetPlayerVelocity()
+{
+	return pVelocity;
+}
+
+void CombatComp::SetEnemyVelocity(float velocity)
+{
+	eVelocity = velocity;
+}
+
+float CombatComp::GetEnemyVelocity()
+{
+	return eVelocity;
+}
+
 void CombatComp::Update()
 {
 	if (isDrawDirection)
@@ -165,9 +227,9 @@ void CombatComp::Update()
 		if (AEInputCheckTriggered(AEVK_LBUTTON))
 		{
 			isChaseDirection = false;
+			isReadyLaunch = true;
 		}
 		GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
-		GameObject* player = GameObjectManager::GetInstance().GetObj("player");
 		s32 px, py;
 		AEInputGetCursorPosition(&px, &py);
 		px -= 800;
@@ -178,7 +240,7 @@ void CombatComp::Update()
 			directionArrow->
 				GetComponent<CombatComp>()->
 				DrawDirectionPegline(*directionArrow,
-					*player,
+					0,
 					{ (float)px, (float)-py },
 					{ -120.f, 120.f });
 		}
@@ -188,6 +250,17 @@ void CombatComp::Update()
 		GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
 		directionArrow->GetComponent<SpriteComp>()->SetAlpha(0);
 	}
+
+	if (AEInputCheckTriggered(AEVK_RBUTTON))
+	{
+		if (isReadyLaunch)
+		{
+			GameObject* player = GameObjectManager::GetInstance().GetObj("player");
+			GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
+			FireAnArrow(0, *directionArrow);
+			isReadyLaunch = false;
+		}
+	}
 }
 
 void CombatComp::LoadFromJson(const json& data)
@@ -196,10 +269,6 @@ void CombatComp::LoadFromJson(const json& data)
 
 	if (compData != data.end())
 	{
-		/*auto it = compData->find("color");
-		color.r = it->begin().value();
-		color.g = (it->begin() + 1).value();
-		color.b = (it->begin() + 2).value();*/
 	}
 }
 
@@ -209,8 +278,6 @@ json CombatComp::SaveToJson()
 	data["type"] = TypeName;
 
 	json compData;
-	/*compData["color"] = { color.r, color.g, color.b };
-	compData["textureName"] = textureName;*/
 	data["compData"] = compData;
 
 	return data;

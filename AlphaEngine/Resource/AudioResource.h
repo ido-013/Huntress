@@ -8,6 +8,7 @@ private:
 	AEAudio audio;
 
 public:
+	AudioResource() = default;
 	~AudioResource();
 	void LoadData(const std::string& filename) override;
 	void UnloadData() override;

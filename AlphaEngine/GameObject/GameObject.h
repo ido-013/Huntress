@@ -41,6 +41,10 @@ public:
 	template <typename T>
 	void DeleteComponent();
 
+	void RemoveComponent(std::string name);
+
+	void clear(); // 이미 Gameobject 소멸자에서 이 함수의 역할을 해줌.
+
 	friend class Serializer;
 	friend class Prefab;
 };

@@ -82,7 +82,7 @@ void level::CombatLevel::Update()
 {
 	if (AEInputCheckTriggered(AEVK_F))
 	{
-		directionArrow->GetComponent<CombatComp>()->isDrawDirection = !directionArrow->GetComponent<CombatComp>()->isDrawDirection;
+		directionArrow->GetComponent<CombatComp>()->isDrawDirection = true;
 		directionArrow->GetComponent<CombatComp>()->isChaseDirection = true;
 	}
 }

@@ -46,3 +46,21 @@ BaseComponent* GameObject::GetBase(std::string typeName)
 
 	return nullptr;
 }
+
+void GameObject::RemoveComponent(std::string name)
+{
+	auto it = component.find(name);
+	if (it != component.end())
+	{
+		delete it->second;
+		component.erase(name);
+	}
+}
+
+void GameObject::clear()
+{
+	for (auto iter : component)
+	{
+		RemoveComponent(iter.first);
+	}
+}
