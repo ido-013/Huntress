@@ -8,6 +8,7 @@ class RigidbodyComp : public EngineComponent
 {
 private:	
 	float drag = 1.01f;
+	float targetRot = 0;
 
 	AEVec2 velocity;
 	AEVec2 maxVelocity;

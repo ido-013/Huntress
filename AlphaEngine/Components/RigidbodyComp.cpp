@@ -171,6 +171,21 @@ void RigidbodyComp::Update()
 		acceleration.y = 0.f;
 
 	//
+	// lerp 함수로 대체하기
+	if (t->GetRot() < targetRot)
+	{
+		t->SetRot(t->GetRot() + dt * 10);
+	}
+
+	if (t->GetRot() > targetRot)
+	{
+		t->SetRot(t->GetRot() - dt * 10);
+	}
+
+	if (abs(t->GetRot() - targetRot) < 0.2f)
+	{
+		t->SetRot(targetRot);
+	}
 
 	velocity.x += acceleration.x * dt;
 	velocity.y += acceleration.y * dt;
@@ -179,6 +194,15 @@ void RigidbodyComp::Update()
 	velocity.y = AEClamp(velocity.y, -maxVelocity.y, maxVelocity.y);
 
 	//
+	
+	if (velocity.x == 0)
+	{
+		if (AERadToDeg(targetRot) > 40)
+			velocity.x = -10;
+
+		if (AERadToDeg(targetRot) < -40)
+			velocity.x = 10;
+	}
 
 	float x = t->GetPos().x + velocity.x * dt;
 	float y = t->GetPos().y + velocity.y * dt;
@@ -207,7 +231,8 @@ void RigidbodyComp::Update()
 			if (type == GameObject::Square && !c->colliderType[GameObject::LeftTri] && !c->colliderType[GameObject::RightTri])
 			{
 				CorrectPosByAABB(oc, c, x, y);
-				t->SetRot(AEDegToRad(0));
+				//t->SetRot(AEDegToRad(0));
+				targetRot = AEDegToRad(0);
 			}
 
 			else if (type == GameObject::RightTri)
@@ -215,12 +240,14 @@ void RigidbodyComp::Update()
 				if (c->colliderType[GameObject::Square] && c->GetPos().x > oc->GetPos().x)
 				{
 					CorrectPosByAABB(oc, c, x, y);
-					t->SetRot(AEDegToRad(0));
+					//t->SetRot(AEDegToRad(0));
+					targetRot = AEDegToRad(0);
 				}
 				else
 				{
 					y = oc->GetPos().y + (c->GetPos().x - oc->GetPos().x) * (oc->GetScale().y / oc->GetScale().x) + c->GetScale().y / 2;
-					t->SetRot(AEATan(oc->GetScale().y / oc->GetScale().x));
+					//t->SetRot(AEATan(oc->GetScale().y / oc->GetScale().x));
+					targetRot = AEATan(oc->GetScale().y / oc->GetScale().x);
 				}
 				//t->SetRot(AEDegToRad(45));
 				//y = oc->GetPos().y + (c->GetPos().x - oc->GetPos().x) * (oc->GetScale().y / oc->GetScale().x) + c->GetScale().y / 2;
@@ -231,12 +258,14 @@ void RigidbodyComp::Update()
 				if (c->colliderType[GameObject::Square] && c->GetPos().x < oc->GetPos().x)
 				{
 					CorrectPosByAABB(oc, c, x, y);
-					t->SetRot(AEDegToRad(0));
+					//t->SetRot(AEDegToRad(0));
+					targetRot = AEDegToRad(0);
 				}
 				else
 				{
 					y = oc->GetPos().y + (c->GetPos().x - oc->GetPos().x) * (-oc->GetScale().y / oc->GetScale().x) + c->GetScale().y / 2;
-					t->SetRot(AEATan(-oc->GetScale().y / oc->GetScale().x));
+					//t->SetRot(AEATan(-oc->GetScale().y / oc->GetScale().x));
+					targetRot = AEATan(-oc->GetScale().y / oc->GetScale().x);
 				}
 				//t->SetRot(AEDegToRad(-45));
 				//x = c->GetPos().x + velocity.x * AECos(AEDegToRad(-45)) * dt + c->GetScale().x / 2;

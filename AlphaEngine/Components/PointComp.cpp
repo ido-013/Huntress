@@ -30,7 +30,7 @@ void PointComp::Update()
 	SpriteComp* s = owner->GetComponent<SpriteComp>();
 	if (!s) return;
 
-	speed = 200;
+	speed = 30;
 
 	r->SetVelocityX(0);
 
