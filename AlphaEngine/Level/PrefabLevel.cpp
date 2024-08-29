@@ -57,7 +57,7 @@ void level::PrefabLevel::Init()
 
 	temp = new GameObject();
 
-	temp->type = GameObject::Square;
+	temp->type = GameObject::LeftTri;
 
 	temp->AddComponent<TransformComp>();
 	temp->AddComponent<SpriteComp>();
@@ -65,7 +65,7 @@ void level::PrefabLevel::Init()
 
 	tt = temp->GetComponent<TransformComp>();
 	tt->SetScale({ 100, 100 });
-	tt->SetPos({ -100, 0 });
+	tt->SetPos({ -100, 100 });
 
 	ts = temp->GetComponent<SpriteComp>();
 	ts->SetColor(0, 0, 0);
@@ -92,12 +92,12 @@ void level::PrefabLevel::Init()
 
 	tc = temp->GetComponent<ColliderComp>();
 	tc->SetCollider();
-
+	
 	//
 
 	temp = new GameObject();
 
-	temp->type = GameObject::LeftTri;
+	temp->type = GameObject::Square;
 
 	temp->AddComponent<TransformComp>();
 	temp->AddComponent<SpriteComp>();
@@ -105,7 +105,7 @@ void level::PrefabLevel::Init()
 
 	tt = temp->GetComponent<TransformComp>();
 	tt->SetScale({ 100, 100 });
-	tt->SetPos({ -100, 100 });
+	tt->SetPos({ -100, 0 });
 
 	ts = temp->GetComponent<SpriteComp>();
 	ts->SetColor(0, 0, 0);
@@ -117,7 +117,47 @@ void level::PrefabLevel::Init()
 
 	temp = new GameObject();
 
-	temp->type = GameObject::Point;
+	temp->type = GameObject::Square;
+
+	temp->AddComponent<TransformComp>();
+	temp->AddComponent<SpriteComp>();
+	temp->AddComponent<ColliderComp>();
+
+	tt = temp->GetComponent<TransformComp>();
+	tt->SetScale({ 100, 100 });
+	tt->SetPos({ -200, 100 });
+
+	ts = temp->GetComponent<SpriteComp>();
+	ts->SetColor(0, 0, 0);
+
+	tc = temp->GetComponent<ColliderComp>();
+	tc->SetCollider();
+
+	//
+
+	temp = new GameObject();
+
+	temp->type = GameObject::Square;
+
+	temp->AddComponent<TransformComp>();
+	temp->AddComponent<SpriteComp>();
+	temp->AddComponent<ColliderComp>();
+
+	tt = temp->GetComponent<TransformComp>();
+	tt->SetScale({ 100, 100 });
+	tt->SetPos({ 200, 100 });
+
+	ts = temp->GetComponent<SpriteComp>();
+	ts->SetColor(0, 0, 0);
+
+	tc = temp->GetComponent<ColliderComp>();
+	tc->SetCollider();
+
+	//
+
+	temp = new GameObject();
+
+	temp->type = GameObject::Square;
 
 	temp->AddComponent<TransformComp>();
 	temp->AddComponent<SpriteComp>();
@@ -126,7 +166,7 @@ void level::PrefabLevel::Init()
 	temp->AddComponent<ColliderComp>();
 
 	tt = temp->GetComponent<TransformComp>();
-	tt->SetScale({ 10, 10 });
+	tt->SetScale({ 30, 30 });
 	tt->SetPos({ 0, 400 });
 
 	ts = temp->GetComponent<SpriteComp>();
@@ -134,6 +174,9 @@ void level::PrefabLevel::Init()
 
 	tr = temp->GetComponent<RigidbodyComp>();
 	tr->useGravity = true;
+
+	tc = temp->GetComponent<ColliderComp>();
+	tc->SetCollider();
 }
 
 void level::PrefabLevel::Update()

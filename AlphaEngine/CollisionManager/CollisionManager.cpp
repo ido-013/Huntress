@@ -54,6 +54,36 @@ bool CollisionManager::isCollisionPointAABB(ColliderComp* a, ColliderComp* b) co
 	return true;
 }
 
+bool CollisionManager::isCollisionAABBTri(ColliderComp* a, ColliderComp* b) const
+{
+	if (!isCollisionAABBAABB(a, b)) return false;
+
+	float aX = a->GetPos().x;
+	float aY = a->GetPos().y;
+	float aW = a->GetScale().x / 2;
+	float aH = a->GetScale().y / 2;
+
+	float bX = b->GetPos().x;
+	float bY = b->GetPos().y;
+	float bW = b->GetScale().x / 2;
+	float bH = b->GetScale().y / 2;
+
+	float grad;
+
+	if (b->GetOwner()->type == GameObject::RightTri)
+	{
+		grad = bH / bW;
+		if ((grad * (aX + aW)) + bY - (grad * bX) < (aY - aH)) return false;
+	}
+	else
+	{
+		grad = -bH / bW;
+		if ((grad * (aX - aW)) + bY - (grad * bX) < (aY - aH)) return false;
+	}
+
+	return true;
+}
+
 bool CollisionManager::isCollisionAABBAABB(ColliderComp* a, ColliderComp* b) const
 {
 	float aX = a->GetPos().x;
@@ -145,6 +175,35 @@ bool CollisionManager::PointAABBCheck(ColliderComp* a, ColliderComp* b)
 	return false;
 }
 
+bool CollisionManager::AABBTriCheck(ColliderComp* a, ColliderComp* b)
+{
+	EventManager& em = EventManager::GetInstance();
+
+	if (a->GetOwner()->type == GameObject::Square && (b->GetOwner()->type == GameObject::LeftTri || b->GetOwner()->type == GameObject::RightTri))
+	{
+		if (isCollisionAABBTri(a, b))
+		{
+			em.AddEvent<CollisionEvent>(a, b);
+			em.AddEvent<CollisionEvent>(b, a);
+		}
+
+		return true;
+	}
+
+	else if (b->GetOwner()->type == GameObject::Square && (a->GetOwner()->type == GameObject::LeftTri || a->GetOwner()->type == GameObject::RightTri))
+	{
+		if (isCollisionAABBTri(b, a))
+		{
+			em.AddEvent<CollisionEvent>(a, b);
+			em.AddEvent<CollisionEvent>(b, a);
+		}
+
+		return true;
+	}
+
+	return false;
+}
+
 bool CollisionManager::AABBAABBCheck(ColliderComp* a, ColliderComp* b)
 {
 	EventManager& em = EventManager::GetInstance();
@@ -197,6 +256,7 @@ void CollisionManager::Update()
 			if (PointTriCheck(a, b)) continue;
 			if (PointAABBCheck(a, b)) continue;
 			if (AABBAABBCheck(a, b)) continue;
+			if (AABBTriCheck(a, b)) continue;
 		}
 	}
 }

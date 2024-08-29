@@ -19,11 +19,13 @@ private:
 
 	bool isCollisionPointTri(ColliderComp*, ColliderComp*) const;
 	bool isCollisionPointAABB(ColliderComp*, ColliderComp*) const;
+	bool isCollisionAABBTri(ColliderComp*, ColliderComp*) const;
 	bool isCollisionAABBAABB(ColliderComp*, ColliderComp*) const;
 	bool isCollisionCircleCircle(ColliderComp*, ColliderComp*) const;
 
 	bool PointTriCheck(ColliderComp*, ColliderComp*);
 	bool PointAABBCheck(ColliderComp*, ColliderComp*);
+	bool AABBTriCheck(ColliderComp*, ColliderComp*);
 	bool AABBAABBCheck(ColliderComp*, ColliderComp*);
 
 public:

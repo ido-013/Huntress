@@ -14,12 +14,8 @@ private:
 	AEVec2 acceleration;
 	AEVec2 maxAcceleration;
 	
-	std::queue<ColliderComp*> colliderQueue;
-	bool isGround = false;
-
-	/*ColliderComp* collisionPos[4];*/
-
 	bool CheckEpsilon(float v, float EP = EPSILON);
+	void CorrectPosByAABB(ColliderComp*, ColliderComp*, float&, float&);
 
 public:
 	bool useGravity = false;
@@ -33,7 +29,6 @@ public:
 	void SetVelocity(float x, float y);
 	void SetVelocityX(float x);
 	void SetVelocityY(float y);
-
 	void ClearVelocity();
 
 	void AddAcceleration(const AEVec2& otherVec);

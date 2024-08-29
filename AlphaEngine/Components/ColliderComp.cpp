@@ -25,6 +25,7 @@ void ColliderComp::OnEvent(Event* e)
 	if (dynamic_cast<CollisionEvent*>(e) != nullptr)
 	{
 		oppoCollider.push(static_cast<ColliderComp*>(e->src));
+		colliderType[static_cast<ColliderComp*>(e->src)->GetOwner()->type] = true;
 	}
 }
 
