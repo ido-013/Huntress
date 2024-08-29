@@ -1,4 +1,5 @@
 #pragma once
+#include <queue>
 #include "AEVec2.h"
 #include "../ComponentManager/EngineComponent.h"
 #include "ColliderComp.h"
@@ -12,8 +13,11 @@ private:
 	AEVec2 maxVelocity;
 	AEVec2 acceleration;
 	AEVec2 maxAcceleration;
+	
+	std::queue<ColliderComp*> colliderQueue;
+	bool isGround = false;
 
-	ColliderComp* collisionPos[4];
+	/*ColliderComp* collisionPos[4];*/
 
 	bool CheckEpsilon(float v, float EP = EPSILON);
 

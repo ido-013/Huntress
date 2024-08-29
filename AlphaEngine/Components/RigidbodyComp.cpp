@@ -23,16 +23,18 @@ RigidbodyComp::RigidbodyComp(GameObject* _owner) : EngineComponent(_owner), velo
 	maxAcceleration.x = 500;
 	maxAcceleration.y = 500;
 
+	/*
 	for (int i = 0; i < 4; i++)
 	{
 		collisionPos[i] = new ColliderComp(_owner);
 	}
+	*/
 }
 
 RigidbodyComp::~RigidbodyComp()
 {
-	for (int i = 0; i < 4; i++)
-		delete collisionPos[i];
+	/*for (int i = 0; i < 4; i++)
+		delete collisionPos[i];*/
 }
 
 void RigidbodyComp::AddVelocity(const AEVec2& other)
@@ -134,15 +136,15 @@ void RigidbodyComp::Update()
 	float tw = t->GetScale().x;
 	float th = t->GetScale().y;
 
-	collisionPos[UP]->		SetPos({ tx, ty + th - 1 });
+	/*collisionPos[UP]->	SetPos({ tx, ty + th - 1 });
 	collisionPos[DOWN]->	SetPos({ tx, ty - th + 1 });
-	collisionPos[RIGHT]->	SetPos({ tx + tw - 1, ty });
-	collisionPos[LEFT]->	SetPos({ tx - tw + 1, ty });
+	collisionPos[RIGHT]->	SetPos({ tx + tw + 1, ty });
+	collisionPos[LEFT]->	SetPos({ tx - tw - 1, ty });
 	
 	collisionPos[UP]->		SetScale({ tw, 1 });
 	collisionPos[DOWN]->	SetScale({ tw, 1 });
 	collisionPos[LEFT]->	SetScale({ 1, th });
-	collisionPos[RIGHT]->	SetScale({ 1, th });
+	collisionPos[RIGHT]->	SetScale({ 1, th });*/
 
 	//
 
@@ -174,15 +176,105 @@ void RigidbodyComp::Update()
 	if (CheckEpsilon(velocity.y) == false)
 		velocity.y = 0;
 
-	if (collisionPos[DOWN]->isCollision)
+	ColliderComp* c = owner->GetComponent<ColliderComp>();
+	
+	if (c != nullptr)
+	{
+		while (!c->oppoCollider.empty())
+		{
+			ColliderComp* oc = c->oppoCollider.front();
+			c->oppoCollider.pop();
+
+			velocity.y = 0;
+			
+			switch (oc->GetOwner()->type)
+			{
+			case GameObject::Square:
+				if ((oc->GetPos().y + oc->GetScale().y / 2) > (c->GetPos().y - c->GetScale().y / 2))
+					y = oc->GetPos().y + oc->GetScale().y / 2 + c->GetScale().y / 2;
+				break;
+
+			case GameObject::RightTri:
+				y = oc->GetPos().y + (c->GetPos().x - oc->GetPos().x) * (oc->GetScale().y / oc->GetScale().x) + c->GetScale().y / 2;
+				break;
+
+			case GameObject::LeftTri:
+				y = oc->GetPos().y + (c->GetPos().x - oc->GetPos().x) * (-oc->GetScale().y / oc->GetScale().x) + c->GetScale().y / 2;
+				break;
+			}
+		}
+
+		c->SetPos({ x, y });
+	}
+
+	/*if (collisionPos[DOWN]->isCollision)
 	{
 		velocity.y = 0;
 
-		float oy = collisionPos[DOWN]->oppoCollider->GetPos().y;
-		float oh = collisionPos[DOWN]->oppoCollider->GetScale().y / 2;
+		GameObject::Type type = collisionPos[DOWN]->oppoCollider->GetOwner()->type;
 
-		y = (t->GetScale().y / 2) + oh + oy;
+		if (type == GameObject::Square)
+		{
+			float oy = collisionPos[DOWN]->oppoCollider->GetPos().y;
+			float oh = collisionPos[DOWN]->oppoCollider->GetScale().y / 2;
+
+			y = (t->GetScale().y / 2) + oh + oy;
+		}
+		
+		else if (type == GameObject::RightTri)
+		{
+			x = t->GetPos().x + AECos(AEDegToRad(45)) * velocity.x * dt;
+			y = t->GetPos().y + AECos(AEDegToRad(45)) * velocity.y * dt;
+		}
+
+		else if (type == GameObject::LeftTri)
+		{
+			x = t->GetPos().x + AECos(AEDegToRad(-45)) * velocity.x * dt;
+			y = t->GetPos().y + AECos(AEDegToRad(-45)) * velocity.y * dt;
+		}
 	}
+
+	if (collisionPos[RIGHT]->isCollision)
+	{
+		GameObject::Type type = collisionPos[RIGHT]->oppoCollider->GetOwner()->type;
+
+		if (type == GameObject::LeftTri || type == GameObject::Square)
+		{
+			velocity.x = 0;
+
+			float ox = collisionPos[RIGHT]->oppoCollider->GetPos().x;
+			float ow = collisionPos[RIGHT]->oppoCollider->GetScale().x / 2;
+
+			x = (t->GetScale().x / 2) - ow - ox;
+		}
+
+		else if (type == GameObject::RightTri)
+		{
+			x = t->GetPos().x + AECos(AEDegToRad(45)) * velocity.x * dt;
+			y = t->GetPos().y + AECos(AEDegToRad(45)) * velocity.y * dt;
+		}
+	}
+
+	if (collisionPos[LEFT]->isCollision)
+	{
+		GameObject::Type type = collisionPos[LEFT]->oppoCollider->GetOwner()->type;
+
+		if (type == GameObject::RightTri || type == GameObject::Square)
+		{
+			velocity.x = 0;
+
+			float ox = collisionPos[LEFT]->oppoCollider->GetPos().x;
+			float ow = collisionPos[LEFT]->oppoCollider->GetScale().x / 2;
+
+			x = (t->GetScale().x / 2) - ow - ox;
+		}
+
+		else if (type == GameObject::LeftTri)
+		{
+			x = t->GetPos().x + AECos(AEDegToRad(45)) * velocity.x * dt;
+			y = t->GetPos().y + AECos(AEDegToRad(45)) * velocity.y * dt;
+		}
+	}*/
 
 	t->SetPos({ x, y });
 }

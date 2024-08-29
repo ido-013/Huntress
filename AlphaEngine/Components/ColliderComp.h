@@ -1,5 +1,5 @@
 #pragma once
-#include <list>
+#include <queue>
 #include "AEMath.h"
 #include "../ComponentManager/ComponentManager.h"
 #include "../ComponentManager/EngineComponent.h"
@@ -33,8 +33,7 @@ public:
 	void SetCollider();
 	void SetCollider(float posX, float posY, float scaleX, float scaleY, float _rot);
 
-	bool isCollision;
-	ColliderComp* oppoCollider;
+	std::queue<ColliderComp*> oppoCollider;
 
 	void LoadFromJson(const json&) override;
 	json SaveToJson() override;

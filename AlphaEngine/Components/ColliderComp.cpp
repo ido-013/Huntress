@@ -3,7 +3,7 @@
 #include "../CollisionManager/CollisionManager.h"
 #include "../EventManager/EventManager.h"
 
-ColliderComp::ColliderComp(GameObject* _owner) : EngineComponent(_owner), pos(), scale(), rot(0), isCollision(false)
+ColliderComp::ColliderComp(GameObject* _owner) : EngineComponent(_owner), pos(), scale(), rot(0)
 {
 	CollisionManager::GetInstance().AddCollider(this);
 	EventManager::GetInstance().AddEntity(this);
@@ -17,19 +17,14 @@ ColliderComp::~ColliderComp()
 
 void ColliderComp::Update()
 {
-	if (isCollision)
-	{
-		isCollision = false;
-		oppoCollider = nullptr;
-	}
+
 }
 
 void ColliderComp::OnEvent(Event* e)
 {
 	if (dynamic_cast<CollisionEvent*>(e) != nullptr)
 	{
-		isCollision = true;
-		oppoCollider = dynamic_cast<ColliderComp*>(e->src);
+		oppoCollider.push(static_cast<ColliderComp*>(e->src));
 	}
 }
 

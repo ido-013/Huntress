@@ -16,7 +16,7 @@ PointComp::PointComp(GameObject* _owner) : LogicComponent(_owner)
 
 PointComp::~PointComp()
 {
-
+	
 }
 
 void PointComp::Update()
@@ -30,7 +30,7 @@ void PointComp::Update()
 	SpriteComp* s = owner->GetComponent<SpriteComp>();
 	if (!s) return;
 
-	speed = 50;
+	speed = 200;
 
 	r->SetVelocityX(0);
 
@@ -43,6 +43,18 @@ void PointComp::Update()
 	{
 		r->SetVelocityX(speed);
 	}
+
+	/*r->SetVelocityY(0);
+
+	if (AEInputCheckCurr(AEVK_W))
+	{
+		r->SetVelocityY(speed);
+	}
+
+	if (AEInputCheckCurr(AEVK_S))
+	{
+		r->SetVelocityY(-speed);
+	}*/
 }
 
 void PointComp::LoadFromJson(const json& data)
