@@ -40,7 +40,8 @@ public:
 	//GO will have a function to find if it already has a component of ANY TYPE
 	template <typename T>
 	T* GetComponent();
-
+	template <typename T>
+	T* GetComponent()const;
 	BaseComponent* GetBase(std::string);
 
 	//GO will have a function to delete ANY TYPE of component

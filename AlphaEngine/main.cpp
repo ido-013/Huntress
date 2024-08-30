@@ -9,6 +9,9 @@
 #include "Level/PrefabLevel.h"
 #include "Utils/Utils.h"
 #include "dice.h"
+#include "Level/Menu.h"
+#include "Level/CombatUI.h"
+#include "Level/StoreUI.h"
 // ---------------------------------------------------------------------------
 // main
 

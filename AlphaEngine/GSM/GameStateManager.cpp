@@ -8,6 +8,7 @@
 #include "../ResourceManager/ResourceManager.h"
 #include "../Serializer/Serializer.h"
 #include "../RTTI/Registry.h"
+#include "../UIM/BtnManager.h"
 
 GSM::GameStateManager::GameStateManager() : previousLevel(nullptr), currentLevel(nullptr) {}
 
@@ -38,7 +39,7 @@ void GSM::GameStateManager::Update()
         ComponentManager<EngineComponent>::GetInstance().Update();
         ComponentManager<GraphicComponent>::GetInstance().Update();
         ComponentManager<AudioComp>::GetInstance().Update();
-
+        ButtonManager::GetInstance().Update();
         EventManager::GetInstance().DispatchAllEvents();
 
         CollisionManager::GetInstance().Update();

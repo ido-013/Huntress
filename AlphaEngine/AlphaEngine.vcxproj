@@ -119,8 +119,12 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="Event\Event.cpp" />
     <ClCompile Include="GameObjectManager\GameObejectManager.cpp" />
     <ClCompile Include="GSM\GameStateManager.cpp" />
+    <ClCompile Include="Level\CombatUI.cpp" />
+    <ClCompile Include="Level\EditLevel.cpp" />
     <ClCompile Include="Level\NormalLevel.cpp" />
     <ClCompile Include="Level\PrefabLevel.cpp" />
+    <ClCompile Include="Level\Menu.cpp" />
+    <ClCompile Include="Level\StoreUI.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Prefab\Prefab.cpp" />
     <ClCompile Include="Resource\AudioResource.cpp" />
@@ -140,6 +144,11 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="ComponentManager\EngineComponent.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="Components\AnimatorComp.h" />
+    <ClInclude Include="Event\Button.h" />
+    <ClInclude Include="Event\ButtonClickEvent.h" />
+    <ClInclude Include="Event\DestroyEvent.h" />
+    <ClInclude Include="Event\DeathEvent.h" />
+    <ClInclude Include="Event\RestartEvent.h" />
     <ClInclude Include="Components\ColliderComp.h" />
     <ClInclude Include="Event\Entity.h" />
     <ClInclude Include="Event\SuperModeEvent.h" />
@@ -159,6 +168,8 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="GSM\GameStateManager.h" />
     <ClInclude Include="Level\NormalLevel.h" />
     <ClInclude Include="Level\PrefabLevel.h" />
+    <ClInclude Include="Level\Menu.h" />
+    <ClInclude Include="Level\StoreUI.h" />
     <ClInclude Include="Map\Map.h" />
     <ClInclude Include="Prefab\Prefab.h" />
     <ClInclude Include="Resource\AudioResource.h" />
