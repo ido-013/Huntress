@@ -10,13 +10,13 @@ int PosToMapY(float y)
     return (y + (windowHeight / 2)) / (windowHeight / height);
 }
 
-float MapToPosX(int ind)
+float MapToPosX(float ind)
 {
     return (windowWidth / width) * ind - (windowWidth / 2) + ((windowWidth / width) / 2);
     //return ind * width;
 }
 
-float MapToPosY(int ind)
+float MapToPosY(float ind)
 {
     return -((windowHeight / height) * ind - (windowHeight / 2) + ((windowHeight / height) / 2));
     //return -ind * height;

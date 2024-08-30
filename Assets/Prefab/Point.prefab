@@ -1,0 +1,49 @@
+{
+  "entityType": 4,
+  "components": [
+    {
+      "type": "PointComp",
+      "compData": {
+        "speed": 500.0
+      }
+    },
+    {
+      "type": "RigidbodyComp",
+      "compData": {
+        "velocity": [
+          0.0,
+          0.0
+        ],
+        "maxVelocity": [
+          100.0,
+          100.0
+        ]
+      }
+    },
+    {
+      "type": "SpriteComp",
+      "compData": {
+        "color": [
+          0,
+          0,
+          0
+        ],
+        "textureName": ""
+      }
+    },
+    {
+      "type": "TransformComp",
+      "compData": {
+        "position": [
+          0.0,
+          0.0
+        ],
+        "scale": [
+          10.0,
+          10.0
+        ],
+        "rotation": 0.0
+      }
+    }
+  ]
+}

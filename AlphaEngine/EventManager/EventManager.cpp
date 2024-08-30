@@ -13,7 +13,7 @@ void EventManager::AddEntity(Entity* entity)
     entityList.push_back(entity);
 }
 
-void EventManager::RemoveEntity(Entity* entity)
+void EventManager::DelEntity(Entity* entity)
 {
     for (auto it = entityList.begin(); it != entityList.end(); it++)
     {

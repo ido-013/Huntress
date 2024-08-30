@@ -5,17 +5,9 @@
 
 class PlayerComp : public LogicComponent
 {
-public:
-	enum direction
-	{
-		RIGHT = 0,
-		UP = 1,
-		LEFT = 2,
-		DOWN = 3,
-	};
-
 private:
 	float speed = 500;	
+	int movementGauge = 100;
 
 public:
 	PlayerComp(GameObject* _owner);

@@ -1,5 +1,4 @@
 #include "TransformComp.h"
-#include "../CollisionManager/CollisionManager.h"
 
 void TransformComp::CalculateMatrix()
 {
@@ -29,13 +28,11 @@ TransformComp::TransformComp(GameObject* _owner) : EngineComponent(_owner), pos(
 	scale.y = 1;
 
 	CalculateMatrix();
-
-	CollisionManager::GetInstance().AddTrans(this);
 }
 
 TransformComp::~TransformComp()
 {
-	CollisionManager::GetInstance().DelTrans(this);
+
 }
 
 void TransformComp::Update()

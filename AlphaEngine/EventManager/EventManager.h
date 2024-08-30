@@ -5,6 +5,7 @@
 #include <map>
 #include "../Event/Event.h"
 #include "../Event/Entity.h"
+#include "../GameObject/GameObject.h"
 
 class EventManager
 {
@@ -38,10 +39,10 @@ public:
 	void AddEvent(Entity* src, Entity* dst);	
 
 	template <typename T>
-	void AddEvent(Entity* src, Entity::Type type);
+	void AddEvent(Entity* src, GameObject::Type type);
 
 	void AddEntity(Entity* entity);
-	void RemoveEntity(Entity* entity);
+	void DelEntity(Entity* entity);
 
 	// DispatchAllEvents
 	void DispatchAllEvents();

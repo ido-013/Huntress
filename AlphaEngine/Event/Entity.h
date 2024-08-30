@@ -4,19 +4,5 @@
 class Entity
 {
 public:
-	enum Type
-	{
-		None,
-		Square,
-		LeftTri,
-		RightTri,
-		Player,
-	};
-
 	virtual void OnEvent(Event* event) = 0;
-	void SetType(const Type& _type);
-	const Type GetType() const;
-
-private:
-	Type type;
 };

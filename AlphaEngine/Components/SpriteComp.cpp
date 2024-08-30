@@ -51,7 +51,7 @@ void SpriteComp::SetMesh()
 	//Create quad
 	AEGfxMeshStart();
 
-	if (owner->GetType() == Entity::LeftTri)
+	if (owner->type == GameObject::LeftTri)
 	{
 		AEGfxTriAdd(
 			-0.5f, -0.5f, 0xFFFFFFFF, 0.0f, 1.0f,
@@ -59,7 +59,7 @@ void SpriteComp::SetMesh()
 			-0.5f, 0.5f, 0xFFFFFFFF, 0.0f, 0.0f);
 	}
 
-	else if (owner->GetType() == Entity::RightTri)
+	else if (owner->type == GameObject::RightTri)
 	{
 		AEGfxTriAdd(
 			0.5f, -0.5f, 0xFFFFFFFF, 1.0f, 1.0f,

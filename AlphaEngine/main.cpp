@@ -6,6 +6,7 @@
 #include "GSM/GameStateManager.h"
 #include "Level/EditLevel.h"
 #include "Level/TestLevel.h"
+#include "Level/PrefabLevel.h"
 #include "Utils/Utils.h"
 // ---------------------------------------------------------------------------
 // main
@@ -35,7 +36,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// reset the system modules
 	AESysReset();
 
-	GSM::GameStateManager::GetInstance().ChangeLevel(new level::TestLevel);
+	GSM::GameStateManager::GetInstance().ChangeLevel(new level::PrefabLevel);
 
 	// Game Loop
 	while (gsm.ShouldExit() == false && gGameRunning)
