@@ -51,9 +51,6 @@
     <ClCompile Include="EventManager\EventManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Event\Entity.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Event\Event.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -78,9 +75,6 @@
     <ClCompile Include="GameObjectManager\GameObejectManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Level\EditLevel.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Prefab\Prefab.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -94,6 +88,33 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Utils\Utils.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Level\PrefabLevel.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Level\NormalLevel.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="dice.h">
+      <Filter>헤더 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="dice.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Shop\Shop.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\ColliderComp.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Level\Menu.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Level\CombatUI.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Level\StoreUI.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Combat\Projectile.cpp">
@@ -149,9 +170,6 @@
     <ClInclude Include="Event\Event.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Event\Entity.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Event\CollisionEvent.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -182,9 +200,6 @@
     <ClInclude Include="Level\BaseLevel.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Level\EditLevel.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Prefab\Prefab.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -197,25 +212,49 @@
     <ClInclude Include="Animation\Animation.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Event\DestroyEvent.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Utils\Utils.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Map\Map.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\Size.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Event\DeathEvent.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Event\SuperModeEvent.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Event\RestartEvent.h">
+    <ClInclude Include="Utils\Size.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Level\PrefabLevel.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Level\NormalLevel.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Shop\Shop.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Economy.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Direction.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\ColliderComp.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Components.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Event\Entity.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Level\Menu.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Level\StoreUI.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Level\CombatUI.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Combat\Projectile.h">

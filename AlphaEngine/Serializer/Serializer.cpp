@@ -4,7 +4,7 @@
 #include "../ComponentManager/BaseComponent.h"
 #include "../ComponentManager/ComponentManager.h"
 #include "../GameObjectManager/GameObjectManager.h"
-#include "../Components/TransformComp.h"
+#include "../Components.h"
 #include "../RTTI/Registry.h"
 #include "../Prefab/Prefab.h"
 

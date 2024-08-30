@@ -3,7 +3,7 @@
 
 namespace level
 {
-	class EditLevel : public GSM::BaseLevel
+	class NormalLevel : public GSM::BaseLevel
 	{
 	public:
 		void Init() override;

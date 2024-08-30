@@ -16,7 +16,6 @@ PlayerComp::PlayerComp(GameObject* _owner) : LogicComponent(_owner)
 
 PlayerComp::~PlayerComp()
 {
-	AEGfxDestroyFont(pFont);
 }
 
 void PlayerComp::Update()
@@ -29,6 +28,22 @@ void PlayerComp::Update()
 
 	SpriteComp* s = owner->GetComponent<SpriteComp>();
 	if (!s) return;
+
+	speed = 30;
+
+	r->SetVelocityX(0);
+
+	if (AEInputCheckCurr(AEVK_A) && movementGauge > 0)
+	{
+		r->SetVelocityX(-speed);
+		movementGauge--;
+	}
+
+	if (AEInputCheckCurr(AEVK_D) && movementGauge > 0)
+	{
+		r->SetVelocityX(speed);
+		movementGauge--;
+	}
 }
 
 void PlayerComp::LoadFromJson(const json& data)

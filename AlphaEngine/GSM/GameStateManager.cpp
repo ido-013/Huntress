@@ -2,16 +2,13 @@
 #include "AEEngine.h"
 #include "../Level/BaseLevel.h"
 #include "../ComponentManager/ComponentManager.h"
-#include "../ComponentManager/LogicComponent.h"
-#include "../ComponentManager/EngineComponent.h"
-#include "../ComponentManager/GraphicComponent.h"
-#include "../Components/AudioComp.h"
 #include "../EventManager/EventManager.h"
 #include "../CollisionManager/CollisionManager.h"
 #include "../GameObjectManager/GameObjectManager.h"
 #include "../ResourceManager/ResourceManager.h"
 #include "../Serializer/Serializer.h"
 #include "../RTTI/Registry.h"
+#include "../UIM/BtnManager.h"
 
 GSM::GameStateManager::GameStateManager() : previousLevel(nullptr), currentLevel(nullptr) {}
 
@@ -36,13 +33,13 @@ void GSM::GameStateManager::Update()
 {
     if (currentLevel)
     {
-        AEGfxSetBackgroundColor(0, 0, 0);
+        AEGfxSetBackgroundColor(255, 255, 255);
 
         ComponentManager<LogicComponent>::GetInstance().Update();
         ComponentManager<EngineComponent>::GetInstance().Update();
         ComponentManager<GraphicComponent>::GetInstance().Update();
         ComponentManager<AudioComp>::GetInstance().Update();
-
+        ButtonManager::GetInstance().Update();
         EventManager::GetInstance().DispatchAllEvents();
 
         CollisionManager::GetInstance().Update();

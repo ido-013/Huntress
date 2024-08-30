@@ -5,23 +5,13 @@
 
 class PlayerComp : public LogicComponent
 {
-public:
-	enum direction
-	{
-		RIGHT = 0,
-		UP = 1,
-		LEFT = 2,
-		DOWN = 3,
-	};
-
 private:
 	float speed = 500;	
-	s8 pFont;
+	int movementGauge = 100;
 
 public:
 	PlayerComp(GameObject* _owner);
 	~PlayerComp();
-	void AddScore(int _score, bool isEnemy); 
 	void Update() override;
 
 	void LoadFromJson(const json&) override;

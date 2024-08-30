@@ -1,12 +1,19 @@
 // ---------------------------------------------------------------------------
 // includes
-
+#pragma once
 #include <crtdbg.h> // To check for memory leaks
 #include "AEEngine.h"
 #include "GSM/GameStateManager.h"
+#include "Level/NormalLevel.h"
+#include "Level/TestLevel.h"
+#include "Level/PrefabLevel.h"
 #include "Level/EditLevel.h"
 #include "Level/CombatLevel.h"
 #include "Utils/Utils.h"
+#include "dice.h"
+#include "Level/Menu.h"
+#include "Level/CombatUI.h"
+#include "Level/StoreUI.h"
 // ---------------------------------------------------------------------------
 // main
 
@@ -35,7 +42,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// reset the system modules
 	AESysReset();
 
-	GSM::GameStateManager::GetInstance().ChangeLevel(new level::CombatLevel);
+	GSM::GameStateManager::GetInstance().ChangeLevel(new level::NormalLevel);
+	//GSM::GameStateManager::GetInstance().ChangeLevel(new level::CombatLevel);
 
 	// Game Loop
 	while (gsm.ShouldExit() == false && gGameRunning)
@@ -52,6 +60,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		// check if forcing the application to quit
 		if (AEInputCheckTriggered(AEVK_ESCAPE) || 0 == AESysDoesWindowExist())
 			gGameRunning = 0;
+		
 	}
 
 	gsm.Exit();

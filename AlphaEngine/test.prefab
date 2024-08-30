@@ -1,6 +1,37 @@
 {
   "components": [
     {
+      "type": "AnimatorComp",
+      "compData": {
+        "animation": [
+          {
+            "name": "abc",
+            "frame": [
+              [
+                0.5,
+                "Assets/PlanetTexture.png"
+              ],
+              [
+                0.5,
+                "Assets/Flag.png"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "AudioComp",
+      "compData": {
+        "audio": [
+          "Assets/Audio/bouken.mp3",
+          "Assets/Audio/ore.mp3"
+        ],
+        "volume": 0.5,
+        "pitch": 1.0
+      }
+    },
+    {
       "type": "PlayerComp",
       "compData": {
         "speed": 500.0
@@ -28,6 +59,11 @@
           0
         ],
         "textureName": "../Assets/Character/ArrowAttack/sprite/ScoutAttackArrow1.png"
+          255,
+          255,
+          255
+        ],
+        "textureName": "Assets/arrow.png"
       }
     },
     {
@@ -40,6 +76,12 @@
         "scale": [
           90.0,
           120.0
+          0.0,
+          0.0
+        ],
+        "scale": [
+          100.0,
+          100.0
         ],
         "rotation": 0.0
       }

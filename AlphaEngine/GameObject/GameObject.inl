@@ -39,6 +39,19 @@ inline T* GameObject::GetComponent()
 }
 
 template<typename T>
+inline T* GameObject::GetComponent() const
+{
+	auto it = component.find(T::TypeName);
+	if (it != component.end())
+	{
+		return static_cast<T*>(it->second);
+	}
+
+	return nullptr;
+}
+
+
+template<typename T>
 inline void GameObject::DeleteComponent()
 {
 	T* p = GetComponent<T>();
