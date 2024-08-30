@@ -11,7 +11,6 @@ GameObject::GameObject()
 GameObject::GameObject(std::string str)
 {
 	GameObjectManager::GetInstance().InsertObject(this, str);
-	EventManager::GetInstance().AddEntity(this);
 }
 
 GameObject::~GameObject()

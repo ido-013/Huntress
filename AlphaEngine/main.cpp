@@ -7,7 +7,6 @@
 #include "Level/NormalLevel.h"
 #include "Level/TestLevel.h"
 #include "Level/PrefabLevel.h"
-#include "Level/EditLevel.h"
 #include "Level/CombatLevel.h"
 #include "Utils/Utils.h"
 #include "dice.h"

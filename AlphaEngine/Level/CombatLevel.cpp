@@ -37,6 +37,7 @@ void level::CombatLevel::Init()
 	background->GetComponent<TransformComp>()->SetScale({ 1600, 900 });
 	background->GetComponent<TransformComp>()->SetPos({ 0, 0 });
 	background->GetComponent<SpriteComp>()->SetTexture("../Assets/Background/Background.png");
+	background->GetComponent<SpriteComp>()->SetAlpha(1);
 
 	// player
 	player = new GameObject("player");
@@ -50,6 +51,7 @@ void level::CombatLevel::Init()
 	player->GetComponent<TransformComp>()->SetPos({ -700, -280 });
 
 	player->GetComponent<SpriteComp>()->SetTexture("../Assets/Character/ArrowAttack/sprite/ScoutAttackArrow1.png");
+	player->GetComponent<SpriteComp>()->SetAlpha(1);
 
 	// direction Arrow
 	directionArrow = new GameObject("directionArrow");
@@ -74,6 +76,7 @@ void level::CombatLevel::Init()
 	enemy->GetComponent<TransformComp>()->SetPos({ 700, -280 });
 
 	enemy->GetComponent<SpriteComp>()->SetTexture("../Assets/Character/ArrowAttack/sprite/ScoutAttackArrow1.png");
+	enemy->GetComponent<SpriteComp>()->SetAlpha(1);
 
 	Prefab::SavePrefab("test", player);
 }
