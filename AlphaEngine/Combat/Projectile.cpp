@@ -68,21 +68,24 @@ void Projectile::Update()
             // 속도에 공기 저항 적용
             velocityX += airResistanceX * time;
             velocityY += airResistanceY * time - GRAVITY * time;
+            
+            //std::cout << "Velocity x,y : " << velocityX << " , " << velocityY << std::endl;
 
             // 위치 업데이트
             float x = ptf->GetPos().x; // 투사체의 위치 벡터 중 x
             float y = ptf->GetPos().y; // 투사체의 위치 벡터 중 y
 
             ptf->SetPos({ x + velocityX * time, y + velocityY * time });
+            ptf->SetRot(atan2f(velocityY, velocityX));
 
             x = ptf->GetPos().x;
             y = ptf->GetPos().y;
 
             // 현재 시간, 위치 출력
-            std::cout << "Time: " << time << "s, X: " << x << "m, Y: " << y << 
-                //"m, Wind: (" << wind.x << ", " << wind.y << ") m/s" 
-                "value: " << velocityY
-                << std::endl;
+            //std::cout << "Time: " << time << "s, X: " << x << "m, Y: " << y << 
+            //    //"m, Wind: (" << wind.x << ", " << wind.y << ") m/s" 
+            //    "value: " << velocityY
+            //    << std::endl;
 
             // 시간 증가
             time += timeStep;
