@@ -17,6 +17,7 @@ class Projectile : public LogicComponent
 	float theta;
 	float mass;
 	float time;
+	float delay;
 	AEVec2 initialVelocity;
 	AEVec2 wind;
 	float startY;

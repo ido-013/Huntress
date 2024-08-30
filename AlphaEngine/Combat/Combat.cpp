@@ -170,7 +170,7 @@ void CombatComp::FireAnArrow(int dealer, GameObject& directionArrow)
 
 	projectile->GetComponent<SpriteComp>()->SetTexture("../Assets/Character/ArrowAttack/Arrow/Arrow.png");
 	projectile->GetComponent<SpriteComp>()->SetAlpha(1);
-	pVelocity = 19;
+	pVelocity = 25;
 	projectile->GetComponent<Projectile>()->SetVelocity(dealer == 0 ? pVelocity : eVelocity);
 	projectile->GetComponent<Projectile>()->SetTheta(dealer == 0 ? pAngle : eAngle);
 	projectile->GetComponent<Projectile>()->SetProjectileObject(*projectile);
@@ -218,6 +218,11 @@ void CombatComp::SetEnemyVelocity(float velocity)
 float CombatComp::GetEnemyVelocity()
 {
 	return eVelocity;
+}
+
+void CombatComp::EnemyAICombatSystem()
+{
+
 }
 
 void CombatComp::Update()

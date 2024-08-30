@@ -32,6 +32,8 @@ public:
 	void SetEnemyVelocity(float velocity);
 	float GetEnemyVelocity();
 
+	void EnemyAICombatSystem();
+
 	void DrawDirectionPegline(GameObject& directionArrow,
 		int dealer, const AEVec2& DirectionPoint, 
 		const std::pair<float, float> AngleRange);
