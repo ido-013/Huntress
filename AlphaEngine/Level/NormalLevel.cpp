@@ -1,4 +1,4 @@
-#include "TestLevel.h"
+#include "NormalLevel.h"
 #include "../GSM/GameStateManager.h"
 #include "../ComponentManager/ComponentManager.h"
 #include "../GameObject/GameObject.h"
@@ -14,7 +14,7 @@
 #include "../GameObjectManager/GameObjectManager.h"
 #include <iostream>
 
-std::string map[20] =
+std::string map[100] =
 {
 	"--------------------",
 	"--------------------",
@@ -26,23 +26,22 @@ std::string map[20] =
 	"--------------------",
 	"--------------------",
 	"--------------------",
-	//"-------rSSSSl-------",
-	//"------rSSSSSSl------",
-	//"-----rSSSSSSSSl-----",
-	//"----rSSSSSSSSSSl----",
-	//"---rSSSSSSSSSSSSl---",
-	//"SSSSSSSSSSSSSSSSSSSS",
-	//"SSSSSSSSSSSSSSSSSSSS",
-	//"SSSSSSSSSSSSSSSSSSSS",
-	//"SSSSSSSSSSSSSSSSSSSS",
-	//"SSSSSSSSSSSSSSSSSSSS"
+	"--------------------",
+	"------RS------------",
+	"-----RSS------------",
+	"---RSSSSSSSSSSSS----",
+	"--RSSSSSSSSSSSSSS---",
+	"-RSSSSSSSSSSSSSSS---",
+	"SSSSSSSSSSSSSSSSSSSS",
+	"SSSSSSSSSSSSSSSSSSSS",
+	"SSSSSSSSSSSSSSSSSSSS",
+	"SSSSSSSSSSSSSSSSSSSS"
 };
 
-void level::TestLevel::Init()
+void level::NormalLevel::Init()
 {
 	GameObject* go = nullptr;
 	TransformComp* t = nullptr;
-
 	Prefab s("Square");
 	Prefab l("LeftTri");
 	Prefab r("RightTri");
@@ -51,6 +50,8 @@ void level::TestLevel::Init()
 	{
 		for (int j = 0; j < 20; j++)
 		{
+			
+
 			if (map[i][j] == '-')
 				continue;
 
@@ -105,12 +106,12 @@ void level::TestLevel::Init()
 	}
 }
 
-void level::TestLevel::Update()
+void level::NormalLevel::Update()
 {
 
 }
 
-void level::TestLevel::Exit()
+void level::NormalLevel::Exit()
 {
 	EventManager::GetInstance().DeleteUndispahchEvent();
 	GameObjectManager::GetInstance().RemoveAllObject();

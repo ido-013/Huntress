@@ -96,10 +96,19 @@
     <ClCompile Include="Utils\Utils.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Level\TestLevel.cpp">
+    <ClCompile Include="Level\PrefabLevel.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Level\PrefabLevel.cpp">
+    <ClCompile Include="Level\NormalLevel.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="dice.h">
+      <Filter>헤더 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="dice.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Shop\Shop.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -203,13 +212,19 @@
     <ClInclude Include="Event\SuperModeEvent.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Level\TestLevel.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Utils\Size.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Level\PrefabLevel.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Level\NormalLevel.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Shop\Shop.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Economy.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
