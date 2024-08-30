@@ -51,9 +51,6 @@
     <ClCompile Include="EventManager\EventManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Event\Entity.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Event\Event.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -111,6 +108,9 @@
     <ClCompile Include="Shop\Shop.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Components\ColliderComp.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GSM\GameStateManager.h">
@@ -153,9 +153,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Event\Event.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Event\Entity.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Event\CollisionEvent.h">
@@ -225,6 +222,18 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Economy.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Direction.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\ColliderComp.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Components.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Event\Entity.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

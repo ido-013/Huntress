@@ -1,11 +1,10 @@
 #pragma once
 #include <map>
 #include <string>
-#include "../Event/Entity.h"
 
 class BaseComponent;
 
-class GameObject : public Entity
+class GameObject
 {
 private:
 	//GO now will have a container of BaseComponent*
@@ -13,6 +12,16 @@ private:
 	std::string name;
 
 public:
+	enum Type
+	{
+		None,
+		Square,
+		LeftTri,
+		RightTri,
+		Point,
+		Player,
+	};
+
 	GameObject();
 	GameObject(const GameObject& other) = delete;
 	GameObject& operator=(const GameObject& other) = delete;
@@ -20,8 +29,6 @@ public:
 	//Components in the GO container are ALLOCATED IN THE HEAP, 
 	//so. When to GO is destroyed, the GO must be as well
 	~GameObject();
-
-	void OnEvent(Event* event) override;
 
 	//GO will have a function to add ANY TYPE of component class to their container
 	template <typename T>
@@ -39,6 +46,8 @@ public:
 	//GO will have a function to delete ANY TYPE of component
 	template <typename T>
 	void DeleteComponent();
+
+	Type type;
 
 	friend class Serializer;
 	friend class Prefab;

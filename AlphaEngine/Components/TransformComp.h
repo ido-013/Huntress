@@ -1,8 +1,8 @@
 #pragma once
-#include <iostream>
 #include "AEMath.h"
 #include "../ComponentManager/ComponentManager.h"
 #include "../ComponentManager/EngineComponent.h"
+#include "../Event/Entity.h"
 
 class TransformComp : public EngineComponent
 {

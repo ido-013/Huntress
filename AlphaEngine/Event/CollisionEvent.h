@@ -3,5 +3,7 @@
 
 struct CollisionEvent : public Event
 {
-	CollisionEvent(Entity* _src, Entity* _dst) : Event(_src, _dst) {}
+	bool isSlope;
+
+	CollisionEvent(Entity* _src, Entity* _dst, bool _isSlope = false) : Event(_src, _dst), isSlope(_isSlope) {}
 };

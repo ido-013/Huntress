@@ -1,15 +1,10 @@
 #include "GameObject.h"
 #include "../ComponentManager/BaseComponent.h"
 #include "../GameObjectManager/GameObjectManager.h"
-#include "../Event/CollisionEvent.h"
-#include "../Components/PlayerComp.h"
-#include "../Components/AudioComp.h"
-#include "../EventManager/EventManager.h"
 
 GameObject::GameObject() : component()
 {
 	GameObjectManager::GetInstance().AddObject(this);
-	EventManager::GetInstance().AddEntity(this);
 }
 
 GameObject::~GameObject()
@@ -21,12 +16,6 @@ GameObject::~GameObject()
 	}
 
 	component.clear();
-	EventManager::GetInstance().RemoveEntity(this);
-}
-
-void GameObject::OnEvent(Event* event)
-{
-
 }
 
 BaseComponent* GameObject::GetBase(std::string typeName)
