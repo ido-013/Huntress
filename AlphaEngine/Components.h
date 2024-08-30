@@ -9,5 +9,4 @@
 #include "Components/SpriteComp.h"
 #include "Components/RigidBodyComp.h"
 #include "Components/AnimatorComp.h"
-#include "Components/PointComp.h"
 #include "Components/ColliderComp.h"

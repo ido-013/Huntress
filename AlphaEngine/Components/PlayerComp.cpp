@@ -29,28 +29,21 @@ void PlayerComp::Update()
 	SpriteComp* s = owner->GetComponent<SpriteComp>();
 	if (!s) return;
 
-	speed = 50;
+	speed = 30;
 
-	r->SetVelocity(0, 0);
+	r->SetVelocityX(0);
 
-	if (AEInputCheckCurr(AEVK_W))
+	if (AEInputCheckCurr(AEVK_A) && movementGauge > 0)
 	{
-		r->AddVelocity(0, speed);
-	}
-	if (AEInputCheckCurr(AEVK_S))
-	{
-		r->AddVelocity(0, -speed);
-	}
-	if (AEInputCheckCurr(AEVK_A))
-	{
-		r->AddVelocity(-speed, 0);
-	}
-	if (AEInputCheckCurr(AEVK_D))
-	{
-		r->AddVelocity(speed, 0);
+		r->SetVelocityX(-speed);
+		movementGauge--;
 	}
 
-	//r->SetAcceleration(0, -50.f);
+	if (AEInputCheckCurr(AEVK_D) && movementGauge > 0)
+	{
+		r->SetVelocityX(speed);
+		movementGauge--;
+	}
 }
 
 void PlayerComp::LoadFromJson(const json& data)

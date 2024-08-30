@@ -99,9 +99,6 @@
     <ClCompile Include="Level\PrefabLevel.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Components\PointComp.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Components\ColliderComp.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -210,9 +207,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Level\PrefabLevel.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\PointComp.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Utils\Direction.h">

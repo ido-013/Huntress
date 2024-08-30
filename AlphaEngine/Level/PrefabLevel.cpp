@@ -64,7 +64,7 @@ void level::PrefabLevel::Init()
 	temp->AddComponent<ColliderComp>();
 
 	tt = temp->GetComponent<TransformComp>();
-	tt->SetScale({ 100, 100 });
+	tt->SetScale({ 200, 100 });
 	tt->SetPos({ -100, 100 });
 
 	ts = temp->GetComponent<SpriteComp>();
@@ -84,7 +84,7 @@ void level::PrefabLevel::Init()
 	temp->AddComponent<ColliderComp>();
 
 	tt = temp->GetComponent<TransformComp>();
-	tt->SetScale({ 100, 100 });
+	tt->SetScale({200, 100 });
 	tt->SetPos({ 100, 100 });
 
 	ts = temp->GetComponent<SpriteComp>();
@@ -161,7 +161,7 @@ void level::PrefabLevel::Init()
 
 	temp->AddComponent<TransformComp>();
 	temp->AddComponent<SpriteComp>();
-	temp->AddComponent<PointComp>();
+	temp->AddComponent<PlayerComp>();
 	temp->AddComponent<RigidbodyComp>();
 	temp->AddComponent<ColliderComp>();
 

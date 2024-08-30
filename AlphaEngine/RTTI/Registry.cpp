@@ -9,7 +9,6 @@ Registry::Registry()
     rttiMap.insert({ SpriteComp::TypeName, &SpriteComp::CreateSpriteComponent });
     rttiMap.insert({ RigidbodyComp::TypeName, &RigidbodyComp::CreateRigidBodyComponent });
     rttiMap.insert({ AnimatorComp::TypeName, &AnimatorComp::CreateAnimatorComponent });
-    rttiMap.insert({ PointComp::TypeName, &PointComp::CreatePointComponent });
     rttiMap.insert({ ColliderComp::TypeName, &ColliderComp::CreateColliderComponent });
 }
 

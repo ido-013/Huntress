@@ -195,14 +195,14 @@ void RigidbodyComp::Update()
 
 	//
 	
-	if (velocity.x == 0)
+	/*if (velocity.x == 0)
 	{
 		if (AERadToDeg(targetRot) > 40)
 			velocity.x = -10;
 
 		if (AERadToDeg(targetRot) < -40)
 			velocity.x = 10;
-	}
+	}*/
 
 	float x = t->GetPos().x + velocity.x * dt;
 	float y = t->GetPos().y + velocity.y * dt;
