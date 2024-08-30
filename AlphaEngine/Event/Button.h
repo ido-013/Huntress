@@ -31,15 +31,15 @@ public:
 
     void OnClick() {
 
-        EventManager::GetInstance().AddEvent<ButtonClickEvent>(this, this);
+        //EventManager::GetInstance().AddEvent<ButtonClickEvent>(this, this);
     }
 
-    void OnEvent(Event* event) override {
+    //void OnEvent(Event* event) override {
 
-        ButtonClickEvent* clickEvent = dynamic_cast<ButtonClickEvent*>(event);
-        if (clickEvent) {
-            std::cout << "Button clicked and event handled in OnEvent!" << std::endl;
+    //    ButtonClickEvent* clickEvent = dynamic_cast<ButtonClickEvent*>(event);
+    //    if (clickEvent) {
+    //        std::cout << "Button clicked and event handled in OnEvent!" << std::endl;
 
-        }
-    }
+    //    }
+    //}
 };

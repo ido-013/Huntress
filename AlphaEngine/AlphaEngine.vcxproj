@@ -120,7 +120,6 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="GameObjectManager\GameObejectManager.cpp" />
     <ClCompile Include="GSM\GameStateManager.cpp" />
     <ClCompile Include="Level\CombatUI.cpp" />
-    <ClCompile Include="Level\EditLevel.cpp" />
     <ClCompile Include="Level\NormalLevel.cpp" />
     <ClCompile Include="Level\PrefabLevel.cpp" />
     <ClCompile Include="Level\Menu.cpp" />
