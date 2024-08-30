@@ -1,9 +1,11 @@
 #include<iostream>
 #include "dice.h"
 
+int TotalAttack = 0;
+int TotalDefence = 0;
 
 int performRoll(Turn turn) {
-	char choice;
+	//char choice;
 	int first = 0;
 	int second = 0;
 	const char* current = turn == PlayerTurn ? "Player" : "Enemy";

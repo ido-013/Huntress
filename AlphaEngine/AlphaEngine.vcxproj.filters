@@ -75,9 +75,6 @@
     <ClCompile Include="GameObjectManager\GameObejectManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Level\EditLevel.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Prefab\Prefab.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -183,9 +180,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Level\BaseLevel.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Level\EditLevel.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Prefab\Prefab.h">
