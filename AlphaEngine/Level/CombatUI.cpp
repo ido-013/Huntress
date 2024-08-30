@@ -6,7 +6,6 @@
 #include "../EventManager/EventManager.h"
 #include <iostream>
 
-
 GameObject* UIBAR = nullptr;
 GameObject* Power = nullptr;
 GameObject* Move = nullptr;
@@ -16,6 +15,7 @@ GameObject* HP = nullptr;
 GameObject* enemyHP = nullptr;
 GameObject* Attack = nullptr;
 GameObject* enemyAttack = nullptr;
+
 void level::CombatUI::Init()
 {
 	UIBAR = new GameObject();

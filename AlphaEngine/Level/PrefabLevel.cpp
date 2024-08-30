@@ -29,6 +29,7 @@ void level::PrefabLevel::Init()
 
 	ts = temp->GetComponent<SpriteComp>();
 	ts->SetColor(0, 0, 0);
+	ts->SetAlpha(1);
 
 	tc = temp->GetComponent<ColliderComp>();
 	tc->SetCollider();
@@ -49,6 +50,7 @@ void level::PrefabLevel::Init()
 
 	ts = temp->GetComponent<SpriteComp>();
 	ts->SetColor(0, 0, 0);
+	ts->SetAlpha(1);
 
 	tc = temp->GetComponent<ColliderComp>();
 	tc->SetCollider();
@@ -69,6 +71,7 @@ void level::PrefabLevel::Init()
 
 	ts = temp->GetComponent<SpriteComp>();
 	ts->SetColor(0, 0, 0);
+	ts->SetAlpha(1);
 
 	tc = temp->GetComponent<ColliderComp>();
 	tc->SetCollider();
@@ -89,6 +92,7 @@ void level::PrefabLevel::Init()
 
 	ts = temp->GetComponent<SpriteComp>();
 	ts->SetColor(0, 0, 0);
+	ts->SetAlpha(1);
 
 	tc = temp->GetComponent<ColliderComp>();
 	tc->SetCollider();
@@ -106,9 +110,10 @@ void level::PrefabLevel::Init()
 	tt = temp->GetComponent<TransformComp>();
 	tt->SetScale({ 100, 100 });
 	tt->SetPos({ -100, 0 });
-
+	
 	ts = temp->GetComponent<SpriteComp>();
 	ts->SetColor(0, 0, 0);
+	ts->SetAlpha(1);
 
 	tc = temp->GetComponent<ColliderComp>();
 	tc->SetCollider();
@@ -129,6 +134,7 @@ void level::PrefabLevel::Init()
 
 	ts = temp->GetComponent<SpriteComp>();
 	ts->SetColor(0, 0, 0);
+	ts->SetAlpha(1);
 
 	tc = temp->GetComponent<ColliderComp>();
 	tc->SetCollider();
@@ -149,6 +155,7 @@ void level::PrefabLevel::Init()
 
 	ts = temp->GetComponent<SpriteComp>();
 	ts->SetColor(0, 0, 0);
+	ts->SetAlpha(1);
 
 	tc = temp->GetComponent<ColliderComp>();
 	tc->SetCollider();
@@ -171,6 +178,7 @@ void level::PrefabLevel::Init()
 
 	ts = temp->GetComponent<SpriteComp>();
 	ts->SetColor(255, 0, 0);
+	ts->SetAlpha(1);
 
 	tr = temp->GetComponent<RigidbodyComp>();
 	tr->useGravity = true;
