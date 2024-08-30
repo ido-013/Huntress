@@ -21,7 +21,7 @@ public:
 
 	void LoadFromJson(const json&) override;
 	json SaveToJson() override;
-
+	float GetMovegauge();
 	static BaseRTTI* CreatePlayerComponent(GameObject* owner);
 	static constexpr const char* TypeName = "PlayerComp";
 

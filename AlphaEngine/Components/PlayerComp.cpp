@@ -29,7 +29,7 @@ void PlayerComp::Update()
 	SpriteComp* s = owner->GetComponent<SpriteComp>();
 	if (!s) return;
 
-	speed = 30;
+	speed = 100;
 
 	r->SetVelocityX(0);
 
@@ -54,7 +54,7 @@ void PlayerComp::Update()
 
 	if (!turn)
 	{
-		movementGauge = 1000;
+		movementGauge = maxMovementGauge;
 	}
 }
 
@@ -79,6 +79,11 @@ json PlayerComp::SaveToJson()
 	data["compData"] = compData;
 
 	return data;
+}
+
+float PlayerComp::GetMovegauge()
+{
+	return movementGauge;
 }
 
 BaseRTTI* PlayerComp::CreatePlayerComponent(GameObject* owner)

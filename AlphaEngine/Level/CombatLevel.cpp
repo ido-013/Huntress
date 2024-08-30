@@ -17,6 +17,16 @@ GameObject* player = nullptr;
 GameObject* directionArrow = nullptr;
 GameObject* enemy = nullptr;
 
+GameObject* UIBAR = nullptr;
+GameObject* Power = nullptr;
+GameObject* Move = nullptr;
+GameObject* Angle = nullptr;
+GameObject* Wind = nullptr;
+GameObject* HP = nullptr;
+GameObject* enemyHP = nullptr;
+GameObject* Attack = nullptr;
+GameObject* enemyAttack = nullptr;
+
 void level::CombatLevel::Init()
 {
 	// background
@@ -80,7 +90,7 @@ void level::CombatLevel::Init()
 		tc = temp->GetComponent<ColliderComp>();
 		tc->SetCollider();
 
-		//
+		////
 
 		temp = new GameObject();
 
@@ -164,7 +174,7 @@ void level::CombatLevel::Init()
 		tc = temp->GetComponent<ColliderComp>();
 		tc->SetCollider();
 
-		//
+		////
 
 		temp = new GameObject();
 
@@ -186,6 +196,25 @@ void level::CombatLevel::Init()
 		tc->SetCollider();
 
 		//
+
+		temp = new GameObject();
+
+		temp->type = GameObject::LeftTri;
+
+		temp->AddComponent<TransformComp>();
+		temp->AddComponent<SpriteComp>();
+		temp->AddComponent<ColliderComp>();
+
+		tt = temp->GetComponent<TransformComp>();
+		tt->SetScale({ 200, 100 });
+		tt->SetPos({ -250, 200 });
+
+		ts = temp->GetComponent<SpriteComp>();
+		ts->SetColor(0, 0, 0);
+		ts->SetAlpha(1);
+
+		tc = temp->GetComponent<ColliderComp>();
+		tc->SetCollider();
 	}
 
 	{
@@ -238,16 +267,6 @@ void level::CombatLevel::Init()
 	}
 
 	{
-		GameObject* UIBAR = nullptr;
-		GameObject* Power = nullptr;
-		GameObject* Move = nullptr;
-		GameObject* Angle = nullptr;
-		GameObject* Wind = nullptr;
-		GameObject* HP = nullptr;
-		GameObject* enemyHP = nullptr;
-		GameObject* Attack = nullptr;
-		GameObject* enemyAttack = nullptr;
-
 		UIBAR = new GameObject();
 		UIBAR->AddComponent<SpriteComp>();
 		UIBAR->AddComponent<AudioComp>();
@@ -308,7 +327,7 @@ void level::CombatLevel::Init()
 		Attack->AddComponent<AudioComp>();
 		Attack->AddComponent<TransformComp>();
 		TransformComp* transAttack = Attack->GetComponent<TransformComp>();
-		transAttack->SetScale({ 130,200 });
+		transAttack->SetScale({ 130, 200 });
 		transAttack->SetPos({ -600, -330 });
 		SpriteComp* AttackSprite = Attack->GetComponent<SpriteComp>();
 		AttackSprite->SetTexture("Assets/arrow.png");
@@ -319,7 +338,7 @@ void level::CombatLevel::Init()
 		enemyHP->AddComponent<AudioComp>();
 		enemyHP->AddComponent<TransformComp>();
 		TransformComp* transHP_e = enemyHP->GetComponent<TransformComp>();
-		transHP_e->SetScale({ 80,200 });
+		transHP_e->SetScale({ 80, 200 });
 		transHP_e->SetPos({ 720, -330 });
 		SpriteComp* HPSprite_e = enemyHP->GetComponent<SpriteComp>();
 		HPSprite_e->SetTexture("Assets/arrow.png");
@@ -351,6 +370,10 @@ void level::CombatLevel::Init()
 
 void level::CombatLevel::Update()
 {
+	TransformComp* transMove = Move->GetComponent<TransformComp>();
+	transMove->SetScale({ 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * (0.001f)), 80 });
+	transMove->SetPos({ 150 - (750 - 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f)) / 2, -380 });
+
 	if (AEInputCheckTriggered(AEVK_F) && player->GetComponent<PlayerComp>()->turn)
 	{
 		player->GetComponent<PlayerComp>()->moveState = false;
