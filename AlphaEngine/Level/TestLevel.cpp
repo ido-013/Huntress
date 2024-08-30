@@ -9,6 +9,30 @@
 #include "../GameObjectManager/GameObjectManager.h"
 #include <iostream>
 
+std::string map[20] =
+{
+	"--------------------",
+	"--------------------",
+	"--------------------",
+	"--------------------",
+	"--------------------",
+	"--------------------",
+	"--------------------",
+	"--------------------",
+	"--------------------",
+	"--------------------",
+	//"-------rSSSSl-------",
+	//"------rSSSSSSl------",
+	//"-----rSSSSSSSSl-----",
+	//"----rSSSSSSSSSSl----",
+	//"---rSSSSSSSSSSSSl---",
+	//"SSSSSSSSSSSSSSSSSSSS",
+	//"SSSSSSSSSSSSSSSSSSSS",
+	//"SSSSSSSSSSSSSSSSSSSS",
+	//"SSSSSSSSSSSSSSSSSSSS",
+	//"SSSSSSSSSSSSSSSSSSSS"
+};
+
 void level::TestLevel::Init()
 {
 	
