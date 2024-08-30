@@ -1,3 +1,5 @@
 #pragma once
 
-int 
+void GameStart();
+void EarnPrize(int round, int unittype);
+//void initLevel();
