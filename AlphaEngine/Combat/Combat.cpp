@@ -6,6 +6,7 @@
 #include "../Components/RigidbodyComp.h"
 #include "../GameObjectManager/GameObjectManager.h"
 #include "../Components/SpriteComp.h"
+#include "../Components/PlayerComp.h"
 #include "../Combat/Projectile.h"
 #include <cmath>
 #include "AEInput.h"
@@ -168,7 +169,7 @@ void CombatComp::FireAnArrow(int dealer, GameObject& directionArrow)
 	projectile->GetComponent<TransformComp>()->SetPos(player->GetComponent<TransformComp>()->GetPos());
 	projectile->GetComponent<TransformComp>()->SetScale({ 28, 10 });
 
-	projectile->GetComponent<SpriteComp>()->SetTexture("../Assets/Character/ArrowAttack/Arrow/Arrow.png");
+	projectile->GetComponent<SpriteComp>()->SetTexture("Assets/Character/ArrowAttack/Arrow/Arrow.png");
 	projectile->GetComponent<SpriteComp>()->SetAlpha(1);
 	pVelocity = 19;
 	projectile->GetComponent<Projectile>()->SetVelocity(dealer == 0 ? pVelocity : eVelocity);
@@ -177,6 +178,11 @@ void CombatComp::FireAnArrow(int dealer, GameObject& directionArrow)
 	projectile->GetComponent<Projectile>()->CalculateProjectileMotion();
 	projectile->GetComponent<Projectile>()->isLaunchProjectile = true;
 	isReadyLaunch = false;
+
+	if (dealer == 0)
+	{
+		player->GetComponent<PlayerComp>()->turn = false;
+	}
 }
 
 void CombatComp::SetPlayerAngle(float angle)
@@ -242,7 +248,7 @@ void CombatComp::Update()
 				DrawDirectionPegline(*directionArrow,
 					0,
 					{ (float)px, (float)-py },
-					{ -120.f, 120.f });
+					{ -60.f, 60.f });
 		}
 	}
 	else

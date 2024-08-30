@@ -46,6 +46,16 @@ void RigidbodyComp::CorrectPosByAABB(ColliderComp* oc, ColliderComp* c, float& x
 		y = oc->GetPos().y - oc->GetScale().y / 2 - c->GetScale().y / 2;
 		break;
 	}
+
+	if (abs(x - (oc->GetPos().x - oc->GetScale().x / 2 - c->GetScale().x / 2)) < 0.1f && abs(y - (oc->GetPos().y + oc->GetScale().y / 2 + c->GetScale().y / 2)) < 0.1f)
+	{
+		x += -1;
+	}
+		
+	if (abs(x - (oc->GetPos().x + oc->GetScale().x / 2 + c->GetScale().x / 2)) < 0.1f && abs(y - (oc->GetPos().y + oc->GetScale().y / 2 + c->GetScale().y / 2)) < 0.1f)
+	{
+		x += 1;
+	}
 }
 
 RigidbodyComp::RigidbodyComp(GameObject* _owner) : EngineComponent(_owner), velocity(), maxVelocity()
@@ -192,8 +202,6 @@ void RigidbodyComp::Update()
 
 	velocity.x = AEClamp(velocity.x, -maxVelocity.x, maxVelocity.x);
 	velocity.y = AEClamp(velocity.y, -maxVelocity.y, maxVelocity.y);
-
-	//
 	
 	/*if (velocity.x == 0)
 	{

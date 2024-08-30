@@ -33,16 +33,28 @@ void PlayerComp::Update()
 
 	r->SetVelocityX(0);
 
-	if (AEInputCheckCurr(AEVK_A) && movementGauge > 0)
+	if (AEInputCheckCurr(AEVK_A) && movementGauge > 0 && moveState)
 	{
+		t->SetScale({ -abs(t->GetScale().x), t->GetScale().y });
 		r->SetVelocityX(-speed);
 		movementGauge--;
 	}
 
-	if (AEInputCheckCurr(AEVK_D) && movementGauge > 0)
+	if (AEInputCheckCurr(AEVK_D) && movementGauge > 0 && moveState)
 	{
+		t->SetScale({ abs(t->GetScale().x), t->GetScale().y });
 		r->SetVelocityX(speed);
 		movementGauge--;
+	}
+
+	if (movementGauge <= 0)
+	{
+		moveState = false;
+	}
+
+	if (!turn)
+	{
+		movementGauge = 1000;
 	}
 }
 
