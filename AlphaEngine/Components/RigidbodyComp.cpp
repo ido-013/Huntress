@@ -173,7 +173,6 @@ void RigidbodyComp::Update()
 	else
 		acceleration.y = 0.f;
 
-	// lerp 함수로 대체하기
 	if (t->GetRot() < targetRot)
 	{
 		t->SetRot(t->GetRot() + dt * 10);
@@ -208,7 +207,7 @@ void RigidbodyComp::Update()
 	velocity.x /= drag;
 	velocity.y /= drag;
 
-	//If im too low, just set to 0
+	////If im too low, just set to 0
 	if (CheckEpsilon(velocity.x) == false)
 		velocity.x = 0;
 
@@ -244,9 +243,14 @@ void RigidbodyComp::Update()
 				}
 				else
 				{
-					//x = oc->GetPos().x + (c->GetPos().y - oc->GetPos().y) * (oc->GetScale().x / oc->GetScale().y) - c->GetScale().x / 2;
-					y = oc->GetPos().y + (c->GetPos().x - oc->GetPos().x) * (oc->GetScale().y / oc->GetScale().x) + c->GetScale().y / 2;
-					//targetRot = AEATan(oc->GetScale().y / oc->GetScale().x);
+					targetRot = AEATan(oc->GetScale().y / oc->GetScale().x);
+					y = oc->GetPos().y + 
+						(c->GetPos().x + (c->GetScale().x / 2 * (abs(AESin(targetRot) * 0.5f))) - oc->GetPos().x) *
+						(oc->GetScale().y / oc->GetScale().x) + 
+						c->GetScale().y / 2;
+					//y = oc->GetPos().y + ((c->GetPos().x + velocity.x * dt) + c->GetScale().x / 2 - oc->GetPos().x) * (oc->GetScale().y / oc->GetScale().x) + c->GetScale().y / 2;
+					//x = oc->GetPos().x + (y - c->GetScale().y / 2 - oc->GetPos().y) * (oc->GetScale().x / oc->GetScale().y) - c->GetScale().x / 2;
+					
 				}
 			}
 		
@@ -259,9 +263,15 @@ void RigidbodyComp::Update()
 				}
 				else
 				{
-					y = oc->GetPos().y + (c->GetPos().x - oc->GetPos().x) * (-oc->GetScale().y / oc->GetScale().x) + c->GetScale().y / 2;
-					//targetRot = AEATan(-oc->GetScale().y / oc->GetScale().x);
+					targetRot = AEATan(-oc->GetScale().y / oc->GetScale().x);
+					y = oc->GetPos().y +
+						(c->GetPos().x - (c->GetScale().x / 2 * (abs(AESin(targetRot) * 0.5f))) - oc->GetPos().x) *
+						(-oc->GetScale().y / oc->GetScale().x) +
+						c->GetScale().y / 2;
+					//y = oc->GetPos().y + ((c->GetPos().x + velocity.x * dt) - c->GetScale().x / 2 - oc->GetPos().x) * (-oc->GetScale().y / oc->GetScale().x) + c->GetScale().y / 2;
+					//x = oc->GetPos().x + (y - c->GetScale().y / 2 - oc->GetPos().y) * (-oc->GetScale().x / oc->GetScale().y) + c->GetScale().x / 2;
 				}
+
 				//t->SetRot(AEDegToRad(-45));
 				//x = c->GetPos().x + velocity.x * AECos(AEDegToRad(-45)) * dt + c->GetScale().x / 2;
 				//x = oc->GetPos().x + (c->GetPos().y - oc->GetPos().y) * (-oc->GetScale().x / oc->GetScale().y) + c->GetScale().x / 2;
