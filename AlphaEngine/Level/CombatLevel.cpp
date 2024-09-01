@@ -63,12 +63,13 @@ void level::CombatLevel::Init()
 	directionArrow->GetComponent<TransformComp>()->SetScale({ 42, 260 });
 	directionArrow->GetComponent<SpriteComp>()->SetTexture("../Assets/Character/DirectionArrow.png");
 	directionArrow->GetComponent<SpriteComp>()->SetAlpha(0);
+	directionArrow->GetComponent<CombatComp>()->turn = CombatComp::TURN::PLAYERTURN;
+	directionArrow->GetComponent<CombatComp>()->isCombat = true;
 
 	// enemy
 	enemy = new GameObject("enemy");
 
 	enemy->AddComponent<TransformComp>();
-	enemy->AddComponent<PlayerComp>();
 	enemy->AddComponent<RigidbodyComp>();
 	enemy->AddComponent<SpriteComp>();
 
@@ -78,16 +79,12 @@ void level::CombatLevel::Init()
 	enemy->GetComponent<SpriteComp>()->SetTexture("../Assets/Character/ArrowAttack/sprite/ScoutAttackArrow1.png");
 	enemy->GetComponent<SpriteComp>()->SetAlpha(1);
 
+
 	Prefab::SavePrefab("test", player);
 }
 
 void level::CombatLevel::Update()
 {
-	if (AEInputCheckTriggered(AEVK_F))
-	{
-		directionArrow->GetComponent<CombatComp>()->isDrawDirection = true;
-		directionArrow->GetComponent<CombatComp>()->isChaseDirection = true;
-	}
 }
 
 void level::CombatLevel::Exit()

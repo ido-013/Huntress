@@ -104,7 +104,11 @@ void Projectile::Update()
         {
             isLaunchProjectile = false;
             projectile->GetComponent<SpriteComp>()->SetAlpha(0);
-            GameObjectManager::GetInstance().GetObj("directionArrow")->GetComponent<CombatComp>()->isDrawDirection = false;
+            GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
+            directionArrow->GetComponent<CombatComp>()->isDrawDirection = false;
+            directionArrow->GetComponent<CombatComp>()->InitEnemyValue();
+            directionArrow->GetComponent<SpriteComp>()->SetAlpha(0);
+            CombatComp::turn = CombatComp::TurnChange();
         }
     }
 }
