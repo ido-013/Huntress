@@ -2,20 +2,19 @@
 #include "../ComponentManager/BaseComponent.h"
 #include "../GameObjectManager/GameObjectManager.h"
 
-
-GameObject::GameObject()
+GameObject::GameObject() : type(None)
 {
 	GameObjectManager::GetInstance().AddObject(this);
 }
 
-GameObject::GameObject(std::string str)
+GameObject::GameObject(std::string str) : type(None)
 {
 	GameObjectManager::GetInstance().InsertObject(this, str);
 }
 
 GameObject::~GameObject()
 {
-	for (auto it : component)
+	for (auto& it : component)
 	{
 		if (it.second)
 			delete it.second;	

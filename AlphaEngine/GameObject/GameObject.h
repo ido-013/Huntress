@@ -20,6 +20,7 @@ public:
 		RightTri,
 		Point,
 		Player,
+		Particle,
 	};
 
 	GameObject();

@@ -168,38 +168,11 @@ void RigidbodyComp::Update()
 	float tw = t->GetScale().x;
 	float th = t->GetScale().y;
 
-	if (useGravity)
-		acceleration.y = -500.f;
-	else
-		acceleration.y = 0.f;
-
-	if (t->GetRot() < targetRot)
-	{
-		t->SetRot(t->GetRot() + dt * 10);
-	}
-
-	if (t->GetRot() > targetRot)
-	{
-		t->SetRot(t->GetRot() - dt * 10);
-	}
-
-	if (abs(t->GetRot() - targetRot) < 0.2f)
-	{
-		t->SetRot(targetRot);
-	}
-
 	velocity.x += acceleration.x * dt;
-	velocity.y += acceleration.y * dt;
+	velocity.y += acceleration.y * dt + (useGravity ? -500.f * dt : 0.f );
 
 	velocity.x = AEClamp(velocity.x, -maxVelocity.x, maxVelocity.x);
 	velocity.y = AEClamp(velocity.y, -maxVelocity.y, maxVelocity.y);
-	
-	// ±â¿ï±â ¹Ì²ô·¯Áü
-	/*if (AERadToDeg(targetRot) > 40)
-		velocity.x = -10;
-
-	if (AERadToDeg(targetRot) < -40)
-		velocity.x = 10;*/
 
 	float x = t->GetPos().x + velocity.x * dt;
 	float y = t->GetPos().y + velocity.y * dt;
@@ -215,9 +188,30 @@ void RigidbodyComp::Update()
 		velocity.y = 0;
 
 	ColliderComp* c = owner->GetComponent<ColliderComp>();
-
 	if (c != nullptr)
 	{
+		if (t->GetRot() < targetRot)
+		{
+			t->SetRot(t->GetRot() + dt * 10);
+		}
+
+		if (t->GetRot() > targetRot)
+		{
+			t->SetRot(t->GetRot() - dt * 10);
+		}
+
+		if (abs(t->GetRot() - targetRot) < 0.2f)
+		{
+			t->SetRot(targetRot);
+		}
+
+		// ±â¿ï±â ¹Ì²ô·¯Áü
+		/*if (AERadToDeg(targetRot) > 40)
+			velocity.x = -10;
+
+		if (AERadToDeg(targetRot) < -40)
+			velocity.x = 10;*/
+
 		if (c->oppoCollider.size() > 1)
 			c->SetPos({ c->GetPos().x, c->GetPos().y + 1.0f });
 
@@ -250,7 +244,6 @@ void RigidbodyComp::Update()
 						c->GetScale().y / 2;
 					//y = oc->GetPos().y + ((c->GetPos().x + velocity.x * dt) + c->GetScale().x / 2 - oc->GetPos().x) * (oc->GetScale().y / oc->GetScale().x) + c->GetScale().y / 2;
 					//x = oc->GetPos().x + (y - c->GetScale().y / 2 - oc->GetPos().y) * (oc->GetScale().x / oc->GetScale().y) - c->GetScale().x / 2;
-					
 				}
 			}
 		

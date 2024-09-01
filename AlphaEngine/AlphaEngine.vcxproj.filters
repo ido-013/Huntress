@@ -126,6 +126,12 @@
     <ClCompile Include="Level\CombatLevel.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Particle\Particle.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\LifetimeComp.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GSM\GameStateManager.h">
@@ -279,6 +285,12 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Level\CombatUI.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle\Particle.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\LifetimeComp.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

@@ -14,6 +14,7 @@ public:
 	bool turn = true;
 	bool moveState = true;
 	bool shootState = false;
+	bool temp = false;
 
 	PlayerComp(GameObject* _owner);
 	~PlayerComp();

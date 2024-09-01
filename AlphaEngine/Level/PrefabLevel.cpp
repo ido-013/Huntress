@@ -22,6 +22,7 @@ void level::PrefabLevel::Init()
 	temp->AddComponent<TransformComp>();
 	temp->AddComponent<SpriteComp>();
 	temp->AddComponent<ColliderComp>();
+	temp->AddComponent<AudioComp>();
 
 	tt = temp->GetComponent<TransformComp>();
 	tt->SetScale({ 100, 100 });
@@ -29,14 +30,13 @@ void level::PrefabLevel::Init()
 
 	ts = temp->GetComponent<SpriteComp>();
 	ts->SetColor(0, 0, 0);
-	ts->SetAlpha(1);
 
 	tc = temp->GetComponent<ColliderComp>();
 	tc->SetCollider();
 
 	//
 
-	temp = new GameObject();
+	/*temp = new GameObject();
 
 	temp->type = GameObject::Square;
 
@@ -53,7 +53,7 @@ void level::PrefabLevel::Init()
 	ts->SetAlpha(1);
 
 	tc = temp->GetComponent<ColliderComp>();
-	tc->SetCollider();
+	tc->SetCollider();*/
 
 	//
 
@@ -92,10 +92,10 @@ void level::PrefabLevel::Init()
 
 	ts = temp->GetComponent<SpriteComp>();
 	ts->SetColor(0, 0, 0);
-	ts->SetAlpha(1);*/
+	ts->SetAlpha(1);
 
 	tc = temp->GetComponent<ColliderComp>();
-	tc->SetCollider();
+	tc->SetCollider();*/
 	
 	//
 

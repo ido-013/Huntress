@@ -17,8 +17,8 @@ AudioComp::~AudioComp()
 		ResourceManager::GetInstance().UnloadResource(it.first);
 	}
 	
-	//AEAudioStopGroup(group);
-	//AEAudioUnloadAudioGroup(group);
+	AEAudioStopGroup(group);
+	AEAudioUnloadAudioGroup(group);
 	ComponentManager<AudioComp>::GetInstance().DelComp(this);
 }
 
