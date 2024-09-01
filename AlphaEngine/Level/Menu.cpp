@@ -22,32 +22,42 @@ void level::Menu::Init() {
     SpriteComp* LogoSprite = Logo->GetComponent<SpriteComp>();
     LogoSprite->SetTexture("Assets/arrow.png");
     LogoSprite->SetColor(255, 255, 255);
-
+    
     // Start 버튼 초기화 및 등록
     startButtonObj = new GameObject();
-    startButtonObj->AddComponent<ButtonComp>();
-    ButtonComp* startButton = startButtonObj->GetComponent<ButtonComp>();
+    startButtonObj->AddComponent<SpriteComp>();
+    startButtonObj->AddComponent<TransformComp>();
+    TransformComp* startButton = startButtonObj->GetComponent<TransformComp>();
     startButton->SetPos({ 0, -100 });
     startButton->SetScale({ 500, 100 });
-    startButton->LoadFromJson({
-        {"pos", {{"x", 0}, {"y", -100}}},
-        {"scale", {{"x", 500}, {"y", 100}}},
-        {"texturePath", "Assets/arrow.png"}
-        });
-    ButtonManager::GetInstance().RegisterButton(startButton);
+    SpriteComp* startSprite = startButtonObj->GetComponent<SpriteComp>();
+    startSprite->SetTexture("Assets/arrow.png");
+    startSprite->SetColor(255, 255, 255);
+    startButtonObj->AddComponent<ButtonComp>();
+    ButtonComp* startBtn = startButtonObj->GetComponent<ButtonComp>();
+    startBtn->SetOnClickFunction([]() {
+        std::cout << "Start Button Clicked!" << std::endl;
+        // Start 게임 시작 로직 추가
+    });
+    ButtonManager::GetInstance().RegisterButton(startBtn);
 
     // Quit 버튼 초기화 및 등록
     quitButtonObj = new GameObject();
-    quitButtonObj->AddComponent<ButtonComp>();
-    ButtonComp* quitButton = quitButtonObj->GetComponent<ButtonComp>();
+    quitButtonObj->AddComponent<SpriteComp>();
+    quitButtonObj->AddComponent<TransformComp>();
+    TransformComp* quitButton = quitButtonObj->GetComponent<TransformComp>();
     quitButton->SetPos({ 0, -300 });
     quitButton->SetScale({ 500, 100 });
-    quitButton->LoadFromJson({
-        {"pos", {{"x", 0}, {"y", -300}}},
-        {"scale", {{"x", 500}, {"y", 100}}},
-        {"texturePath", "Assets/arrow.png"}
-        });
-    ButtonManager::GetInstance().RegisterButton(quitButton);
+    SpriteComp* quitSprite = quitButtonObj->GetComponent<SpriteComp>();
+    quitSprite->SetTexture("Assets/arrow.png");
+    quitSprite->SetColor(255, 255, 255);
+    quitButtonObj->AddComponent<ButtonComp>();
+    ButtonComp* quitBtn = quitButtonObj->GetComponent<ButtonComp>();
+    quitBtn->SetOnClickFunction([]() {
+        std::cout << "Quit Button Clicked!" << std::endl;
+        // Quit 게임 종료 로직 추가
+    });
+    ButtonManager::GetInstance().RegisterButton(quitBtn);
 }
 
 void level::Menu::Update() {

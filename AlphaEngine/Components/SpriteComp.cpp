@@ -2,7 +2,7 @@
 #include "TransformComp.h"
 #include "../ResourceManager/ResourceManager.h"
 
-SpriteComp::SpriteComp(GameObject* _owner) : GraphicComponent(_owner), color(), tex(nullptr), mesh(nullptr), textureName() 
+SpriteComp::SpriteComp(GameObject* _owner) : GraphicComponent(_owner), color(), tex(nullptr), mesh(nullptr), textureName() ,Alpha(1)
 {
 	SetMesh();
 }

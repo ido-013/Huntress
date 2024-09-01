@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "../Components/ButtonComp.h"  // ButtonComp 경로를 맞게 수정
+#include "../Components/ButtonComp.h"  
 #include "AEInput.h"
 
 class ButtonManager {
@@ -21,7 +21,7 @@ public:
 
     // 버튼 제거
     void RemoveButton(ButtonComp* button) {
-        buttons.erase(std::remove(buttons.begin(), buttons.end(), button), buttons.end());
+       // buttons.erase(std::remove(buttons.begin(), buttons.end(), button), buttons.end());
     }
 
     // 마우스 클릭 이벤트 처리

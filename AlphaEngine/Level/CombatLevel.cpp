@@ -88,9 +88,6 @@ void level::CombatLevel::Init()
 	enemy->GetComponent<SpriteComp>()->SetAlpha(1);
 
 		//Prefab::SavePrefab("test", player);
-	}
-
-	{
 	
 		UIBAR = new GameObject();
 		UIBAR->AddComponent<SpriteComp>();
@@ -190,7 +187,7 @@ void level::CombatLevel::Init()
 		SpriteComp* WindSprite = Wind->GetComponent<SpriteComp>();
 		WindSprite->SetTexture("Assets/arrow.png");
 		WindSprite->SetColor(120, 120, 120);
-	}
+	
 }
 
 void level::CombatLevel::Update()

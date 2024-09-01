@@ -187,6 +187,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="RTTI\Registry.h" />
     <ClInclude Include="Serializer\Serializer.h" />
     <ClInclude Include="Shop\Shop.h" />
+    <ClInclude Include="UIM\BtnManager.h" />
     <ClInclude Include="Utils\Direction.h" />
     <ClInclude Include="Utils\Size.h" />
     <ClInclude Include="Utils\Utils.h" />

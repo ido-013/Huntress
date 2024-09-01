@@ -8,25 +8,26 @@ ButtonComp::ButtonComp(GameObject* _owner)
 {
     ButtonManager::GetInstance().RegisterButton(this);
     EventManager::GetInstance().AddEntity(this);
+    pos = owner->GetComponent<TransformComp>()->GetPos();
+    scale = owner->GetComponent<TransformComp>()->GetScale();
 }
-
 ButtonComp::~ButtonComp()
 {
     ButtonManager::GetInstance().RemoveButton(this);
     EventManager::GetInstance().DelEntity(this);
 }
-
 void ButtonComp::Update()
 {
-    // 이곳에 추가적인 업데이트 로직을 구현할 수 있습니다.
+    // 필요 시 추가적인 업데이트 로직을 여기에 작성
 }
 
 void ButtonComp::OnEvent(Event* e)
 {
     if (dynamic_cast<ButtonClickEvent*>(e) != nullptr)
     {
-        std::cout << "Button clicked and handled in OnEvent!" << std::endl;
-        // 클릭 시 실행할 추가 로직을 여기에 작성
+        if (onClickFunction) {
+            onClickFunction();  // 등록된 함수를 호출
+        }
     }
 }
 
@@ -50,20 +51,20 @@ AEVec2 ButtonComp::Getscale()
     return scale;
 }
 
-// 마우스가 버튼 영역 안에 있는지 확인하는 메서드
 bool ButtonComp::IsClicked(int mouseX, int mouseY) const
 {
     return (mouseX > pos.x - scale.x / 2 && mouseX < pos.x + scale.x / 2 &&
         mouseY > pos.y - scale.y / 2 && mouseY < pos.y + scale.y / 2);
 }
 
-// 버튼이 클릭되었을 때 호출되는 메서드
 void ButtonComp::OnClick()
 {
-    // 이벤트 매니저에 버튼 클릭 이벤트 추가
     EventManager::GetInstance().AddEvent<ButtonClickEvent>(this, this);
+}
 
-    // 추가적으로 클릭 시 색상 변경 등 피드백을 추가할 수 있습니다.
+void ButtonComp::SetOnClickFunction(std::function<void()> func)
+{
+    onClickFunction = func;
 }
 
 void ButtonComp::LoadFromJson(const json& data)

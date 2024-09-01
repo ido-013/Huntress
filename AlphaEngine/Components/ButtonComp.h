@@ -3,7 +3,7 @@
 #include "../EventManager/EventManager.h"
 #include "../Components/TransformComp.h"
 #include "../Components/SpriteComp.h"
-#include "AEVec2.h"
+#include <functional>  // std::function 사용
 
 class ButtonComp : public EngineComponent, public Entity
 {
@@ -11,6 +11,9 @@ private:
     AEVec2 pos;
     AEVec2 scale;
     std::string texturePath;
+
+    // 클릭 시 실행할 함수
+    std::function<void()> onClickFunction;
 
 public:
     ButtonComp(GameObject* _owner);
@@ -27,10 +30,10 @@ public:
     AEVec2 GetPos();
     AEVec2 Getscale();
 
-    // IsClicked 메서드 추가: 마우스 좌표를 받아 클릭되었는지 확인
-    bool IsClicked(int mouseX, int mouseY) const;
+    // 클릭 시 호출할 함수를 등록
+    void SetOnClickFunction(std::function<void()> func);
 
-    // OnClick 메서드 추가: 클릭되었을 때 호출
+    bool IsClicked(int mouseX, int mouseY) const;
     void OnClick();
 
     void LoadFromJson(const json&) override;
