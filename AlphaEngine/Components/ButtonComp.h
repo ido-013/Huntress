@@ -34,6 +34,8 @@ public:
     void SetOnClickFunction(std::function<void()> func);
 
     bool IsClicked(int mouseX, int mouseY) const;
+
+    // OnClick 메서드 추가: 클릭되었을 때 호출
     void OnClick();
 
     void LoadFromJson(const json&) override;
