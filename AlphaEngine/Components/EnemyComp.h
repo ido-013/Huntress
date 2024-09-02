@@ -6,7 +6,7 @@
 class PlayerComp : public LogicComponent
 {
 private:
-	float speed = 100;	
+	float speed = 100;
 	int movementGauge = 1000;
 	int maxMovementGauge = 1000;
 

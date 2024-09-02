@@ -11,6 +11,7 @@
 #include <cmath>
 #include "AEInput.h"
 #include "AEMath.h"
+#include "../Utils/Size.h"
 
 CombatComp::TURN CombatComp::turn = NOBODYTURN;
 
@@ -24,8 +25,8 @@ bool CombatComp::isSetLaunchAngle = false;
 
 GameObject* projectile = new GameObject("projectile");
 
-CombatComp::CombatComp(GameObject* _owner) : EngineComponent(_owner), 
-pAngle(0), eAngle(RAD90), pVelocity(0), eVelocity(0), pPower(8), ePower(5)
+CombatComp::CombatComp(GameObject* _owner) : EngineComponent(_owner),
+pAngle(0), eAngle(RAD90), pVelocity(0), eVelocity(0), pPower(8), ePower(5), AICombatSystemApplyWind(true)
 {
 	
 }
@@ -134,7 +135,7 @@ void CombatComp::DrawDirectionPegline(GameObject& directionArrow,
 		s32 px, py;
 		AEInputGetCursorPosition(&px, &py);
 		angle = AngleBetweenSegments(atf->GetPos(), dtf->GetPos(), 
-			atf->GetPos(), { (float)px - 800, (float)-(py - 450) });
+			atf->GetPos(), { (float)px - windowWidthHalf, (float)-(py - windowHeightHalf) });
 	}
 	else
 	{
@@ -180,7 +181,6 @@ void CombatComp::FireAnArrow(TURN turn, GameObject& directionArrow)
 		GameObjectManager::GetInstance().GetObj("enemy");
 
 	projectile->AddComponent<TransformComp>();
-	projectile->AddComponent<RigidbodyComp>();
 	projectile->AddComponent<SpriteComp>();
 	projectile->AddComponent<Projectile>();
 
@@ -294,10 +294,10 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 		float initialVelocityY = eVelocity * std::sin(eAngle);
 
 		while (true)
-		{	
+		{
 			// 현재 속도 계산 (속도에 공기 저항과 바람 적용)
-			float velocityX = initialVelocityX;// +wind.x;
-			float velocityY = initialVelocityY;// +wind.y;
+			float velocityX = initialVelocityX + (AICombatSystemApplyWind ? Projectile::wind.x : 0);
+			float velocityY = initialVelocityY + (AICombatSystemApplyWind ? Projectile::wind.y : 0);
 
 			float airResistanceX = -AIR_RESISTANCE_COEFFICIENT
 				* velocityX * std::abs(velocityX);// / mass;
@@ -414,6 +414,7 @@ void CombatComp::Update()
 							PLAYERTURN, { -ANGLE_LIMIT, ANGLE_LIMIT });
 				}
 
+				dtf->SetScale({ directionArrowWidth, directionArrowHeight * pPower });
 				dtf->SetPos(
 					RotatePointAround(
 						ptf->GetPos(),
@@ -428,7 +429,6 @@ void CombatComp::Update()
 				if (isReadyLaunch)
 				{
 					FireAnArrow(PLAYERTURN, *directionArrow);
-					isReadyLaunch = false;
 				}
 			}
 			break;
@@ -461,6 +461,7 @@ void CombatComp::Update()
 							ENEMYTURN, { -ANGLE_LIMIT, ANGLE_LIMIT });
 				}
 
+				dtf->SetScale({ directionArrowWidth, directionArrowHeight * ePower });
 				dtf->SetPos(
 					RotatePointAround(
 						etf->GetPos(),
@@ -476,7 +477,6 @@ void CombatComp::Update()
 			if (isReadyLaunch)
 			{
 				FireAnArrow(ENEMYTURN, *directionArrow);
-				isReadyLaunch = false;
 			}
 			break;
 	}

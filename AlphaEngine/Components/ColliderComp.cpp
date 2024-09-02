@@ -52,8 +52,8 @@ void ColliderComp::SetCollider()
 	pos.x = t->GetPos().x;
 	pos.y = t->GetPos().y;
 
-	scale.x = t->GetScale().x;
-	scale.y = t->GetScale().y;
+	scale.x = abs(t->GetScale().x);
+	scale.y = abs(t->GetScale().y);
 
 	rot = t->GetRot();
 }
@@ -63,8 +63,8 @@ void ColliderComp::SetCollider(float posX, float posY, float scaleX, float scale
 	pos.x = posX;
 	pos.y = posY;
 
-	scale.x = scaleX;
-	scale.y = scaleY;
+	scale.x = abs(scaleX);
+	scale.y = abs(scaleY);
 
 	rot = _rot;
 }

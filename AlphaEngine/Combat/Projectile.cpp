@@ -1,24 +1,26 @@
 // Author : sinu
 
+#include "../Utils/Size.h"
 #include "Projectile.h"
 #include "../Components/TransformComp.h"
 #include "../Components/SpriteComp.h"
 #include "../Combat/Combat.h"
 #include "../GameObjectManager/GameObjectManager.h"
 
+AEVec2 Projectile::wind = { 0.f, 0.f };
 bool Projectile::isLaunchProjectile = false;
 const float ProjectileDelay = 0.001f;
 float velocityX = 0, velocityY = 0;
 
 Projectile::Projectile(GameObject* _owner) : LogicComponent(_owner), velocity(0), theta(0),
-mass(1), time(0), delay(0), initialVelocity({ 0,0 }), wind({ 0,0 }), startY(0), projectile(nullptr)
+mass(1), time(0), delay(0), initialVelocity({ 0,0 }), startY(0), projectile(nullptr)
 {
 
 }
 
 Projectile::Projectile(GameObject* _owner, float velocity_value, float theta_value) 
     : LogicComponent(_owner), velocity(velocity_value), theta(theta_value),
-    mass(1), time(0), delay(0), initialVelocity({ 0,0 }), wind({ 0,0 }), startY(0), projectile(nullptr)
+    mass(1), time(0), delay(0), initialVelocity({ 0,0 }), startY(0), projectile(nullptr)
 {
 
 }
@@ -43,8 +45,9 @@ void Projectile::CalculateProjectileMotion()
     initialVelocity.y = velocity * std::sin(theta);
     mass = 1.f;
     time = 0.0f;
-    GenerateRandomWind(wind);
-    startY = projectile->GetComponent<TransformComp>()->GetPos().y;
+    if(CombatComp::turn == CombatComp::PLAYERTURN)
+        GenerateRandomWind(Projectile::wind);
+    startY = -windowWidthHalf;
 }
 
 void Projectile::Update()

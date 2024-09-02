@@ -22,12 +22,12 @@ class Projectile : public LogicComponent
 	float time;
 	float delay;
 	AEVec2 initialVelocity;
-	AEVec2 wind;
 	float startY;
 	GameObject* projectile;
 	
 	~Projectile();
 public:
+	static AEVec2 wind;
 	Projectile(GameObject* _owner);
 	Projectile(GameObject* _owner, float velocity_value, float theta_value);
 

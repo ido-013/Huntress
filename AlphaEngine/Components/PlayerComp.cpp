@@ -30,8 +30,6 @@ void PlayerComp::Update()
 	SpriteComp* s = owner->GetComponent<SpriteComp>();
 	if (!s) return;
 
-	speed = 100;
-
 	r->SetVelocityX(0);
 
 	if (AEInputCheckCurr(AEVK_A) && movementGauge > 0 && moveState)
