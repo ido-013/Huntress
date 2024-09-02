@@ -1,5 +1,6 @@
 #include "ColliderComp.h"
 #include "TransformComp.h"
+#include "RigidbodyComp.h"
 #include "../CollisionManager/CollisionManager.h"
 #include "../EventManager/EventManager.h"
 
@@ -24,8 +25,13 @@ void ColliderComp::OnEvent(Event* e)
 {
 	if (dynamic_cast<CollisionEvent*>(e) != nullptr)
 	{
-		oppoCollider.push(static_cast<ColliderComp*>(e->src));
-		colliderType[static_cast<ColliderComp*>(e->src)->GetOwner()->type] = true;
+		RigidbodyComp* r = owner->GetComponent<RigidbodyComp>();
+
+		if (r)
+		{
+			r->oppoCollider.push(static_cast<ColliderComp*>(e->src));
+			r->colliderType[static_cast<ColliderComp*>(e->src)->GetOwner()->type] = true;
+		}
 	}
 }
 

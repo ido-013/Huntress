@@ -212,17 +212,17 @@ void RigidbodyComp::Update()
 		if (AERadToDeg(targetRot) < -40)
 			velocity.x = 10;*/
 
-		if (c->oppoCollider.size() > 1)
+		if (oppoCollider.size() > 1)
 			c->SetPos({ c->GetPos().x, c->GetPos().y + 1.0f });
 
-		while (!c->oppoCollider.empty())
+		while (!oppoCollider.empty())
 		{
-			ColliderComp* oc = c->oppoCollider.front();
-			c->oppoCollider.pop();
+			ColliderComp* oc = oppoCollider.front();
+			oppoCollider.pop();
 
 			GameObject::Type type = oc->GetOwner()->type;
 
-			if (type == GameObject::Square && !c->colliderType[GameObject::LeftTri] && !c->colliderType[GameObject::RightTri])
+			if (type == GameObject::Square && !colliderType[GameObject::LeftTri] && !colliderType[GameObject::RightTri])
 			{
 				CorrectPosByAABB(oc, c, x, y);
 				targetRot = AEDegToRad(0);
@@ -230,7 +230,7 @@ void RigidbodyComp::Update()
 
 			else if (type == GameObject::RightTri)
 			{
-				if (c->colliderType[GameObject::Square] && c->GetPos().x > oc->GetPos().x)
+				if (colliderType[GameObject::Square] && c->GetPos().x > oc->GetPos().x)
 				{
 					CorrectPosByAABB(oc, c, x, y);
 					targetRot = AEDegToRad(0);
@@ -249,7 +249,7 @@ void RigidbodyComp::Update()
 		
 			else if (type == GameObject::LeftTri)
 			{
-				if (c->colliderType[GameObject::Square] && c->GetPos().x < oc->GetPos().x)
+				if (colliderType[GameObject::Square] && c->GetPos().x < oc->GetPos().x)
 				{
 					CorrectPosByAABB(oc, c, x, y);
 					targetRot = AEDegToRad(0);
@@ -264,27 +264,12 @@ void RigidbodyComp::Update()
 					//y = oc->GetPos().y + ((c->GetPos().x + velocity.x * dt) - c->GetScale().x / 2 - oc->GetPos().x) * (-oc->GetScale().y / oc->GetScale().x) + c->GetScale().y / 2;
 					//x = oc->GetPos().x + (y - c->GetScale().y / 2 - oc->GetPos().y) * (-oc->GetScale().x / oc->GetScale().y) + c->GetScale().x / 2;
 				}
-
-				//t->SetRot(AEDegToRad(-45));
-				//x = c->GetPos().x + velocity.x * AECos(AEDegToRad(-45)) * dt + c->GetScale().x / 2;
-				//x = oc->GetPos().x + (c->GetPos().y - oc->GetPos().y) * (-oc->GetScale().x / oc->GetScale().y) + c->GetScale().x / 2;
-				//y = oc->GetPos().y + (c->GetPos().x - oc->GetPos().x) * (-oc->GetScale().y / oc->GetScale().x) + c->GetScale().y / 2;
-				//y = c->GetPos().y + velocity.x * AESin(AEDegToRad(-45)) * dt + c->GetScale().y / 2;
-				//if (velocity.x >= 0)
-				//{
-				//	y = t->GetPos().y + velocity.x * AESin(AEDegToRad(-45)) * dt + c->GetScale().y / 2;
-				//	/*if (y < oc->GetPos().y + (c->GetPos().x - oc->GetPos().x) * (-oc->GetScale().y / oc->GetScale().x) + c->GetScale().y / 2)
-				//		y = oc->GetPos().y + (c->GetPos().x - oc->GetPos().x) * (-oc->GetScale().y / oc->GetScale().x) + c->GetScale().y / 2;*/
-				//}
-				//	
-				//else
-				//	y = oc->GetPos().y + (c->GetPos().x - oc->GetPos().x) * (-oc->GetScale().y / oc->GetScale().x) + c->GetScale().y / 2;
 			}
 		}
 
 		for (int i = 0; i < 10; i++)
 		{
-			c->colliderType[i] = false;
+			colliderType[i] = false;
 		}
 
 		c->SetPos({ x, y });
