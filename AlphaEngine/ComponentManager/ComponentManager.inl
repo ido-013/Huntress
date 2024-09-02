@@ -11,7 +11,7 @@ inline void ComponentManager<T>::DelComp(T* comp)
     {
         if ((*it) == comp)
         {
-            component.erase(it);
+            *it = nullptr;
             return;
         }
     }
@@ -27,7 +27,20 @@ template <typename T>
 void ComponentManager<T>::Update()
 {
     for (auto it : component)
+    {     
+        if (it != nullptr)
+            it->Update();
+    }
+
+    for (auto it = component.begin(); it != component.end(); )
     {
-        it->Update();
+        if (*it == nullptr)
+        {
+            it = component.erase(it);
+        }
+        else
+        {
+            it++;
+        }
     }
 }

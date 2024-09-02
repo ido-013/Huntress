@@ -4,12 +4,12 @@ inline T* GameObject::AddComponent()
 	T* temp = GetComponent<T>();
 	if (temp != nullptr)
 	{
-		return nullptr;
+		return temp;
 	}
 
 	T* comp = new T(this);
 	component.insert({ T::TypeName, comp });
-	return temp;
+	return comp;
 }
 
 template <typename T>

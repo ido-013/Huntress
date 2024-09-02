@@ -13,16 +13,16 @@ bool RigidbodyComp::CheckEpsilon(float v, float EP)
 
 void RigidbodyComp::CorrectPosByAABB(ColliderComp* oc, ColliderComp* c, float& x, float& y)
 {
-	float dis[4];
-	dis[0] = abs(oc->GetPos().x + oc->GetScale().x / 2 - c->GetPos().x);
-	dis[1] = abs(oc->GetPos().x - oc->GetScale().x / 2 - c->GetPos().x);
-	dis[2] = abs(oc->GetPos().y + oc->GetScale().y / 2 - c->GetPos().y);
-	dis[3] = abs(oc->GetPos().y - oc->GetScale().y / 2 - c->GetPos().y);
+	float dis[3];
+	dis[0] = abs(oc->GetPos().x + oc->GetScale().x / 2 - (c->GetPos().x - c->GetScale().x));
+	dis[1] = abs(oc->GetPos().x - oc->GetScale().x / 2 - (c->GetPos().x + c->GetScale().x));
+	dis[2] = abs(oc->GetPos().y + oc->GetScale().y / 2 - (c->GetPos().y - c->GetScale().y));
+	//dis[3] = abs(oc->GetPos().y - oc->GetScale().y / 2 - (c->GetPos().y + c->GetScale().y));
 
 	float minDis = dis[0];
 	int minInd = 0;
 
-	for (int i = 1; i < 4; i++)
+	for (int i = 1; i < 3; i++)
 	{
 		if (dis[i] < minDis)
 		{
@@ -31,30 +31,26 @@ void RigidbodyComp::CorrectPosByAABB(ColliderComp* oc, ColliderComp* c, float& x
 		}
 	}
 
+	if (minInd < 0.1)
+		return;
+
 	switch (minInd)
 	{
 	case 0:
 		x = oc->GetPos().x + oc->GetScale().x / 2 + c->GetScale().x / 2;
+		velocity.x = 0;
 		break;
 	case 1:
 		x = oc->GetPos().x - oc->GetScale().x / 2 - c->GetScale().x / 2;
+		velocity.x = 0;
 		break;
 	case 2:
 		y = oc->GetPos().y + oc->GetScale().y / 2 + c->GetScale().y / 2;
+		velocity.y = 0;
 		break;
-	case 3:
+	/*case 3:
 		y = oc->GetPos().y - oc->GetScale().y / 2 - c->GetScale().y / 2;
-		break;
-	}
-
-	if (abs(x - (oc->GetPos().x - oc->GetScale().x / 2 - c->GetScale().x / 2)) < 0.1f && abs(y - (oc->GetPos().y + oc->GetScale().y / 2 + c->GetScale().y / 2)) < 0.1f)
-	{
-		x += -1;
-	}
-		
-	if (abs(x - (oc->GetPos().x + oc->GetScale().x / 2 + c->GetScale().x / 2)) < 0.1f && abs(y - (oc->GetPos().y + oc->GetScale().y / 2 + c->GetScale().y / 2)) < 0.1f)
-	{
-		x += 1;
+		break;*/
 	}
 }
 
@@ -164,53 +160,19 @@ void RigidbodyComp::Update()
 
 	//Get the transform
 	TransformComp* t = owner->GetComponent<TransformComp>();
-	if (t == nullptr)
-	{
-		return;
-	}
-
+	if (!t)	return;
+	
 	float tx = t->GetPos().x;
 	float ty = t->GetPos().y;
 
 	float tw = t->GetScale().x;
 	float th = t->GetScale().y;
 
-	if (useGravity)
-		acceleration.y = -500.f;
-	else
-		acceleration.y = 0.f;
-
-	//
-	// lerp 함수로 대체하기
-	if (t->GetRot() < targetRot)
-	{
-		t->SetRot(t->GetRot() + dt * 10);
-	}
-
-	if (t->GetRot() > targetRot)
-	{
-		t->SetRot(t->GetRot() - dt * 10);
-	}
-
-	if (abs(t->GetRot() - targetRot) < 0.2f)
-	{
-		t->SetRot(targetRot);
-	}
-
 	velocity.x += acceleration.x * dt;
-	velocity.y += acceleration.y * dt;
+	velocity.y += acceleration.y * dt + (useGravity ? -500.f * dt : 0.f );
 
 	velocity.x = AEClamp(velocity.x, -maxVelocity.x, maxVelocity.x);
 	velocity.y = AEClamp(velocity.y, -maxVelocity.y, maxVelocity.y);
-	
-	/*if (velocity.x == 0)
-	{
-		if (AERadToDeg(targetRot) > 40)
-			velocity.x = -10;
-
-		if (AERadToDeg(targetRot) < -40)
-			velocity.x = 10;
-	}*/
 
 	float x = t->GetPos().x + velocity.x * dt;
 	float y = t->GetPos().y + velocity.y * dt;
@@ -218,7 +180,7 @@ void RigidbodyComp::Update()
 	velocity.x /= drag;
 	velocity.y /= drag;
 
-	//If im too low, just set to 0
+	////If im too low, just set to 0
 	if (CheckEpsilon(velocity.x) == false)
 		velocity.x = 0;
 
@@ -226,9 +188,33 @@ void RigidbodyComp::Update()
 		velocity.y = 0;
 
 	ColliderComp* c = owner->GetComponent<ColliderComp>();
-	
 	if (c != nullptr)
 	{
+		if (t->GetRot() < targetRot)
+		{
+			t->SetRot(t->GetRot() + dt * 10);
+		}
+
+		if (t->GetRot() > targetRot)
+		{
+			t->SetRot(t->GetRot() - dt * 10);
+		}
+
+		if (abs(t->GetRot() - targetRot) < 0.2f)
+		{
+			t->SetRot(targetRot);
+		}
+
+		// 기울기 미끄러짐
+		/*if (AERadToDeg(targetRot) > 40)
+			velocity.x = -10;
+
+		if (AERadToDeg(targetRot) < -40)
+			velocity.x = 10;*/
+
+		if (c->oppoCollider.size() > 1)
+			c->SetPos({ c->GetPos().x, c->GetPos().y + 1.0f });
+
 		while (!c->oppoCollider.empty())
 		{
 			ColliderComp* oc = c->oppoCollider.front();
@@ -239,7 +225,6 @@ void RigidbodyComp::Update()
 			if (type == GameObject::Square && !c->colliderType[GameObject::LeftTri] && !c->colliderType[GameObject::RightTri])
 			{
 				CorrectPosByAABB(oc, c, x, y);
-				//t->SetRot(AEDegToRad(0));
 				targetRot = AEDegToRad(0);
 			}
 
@@ -248,17 +233,18 @@ void RigidbodyComp::Update()
 				if (c->colliderType[GameObject::Square] && c->GetPos().x > oc->GetPos().x)
 				{
 					CorrectPosByAABB(oc, c, x, y);
-					//t->SetRot(AEDegToRad(0));
 					targetRot = AEDegToRad(0);
 				}
 				else
 				{
-					y = oc->GetPos().y + (c->GetPos().x - oc->GetPos().x) * (oc->GetScale().y / oc->GetScale().x) + c->GetScale().y / 2;
-					//t->SetRot(AEATan(oc->GetScale().y / oc->GetScale().x));
 					targetRot = AEATan(oc->GetScale().y / oc->GetScale().x);
+					y = oc->GetPos().y + 
+						(c->GetPos().x + (c->GetScale().x / 2 * (abs(AESin(targetRot) * 0.5f))) - oc->GetPos().x) *
+						(oc->GetScale().y / oc->GetScale().x) + 
+						c->GetScale().y / 2;
+					//y = oc->GetPos().y + ((c->GetPos().x + velocity.x * dt) + c->GetScale().x / 2 - oc->GetPos().x) * (oc->GetScale().y / oc->GetScale().x) + c->GetScale().y / 2;
+					//x = oc->GetPos().x + (y - c->GetScale().y / 2 - oc->GetPos().y) * (oc->GetScale().x / oc->GetScale().y) - c->GetScale().x / 2;
 				}
-				//t->SetRot(AEDegToRad(45));
-				//y = oc->GetPos().y + (c->GetPos().x - oc->GetPos().x) * (oc->GetScale().y / oc->GetScale().x) + c->GetScale().y / 2;
 			}
 		
 			else if (type == GameObject::LeftTri)
@@ -266,15 +252,19 @@ void RigidbodyComp::Update()
 				if (c->colliderType[GameObject::Square] && c->GetPos().x < oc->GetPos().x)
 				{
 					CorrectPosByAABB(oc, c, x, y);
-					//t->SetRot(AEDegToRad(0));
 					targetRot = AEDegToRad(0);
 				}
 				else
 				{
-					y = oc->GetPos().y + (c->GetPos().x - oc->GetPos().x) * (-oc->GetScale().y / oc->GetScale().x) + c->GetScale().y / 2;
-					//t->SetRot(AEATan(-oc->GetScale().y / oc->GetScale().x));
 					targetRot = AEATan(-oc->GetScale().y / oc->GetScale().x);
+					y = oc->GetPos().y +
+						(c->GetPos().x - (c->GetScale().x / 2 * (abs(AESin(targetRot) * 0.5f))) - oc->GetPos().x) *
+						(-oc->GetScale().y / oc->GetScale().x) +
+						c->GetScale().y / 2;
+					//y = oc->GetPos().y + ((c->GetPos().x + velocity.x * dt) - c->GetScale().x / 2 - oc->GetPos().x) * (-oc->GetScale().y / oc->GetScale().x) + c->GetScale().y / 2;
+					//x = oc->GetPos().x + (y - c->GetScale().y / 2 - oc->GetPos().y) * (-oc->GetScale().x / oc->GetScale().y) + c->GetScale().x / 2;
 				}
+
 				//t->SetRot(AEDegToRad(-45));
 				//x = c->GetPos().x + velocity.x * AECos(AEDegToRad(-45)) * dt + c->GetScale().x / 2;
 				//x = oc->GetPos().x + (c->GetPos().y - oc->GetPos().y) * (-oc->GetScale().x / oc->GetScale().y) + c->GetScale().x / 2;

@@ -39,6 +39,7 @@ void GSM::GameStateManager::Update()
         ComponentManager<EngineComponent>::GetInstance().Update();
         ComponentManager<GraphicComponent>::GetInstance().Update();
         ComponentManager<AudioComp>::GetInstance().Update();
+        ComponentManager<LifetimeComp>::GetInstance().Update();
         ButtonManager::GetInstance().Update();
         EventManager::GetInstance().DispatchAllEvents();
 

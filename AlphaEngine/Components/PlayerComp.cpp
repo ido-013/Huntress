@@ -8,6 +8,7 @@
 #include "../GSM/GameStateManager.h"
 #include "../Prefab/Prefab.h"
 #include "../GameObjectManager/GameObjectManager.h"
+#include "../Particle/Particle.h"
 
 PlayerComp::PlayerComp(GameObject* _owner) : LogicComponent(_owner)
 {
@@ -29,7 +30,7 @@ void PlayerComp::Update()
 	SpriteComp* s = owner->GetComponent<SpriteComp>();
 	if (!s) return;
 
-	speed = 30;
+	speed = 100;
 
 	r->SetVelocityX(0);
 
@@ -54,7 +55,19 @@ void PlayerComp::Update()
 
 	if (!turn)
 	{
-		movementGauge = 1000;
+		movementGauge = maxMovementGauge;
+	}
+
+	if (AEInputCheckCurr(AEVK_SPACE) && !temp)
+	{
+		Particle p(5, 2, 5, { 255, 0, 0 });
+		p.PlayParticle(t->GetPos().x, t->GetPos().y);
+		temp = true;
+	}
+
+	else if (!AEInputCheckCurr(AEVK_SPACE) && temp == true)
+	{
+		temp = false;
 	}
 }
 
@@ -79,6 +92,11 @@ json PlayerComp::SaveToJson()
 	data["compData"] = compData;
 
 	return data;
+}
+
+float PlayerComp::GetMovegauge()
+{
+	return movementGauge;
 }
 
 BaseRTTI* PlayerComp::CreatePlayerComponent(GameObject* owner)

@@ -153,6 +153,15 @@ void CombatComp::DrawDirectionPegline(GameObject& directionArrow,
 		)
 	);
 	dtf->SetRot(angle);
+
+	if (AERadToDeg(angle) + ptf->GetRot() < 0)
+	{
+		ptf->SetScale({ abs(ptf->GetScale().x), ptf->GetScale().y });
+	}
+	else
+	{
+		ptf->SetScale({ -abs(ptf->GetScale().x), ptf->GetScale().y });
+	}
 }
 
 // dealer => 0(player) , 1(enemy)
@@ -248,7 +257,7 @@ void CombatComp::Update()
 				DrawDirectionPegline(*directionArrow,
 					0,
 					{ (float)px, (float)-py },
-					{ -60.f, 60.f });
+					{ -120.f, 120.f });
 		}
 	}
 	else
