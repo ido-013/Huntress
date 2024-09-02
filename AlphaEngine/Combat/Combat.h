@@ -12,9 +12,11 @@
 #define ANGLE_LIMIT AEDegToRad(120.f)
 
 #define POWER_INTERVER 1.f
-#define ANGLE_INTERVER AEDegToRad(0.2f)
+#define ANGLE_INTERVER AEDegToRad(0.1f)
 
 #define RAD90 AEDegToRad(90.f)
+
+#define HIT_RADIUS 5.0f // 플레이어에 대한 적중 판정 반경
 
 class CombatComp : public EngineComponent
 {

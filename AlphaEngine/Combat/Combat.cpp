@@ -278,13 +278,6 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 	*/
 	AEVec2 p = player->GetComponent<TransformComp>()->GetPos();
 	AEVec2 e = enemy->GetComponent<TransformComp>()->GetPos();
-	//p.x -= 800;
-
-	/*
-		가상의 포물선 그리고 테스트
-	*/
-	const float DELTA_T = 0.01f; // 시간 증가 간격
-	const float HIT_RADIUS = 2.0f; // 플레이어에 대한 적중 판정 반경
 
 	ePower = 1.0f; // 초기 파워
 
@@ -319,7 +312,7 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 
 			//std::cout << ptf.x << " , " << ptf.y << std::endl;
 
-			t += DELTA_T;
+			t += static_cast<float>(AEFrameRateControllerGetFrameTime());
 
 			// 플레이어와 포물선 위치가 가까운지 확인
 			float loc = sqrt((ptf.x - p.x) * (ptf.x - p.x) + (ptf.y - p.y) * (ptf.y - p.y));
