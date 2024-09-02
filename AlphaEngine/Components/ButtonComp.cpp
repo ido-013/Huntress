@@ -11,13 +11,11 @@ ButtonComp::ButtonComp(GameObject* _owner)
     pos = owner->GetComponent<TransformComp>()->GetPos();
     scale = owner->GetComponent<TransformComp>()->GetScale();
 }
-
 ButtonComp::~ButtonComp()
 {
     ButtonManager::GetInstance().RemoveButton(this);
     EventManager::GetInstance().DelEntity(this);
 }
-
 void ButtonComp::Update()
 {
     // 필요 시 추가적인 업데이트 로직을 여기에 작성
@@ -53,17 +51,14 @@ AEVec2 ButtonComp::Getscale()
     return scale;
 }
 
-// 마우스가 버튼 영역 안에 있는지 확인하는 메서드
 bool ButtonComp::IsClicked(int mouseX, int mouseY) const
 {
     return (mouseX > pos.x - scale.x / 2 && mouseX < pos.x + scale.x / 2 &&
         mouseY > pos.y - scale.y / 2 && mouseY < pos.y + scale.y / 2);
 }
 
-// 버튼이 클릭되었을 때 호출되는 메서드
 void ButtonComp::OnClick()
 {
-    // 이벤트 매니저에 버튼 클릭 이벤트 추가
     EventManager::GetInstance().AddEvent<ButtonClickEvent>(this, this);
 }
 
