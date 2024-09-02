@@ -32,9 +32,6 @@ public:
 	void SetCollider();
 	void SetCollider(float posX, float posY, float scaleX, float scaleY, float _rot);
 
-	std::queue<ColliderComp*> oppoCollider;
-	bool colliderType[10] = { false };
-
 	void LoadFromJson(const json&) override;
 	json SaveToJson() override;
 
