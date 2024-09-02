@@ -9,12 +9,14 @@
 #include <iostream>
 #include "CombatLevel.h"
 #include "../GSM/GameStateManager.h"
+#include "../GameObjectManager/GameObjectManager.h"
+
 GameObject* Logo = nullptr;
 GameObject* startButtonObj = nullptr;
 GameObject* quitButtonObj = nullptr;
 void level::Menu::Init() {
     // 로고 초기화
-    Logo = new GameObject();
+    Logo = new GameObject("Logo");
     Logo->AddComponent<SpriteComp>();
     Logo->AddComponent<TransformComp>();
     TransformComp* transLogo = Logo->GetComponent<TransformComp>();
@@ -68,4 +70,5 @@ void level::Menu::Update() {
 
 void level::Menu::Exit() {
     // 필요에 따라 리소스 정리
+    
 }

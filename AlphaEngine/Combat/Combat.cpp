@@ -23,7 +23,7 @@ bool CombatComp::isReadyLaunch = false;
 
 bool CombatComp::isSetLaunchAngle = false;
 
-GameObject* projectile = new GameObject("projectile");
+int CombatComp::ArrowCount = 0;
 
 CombatComp::CombatComp(GameObject* _owner) : EngineComponent(_owner),
 pAngle(0), eAngle(RAD90), pVelocity(0), eVelocity(0), pPower(8), ePower(5), AICombatSystemApplyWind(true)
@@ -180,6 +180,8 @@ void CombatComp::FireAnArrow(TURN turn, GameObject& directionArrow)
 		GameObjectManager::GetInstance().GetObj("player") :
 		GameObjectManager::GetInstance().GetObj("enemy");
 
+	GameObject* projectile = new GameObject("projectile");
+
 	projectile->AddComponent<TransformComp>();
 	projectile->AddComponent<SpriteComp>();
 	projectile->AddComponent<Projectile>();
@@ -197,6 +199,7 @@ void CombatComp::FireAnArrow(TURN turn, GameObject& directionArrow)
 	projectile->GetComponent<Projectile>()->CalculateProjectileMotion();
 	projectile->GetComponent<Projectile>()->isLaunchProjectile = true;
 	isReadyLaunch = false;
+	CombatComp::ArrowCount++;
 }
 
 CombatComp::TURN CombatComp::TurnChange()
@@ -331,7 +334,7 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 			}
 
 			// 맵보다 더 낮게 떨어졌다면 포물선 궤적 벗어남
-			if (ptf.y < -450)
+			if (ptf.y < -windowHeightHalf)
 			{
 				break;
 			}
@@ -359,126 +362,132 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 
 void CombatComp::Update()
 {
-	GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
-	GameObject* player = GameObjectManager::GetInstance().GetObj("player");
-	GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
-
-	TransformComp* dtf = directionArrow->GetComponent<TransformComp>();
-	TransformComp* ptf = player->GetComponent<TransformComp>();
-	TransformComp* etf = enemy->GetComponent<TransformComp>();
-
-	switch (CombatComp::turn)
+	if (isCombat)
 	{
-		case PLAYERTURN: // player turn
-			
-			// 임시 트리거
-			if (AEInputCheckTriggered(AEVK_F))
-			{
-				directionArrow->GetComponent<CombatComp>()->isDrawDirection = true;
-				directionArrow->GetComponent<CombatComp>()->isChaseDirection = true;
-			}
-			if (AEInputCheckTriggered(AEVK_W))
-			{
-				directionArrow->GetComponent<CombatComp>()->pPower += 1;
-				std::cout << "Increase Player Power : " << directionArrow->GetComponent<CombatComp>()->pPower << std::endl;
-			}
-			if (AEInputCheckTriggered(AEVK_S))
-			{
-				directionArrow->GetComponent<CombatComp>()->pPower -= 1;
-				std::cout << "Decrease Player Power : " << directionArrow->GetComponent<CombatComp>()->pPower << std::endl;
-			}
-			if (AEInputCheckTriggered(AEVK_Q))
-			{
-				directionArrow->GetComponent<CombatComp>()->pAngle += AEDegToRad(1);
-				std::cout << "Increase Player Angle : " << AERadToDeg(directionArrow->GetComponent<CombatComp>()->pAngle) << std::endl;
-			}
-			if (AEInputCheckTriggered(AEVK_E))
-			{
-				directionArrow->GetComponent<CombatComp>()->pAngle -= AEDegToRad(1);
-				std::cout << "Decrease Player Angle : " << AERadToDeg(directionArrow->GetComponent<CombatComp>()->pAngle) << std::endl;
-			}
+		GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
+		GameObject* player = GameObjectManager::GetInstance().GetObj("player");
+		GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
 
-			if (isDrawDirection)
-			{
-				if (AEInputCheckTriggered(AEVK_LBUTTON))
+		TransformComp* dtf = directionArrow->GetComponent<TransformComp>();
+		TransformComp* ptf = player->GetComponent<TransformComp>();
+		TransformComp* etf = enemy->GetComponent<TransformComp>();
+
+		switch (CombatComp::turn)
+		{
+			case PLAYERTURN: // player turn
+			
+				// 임시 트리거
+				if (AEInputCheckTriggered(AEVK_F))
 				{
-					isChaseDirection = false;
-					isReadyLaunch = true;
-				}				
-				directionArrow->GetComponent<SpriteComp>()->SetAlpha(1);
-				if (isChaseDirection)
+					directionArrow->GetComponent<CombatComp>()->isDrawDirection = true;
+					directionArrow->GetComponent<CombatComp>()->isChaseDirection = true;
+				}
+				if (AEInputCheckTriggered(AEVK_W))
 				{
-					directionArrow->
-						GetComponent<CombatComp>()->
-						DrawDirectionPegline(*directionArrow,
-							PLAYERTURN, { -ANGLE_LIMIT, ANGLE_LIMIT });
+					directionArrow->GetComponent<CombatComp>()->pPower += 1;
+					std::cout << "Increase Player Power : " << directionArrow->GetComponent<CombatComp>()->pPower << std::endl;
+				}
+				if (AEInputCheckTriggered(AEVK_S))
+				{
+					directionArrow->GetComponent<CombatComp>()->pPower -= 1;
+					std::cout << "Decrease Player Power : " << directionArrow->GetComponent<CombatComp>()->pPower << std::endl;
+				}
+				if (AEInputCheckTriggered(AEVK_Q))
+				{
+					directionArrow->GetComponent<CombatComp>()->pAngle += AEDegToRad(1);
+					std::cout << "Increase Player Angle : " << AERadToDeg(directionArrow->GetComponent<CombatComp>()->pAngle) << std::endl;
+				}
+				if (AEInputCheckTriggered(AEVK_E))
+				{
+					directionArrow->GetComponent<CombatComp>()->pAngle -= AEDegToRad(1);
+					std::cout << "Decrease Player Angle : " << AERadToDeg(directionArrow->GetComponent<CombatComp>()->pAngle) << std::endl;
 				}
 
-				dtf->SetScale({ directionArrowWidth, directionArrowHeight * pPower });
-				dtf->SetPos(
-					RotatePointAround(
-						ptf->GetPos(),
-						{ ptf->GetPos().x , ptf->GetPos().y + dtf->GetScale().y / 2 },
-						pAngle - RAD90
-					)
-				);
-			}
+				if (isDrawDirection)
+				{
+					if (AEInputCheckTriggered(AEVK_LBUTTON))
+					{
+						isChaseDirection = false;
+						isReadyLaunch = true;
+					}				
+					directionArrow->GetComponent<SpriteComp>()->SetAlpha(1);
+					if (isChaseDirection)
+					{
+						directionArrow->
+							GetComponent<CombatComp>()->
+							DrawDirectionPegline(*directionArrow,
+								PLAYERTURN, { -ANGLE_LIMIT, ANGLE_LIMIT });
+					}
 
-			if (AEInputCheckTriggered(AEVK_RBUTTON))
-			{
+					dtf->SetScale({ directionArrowWidth, directionArrowHeight * pPower });
+					dtf->SetPos(
+						RotatePointAround(
+							ptf->GetPos(),
+							{ ptf->GetPos().x , ptf->GetPos().y + dtf->GetScale().y / 2 },
+							pAngle - RAD90
+						)
+					);
+
+				}
+
+				if (AEInputCheckTriggered(AEVK_RBUTTON))
+				{
+					if (isReadyLaunch)
+					{
+						FireAnArrow(PLAYERTURN, *directionArrow);
+					}
+				}
+
+				
+				break;
+
+			case ENEMYTURN: // enemy turn
+			
+				// 임시 트리거
+				if (AEInputCheckTriggered(AEVK_F))
+				{
+					directionArrow->GetComponent<CombatComp>()->isDrawDirection = true;
+					directionArrow->GetComponent<CombatComp>()->isChaseDirection = true;
+					SetEnemyAngle(RAD90);
+				}
+			 
+				if (isDrawDirection)
+				{
+					if (isSetLaunchAngle)
+					{
+						isSetLaunchAngle = false;
+						isChaseDirection = false;
+						isReadyLaunch = true;
+					}
+
+					directionArrow->GetComponent<SpriteComp>()->SetAlpha(1);
+					if (isChaseDirection)
+					{
+						directionArrow->
+							GetComponent<CombatComp>()->
+							DrawDirectionPegline(*directionArrow,
+								ENEMYTURN, { -ANGLE_LIMIT, ANGLE_LIMIT });
+					}
+
+					dtf->SetScale({ directionArrowWidth, directionArrowHeight * ePower });
+					dtf->SetPos(
+						RotatePointAround(
+							etf->GetPos(),
+							{ etf->GetPos().x , etf->GetPos().y + dtf->GetScale().y / 2 },
+							eAngle - RAD90
+						)
+					);
+				}
+				else
+				{
+					directionArrow->GetComponent<SpriteComp>()->SetAlpha(0);
+				}
 				if (isReadyLaunch)
 				{
-					FireAnArrow(PLAYERTURN, *directionArrow);
+					FireAnArrow(ENEMYTURN, *directionArrow);
 				}
-			}
-			break;
-
-		case ENEMYTURN: // enemy turn
-			
-			// 임시 트리거
-			if (AEInputCheckTriggered(AEVK_F))
-			{
-				directionArrow->GetComponent<CombatComp>()->isDrawDirection = true;
-				directionArrow->GetComponent<CombatComp>()->isChaseDirection = true;
-				SetEnemyAngle(RAD90);
-			}
-			 
-			if (isDrawDirection)
-			{
-				if (isSetLaunchAngle)
-				{
-					isSetLaunchAngle = false;
-					isChaseDirection = false;
-					isReadyLaunch = true;
-				}
-
-				directionArrow->GetComponent<SpriteComp>()->SetAlpha(1);
-				if (isChaseDirection)
-				{
-					directionArrow->
-						GetComponent<CombatComp>()->
-						DrawDirectionPegline(*directionArrow,
-							ENEMYTURN, { -ANGLE_LIMIT, ANGLE_LIMIT });
-				}
-
-				dtf->SetScale({ directionArrowWidth, directionArrowHeight * ePower });
-				dtf->SetPos(
-					RotatePointAround(
-						etf->GetPos(),
-						{ etf->GetPos().x , etf->GetPos().y + dtf->GetScale().y / 2 },
-						eAngle - RAD90
-					)
-				);
-			}
-			else
-			{
-				directionArrow->GetComponent<SpriteComp>()->SetAlpha(0);
-			}
-			if (isReadyLaunch)
-			{
-				FireAnArrow(ENEMYTURN, *directionArrow);
-			}
-			break;
+				break;
+		}
 	}
 }
 

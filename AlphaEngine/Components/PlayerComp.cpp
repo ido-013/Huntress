@@ -86,10 +86,6 @@ json PlayerComp::SaveToJson()
 	return data;
 }
 
-float PlayerComp::GetMovegauge()
-{
-	return movementGauge;
-}
 
 BaseRTTI* PlayerComp::CreatePlayerComponent(GameObject* owner)
 {

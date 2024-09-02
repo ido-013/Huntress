@@ -27,7 +27,6 @@ Projectile::Projectile(GameObject* _owner, float velocity_value, float theta_val
 
 Projectile::~Projectile()
 {
-
 }
 
 // 랜덤한 바람의 세기와 방향을 생성하는 함수 (라디안)
@@ -47,7 +46,6 @@ void Projectile::CalculateProjectileMotion()
     time = 0.0f;
     if(CombatComp::turn == CombatComp::PLAYERTURN)
         GenerateRandomWind(Projectile::wind);
-    startY = -windowWidthHalf;
 }
 
 void Projectile::Update()
@@ -58,8 +56,8 @@ void Projectile::Update()
 
         delay += static_cast<float>(AEFrameRateControllerGetFrameTime());
 
-        // 투사체가 지면에 닿기 전까지 반복
-        if (ptf->GetPos().y >= startY) {
+        // 투사체가 화면 끝에 닿기 전까지 반복
+        if (ptf->GetPos().y >= -windowWidthHalf) {
             if (delay > ProjectileDelay)
             {
                 // 시간 간격
@@ -90,20 +88,10 @@ void Projectile::Update()
                 // 시간 증가
                 time += timeStep;
 
-
                 delay = 0.f;
             }
             // 방향 업데이트
             ptf->SetRot(atan2f(velocityY, velocityX));
-
-            //x = ptf->GetPos().x;
-            //y = ptf->GetPos().y;
-            //
-            // 현재 시간, 위치 출력
-            //std::cout << "Time: " << time << "s, X: " << x << "m, Y: " << y << 
-            //    //"m, Wind: (" << wind.x << ", " << wind.y << ") m/s" 
-            //    "value: " << velocityY
-            //    << std::endl;
         }
         else
         {
@@ -114,6 +102,11 @@ void Projectile::Update()
             directionArrow->GetComponent<CombatComp>()->InitEnemyValue();
             directionArrow->GetComponent<SpriteComp>()->SetAlpha(0);
             CombatComp::turn = CombatComp::TurnChange();
+            for (int i = 0; i < CombatComp::ArrowCount; i++)
+            {
+                GameObjectManager::GetInstance().RemoveObject(GameObjectManager::GetInstance().GetObj("projectile"));
+            }
+            CombatComp::ArrowCount = 0;
         }
     }
 }

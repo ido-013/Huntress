@@ -30,7 +30,7 @@ class CombatComp : public EngineComponent
 	float eVelocity;
 	float ePower;
 public:
-
+	static int ArrowCount;
 
 	const float directionArrowWidth = 42;
 	const float directionArrowHeight = 260 / (DEFAULT_POWER + POWER_LIMIT); // * 1~25
