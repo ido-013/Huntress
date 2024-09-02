@@ -55,6 +55,12 @@ void PlayerComp::Update()
 	{
 		movementGauge = maxMovementGauge;
 	}
+
+}
+
+float PlayerComp::GetMovegauge()
+{
+	return movementGauge;
 }
 
 void PlayerComp::LoadFromJson(const json& data)

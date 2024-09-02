@@ -11,7 +11,7 @@
 #include "../Combat/Combat.h"
 #include <iostream>
 #include <string>
-
+#include "../UI/CombatUI.h"
 GameObject* background = nullptr;
 GameObject* player = nullptr;
 GameObject* directionArrow = nullptr;
@@ -42,180 +42,6 @@ void level::CombatLevel::Init()
 	background->GetComponent<TransformComp>()->SetPos({ 0, 0 });
 	background->GetComponent<SpriteComp>()->SetTexture("../Assets/Background/Background.png");
 	background->GetComponent<SpriteComp>()->SetAlpha(1);
-
-	{
-		GameObject* temp = nullptr;
-		TransformComp* tt = nullptr;
-		SpriteComp* ts = nullptr;
-		RigidbodyComp* tr = nullptr;
-		ColliderComp* tc = nullptr;
-
-		temp = new GameObject();
-
-		temp->type = GameObject::Square;
-
-		temp->AddComponent<TransformComp>();
-		temp->AddComponent<SpriteComp>();
-		temp->AddComponent<ColliderComp>();
-
-		tt = temp->GetComponent<TransformComp>();
-		tt->SetScale({ 100, 100 });
-		tt->SetPos({ 0, 0 });
-
-		ts = temp->GetComponent<SpriteComp>();
-		ts->SetColor(0, 0, 0);
-		ts->SetAlpha(1);
-
-		tc = temp->GetComponent<ColliderComp>();
-		tc->SetCollider();
-
-		//
-
-		temp = new GameObject();
-
-		temp->type = GameObject::Square;
-
-		temp->AddComponent<TransformComp>();
-		temp->AddComponent<SpriteComp>();
-		temp->AddComponent<ColliderComp>();
-
-		tt = temp->GetComponent<TransformComp>();
-		tt->SetScale({ 100, 100 });
-		tt->SetPos({ 100, 0 });
-
-		ts = temp->GetComponent<SpriteComp>();
-		ts->SetColor(0, 0, 0);
-		ts->SetAlpha(1);
-
-		tc = temp->GetComponent<ColliderComp>();
-		tc->SetCollider();
-
-		////
-
-		temp = new GameObject();
-
-		temp->type = GameObject::LeftTri;
-
-		temp->AddComponent<TransformComp>();
-		temp->AddComponent<SpriteComp>();
-		temp->AddComponent<ColliderComp>();
-
-		tt = temp->GetComponent<TransformComp>();
-		tt->SetScale({ 100, 100 });
-		tt->SetPos({ -100, 100 });
-
-		ts = temp->GetComponent<SpriteComp>();
-		ts->SetColor(0, 0, 0);
-		ts->SetAlpha(1);
-
-		tc = temp->GetComponent<ColliderComp>();
-		tc->SetCollider();
-
-		//
-
-		temp = new GameObject();
-
-		temp->type = GameObject::RightTri;
-
-		temp->AddComponent<TransformComp>();
-		temp->AddComponent<SpriteComp>();
-		temp->AddComponent<ColliderComp>();
-
-		tt = temp->GetComponent<TransformComp>();
-		tt->SetScale({ 100, 100 });
-		tt->SetPos({ 100, 100 });
-
-		ts = temp->GetComponent<SpriteComp>();
-		ts->SetColor(0, 0, 0);
-		ts->SetAlpha(1);
-
-		tc = temp->GetComponent<ColliderComp>();
-		tc->SetCollider();
-
-		//
-
-		temp = new GameObject();
-
-		temp->type = GameObject::Square;
-
-		temp->AddComponent<TransformComp>();
-		temp->AddComponent<SpriteComp>();
-		temp->AddComponent<ColliderComp>();
-
-		tt = temp->GetComponent<TransformComp>();
-		tt->SetScale({ 100, 100 });
-		tt->SetPos({ -100, 0 });
-
-		ts = temp->GetComponent<SpriteComp>();
-		ts->SetColor(0, 0, 0);
-		ts->SetAlpha(1);
-
-		tc = temp->GetComponent<ColliderComp>();
-		tc->SetCollider();
-
-		//
-
-		temp = new GameObject();
-
-		temp->type = GameObject::Square;
-
-		temp->AddComponent<TransformComp>();
-		temp->AddComponent<SpriteComp>();
-		temp->AddComponent<ColliderComp>();
-
-		tt = temp->GetComponent<TransformComp>();
-		tt->SetScale({ 100, 100 });
-		tt->SetPos({ -200, 100 });
-
-		ts = temp->GetComponent<SpriteComp>();
-		ts->SetColor(0, 0, 0);
-		ts->SetAlpha(1);
-
-		tc = temp->GetComponent<ColliderComp>();
-		tc->SetCollider();
-
-		////
-
-		temp = new GameObject();
-
-		temp->type = GameObject::Square;
-
-		temp->AddComponent<TransformComp>();
-		temp->AddComponent<SpriteComp>();
-		temp->AddComponent<ColliderComp>();
-
-		tt = temp->GetComponent<TransformComp>();
-		tt->SetScale({ 100, 100 });
-		tt->SetPos({ 200, 100 });
-
-		ts = temp->GetComponent<SpriteComp>();
-		ts->SetColor(0, 0, 0);
-		ts->SetAlpha(1);
-
-		tc = temp->GetComponent<ColliderComp>();
-		tc->SetCollider();
-
-		//
-
-		temp = new GameObject();
-
-		temp->type = GameObject::LeftTri;
-
-		temp->AddComponent<TransformComp>();
-		temp->AddComponent<SpriteComp>();
-		temp->AddComponent<ColliderComp>();
-
-		tt = temp->GetComponent<TransformComp>();
-		tt->SetScale({ 200, 100 });
-		tt->SetPos({ -250, 200 });
-
-		ts = temp->GetComponent<SpriteComp>();
-		ts->SetColor(0, 0, 0);
-		ts->SetAlpha(1);
-
-		tc = temp->GetComponent<ColliderComp>();
-		tc->SetCollider();
-	}
 
 	// player
 	player = new GameObject("player");
@@ -273,10 +99,13 @@ void level::CombatLevel::Init()
 	directionArrow->GetComponent<CombatComp>()->turn = CombatComp::TURN::PLAYERTURN;
 	directionArrow->GetComponent<CombatComp>()->isCombat = true;
 
+	InitCombatUI();
 }
 
 void level::CombatLevel::Update()
 {
+	UpdateCombatUI(player);
+	
 }
 
 void level::CombatLevel::Exit()
