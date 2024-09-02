@@ -5,6 +5,8 @@
 #include "../Components/SpriteComp.h"
 #include "../Components/TransformComp.h"
 #include "../EventManager/EventManager.h"
+#include "../UIM/BtnManager.h"
+#include "../Components/ButtonComp.h"
 #include <iostream>
 
 GameObject* Openbtn = nullptr;
@@ -19,7 +21,6 @@ void level::StoreUI::Init()
 {
 	Openbtn = new GameObject();
 	Openbtn->AddComponent<SpriteComp>();
-	Openbtn->AddComponent<AudioComp>();
 	Openbtn->AddComponent<TransformComp>();
 	TransformComp* transOpen = Openbtn->GetComponent<TransformComp>();
 	transOpen->SetScale({ 50,50 });
@@ -27,10 +28,17 @@ void level::StoreUI::Init()
 	SpriteComp* OpenSprite = Openbtn->GetComponent<SpriteComp>();
 	OpenSprite->SetTexture("Assets/arrow.png");
 	OpenSprite->SetColor(250, 0, 255);
+	Openbtn->AddComponent<ButtonComp>();
+	ButtonComp* OpenButton = Openbtn->GetComponent<ButtonComp>();
+	OpenButton->SetOnClickFunction([]
+	{
+		//Add Event Maybe set alpha & active;
+	});
+	ButtonManager::GetInstance().RegisterButton(OpenButton);
+
 
 	StorePopup = new GameObject();
 	StorePopup->AddComponent<SpriteComp>();
-	StorePopup->AddComponent<AudioComp>();
 	StorePopup->AddComponent<TransformComp>();
 	TransformComp* transStore = StorePopup->GetComponent<TransformComp>();
 	transStore->SetScale({ 1200,600 });
@@ -38,10 +46,11 @@ void level::StoreUI::Init()
 	SpriteComp* storeSprite = StorePopup->GetComponent<SpriteComp>();
 	storeSprite->SetTexture("Assets/arrow.png");
 	storeSprite->SetColor(255, 255, 255);
+	
+
 
 	Closebtn = new GameObject();
 	Closebtn->AddComponent<SpriteComp>();
-	Closebtn->AddComponent<AudioComp>();
 	Closebtn->AddComponent<TransformComp>();
 	TransformComp* transClose = Closebtn->GetComponent<TransformComp>();
 	transClose->SetScale({ 50,50 });
@@ -49,10 +58,18 @@ void level::StoreUI::Init()
 	SpriteComp* CloseSprite = Closebtn->GetComponent<SpriteComp>();
 	CloseSprite->SetTexture("Assets/arrow.png");
 	CloseSprite->SetColor(250, 0, 0);
+	Closebtn->AddComponent<ButtonComp>();
+	ButtonComp* CloseButton = Closebtn->GetComponent<ButtonComp>();
+	CloseButton->SetOnClickFunction([]
+		{
+			//Add Event Maybe set alpha & active;
+		});
+	ButtonManager::GetInstance().RegisterButton(CloseButton);
+
+
 
 	article_1 = new GameObject();
 	article_1->AddComponent<SpriteComp>();
-	article_1->AddComponent<AudioComp>();
 	article_1->AddComponent<TransformComp>();
 	TransformComp* transArt1 = article_1->GetComponent<TransformComp>();
 	transArt1->SetScale({ 150,150 });
@@ -60,10 +77,18 @@ void level::StoreUI::Init()
 	SpriteComp* art1Sprite = article_1->GetComponent<SpriteComp>();
 	art1Sprite->SetTexture("Assets/arrow.png");
 	art1Sprite->SetColor(250, 250, 0);
+	article_1->AddComponent<ButtonComp>();
+	ButtonComp* art1Button = article_1->GetComponent<ButtonComp>();
+	art1Button->SetOnClickFunction([]
+		{
+			//Add Event Maybe set alpha & active;
+		});
+	ButtonManager::GetInstance().RegisterButton(art1Button);
+
+
 
 	article_2 = new GameObject();
 	article_2->AddComponent<SpriteComp>();
-	article_2->AddComponent<AudioComp>();
 	article_2->AddComponent<TransformComp>();
 	TransformComp* transArt2 = article_2->GetComponent<TransformComp>();
 	transArt2->SetScale({ 150,150 });
@@ -71,10 +96,16 @@ void level::StoreUI::Init()
 	SpriteComp* art2Sprite = article_2->GetComponent<SpriteComp>();
 	art2Sprite->SetTexture("Assets/arrow.png");
 	art2Sprite->SetColor(250, 250, 0);
+	article_2->AddComponent<ButtonComp>();
+	ButtonComp* art2Button = article_2->GetComponent<ButtonComp>();
+	art2Button->SetOnClickFunction([]
+		{
+			//Add Event Maybe set alpha & active;
+		});
+	ButtonManager::GetInstance().RegisterButton(art2Button);
 
 	article_3 = new GameObject();
 	article_3->AddComponent<SpriteComp>();
-	article_3->AddComponent<AudioComp>();
 	article_3->AddComponent<TransformComp>();
 	TransformComp* transArt3 = article_3->GetComponent<TransformComp>();
 	transArt3->SetScale({ 150,150 });
@@ -85,7 +116,6 @@ void level::StoreUI::Init()
 
 	article_4 = new GameObject();
 	article_4->AddComponent<SpriteComp>();
-	article_4->AddComponent<AudioComp>();
 	article_4->AddComponent<TransformComp>();
 	TransformComp* transArt4 = article_4->GetComponent<TransformComp>();
 	transArt4->SetScale({ 150,150 });

@@ -7,7 +7,8 @@
 #include "../EventManager/EventManager.h"
 #include "../UIM/BtnManager.h"
 #include <iostream>
-
+#include "CombatLevel.h"
+#include "../GSM/GameStateManager.h"
 GameObject* Logo = nullptr;
 GameObject* startButtonObj = nullptr;
 GameObject* quitButtonObj = nullptr;
@@ -37,7 +38,7 @@ void level::Menu::Init() {
     ButtonComp* startBtn = startButtonObj->GetComponent<ButtonComp>();
     startBtn->SetOnClickFunction([]() {
         std::cout << "Start Button Clicked!" << std::endl;
-        // Start 게임 시작 로직 추가
+        GSM::GameStateManager::GetInstance().ChangeLevel(new level::CombatLevel);
     });
     ButtonManager::GetInstance().RegisterButton(startBtn);
 

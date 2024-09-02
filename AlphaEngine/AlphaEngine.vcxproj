@@ -122,11 +122,9 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="GameObjectManager\GameObejectManager.cpp" />
     <ClCompile Include="GSM\GameStateManager.cpp" />
     <ClCompile Include="Level\CombatLevel.cpp" />
-    <ClCompile Include="Level\CombatUI.cpp" />
     <ClCompile Include="Level\NormalLevel.cpp" />
     <ClCompile Include="Level\PrefabLevel.cpp" />
     <ClCompile Include="Level\Menu.cpp" />
-    <ClCompile Include="Level\StoreUI.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Prefab\Prefab.cpp" />
     <ClCompile Include="Combat\Projectile.cpp" />
@@ -137,6 +135,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="RTTI\Registry.cpp" />
     <ClCompile Include="Serializer\Serializer.cpp" />
     <ClCompile Include="Shop\Shop.cpp" />
+    <ClCompile Include="UI\StoreUI.cpp" />
     <ClCompile Include="Utils\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -175,7 +174,6 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="Level\NormalLevel.h" />
     <ClInclude Include="Level\PrefabLevel.h" />
     <ClInclude Include="Level\Menu.h" />
-    <ClInclude Include="Level\StoreUI.h" />
     <ClInclude Include="Map\Map.h" />
     <ClInclude Include="Prefab\Prefab.h" />
     <ClInclude Include="Combat\Projectile.h" />
@@ -188,6 +186,8 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="Serializer\Serializer.h" />
     <ClInclude Include="Shop\Shop.h" />
     <ClInclude Include="UIM\BtnManager.h" />
+    <ClInclude Include="UI\CombatUI.h" />
+    <ClInclude Include="UI\StoreUI.h" />
     <ClInclude Include="Utils\Direction.h" />
     <ClInclude Include="Utils\Size.h" />
     <ClInclude Include="Utils\Utils.h" />
