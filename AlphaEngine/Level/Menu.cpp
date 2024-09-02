@@ -8,6 +8,7 @@
 #include "../UIM/BtnManager.h"
 #include <iostream>
 #include "CombatLevel.h"
+#include "../GameObjectManager/GameObjectManager.h"
 #include "../GSM/GameStateManager.h"
 GameObject* Logo = nullptr;
 GameObject* startButtonObj = nullptr;
@@ -62,10 +63,12 @@ void level::Menu::Init() {
 }
 
 void level::Menu::Update() {
-    // 매 프레임마다 버튼 매니저 업데이트
+    
 
 }
 
 void level::Menu::Exit() {
-    // 필요에 따라 리소스 정리
+    GameObjectManager::GetInstance().RemoveObject(Logo);
+    GameObjectManager::GetInstance().RemoveObject(startButtonObj);
+    GameObjectManager::GetInstance().RemoveObject(quitButtonObj);
 }

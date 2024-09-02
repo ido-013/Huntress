@@ -21,9 +21,24 @@ public:
 
     // 버튼 제거
     void RemoveButton(ButtonComp* button) {
-       // buttons.erase(std::remove(buttons.begin(), buttons.end(), button), buttons.end());
+        for (auto it = buttons.begin(); it != buttons.end(); it++)
+        {
+            if (*it == button)
+            {
+                buttons.erase(it);
+                break;
+            }
+        }
     }
 
+    void RemoveAllButton()
+    {
+        for (auto it = buttons.begin(); it != buttons.end(); it++)
+        {
+        	buttons.erase(it);
+        }
+
+    }
     // 마우스 클릭 이벤트 처리
     void HandleClickEvent(int mouseX, int mouseY) {
         for (auto& button : buttons) {

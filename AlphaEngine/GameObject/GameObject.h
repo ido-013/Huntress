@@ -20,7 +20,9 @@ public:
 		RightTri,
 		Point,
 		Player,
-		Button
+		Button,
+		Enemy,
+		Particle,
 	};
 
 	GameObject();

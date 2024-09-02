@@ -22,6 +22,15 @@ GameObject* player = nullptr;
 GameObject* directionArrow = nullptr;
 GameObject* enemy = nullptr;
 
+GameObject* Power = nullptr;
+GameObject* Move = nullptr;
+GameObject* Angle = nullptr;
+GameObject* Wind = nullptr;
+GameObject* HP = nullptr;
+GameObject* enemyHP = nullptr;
+GameObject* Attack = nullptr;
+GameObject* enemyAttack = nullptr;
+
 void level::CombatLevel::Init()
 {
 	// background
@@ -59,7 +68,7 @@ void level::CombatLevel::Init()
 	directionArrow->AddComponent<TransformComp>();
 	directionArrow->AddComponent<SpriteComp>();
 	directionArrow->AddComponent<CombatComp>();
-
+	enemy->AddComponent<PlayerComp>();
 	directionArrow->GetComponent<TransformComp>()->SetScale({ 42, 260 });
 	directionArrow->GetComponent<SpriteComp>()->SetTexture("../Assets/Character/DirectionArrow.png");
 	directionArrow->GetComponent<SpriteComp>()->SetAlpha(0);

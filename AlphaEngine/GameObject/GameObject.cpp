@@ -20,7 +20,6 @@ GameObject::~GameObject()
 		if (it.second)
 			delete it.second;	
 	}
-
 	component.clear();
 }
 

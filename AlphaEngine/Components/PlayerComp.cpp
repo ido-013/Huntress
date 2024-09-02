@@ -86,6 +86,7 @@ json PlayerComp::SaveToJson()
 	return data;
 }
 
+
 BaseRTTI* PlayerComp::CreatePlayerComponent(GameObject* owner)
 {
 	BaseRTTI* p = new PlayerComp(owner);
