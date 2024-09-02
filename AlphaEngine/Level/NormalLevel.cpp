@@ -50,8 +50,6 @@ void level::NormalLevel::Init()
 	{
 		for (int j = 0; j < 20; j++)
 		{
-			
-
 			if (map[i][j] == '-')
 				continue;
 

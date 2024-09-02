@@ -42,7 +42,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	AESysReset();
 
 	//GSM::GameStateManager::GetInstance().ChangeLevel(new level::NormalLevel);
-	GSM::GameStateManager::GetInstance().ChangeLevel(new level::CombatLevel);
+	GSM::GameStateManager::GetInstance().ChangeLevel(new level::PrefabLevel);
 
 	// Game Loop
 	while (gsm.ShouldExit() == false && gGameRunning)
