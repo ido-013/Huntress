@@ -57,18 +57,6 @@ void PlayerComp::Update()
 	{
 		movementGauge = maxMovementGauge;
 	}
-
-	if (AEInputCheckCurr(AEVK_SPACE) && !temp)
-	{
-		Particle p(5, 2, 5, { 255, 0, 0 });
-		p.PlayParticle(t->GetPos().x, t->GetPos().y);
-		temp = true;
-	}
-
-	else if (!AEInputCheckCurr(AEVK_SPACE) && temp == true)
-	{
-		temp = false;
-	}
 }
 
 void PlayerComp::LoadFromJson(const json& data)

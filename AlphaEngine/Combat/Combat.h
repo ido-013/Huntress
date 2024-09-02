@@ -6,22 +6,54 @@
 #include "../ComponentManager/EngineComponent.h"
 #include "../Combat/Projectile.h"
 
+#define DEFAULT_POWER 15.f
+#define POWER_LIMIT 10.f
+
+#define ANGLE_LIMIT AEDegToRad(120.f)
+
+#define POWER_INTERVER 1.f
+#define ANGLE_INTERVER AEDegToRad(0.1f)
+
+#define RAD90 AEDegToRad(90.f)
+
+#define HIT_RADIUS 50.0f // 플레이어에 대한 적중 판정 반경
+
 class CombatComp : public EngineComponent
 {
 	//player
 	float pAngle;
 	float pVelocity;
+	float pPower;
 
 	//enemy
 	float eAngle;
 	float eVelocity;
+	float ePower;
 public:
 	CombatComp(GameObject* _owner);
 	~CombatComp();
 	
+	enum TURN {
+		NOBODYTURN = 0,
+		PLAYERTURN = 1,
+		ENEMYTURN = 2
+	};
+	static TURN turn; // 0 : nobody, 1 : player, 2 : enemy
+	static TURN TurnChange();
+
+	static bool isCombat;
+
 	static bool isDrawDirection;
 	static bool isChaseDirection;
 	static bool isReadyLaunch;
+
+	static bool isSetLaunchAngle;
+
+	enum RESULT {
+		HIT = 0,
+		MISS = 1,
+		NOTFOUND = 2
+	};
 
 	void SetPlayerAngle(float angle);
 	float GetPlayerAngle();
@@ -31,12 +63,19 @@ public:
 	float GetPlayerVelocity();
 	void SetEnemyVelocity(float velocity);
 	float GetEnemyVelocity();
+	void SetPlayerPower(float power);
+	float GetPlayerPower();
+	void SetEnemyPower(float power);
+	float GetEnemyPower();
+
+	void InitEnemyValue();
+
+	RESULT EnemyAICombatSystem();
 
 	void DrawDirectionPegline(GameObject& directionArrow,
-		int dealer, const AEVec2& DirectionPoint, 
-		const std::pair<float, float> AngleRange);
+		TURN turn, const std::pair<float, float> AngleRange);
 	
-	void FireAnArrow(int dealer, GameObject& directionArrow);
+	void FireAnArrow(TURN turn, GameObject& directionArrow);
 
 	void Update() override;
 	void LoadFromJson(const json& data) override;

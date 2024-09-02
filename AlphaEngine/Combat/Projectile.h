@@ -7,7 +7,10 @@
 #include "../GameObject/GameObject.h"
 #include "AEEngine.h"
 
-
+// 물리 상수
+#define GRAVITY 9.81f // 중력 가속도 (m/s^2) 9.81f
+#define AIR_RESISTANCE_COEFFICIENT 0.01f // 공기 저항 계수
+#define WIND_MAX 5 // -n ~ n
 
 class Projectile : public LogicComponent
 {
@@ -17,6 +20,7 @@ class Projectile : public LogicComponent
 	float theta;
 	float mass;
 	float time;
+	float delay;
 	AEVec2 initialVelocity;
 	AEVec2 wind;
 	float startY;
@@ -26,10 +30,6 @@ class Projectile : public LogicComponent
 public:
 	Projectile(GameObject* _owner);
 	Projectile(GameObject* _owner, float velocity_value, float theta_value);
-	
-	// 물리 상수
-	const float GRAVITY = 9.81f; // 중력 가속도 (m/s^2) 9.81f
-	const float AIR_RESISTANCE_COEFFICIENT = 0.01f; // 공기 저항 계수
 
 	// 트리거 변수
 	static bool isLaunchProjectile;
