@@ -96,10 +96,10 @@
     <ClCompile Include="Level\NormalLevel.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="dice.h">
+    <ClCompile Include="Utils\Dice.h">
       <Filter>헤더 파일</Filter>
     </ClCompile>
-    <ClCompile Include="dice.cpp">
+    <ClCompile Include="Utils\Dice.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Shop\Shop.cpp">
@@ -267,9 +267,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Shop\Shop.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Economy.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Utils\Direction.h">

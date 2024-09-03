@@ -10,6 +10,7 @@
 #include "../GameObjectManager/GameObjectManager.h"
 #include "../EventManager/EventManager.h"
 #include "../Particle/Particle.h"
+#include "../Utils/Dice.h"
 
 AEVec2 Projectile::wind = { 0.f, 0.f };
 bool Projectile::isLaunchProjectile = false;
@@ -60,19 +61,33 @@ void Projectile::UpdateCollision()
 {
     Particle p(5, 2, 5, { 255, 0, 0 });
 
+    GameObject* player = GameObjectManager::GetInstance().GetObj("player");
+    Data::PlayerData pData = player->GetComponent<PlayerComp>()->data;
+
+    GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
+    Data::EnemyData eData = enemy->GetComponent<EnemyComp>()->data;
+    
+    TransformComp* ptf = player->GetComponent<TransformComp>();
+    TransformComp* etf = enemy->GetComponent<TransformComp>();
+
     while (!oppoTypeQueue.empty())
     {
         if (CombatComp::turn == CombatComp::PLAYERTURN && oppoTypeQueue.front() == GameObject::Enemy)
         {
             colState = 1;
 
-            //enemy hp update
-            //다이스(계산식) 추가 필요
-            GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
-            enemy->GetComponent<EnemyComp>()->data.hp -= 1;
+            // enemy hp update
+            // dice
+            int res = PerformRoll();
+            int first = res / 10;
+            int second = res % 10;
+
+            float totalDmg = (pData.damage + first) - (eData.armor + second);
+
+            eData.hp -= max(0, totalDmg);
             
             // particle
-            TransformComp* etf = enemy->GetComponent<TransformComp>();
+            
             p.PlayParticle(etf->GetPos().x, etf->GetPos().y);
 
             break;
@@ -83,12 +98,17 @@ void Projectile::UpdateCollision()
             colState = 1;
 
             // player hp update
-            // 다이스 추가 필요
-            GameObject* player = GameObjectManager::GetInstance().GetObj("player");
-            player->GetComponent<PlayerComp>()->data.hp -= 1;
+            // dice
+            int res = PerformRoll();
+            int first = res / 10;
+            int second = res % 10;
+
+            float totalDmg = (eData.damage + first) - (pData.armor + second);
+
+            pData.hp -= max(0, totalDmg);
 
             // particle
-            TransformComp* ptf = player->GetComponent<TransformComp>();
+            
             p.PlayParticle(ptf->GetPos().x, ptf->GetPos().y);
 
             break;

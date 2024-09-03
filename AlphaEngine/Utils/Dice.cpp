@@ -1,15 +1,12 @@
-#include<iostream>
-#include "dice.h"
+#include "Dice.h"
+#include <iostream>
 
 int TotalAttack = 0;
 int TotalDefence = 0;
 
-int performRoll(Turn turn) {
-	//char choice;
+int PerformRoll() {
 	int first = 0;
 	int second = 0;
-	const char* current = turn == PlayerTurn ? "Player" : "Enemy";
-	std::cout << current << "'s turn" << std::endl;
 
 	first = 1 + (rand() % 6); 
 	second = 1 + (rand() % 6);
@@ -19,7 +16,7 @@ int performRoll(Turn turn) {
 }
 
 
-void checkRoll(int res, Turn turn) {
+void CheckRoll(int res, Turn turn) {
 	int first = res / 10;
 	int second = res % 10;
 		
