@@ -65,6 +65,11 @@ float PlayerComp::GetMovegauge()
 	return movementGauge;
 }
 
+float PlayerComp::GetMovegauge()
+{
+	return movementGauge;
+}
+
 void PlayerComp::LoadFromJson(const json& data)
 {
 	auto compData = data.find("compData");
