@@ -84,8 +84,6 @@ void Projectile::Update()
 
                 ptf->SetPos({ x + velocityX * time, y + velocityY * time });
 
-                AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
-
                 // 시간 증가
                 time += timeStep;
 
@@ -105,7 +103,7 @@ void Projectile::Update()
             //    << std::endl;
         }
         else
-        {   
+        {
             isLaunchProjectile = false;
             projectile->GetComponent<SpriteComp>()->SetAlpha(0);
             GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
