@@ -14,6 +14,7 @@
 #include "../Utils/Size.h"
 
 CombatComp::TURN CombatComp::turn = NOBODYTURN;
+CombatComp::STATE CombatComp::state = NONE;
 
 bool CombatComp::isCombat = false;
 
@@ -24,6 +25,13 @@ bool CombatComp::isReadyLaunch = false;
 bool CombatComp::isSetLaunchAngle = false;
 
 int CombatComp::ArrowCount = 0;
+
+void CombatComp::DataUpdate()
+{
+	data.angle = turn == PLAYERTURN ? pAngle : turn == ENEMYTURN ? eAngle : 0;
+	data.power = turn == PLAYERTURN ? pPower : turn == ENEMYTURN ? ePower : 0;
+	//data.randomValue = ;
+}
 
 CombatComp::CombatComp(GameObject* _owner) : EngineComponent(_owner),
 pAngle(0), eAngle(RAD90), pVelocity(0), eVelocity(0), pPower(8), ePower(5), AICombatSystemApplyWind(true)
@@ -194,10 +202,14 @@ void CombatComp::FireAnArrow(TURN turn, GameObject& directionArrow)
 	turn == PLAYERTURN ? pVelocity = DEFAULT_POWER + pPower : eVelocity = DEFAULT_POWER + ePower;
 	projectile->GetComponent<Projectile>()->SetVelocity(turn == PLAYERTURN ? pVelocity : eVelocity);
 	projectile->GetComponent<Projectile>()->SetTheta(turn == PLAYERTURN ? pAngle : eAngle);
-	std::cout << eVelocity << ", " <<  AERadToDeg(eAngle)<< std::endl;
+	//std::cout << eVelocity << ", " <<  AERadToDeg(eAngle)<< std::endl;
 	projectile->GetComponent<Projectile>()->SetProjectileObject(*projectile);
 	projectile->GetComponent<Projectile>()->CalculateProjectileMotion();
 	projectile->GetComponent<Projectile>()->isLaunchProjectile = true;
+
+	data.windAngle = projectile->GetComponent<Projectile>()->windAngle;
+	data.windPower = projectile->GetComponent<Projectile>()->windSpeed;
+
 	isReadyLaunch = false;
 	CombatComp::ArrowCount++;
 }
@@ -211,10 +223,20 @@ CombatComp::TURN CombatComp::TurnChange()
 	return CombatComp::turn == PLAYERTURN ? ENEMYTURN : PLAYERTURN;
 }
 
+void CombatComp::checkState()
+{
+	if (isCombat)
+	{
+		// enemy hp == 0
+		
+		// player hp == 0
+	}
+}
+
 void CombatComp::SetPlayerAngle(float angle)
 {
 	pAngle = angle;
-	std::cout << "Set Player Angle : " << AERadToDeg(angle) << std::endl;
+	//std::cout << "Set Player Angle : " << AERadToDeg(angle) << std::endl;
 }
 float CombatComp::GetPlayerAngle()
 {
@@ -223,7 +245,7 @@ float CombatComp::GetPlayerAngle()
 void CombatComp::SetEnemyAngle(float angle)
 {
 	eAngle = angle;
-	std::cout << "Set Enemy Angle : " << AERadToDeg(angle) << std::endl;
+	//std::cout << "Set Enemy Angle : " << AERadToDeg(angle) << std::endl;
 }
 float CombatComp::GetEnemyAngle()
 {
@@ -232,7 +254,7 @@ float CombatComp::GetEnemyAngle()
 void CombatComp::SetPlayerVelocity(float velocity)
 {
 	pVelocity = velocity;
-	std::cout << "Set Player Velocity : " << pVelocity << std::endl;
+	//std::cout << "Set Player Velocity : " << pVelocity << std::endl;
 }
 float CombatComp::GetPlayerVelocity()
 {
@@ -241,7 +263,7 @@ float CombatComp::GetPlayerVelocity()
 void CombatComp::SetEnemyVelocity(float velocity)
 {
 	eVelocity = velocity;
-	std::cout << "Set Enemy Velocity : " << eVelocity << std::endl;
+	//std::cout << "Set Enemy Velocity : " << eVelocity << std::endl;
 }
 float CombatComp::GetEnemyVelocity()
 {
@@ -324,12 +346,12 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 			if (loc <= HIT_RADIUS)
 			{
 				isSetLaunchAngle = true;
-				std::cout << "HIT" << std::endl;
-				std::cout << "ptf : " << ptf.x << " , " << ptf.y << "\np : " << p.x << " , " << p.y <<  std::endl;
-				std::cout << "ePower : " << ePower <<  std::endl;
-				std::cout << "eAngle : " << AERadToDeg(eAngle) <<  std::endl;
-				std::cout << "x : " << ptf.x - p.x << "y : " << ptf.y - p.y <<  std::endl;
-				std::cout << loc << std::endl;
+				//std::cout << "HIT" << std::endl;
+				//std::cout << "ptf : " << ptf.x << " , " << ptf.y << "\np : " << p.x << " , " << p.y <<  std::endl;
+				//std::cout << "ePower : " << ePower <<  std::endl;
+				//std::cout << "eAngle : " << AERadToDeg(eAngle) <<  std::endl;
+				//std::cout << "x : " << ptf.x - p.x << "y : " << ptf.y - p.y <<  std::endl;
+				//std::cout << loc << std::endl;
 				return HIT; // РћСп
 			}
 
@@ -488,6 +510,7 @@ void CombatComp::Update()
 				}
 				break;
 		}
+		DataUpdate();
 	}
 }
 

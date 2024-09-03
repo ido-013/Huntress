@@ -3,7 +3,7 @@
 #include "../ComponentManager/LogicComponent.h"
 #include "../Event/Entity.h"
 
-class PlayerComp : public LogicComponent
+class EnemyComp : public LogicComponent
 {
 private:
 	float speed = 100;
@@ -15,15 +15,15 @@ public:
 	bool moveState = true;
 	bool shootState = false;
 
-	PlayerComp(GameObject* _owner);
-	~PlayerComp();
+	EnemyComp(GameObject* _owner);
+	~EnemyComp();
 	void Update() override;
 
 	void LoadFromJson(const json&) override;
 	json SaveToJson() override;
 	float GetMovegauge();
 	static BaseRTTI* CreatePlayerComponent(GameObject* owner);
-	static constexpr const char* TypeName = "PlayerComp";
+	static constexpr const char* TypeName = "EnemyComp";
 
 	friend GameObject;
 };
