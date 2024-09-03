@@ -57,12 +57,6 @@ void PlayerComp::Update()
 	{
 		movementGauge = maxMovementGauge;
 	}
-
-}
-
-float PlayerComp::GetMovegauge()
-{
-	return movementGauge;
 }
 
 float PlayerComp::GetMovegauge()
@@ -93,6 +87,10 @@ json PlayerComp::SaveToJson()
 	return data;
 }
 
+float PlayerComp::GetMovegauge()
+{
+	return movementGauge;
+}
 
 BaseRTTI* PlayerComp::CreatePlayerComponent(GameObject* owner)
 {
