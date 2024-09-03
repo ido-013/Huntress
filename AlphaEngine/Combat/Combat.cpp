@@ -410,6 +410,8 @@ void CombatComp::Update()
 		switch (CombatComp::turn)
 		{
 			case PLAYERTURN: // player turn
+				if (!Projectile::isLaunchProjectile)
+					AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
 			
 				// 임시 트리거
 				if (AEInputCheckTriggered(AEVK_F) && ArrowCount < 1)
@@ -478,6 +480,9 @@ void CombatComp::Update()
 				break;
 
 			case ENEMYTURN: // enemy turn
+
+				if (!Projectile::isLaunchProjectile)
+					AEGfxSetCamPosition(etf->GetPos().x, etf->GetPos().y);
 			
 				// 임시 트리거
 				if (AEInputCheckTriggered(AEVK_F) && ArrowCount < 1)

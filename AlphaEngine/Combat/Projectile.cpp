@@ -4,9 +4,12 @@
 #include "Projectile.h"
 #include "../Components/TransformComp.h"
 #include "../Components/SpriteComp.h"
+#include "../Components/EnemyComp.h"
+#include "../Components/PlayerComp.h"
 #include "../Combat/Combat.h"
 #include "../GameObjectManager/GameObjectManager.h"
 #include "../EventManager/EventManager.h"
+#include "../Particle/Particle.h"
 
 AEVec2 Projectile::wind = { 0.f, 0.f };
 bool Projectile::isLaunchProjectile = false;
@@ -55,12 +58,22 @@ void Projectile::CalculateProjectileMotion()
 
 void Projectile::UpdateCollision()
 {
+    Particle p(5, 2, 5, { 255, 0, 0 });
+
     while (!oppoTypeQueue.empty())
     {
         if (CombatComp::turn == CombatComp::PLAYERTURN && oppoTypeQueue.front() == GameObject::Enemy)
         {
             colState = 1;
-            //enemy hp update;
+
+            //enemy hp update
+            //다이스(계산식) 추가 필요
+            GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
+            enemy->GetComponent<EnemyComp>()->data.hp -= 1;
+            
+            // particle
+            TransformComp* etf = enemy->GetComponent<TransformComp>();
+            p.PlayParticle(etf->GetPos().x, etf->GetPos().y);
 
             break;
         }
@@ -68,7 +81,15 @@ void Projectile::UpdateCollision()
         else if (CombatComp::turn == CombatComp::ENEMYTURN && oppoTypeQueue.front() == GameObject::Player)
         {
             colState = 1;
-            //player hp update;
+
+            // player hp update
+            // 다이스 추가 필요
+            GameObject* player = GameObjectManager::GetInstance().GetObj("player");
+            player->GetComponent<PlayerComp>()->data.hp -= 1;
+
+            // particle
+            TransformComp* ptf = player->GetComponent<TransformComp>();
+            p.PlayParticle(ptf->GetPos().x, ptf->GetPos().y);
 
             break;
         }
@@ -131,6 +152,9 @@ void Projectile::Update()
                 float y = ptf->GetPos().y; // 투사체의 위치 벡터 중 y
 
                 ptf->SetPos({ x + velocityX * time, y + velocityY * time });
+
+                // 카메라 업데이트
+                AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
 
                 // 시간 증가
                 time += timeStep;

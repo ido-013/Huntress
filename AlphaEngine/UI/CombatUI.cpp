@@ -119,9 +119,36 @@ void InitCombatUI()
 
 void UpdateCombatUI(GameObject* player)
 {
-	TransformComp* transMove = Move->GetComponent<TransformComp>();;
+	float camX, camY;
+	AEGfxGetCamPosition(&camX, &camY);
+
+	TransformComp* transLogo = UIBAR->GetComponent<TransformComp>();
+	transLogo->SetPos({ 0 + camX, -330 + camY });
+
+	TransformComp* transStart = Power->GetComponent<TransformComp>();
+	transStart->SetPos({ 150 + camX, -280 + camY });
+
+	TransformComp* transMove = Move->GetComponent<TransformComp>();
 	transMove->SetScale({ 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f) ,80 });
-	transMove->SetPos({ 150 - (750 - 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f)) / 2, -380 });
+	transMove->SetPos({ 150 - (750 - 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f)) / 2 + camX, -380 + camY });
+
+	TransformComp* transAngle = Angle->GetComponent<TransformComp>();
+	transAngle->SetPos({ -380 + camX, -330 + camY });
+
+	TransformComp* transSetting = Wind->GetComponent<TransformComp>();
+	transSetting->SetPos({ -700 + camX, 400 + camY });
+
+	TransformComp* transHP = HP->GetComponent<TransformComp>();
+	transHP->SetPos({ -720 + camX, -330 + camY });
+
+	TransformComp* transHP_e = enemyHP->GetComponent<TransformComp>();
+	transHP_e->SetPos({ 720 + camX, -330 + camY });
+
+	TransformComp* transAttack = Attack->GetComponent<TransformComp>();
+	transAttack->SetPos({ -600 + camX, -330 + camY });
+
+	TransformComp* transAttack_e = enemyAttack->GetComponent<TransformComp>();
+	transAttack_e->SetPos({ 600 + camX, -330 + camY });
 }
 
 void ExitCombatUI()
