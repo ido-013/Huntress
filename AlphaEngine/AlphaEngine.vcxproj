@@ -109,6 +109,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="dice.cpp" />
     <ClCompile Include="dice.h" />
     <ClCompile Include="Components\ColliderComp.cpp" />
+    <ClCompile Include="Event\ButtonClickEvent.cpp" />
     <ClCompile Include="GameObject\GameObject.cpp" />
     <ClCompile Include="ComponentManager\GraphicComponent.cpp" />
     <ClCompile Include="ComponentManager\LogicComponent.cpp" />
@@ -151,7 +152,6 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="Components.h" />
     <ClInclude Include="Components\AnimatorComp.h" />
     <ClInclude Include="Components\ButtonComp.h" />
-    <ClInclude Include="Event\Button.h" />
     <ClInclude Include="Event\ButtonClickEvent.h" />
     <ClInclude Include="Event\DestroyEvent.h" />
     <ClInclude Include="Event\DeathEvent.h" />

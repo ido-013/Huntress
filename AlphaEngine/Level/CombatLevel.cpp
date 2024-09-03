@@ -258,17 +258,17 @@ void level::CombatLevel::Init()
 	// direction Arrow
 	directionArrow = new GameObject("directionArrow");
 
-	directionArrow->AddComponent<TransformComp>();
-	directionArrow->AddComponent<SpriteComp>();
-	directionArrow->AddComponent<CombatComp>();
+	//directionArrow->AddComponent<TransformComp>();
+	//directionArrow->AddComponent<SpriteComp>();
+	//directionArrow->AddComponent<CombatComp>();
 
-	directionArrow->GetComponent<TransformComp>()->SetScale({ 
-		directionArrow->GetComponent<CombatComp>()->directionArrowWidth, 
-		directionArrow->GetComponent<CombatComp>()->directionArrowHeight });
-	directionArrow->GetComponent<SpriteComp>()->SetTexture("../Assets/Character/DirectionArrow.png");
-	directionArrow->GetComponent<SpriteComp>()->SetAlpha(0);
-	directionArrow->GetComponent<CombatComp>()->turn = CombatComp::TURN::PLAYERTURN;
-	directionArrow->GetComponent<CombatComp>()->isCombat = true;
+	//directionArrow->GetComponent<TransformComp>()->SetScale({ 
+	//	directionArrow->GetComponent<CombatComp>()->directionArrowWidth, 
+	//	directionArrow->GetComponent<CombatComp>()->directionArrowHeight });
+	//directionArrow->GetComponent<SpriteComp>()->SetTexture("../Assets/Character/DirectionArrow.png");
+	//directionArrow->GetComponent<SpriteComp>()->SetAlpha(0);
+	//directionArrow->GetComponent<CombatComp>()->turn = CombatComp::TURN::PLAYERTURN;
+	//directionArrow->GetComponent<CombatComp>()->isCombat = true;
 
 	InitCombatUI();
 }
