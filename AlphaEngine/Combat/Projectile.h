@@ -3,6 +3,7 @@
 #pragma once
 #include <iostream>
 #include <fstream>
+#include <queue>
 #include "../ComponentManager/LogicComponent.h"
 #include "../GameObject/GameObject.h"
 #include "AEEngine.h"
@@ -31,6 +32,9 @@ public:
 	Projectile(GameObject* _owner);
 	Projectile(GameObject* _owner, float velocity_value, float theta_value);
 
+	std::queue<GameObject::Type> oppoTypeQueue;
+	int colState = -1;
+
 	// 트리거 변수
 	static bool isLaunchProjectile;
 
@@ -45,6 +49,8 @@ public:
 	float GetTheta() const { return theta; };
 	void SetProjectileObject(GameObject& value) { projectile = &value; };
 	GameObject* GetProjectileObject() const { return projectile; };
+
+	void UpdateCollision();
 
 	void Update() override;
 	void LoadFromJson(const json& data) override;

@@ -36,10 +36,10 @@ public:
 
 	// Add an event (event*) this are pointers to dynamic memory, called as the following: AddEvent(new Event);
 	template <typename T>
-	void AddEvent(Entity* src, Entity* dst);	
+	void AddEvent(Entity* src, Entity* dst);
 
 	template <typename T>
-	void AddEvent(Entity* src, GameObject::Type type);
+	void AddEvent(Entity* src, Entity* dst, bool b);
 
 	void AddEntity(Entity* entity);
 	void DelEntity(Entity* entity);

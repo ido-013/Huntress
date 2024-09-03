@@ -3,11 +3,14 @@
 #include "RigidbodyComp.h"
 #include "../CollisionManager/CollisionManager.h"
 #include "../EventManager/EventManager.h"
+#include "../Combat/Projectile.h"
 
-ColliderComp::ColliderComp(GameObject* _owner) : EngineComponent(_owner), pos(), scale(), rot(0)
+ColliderComp::ColliderComp(GameObject* _owner) : EngineComponent(_owner), pos(), scale(), rot(0), vertices()
 {
 	CollisionManager::GetInstance().AddCollider(this);
 	EventManager::GetInstance().AddEntity(this);
+
+	SetCollider();
 }
 
 ColliderComp::~ColliderComp()
@@ -18,16 +21,34 @@ ColliderComp::~ColliderComp()
 
 void ColliderComp::Update()
 {
+	vertices[0] = { -0.5f, 0.5f, 1.f };
+	vertices[1] = { 0.5f, 0.5f, 1.f };
+	vertices[2] = { 0.5f, -0.5f, 1.f };
+	vertices[3] = {	-0.5f, -0.5f, 1.f };
 
+	const AEMtx33& mat = owner->GetComponent<TransformComp>()->GetMatrix();
+
+	for (int i = 0; i < 4; i++)
+	{
+		vertices[i] = mat * vertices[i];
+	}
 }
 
 void ColliderComp::OnEvent(Event* e)
 {
-	if (dynamic_cast<CollisionEvent*>(e) != nullptr)
+	CollisionEvent* ce = dynamic_cast<CollisionEvent*>(e);
+
+	if (ce != nullptr)
 	{
 		RigidbodyComp* r = owner->GetComponent<RigidbodyComp>();
+		Projectile* p = owner->GetComponent<Projectile>();
 
-		if (r)
+		if (p && ce->isProjectile)
+		{
+			p->oppoTypeQueue.push(static_cast<ColliderComp*>(e->src)->owner->type);
+		}
+
+		else if (r && !ce->isProjectile)
 		{
 			r->oppoCollider.push(static_cast<ColliderComp*>(e->src));
 			r->colliderType[static_cast<ColliderComp*>(e->src)->GetOwner()->type] = true;
@@ -38,11 +59,15 @@ void ColliderComp::OnEvent(Event* e)
 void ColliderComp::SetPos(const AEVec2& otherPos)
 {
 	this->pos = otherPos;
+
+	SetVertices();
 }
 
 void ColliderComp::SetScale(const AEVec2& otherScale)
 {
 	this->scale = otherScale;
+
+	SetVertices();
 }
 
 void ColliderComp::SetRot(const float& otherRot)
@@ -62,6 +87,8 @@ void ColliderComp::SetCollider()
 	scale.y = abs(t->GetScale().y);
 
 	rot = t->GetRot();
+
+	SetVertices();
 }
 
 void ColliderComp::SetCollider(float posX, float posY, float scaleX, float scaleY, float _rot)
@@ -69,10 +96,17 @@ void ColliderComp::SetCollider(float posX, float posY, float scaleX, float scale
 	pos.x = posX;
 	pos.y = posY;
 
-	scale.x = abs(scaleX);
-	scale.y = abs(scaleY);
+	scale.x = scaleX;
+	scale.y = scaleY;
 
 	rot = _rot;
+
+	SetVertices();
+}
+
+void ColliderComp::SetVertices()
+{
+	
 }
 
 void ColliderComp::LoadFromJson(const json& data)

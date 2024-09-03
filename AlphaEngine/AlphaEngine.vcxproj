@@ -145,6 +145,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="UI\CombatUI.cpp" />
     <ClCompile Include="UI\StoreUI.cpp" />
     <ClCompile Include="Utils\Utils.cpp" />
+    <ClCompile Include="Utils\Vec3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation\Animation.h" />
@@ -207,6 +208,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="Utils\Size.h" />
     <ClInclude Include="Utils\Utils.h" />
     <ClInclude Include="Economy.h" />
+    <ClInclude Include="Utils\Vec3.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ComponentManager\ComponentManager.inl" />

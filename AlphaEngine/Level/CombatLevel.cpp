@@ -213,7 +213,7 @@ void level::CombatLevel::Init()
 	
 	// player
 	player = new GameObject("player");
-	player->type = GameObject::Square;
+	player->type = GameObject::Player;
 
 	player->AddComponent<TransformComp>();
 	player->AddComponent<PlayerComp>();
@@ -233,7 +233,7 @@ void level::CombatLevel::Init()
 
 	// enemy
 	enemy = new GameObject("enemy");
-	enemy->type = GameObject::Square;
+	enemy->type = GameObject::Enemy;
 
 	enemy->AddComponent<TransformComp>();
 	enemy->AddComponent<RigidbodyComp>();
@@ -242,7 +242,7 @@ void level::CombatLevel::Init()
 	enemy->AddComponent<ColliderComp>();
 
 	enemy->GetComponent<TransformComp>()->SetScale({ -30, 30 });
-	enemy->GetComponent<TransformComp>()->SetPos({ -30, 400 });
+	enemy->GetComponent<TransformComp>()->SetPos({ -100, 400 });
 
 	enemy->GetComponent<RigidbodyComp>()->useGravity = true;
 	

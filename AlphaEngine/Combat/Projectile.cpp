@@ -6,6 +6,7 @@
 #include "../Components/SpriteComp.h"
 #include "../Combat/Combat.h"
 #include "../GameObjectManager/GameObjectManager.h"
+#include "../EventManager/EventManager.h"
 
 AEVec2 Projectile::wind = { 0.f, 0.f };
 bool Projectile::isLaunchProjectile = false;
@@ -52,6 +53,48 @@ void Projectile::CalculateProjectileMotion()
         GenerateRandomWind(Projectile::wind);
 }
 
+void Projectile::UpdateCollision()
+{
+    while (!oppoTypeQueue.empty())
+    {
+        if (CombatComp::turn == CombatComp::PLAYERTURN && oppoTypeQueue.front() == GameObject::Enemy)
+        {
+            colState = 1;
+            //enemy hp update;
+
+            break;
+        }
+
+        else if (CombatComp::turn == CombatComp::ENEMYTURN && oppoTypeQueue.front() == GameObject::Player)
+        {
+            colState = 1;
+            //player hp update;
+
+            break;
+        }
+
+        else if (colState == 0 &&
+            (oppoTypeQueue.front() == GameObject::Square || oppoTypeQueue.front() == GameObject::LeftTri || oppoTypeQueue.front() == GameObject::RightTri))
+        {
+            colState = 2;
+        }
+
+        else if (colState == -1 &&
+            CombatComp::turn == CombatComp::PLAYERTURN && oppoTypeQueue.front() == GameObject::Player)
+        {
+            colState = 0;
+        }
+
+        else if (colState == -1 &&
+            CombatComp::turn == CombatComp::ENEMYTURN && oppoTypeQueue.front() == GameObject::Enemy)
+        {
+            colState = 0;
+        }
+
+        oppoTypeQueue.pop();
+    }
+}
+
 void Projectile::Update()
 {
     if (isLaunchProjectile)
@@ -61,7 +104,7 @@ void Projectile::Update()
         delay += static_cast<float>(AEFrameRateControllerGetFrameTime());
 
         // 투사체가 화면 끝에 닿기 전까지 반복
-        if (ptf->GetPos().y >= -windowWidthHalf) {
+        if (ptf->GetPos().y >= -windowWidthHalf && colState < 1) {
             if (delay > ProjectileDelay)
             {
                 // 시간 간격
@@ -96,6 +139,8 @@ void Projectile::Update()
             }
             // 방향 업데이트
             ptf->SetRot(atan2f(velocityY, velocityX));
+
+            UpdateCollision();
         }
         else
         {
@@ -110,6 +155,7 @@ void Projectile::Update()
             {
                 GameObjectManager::GetInstance().RemoveObject(GameObjectManager::GetInstance().GetObj("projectile"));
             }
+            EventManager::GetInstance().DeleteUndispahchEvent();
             CombatComp::ArrowCount = 0;
         }
     }
