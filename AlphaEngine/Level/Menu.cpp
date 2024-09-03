@@ -63,12 +63,10 @@ void level::Menu::Init() {
 }
 
 void level::Menu::Update() {
-    
+   // ButtonManager::GetInstance().Update();
 
 }
 
 void level::Menu::Exit() {
-    GameObjectManager::GetInstance().RemoveObject(Logo);
-    GameObjectManager::GetInstance().RemoveObject(startButtonObj);
-    GameObjectManager::GetInstance().RemoveObject(quitButtonObj);
+
 }

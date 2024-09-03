@@ -3,6 +3,7 @@
 #include "../UIM/BtnManager.h"
 #include "../Event/ButtonClickEvent.h"
 #include "../GameObjectManager/GameObjectManager.h"
+#include "../Components/SpriteComp.h"
 
 ButtonComp::ButtonComp(GameObject* _owner)
     : EngineComponent(_owner), pos(), scale()

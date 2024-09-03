@@ -1,4 +1,5 @@
 #include "StoreUI.h"
+#include "../Components/SpriteComp.h"
 #include <random>
 
 GameObject* Openbtn = nullptr;
