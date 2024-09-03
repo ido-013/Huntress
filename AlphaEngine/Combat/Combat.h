@@ -62,8 +62,9 @@ public:
 	enum STATE
 	{
 		NONE = 0,
-		CLEAR = 1,
-		GAMEOVER = 2
+		COMBAT = 1,
+		CLEAR = 2,
+		GAMEOVER = 3
 	};
 	static STATE state;
 	void checkState();

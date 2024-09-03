@@ -7,6 +7,7 @@
 #include "../GameObjectManager/GameObjectManager.h"
 #include "../Components/SpriteComp.h"
 #include "../Components/PlayerComp.h"
+#include "../Components/EnemyComp.h"
 #include "../Combat/Projectile.h"
 #include <cmath>
 #include "AEInput.h"
@@ -207,9 +208,6 @@ void CombatComp::FireAnArrow(TURN turn, GameObject& directionArrow)
 	projectile->GetComponent<Projectile>()->CalculateProjectileMotion();
 	projectile->GetComponent<Projectile>()->isLaunchProjectile = true;
 
-	data.windAngle = projectile->GetComponent<Projectile>()->windAngle;
-	data.windPower = projectile->GetComponent<Projectile>()->windSpeed;
-
 	isReadyLaunch = false;
 	CombatComp::ArrowCount++;
 }
@@ -225,14 +223,24 @@ CombatComp::TURN CombatComp::TurnChange()
 
 void CombatComp::checkState()
 {
-	if (isCombat)
+	GameObject* player = GameObjectManager::GetInstance().GetObj("player");
+	GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
+	if (isCombat && state == COMBAT)
 	{
-		// enemy hp == 0
-		
-		// player hp == 0
+		if (enemy->GetComponent<EnemyComp>()->data.hp <= 0)
+		{
+			state = CLEAR;
+			isCombat = false;
+		}
+		else if (player->GetComponent<PlayerComp>()->data.hp <= 0)
+		{
+			state = GAMEOVER;
+			isCombat = false;
+		}
 	}
 }
 
+// Get&Set
 void CombatComp::SetPlayerAngle(float angle)
 {
 	pAngle = angle;
@@ -384,7 +392,7 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 
 void CombatComp::Update()
 {
-	if (isCombat)
+	if (isCombat && state == COMBAT)
 	{
 		GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
 		GameObject* player = GameObjectManager::GetInstance().GetObj("player");
@@ -399,7 +407,7 @@ void CombatComp::Update()
 			case PLAYERTURN: // player turn
 			
 				// 임시 트리거
-				if (AEInputCheckTriggered(AEVK_F))
+				if (AEInputCheckTriggered(AEVK_F) && ArrowCount < 1)
 				{
 					directionArrow->GetComponent<CombatComp>()->isDrawDirection = true;
 					directionArrow->GetComponent<CombatComp>()->isChaseDirection = true;
@@ -429,6 +437,7 @@ void CombatComp::Update()
 				{
 					if (AEInputCheckTriggered(AEVK_LBUTTON))
 					{
+						player->GetComponent<PlayerComp>()->moveState = false;
 						isChaseDirection = false;
 						isReadyLaunch = true;
 					}				
@@ -466,7 +475,7 @@ void CombatComp::Update()
 			case ENEMYTURN: // enemy turn
 			
 				// 임시 트리거
-				if (AEInputCheckTriggered(AEVK_F))
+				if (AEInputCheckTriggered(AEVK_F) && ArrowCount < 1)
 				{
 					directionArrow->GetComponent<CombatComp>()->isDrawDirection = true;
 					directionArrow->GetComponent<CombatComp>()->isChaseDirection = true;
@@ -511,6 +520,7 @@ void CombatComp::Update()
 				break;
 		}
 		DataUpdate();
+		checkState();
 	}
 }
 

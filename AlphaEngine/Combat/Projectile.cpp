@@ -13,14 +13,14 @@ const float ProjectileDelay = 0.001f;
 float velocityX = 0, velocityY = 0;
 
 Projectile::Projectile(GameObject* _owner) : LogicComponent(_owner), velocity(0), theta(0),
-mass(1), time(0), delay(0), initialVelocity({ 0,0 }), startY(0), projectile(nullptr), windSpeed(0), windAngle(0)
+mass(1), time(0), delay(0), initialVelocity({ 0,0 }), startY(0), projectile(nullptr)
 {
 
 }
 
 Projectile::Projectile(GameObject* _owner, float velocity_value, float theta_value) 
     : LogicComponent(_owner), velocity(velocity_value), theta(theta_value),
-    mass(1), time(0), delay(0), initialVelocity({ 0,0 }), startY(0), projectile(nullptr), windSpeed(0), windAngle(0)
+    mass(1), time(0), delay(0), initialVelocity({ 0,0 }), startY(0), projectile(nullptr)
 {
 
 }
@@ -33,10 +33,13 @@ Projectile::~Projectile()
 void Projectile::GenerateRandomWind(AEVec2& wind) {
     float wSpeed = (float)(std::rand() % ((WIND_MAX * 2) + 1) - WIND_MAX); // -50에서 50 사이의 속도
     float wAngle = AEDegToRad((f32)(std::rand() % 180)) * (std::rand() % 2 == 0 ? -1 : 1); // 0에서 360도 사이의 방향을 라디안으로 변환
-    windSpeed = wSpeed;
-    windAngle = wAngle;
-    wind.x = windSpeed * std::cos(windAngle);
-    wind.y = windSpeed * std::sin(windAngle);
+
+    GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
+    directionArrow->GetComponent<CombatComp>()->data.windAngle = wSpeed;
+    directionArrow->GetComponent<CombatComp>()->data.windPower = wAngle;
+
+    wind.x = wSpeed * std::cos(wAngle);
+    wind.y = wSpeed * std::sin(wAngle);
 }
 
 void Projectile::CalculateProjectileMotion()
@@ -67,7 +70,7 @@ void Projectile::Update()
                 velocityX = initialVelocity.x + wind.x;
                 velocityY = initialVelocity.y + wind.y;
 
-                std::cout << " Wind x,y :"  << wind.x << ", " << wind.y << std::endl;
+                //std::cout << " Wind x,y :"  << wind.x << ", " << wind.y << std::endl;
 
                 float airResistanceX = -AIR_RESISTANCE_COEFFICIENT
                     * velocityX * std::abs(velocityX);// / mass;

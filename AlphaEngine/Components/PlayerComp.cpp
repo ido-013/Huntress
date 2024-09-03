@@ -57,6 +57,7 @@ void PlayerComp::Update()
 		{
 			turnTemp = false;
 			movementGauge = maxMovementGauge;
+			moveState = true;
 		}
 		else if (CombatComp::turn == CombatComp::TURN::ENEMYTURN)
 		{

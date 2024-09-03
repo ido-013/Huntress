@@ -14,7 +14,6 @@ private:
 public:
 	Data::PlayerData data;
 	bool moveState = true;
-	bool shootState = false;
 	bool turnTemp = true;
 	float GetMovegauge();
 	PlayerComp(GameObject* _owner);
