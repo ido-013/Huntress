@@ -122,11 +122,8 @@
     </ClCompile>
     <ClCompile Include="Components\ButtonComp.cpp">
       <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Level\Store.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="UIM\BtnManager.cpp">
+    </ClCompile>    
+      <ClCompile Include="UIM\BtnManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="UI\CombatUI.cpp">
@@ -143,6 +140,18 @@
     </ClCompile>
    
     <ClCompile Include="Event\ButtonClickEvent.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\CombatUI.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\StoreUI.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Data.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\EnemyComp.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -270,9 +279,6 @@
     <ClInclude Include="Level\Menu.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Level\StoreUI.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Combat\Projectile.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -322,18 +328,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Components\ButtonComp.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Level\Store.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="UIM\BtnManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\CombatUI.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\StoreUI.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

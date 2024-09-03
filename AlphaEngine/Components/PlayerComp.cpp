@@ -9,8 +9,9 @@
 #include "../Prefab/Prefab.h"
 #include "../GameObjectManager/GameObjectManager.h"
 #include "../Particle/Particle.h"
+#include "../Combat/Combat.h"
 
-PlayerComp::PlayerComp(GameObject* _owner) : LogicComponent(_owner)
+PlayerComp::PlayerComp(GameObject* _owner) : LogicComponent(_owner), data(*new Data::PlayerData)
 {
 	
 }
@@ -27,38 +28,50 @@ void PlayerComp::Update()
 	RigidbodyComp* r = owner->GetComponent<RigidbodyComp>();
 	if (!r) return;
 
-	SpriteComp* s = owner->GetComponent<SpriteComp>();
-	if (!s) return;
+	//SpriteComp* s = owner->GetComponent<SpriteComp>();
+	//if (!s) return;
 
 	r->SetVelocityX(0);
 
-	if (AEInputCheckCurr(AEVK_A) && movementGauge > 0 && moveState)
+	if(CombatComp::isCombat)
 	{
-		t->SetScale({ -abs(t->GetScale().x), t->GetScale().y });
-		r->SetVelocityX(-speed);
-		movementGauge--;
-	}
+		if (AEInputCheckCurr(AEVK_A) && movementGauge > 0 && moveState)
+		{
+			t->SetScale({ -abs(t->GetScale().x), t->GetScale().y });
+			r->SetVelocityX(-speed);
+			movementGauge--;
+		}
 
-	if (AEInputCheckCurr(AEVK_D) && movementGauge > 0 && moveState)
-	{
-		t->SetScale({ abs(t->GetScale().x), t->GetScale().y });
-		r->SetVelocityX(speed);
-		movementGauge--;
-	}
+		if (AEInputCheckCurr(AEVK_D) && movementGauge > 0 && moveState)
+		{
+			t->SetScale({ abs(t->GetScale().x), t->GetScale().y });
+			r->SetVelocityX(speed);
+			movementGauge--;
+		}
+		if (movementGauge <= 0)
+		{
+			moveState = false;
+		}
 
-	if (movementGauge <= 0)
-	{
-		moveState = false;
-	}
+		if (CombatComp::turn == CombatComp::TURN::PLAYERTURN && turnTemp)
+		{
+			turnTemp = false;
+			movementGauge = maxMovementGauge;
+			moveState = true;
+		}
+		else if (CombatComp::turn == CombatComp::TURN::ENEMYTURN)
+		{
+			turnTemp = true;
+		}
 
-	if (!turn)
-	{
-		movementGauge = maxMovementGauge;
+		if (CombatComp::turn == CombatComp::TURN::PLAYERTURN)
+		{
+			GameObjectManager::GetInstance().GetObj("directionArrow")->GetComponent<CombatComp>()->data.moveGauge = movementGauge;
+		}
 	}
-
 }
 
-float PlayerComp::GetMovegauge()
+int PlayerComp::GetMovegauge()
 {
 	return movementGauge;
 }

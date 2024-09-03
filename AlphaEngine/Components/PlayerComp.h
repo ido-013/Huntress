@@ -2,6 +2,7 @@
 #include "AEEngine.h"
 #include "../ComponentManager/LogicComponent.h"
 #include "../Event/Entity.h"
+#include "../Data/Data.h"
 
 class PlayerComp : public LogicComponent
 {
@@ -11,10 +12,10 @@ private:
 	int maxMovementGauge = 1000;
 
 public:
-	bool turn = true;
+	Data::PlayerData data;
 	bool moveState = true;
-	bool shootState = false;
-	float GetMovegauge();
+	bool turnTemp = true;
+	int GetMovegauge();
 	PlayerComp(GameObject* _owner);
 	~PlayerComp();
 	void Update() override;

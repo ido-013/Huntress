@@ -76,8 +76,8 @@ void level::NormalLevel::Init()
 				t = go->GetComponent<TransformComp>();
 				t->SetScale({ windowWidth / width * 2, windowHeight / height });
 				//t->SetScale({ width * 2, height });
-				float x = MapToPosX(j);
-				float y = MapToPosY(i);
+				float x = MapToPosX((float)j);
+				float y = MapToPosY((float)i);
 				t->SetPos({ x + (windowWidth / width / 2), y });
 				//t->SetPos({ x + width / 2, y });
 				continue;
@@ -89,8 +89,8 @@ void level::NormalLevel::Init()
 				t = go->GetComponent<TransformComp>();
 				t->SetScale({ windowWidth / width * 2, windowHeight / height });
 				//t->SetScale({ width * 2, height });
-				float x = MapToPosX(j);
-				float y = MapToPosY(i);
+				float x = MapToPosX((float)j);
+				float y = MapToPosY((float)i);
 				t->SetPos({ x + (windowWidth / width / 2), y });
 				//t->SetPos({ x + width / 2, y });
 				continue;
@@ -99,8 +99,8 @@ void level::NormalLevel::Init()
 			t = go->GetComponent<TransformComp>();
 			t->SetScale({ windowWidth / width, windowHeight / height });
 			//t->SetScale({ width, height }); 
-			float x = MapToPosX(j);
-			float y = MapToPosY(i);
+			float x = MapToPosX((float)j);
+			float y = MapToPosY((float)i);
 			t->SetPos({ x, y });
 		}
 	}

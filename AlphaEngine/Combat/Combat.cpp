@@ -7,6 +7,7 @@
 #include "../GameObjectManager/GameObjectManager.h"
 #include "../Components/SpriteComp.h"
 #include "../Components/PlayerComp.h"
+#include "../Components/EnemyComp.h"
 #include "../Combat/Projectile.h"
 #include <cmath>
 #include "AEInput.h"
@@ -14,6 +15,7 @@
 #include "../Utils/Size.h"
 
 CombatComp::TURN CombatComp::turn = NOBODYTURN;
+CombatComp::STATE CombatComp::state = NONE;
 
 bool CombatComp::isCombat = false;
 
@@ -24,6 +26,13 @@ bool CombatComp::isReadyLaunch = false;
 bool CombatComp::isSetLaunchAngle = false;
 
 int CombatComp::ArrowCount = 0;
+
+void CombatComp::DataUpdate()
+{
+	data.angle = turn == PLAYERTURN ? pAngle : turn == ENEMYTURN ? eAngle : 0;
+	data.power = turn == PLAYERTURN ? pPower : turn == ENEMYTURN ? ePower : 0;
+	//data.randomValue = ;
+}
 
 CombatComp::CombatComp(GameObject* _owner) : EngineComponent(_owner),
 pAngle(0), eAngle(RAD90), pVelocity(0), eVelocity(0), pPower(8), ePower(5), AICombatSystemApplyWind(true)
@@ -194,10 +203,11 @@ void CombatComp::FireAnArrow(TURN turn, GameObject& directionArrow)
 	turn == PLAYERTURN ? pVelocity = DEFAULT_POWER + pPower : eVelocity = DEFAULT_POWER + ePower;
 	projectile->GetComponent<Projectile>()->SetVelocity(turn == PLAYERTURN ? pVelocity : eVelocity);
 	projectile->GetComponent<Projectile>()->SetTheta(turn == PLAYERTURN ? pAngle : eAngle);
-	std::cout << eVelocity << ", " <<  AERadToDeg(eAngle)<< std::endl;
+	//std::cout << eVelocity << ", " <<  AERadToDeg(eAngle)<< std::endl;
 	projectile->GetComponent<Projectile>()->SetProjectileObject(*projectile);
 	projectile->GetComponent<Projectile>()->CalculateProjectileMotion();
 	projectile->GetComponent<Projectile>()->isLaunchProjectile = true;
+
 	isReadyLaunch = false;
 	CombatComp::ArrowCount++;
 }
@@ -211,10 +221,30 @@ CombatComp::TURN CombatComp::TurnChange()
 	return CombatComp::turn == PLAYERTURN ? ENEMYTURN : PLAYERTURN;
 }
 
+void CombatComp::checkState()
+{
+	GameObject* player = GameObjectManager::GetInstance().GetObj("player");
+	GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
+	if (isCombat && state == COMBAT)
+	{
+		if (enemy->GetComponent<EnemyComp>()->data.hp <= 0)
+		{
+			state = CLEAR;
+			isCombat = false;
+		}
+		else if (player->GetComponent<PlayerComp>()->data.hp <= 0)
+		{
+			state = GAMEOVER;
+			isCombat = false;
+		}
+	}
+}
+
+// Get&Set
 void CombatComp::SetPlayerAngle(float angle)
 {
 	pAngle = angle;
-	std::cout << "Set Player Angle : " << AERadToDeg(angle) << std::endl;
+	//std::cout << "Set Player Angle : " << AERadToDeg(angle) << std::endl;
 }
 float CombatComp::GetPlayerAngle()
 {
@@ -223,7 +253,7 @@ float CombatComp::GetPlayerAngle()
 void CombatComp::SetEnemyAngle(float angle)
 {
 	eAngle = angle;
-	std::cout << "Set Enemy Angle : " << AERadToDeg(angle) << std::endl;
+	//std::cout << "Set Enemy Angle : " << AERadToDeg(angle) << std::endl;
 }
 float CombatComp::GetEnemyAngle()
 {
@@ -232,7 +262,7 @@ float CombatComp::GetEnemyAngle()
 void CombatComp::SetPlayerVelocity(float velocity)
 {
 	pVelocity = velocity;
-	std::cout << "Set Player Velocity : " << pVelocity << std::endl;
+	//std::cout << "Set Player Velocity : " << pVelocity << std::endl;
 }
 float CombatComp::GetPlayerVelocity()
 {
@@ -241,7 +271,7 @@ float CombatComp::GetPlayerVelocity()
 void CombatComp::SetEnemyVelocity(float velocity)
 {
 	eVelocity = velocity;
-	std::cout << "Set Enemy Velocity : " << eVelocity << std::endl;
+	//std::cout << "Set Enemy Velocity : " << eVelocity << std::endl;
 }
 float CombatComp::GetEnemyVelocity()
 {
@@ -324,12 +354,12 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 			if (loc <= HIT_RADIUS)
 			{
 				isSetLaunchAngle = true;
-				std::cout << "HIT" << std::endl;
-				std::cout << "ptf : " << ptf.x << " , " << ptf.y << "\np : " << p.x << " , " << p.y <<  std::endl;
-				std::cout << "ePower : " << ePower <<  std::endl;
-				std::cout << "eAngle : " << AERadToDeg(eAngle) <<  std::endl;
-				std::cout << "x : " << ptf.x - p.x << "y : " << ptf.y - p.y <<  std::endl;
-				std::cout << loc << std::endl;
+				//std::cout << "HIT" << std::endl;
+				//std::cout << "ptf : " << ptf.x << " , " << ptf.y << "\np : " << p.x << " , " << p.y <<  std::endl;
+				//std::cout << "ePower : " << ePower <<  std::endl;
+				//std::cout << "eAngle : " << AERadToDeg(eAngle) <<  std::endl;
+				//std::cout << "x : " << ptf.x - p.x << "y : " << ptf.y - p.y <<  std::endl;
+				//std::cout << loc << std::endl;
 				return HIT; // 적중
 			}
 
@@ -352,7 +382,8 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 		eVelocity = ePower + DEFAULT_POWER;
 		eAngle = p.x < e.x ? ANGLE_LIMIT / 2 + RAD90 : -(ANGLE_LIMIT / 2 + RAD90);
 		isSetLaunchAngle = true;
-		std::cout << "NOTFOUND" << std::endl;
+		std::cout << "Projectile : NOTFOUND" << std::endl;
+		enemy->GetComponent<EnemyComp>()->isMove = true;
 		return NOTFOUND;
 	}
 	//std::cout << AERadToDeg(eAngle)<< std::endl;
@@ -362,7 +393,7 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 
 void CombatComp::Update()
 {
-	if (isCombat)
+	if (isCombat && state == COMBAT)
 	{
 		GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
 		GameObject* player = GameObjectManager::GetInstance().GetObj("player");
@@ -377,7 +408,7 @@ void CombatComp::Update()
 			case PLAYERTURN: // player turn
 			
 				// 임시 트리거
-				if (AEInputCheckTriggered(AEVK_F))
+				if (AEInputCheckTriggered(AEVK_F) && ArrowCount < 1)
 				{
 					directionArrow->GetComponent<CombatComp>()->isDrawDirection = true;
 					directionArrow->GetComponent<CombatComp>()->isChaseDirection = true;
@@ -407,6 +438,7 @@ void CombatComp::Update()
 				{
 					if (AEInputCheckTriggered(AEVK_LBUTTON))
 					{
+						player->GetComponent<PlayerComp>()->moveState = false;
 						isChaseDirection = false;
 						isReadyLaunch = true;
 					}				
@@ -444,7 +476,7 @@ void CombatComp::Update()
 			case ENEMYTURN: // enemy turn
 			
 				// 임시 트리거
-				if (AEInputCheckTriggered(AEVK_F))
+				if (AEInputCheckTriggered(AEVK_F) && ArrowCount < 1)
 				{
 					directionArrow->GetComponent<CombatComp>()->isDrawDirection = true;
 					directionArrow->GetComponent<CombatComp>()->isChaseDirection = true;
@@ -488,6 +520,8 @@ void CombatComp::Update()
 				}
 				break;
 		}
+		DataUpdate();
+		checkState();
 	}
 }
 

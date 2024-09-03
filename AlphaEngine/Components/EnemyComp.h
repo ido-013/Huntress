@@ -2,8 +2,9 @@
 #include "AEEngine.h"
 #include "../ComponentManager/LogicComponent.h"
 #include "../Event/Entity.h"
+#include "../Data/Data.h"
 
-class PlayerComp : public LogicComponent
+class EnemyComp : public LogicComponent
 {
 private:
 	float speed = 100;
@@ -11,19 +12,23 @@ private:
 	int maxMovementGauge = 1000;
 
 public:
-	bool turn = true;
+	Data::EnemyData data;
+	bool isMove = false;
 	bool moveState = true;
-	bool shootState = false;
+	bool turnTemp = true;
+	bool isBack = true;
+	void RandomMove();
+	int GetMovegauge();
 
-	PlayerComp(GameObject* _owner);
-	~PlayerComp();
+	EnemyComp(GameObject* _owner);
+	~EnemyComp();
 	void Update() override;
 
-	void LoadFromJson(const json&) override;
+	void LoadFromJson(const json& data) override;
 	json SaveToJson() override;
-	float GetMovegauge();
-	static BaseRTTI* CreatePlayerComponent(GameObject* owner);
-	static constexpr const char* TypeName = "PlayerComp";
+
+	static BaseRTTI* CreateEnemyComponent(GameObject* owner);
+	static constexpr const char* TypeName = "EnemyComp";
 
 	friend GameObject;
 };

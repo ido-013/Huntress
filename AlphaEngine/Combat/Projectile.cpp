@@ -31,11 +31,15 @@ Projectile::~Projectile()
 
 // 랜덤한 바람의 세기와 방향을 생성하는 함수 (라디안)
 void Projectile::GenerateRandomWind(AEVec2& wind) {
-    float windSpeed = (float)(std::rand() % ((WIND_MAX * 2) + 1) - WIND_MAX); // -50에서 50 사이의 속도
-    float windAngle = AEDegToRad((f32)(std::rand() % 180)) * (std::rand() % 2 == 0 ? -1 : 1); // 0에서 360도 사이의 방향을 라디안으로 변환
+    float wSpeed = (float)(std::rand() % ((WIND_MAX * 2) + 1) - WIND_MAX); // -50에서 50 사이의 속도
+    float wAngle = AEDegToRad((f32)(std::rand() % 180)) * (std::rand() % 2 == 0 ? -1 : 1); // 0에서 360도 사이의 방향을 라디안으로 변환
 
-    wind.x = windSpeed * std::cos(windAngle);
-    wind.y = windSpeed * std::sin(windAngle);
+    GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
+    directionArrow->GetComponent<CombatComp>()->data.windPower = wSpeed;
+    directionArrow->GetComponent<CombatComp>()->data.windAngle = wAngle;
+
+    wind.x = wSpeed * std::cos(wAngle);
+    wind.y = wSpeed * std::sin(wAngle);
 }
 
 void Projectile::CalculateProjectileMotion()
@@ -66,7 +70,7 @@ void Projectile::Update()
                 velocityX = initialVelocity.x + wind.x;
                 velocityY = initialVelocity.y + wind.y;
 
-                std::cout << " Wind x,y :"  << wind.x << ", " << wind.y << std::endl;
+                //std::cout << " Wind x,y :"  << wind.x << ", " << wind.y << std::endl;
 
                 float airResistanceX = -AIR_RESISTANCE_COEFFICIENT
                     * velocityX * std::abs(velocityX);// / mass;

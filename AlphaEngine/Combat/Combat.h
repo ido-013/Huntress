@@ -5,6 +5,7 @@
 #include "../GameObject/GameObject.h"
 #include "../ComponentManager/EngineComponent.h"
 #include "../Combat/Projectile.h"
+#include "../Data/Data.h"
 
 #define DEFAULT_POWER 1.f
 #define POWER_LIMIT 24.f
@@ -30,12 +31,15 @@ class CombatComp : public EngineComponent
 	float eVelocity;
 	float ePower;
 public:
+	Data::CombatData data;
+	void DataUpdate();
+
 	static int ArrowCount;
 
 	const float directionArrowWidth = 42;
 	const float directionArrowHeight = 260 / (DEFAULT_POWER + POWER_LIMIT); // * 1~25
 
-	CombatComp(GameObject* _owner);
+	CombatComp(GameObject* _owner); 
 	~CombatComp();
 	
 	enum TURN {
@@ -46,20 +50,24 @@ public:
 	static TURN turn; // 0 : nobody, 1 : player, 2 : enemy
 	static TURN TurnChange();
 
-	static bool isCombat;
+	static bool isCombat; // 전투 상태
 
-	static bool isDrawDirection;
-	static bool isChaseDirection;
-	static bool isReadyLaunch;
+	static bool isDrawDirection; // 조준 상태
+	static bool isChaseDirection; // 조준선 고정 상태
+	static bool isReadyLaunch; // 발사 준비 상태
 
+	// AICombatSystem에서만 사용
 	static bool isSetLaunchAngle;
 
 	enum STATE
 	{
 		NONE = 0,
-		CLEAR = 1,
-		GAMEOVER = 2
+		COMBAT = 1,
+		CLEAR = 2,
+		GAMEOVER = 3
 	};
+	static STATE state;
+	void checkState();
 
 	void SetPlayerAngle(float angle);
 	float GetPlayerAngle();
