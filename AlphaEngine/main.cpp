@@ -12,7 +12,7 @@
 #include "dice.h"
 #include "Level/Menu.h"
 #include "Level/CombatUI.h"
-#include "Level/StoreUI.h"
+#include "Level/Store.h"
 // ---------------------------------------------------------------------------
 // main
 
@@ -42,7 +42,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	AESysReset();
 
 	//GSM::GameStateManager::GetInstance().ChangeLevel(new level::NormalLevel);
-	GSM::GameStateManager::GetInstance().ChangeLevel(new level::Menu);
+	GSM::GameStateManager::GetInstance().ChangeLevel(new level::Store);
 
 	// Game Loop
 	while (gsm.ShouldExit() == false && gGameRunning)

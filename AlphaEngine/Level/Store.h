@@ -4,7 +4,7 @@
 
 namespace level
 {
-	class StoreUI : public GSM::BaseLevel
+	class Store : public GSM::BaseLevel
 	{
 	public:
 		void Init() override;

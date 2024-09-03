@@ -47,7 +47,6 @@ GameObject* GameObjectManager::GetLastObject()
 	}
 	return nullptr;
 }
-
 void GameObjectManager::RemoveObject(GameObject* obj)
 {
 	for (auto it = objects.begin(); it != objects.end(); it++)
@@ -63,9 +62,10 @@ void GameObjectManager::RemoveObject(GameObject* obj)
 
 void GameObjectManager::RemoveAllObject()
 {
-	for (auto it = objects.begin(); it != objects.end(); it++)	
+	for (auto it = objects.begin(); it != objects.end(); it++)
 	{
 		delete it->first;
+		
 	}
 
 	objects.clear();
