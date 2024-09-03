@@ -1,5 +1,6 @@
 #include "Data.h"
 #include <iostream>
+#include "AEEngine.h"
 
 void Data::PrintPlayerData(Data::PlayerData data)
 {
@@ -21,9 +22,9 @@ void Data::PrintEnemyData(Data::EnemyData data)
 void Data::PrintCombatData(Data::CombatData data)
 {
 	std::cout << "Combat randomValue : " << data.randomValue << std::endl;
-	std::cout << "Combat windAngle : " << data.windAngle << std::endl;
+	std::cout << "Combat windAngle : " << AERadToDeg(data.windAngle) << std::endl;
 	std::cout << "Combat windPower : " << data.windPower << std::endl;
-	std::cout << "Combat angle : " << data.angle << std::endl;
+	std::cout << "Combat angle : " << AERadToDeg(data.angle) << std::endl;
 	std::cout << "Combat power : " << data.power << std::endl;
 	std::cout << "Combat moveGauge : " << data.moveGauge << std::endl;
 	PrintSeparator();
@@ -33,4 +34,16 @@ void Data::PrintSeparator()
 {
 	std::cout << "---------------------------" << std::endl;
 }
+Data::PlayerData::PlayerData() : hp(0), damage(0), armor(0)
+{
+}
+
+Data::EnemyData::EnemyData() : hp(0), damage(0), armor(0), grade(Data::EnemyData::GRADE::Normal)
+{
+}
+
+Data::CombatData::CombatData() : randomValue(0), windAngle(0), windPower(0), angle(0), power(0), moveGauge(0)
+{
+}
+
 

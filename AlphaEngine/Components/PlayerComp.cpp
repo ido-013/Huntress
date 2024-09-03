@@ -11,7 +11,7 @@
 #include "../Particle/Particle.h"
 #include "../Combat/Combat.h"
 
-PlayerComp::PlayerComp(GameObject* _owner) : LogicComponent(_owner)
+PlayerComp::PlayerComp(GameObject* _owner) : LogicComponent(_owner), data(*new Data::PlayerData)
 {
 	
 }
@@ -28,8 +28,8 @@ void PlayerComp::Update()
 	RigidbodyComp* r = owner->GetComponent<RigidbodyComp>();
 	if (!r) return;
 
-	SpriteComp* s = owner->GetComponent<SpriteComp>();
-	if (!s) return;
+	//SpriteComp* s = owner->GetComponent<SpriteComp>();
+	//if (!s) return;
 
 	r->SetVelocityX(0);
 
@@ -69,12 +69,9 @@ void PlayerComp::Update()
 			GameObjectManager::GetInstance().GetObj("directionArrow")->GetComponent<CombatComp>()->data.moveGauge = movementGauge;
 		}
 	}
-
-
-
 }
 
-float PlayerComp::GetMovegauge()
+int PlayerComp::GetMovegauge()
 {
 	return movementGauge;
 }

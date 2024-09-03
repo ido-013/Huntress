@@ -221,7 +221,7 @@ void level::CombatLevel::Init()
 	player->AddComponent<ColliderComp>();
 
 	player->GetComponent<TransformComp>()->SetScale({ 30, 30 });
-	player->GetComponent<TransformComp>()->SetPos({ -30, 400 });
+	player->GetComponent<TransformComp>()->SetPos({ 30, 400 });
 
 	player->GetComponent<RigidbodyComp>()->useGravity = true;
 
@@ -241,7 +241,7 @@ void level::CombatLevel::Init()
 	enemy->AddComponent<ColliderComp>();
 
 	enemy->GetComponent<TransformComp>()->SetScale({ -30, 30 });
-	enemy->GetComponent<TransformComp>()->SetPos({ 30, 400 });
+	enemy->GetComponent<TransformComp>()->SetPos({ -30, 400 });
 
 	enemy->GetComponent<RigidbodyComp>()->useGravity = true;
 	

@@ -6,6 +6,7 @@ public:
 	class PlayerData
 	{
 	public:
+		PlayerData();
 		float hp;
 		float damage;
 		float armor;
@@ -18,6 +19,7 @@ public:
 	class EnemyData
 	{
 	public:
+		EnemyData();
 		float hp;
 		float damage;
 		float armor;
@@ -34,13 +36,14 @@ public:
 	class CombatData
 	{
 	public:
+		CombatData();
 		int randomValue;
 		float windAngle;
 		float windPower;
 		float angle;
 		float power;
-		float moveGauge;
-		void InitData(int randomValueV, float windAngleV, float windPowerV, float angleV, float powerV, float moveGaugeV)
+		int moveGauge;
+		void InitData(int randomValueV, float windAngleV, float windPowerV, float angleV, float powerV, int moveGaugeV)
 		{
 			randomValue = randomValueV, windAngle = windAngleV, windPower = windPowerV, angle = angleV, power = powerV, moveGauge = moveGaugeV;
 		};

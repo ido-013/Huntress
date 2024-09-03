@@ -13,10 +13,12 @@ private:
 
 public:
 	Data::EnemyData data;
-	bool turn = true;
+	bool isMove = false;
 	bool moveState = true;
-	bool shootState = false;
-	float GetMovegauge();
+	bool turnTemp = true;
+	bool isBack = true;
+	void RandomMove();
+	int GetMovegauge();
 
 	EnemyComp(GameObject* _owner);
 	~EnemyComp();

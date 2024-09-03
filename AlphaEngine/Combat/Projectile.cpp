@@ -35,8 +35,8 @@ void Projectile::GenerateRandomWind(AEVec2& wind) {
     float wAngle = AEDegToRad((f32)(std::rand() % 180)) * (std::rand() % 2 == 0 ? -1 : 1); // 0에서 360도 사이의 방향을 라디안으로 변환
 
     GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
-    directionArrow->GetComponent<CombatComp>()->data.windAngle = wSpeed;
-    directionArrow->GetComponent<CombatComp>()->data.windPower = wAngle;
+    directionArrow->GetComponent<CombatComp>()->data.windPower = wSpeed;
+    directionArrow->GetComponent<CombatComp>()->data.windAngle = wAngle;
 
     wind.x = wSpeed * std::cos(wAngle);
     wind.y = wSpeed * std::sin(wAngle);

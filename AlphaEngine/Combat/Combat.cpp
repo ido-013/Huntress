@@ -382,7 +382,8 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 		eVelocity = ePower + DEFAULT_POWER;
 		eAngle = p.x < e.x ? ANGLE_LIMIT / 2 + RAD90 : -(ANGLE_LIMIT / 2 + RAD90);
 		isSetLaunchAngle = true;
-		std::cout << "NOTFOUND" << std::endl;
+		std::cout << "Projectile : NOTFOUND" << std::endl;
+		enemy->GetComponent<EnemyComp>()->isMove = true;
 		return NOTFOUND;
 	}
 	//std::cout << AERadToDeg(eAngle)<< std::endl;

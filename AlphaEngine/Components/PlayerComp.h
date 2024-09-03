@@ -15,7 +15,7 @@ public:
 	Data::PlayerData data;
 	bool moveState = true;
 	bool turnTemp = true;
-	float GetMovegauge();
+	int GetMovegauge();
 	PlayerComp(GameObject* _owner);
 	~PlayerComp();
 	void Update() override;
