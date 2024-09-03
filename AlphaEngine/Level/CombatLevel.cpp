@@ -17,16 +17,6 @@ GameObject* player = nullptr;
 GameObject* directionArrow = nullptr;
 GameObject* enemy = nullptr;
 
-GameObject* UIBAR = nullptr;
-GameObject* Power = nullptr;
-GameObject* Move = nullptr;
-GameObject* Angle = nullptr;
-GameObject* Wind = nullptr;
-GameObject* HP = nullptr;
-GameObject* enemyHP = nullptr;
-GameObject* Attack = nullptr;
-GameObject* enemyAttack = nullptr;
-
 void level::CombatLevel::Init()
 {
 	// background

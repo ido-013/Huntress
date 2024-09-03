@@ -4,10 +4,12 @@
 #include "../CollisionManager/CollisionManager.h"
 #include "../EventManager/EventManager.h"
 
-ColliderComp::ColliderComp(GameObject* _owner) : EngineComponent(_owner), pos(), scale(), rot(0)
+ColliderComp::ColliderComp(GameObject* _owner) : EngineComponent(_owner), pos(), scale(), rot(0), vertices()
 {
 	CollisionManager::GetInstance().AddCollider(this);
 	EventManager::GetInstance().AddEntity(this);
+
+	SetCollider();
 }
 
 ColliderComp::~ColliderComp()
@@ -38,11 +40,15 @@ void ColliderComp::OnEvent(Event* e)
 void ColliderComp::SetPos(const AEVec2& otherPos)
 {
 	this->pos = otherPos;
+
+	SetVertices();
 }
 
 void ColliderComp::SetScale(const AEVec2& otherScale)
 {
 	this->scale = otherScale;
+
+	SetVertices();
 }
 
 void ColliderComp::SetRot(const float& otherRot)
@@ -62,6 +68,8 @@ void ColliderComp::SetCollider()
 	scale.y = t->GetScale().y;
 
 	rot = t->GetRot();
+
+	SetVertices();
 }
 
 void ColliderComp::SetCollider(float posX, float posY, float scaleX, float scaleY, float _rot)
@@ -73,6 +81,28 @@ void ColliderComp::SetCollider(float posX, float posY, float scaleX, float scale
 	scale.y = scaleY;
 
 	rot = _rot;
+
+	SetVertices();
+}
+
+void ColliderComp::SetVertices()
+{
+	float x = pos.x;
+	float y = pos.y;
+	float w = scale.x / 2;
+	float h = scale.y / 2;
+
+	vertices[0] = { x - w, y + h, 1.f };
+	vertices[1] = { x + w, y + h, 1.f };
+	vertices[2] = { x + w, y - h, 1.f };
+	vertices[3] = { x - w, y - h, 1.f };
+
+	const AEMtx33& mat = owner->GetComponent<TransformComp>()->GetMatrix();
+
+	for (int i = 0; i < 4; i++)
+	{
+		vertices[i] = mat * vertices[i];
+	}
 }
 
 void ColliderComp::LoadFromJson(const json& data)
