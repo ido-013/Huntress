@@ -13,7 +13,7 @@ private:
 
     // 클릭 시 실행할 함수
     std::function<void()> onClickFunction;
-
+    std::function<void()> onHoverFunction;
 public:
     ButtonComp(GameObject* _owner);
     ~ButtonComp();
@@ -31,10 +31,12 @@ public:
 
     // 클릭 시 호출할 함수를 등록
     void SetOnClickFunction(std::function<void()> func);
+    void SetOnHoverFunction(std::function<void()> func);
 
     bool IsClicked(int mouseX, int mouseY) const;
+    bool IsHovered(int mouseX, int mouseY) const;
     void OnClick();
-
+    void OnHover();
     void LoadFromJson(const json&) override;
     json SaveToJson() override;
 

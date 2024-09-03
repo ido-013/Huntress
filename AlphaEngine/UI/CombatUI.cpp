@@ -115,13 +115,23 @@ void InitCombatUI()
 	SpriteComp* WindSprite = Wind->GetComponent<SpriteComp>();
 	WindSprite->SetTexture("Assets/arrow.png");
 	WindSprite->SetColor(120, 120, 120);
+	
 }
 
-void UpdateCombatUI(GameObject* player)
+void UpdateCombatUI(GameObject* player, GameObject* enemy)
 {
 	TransformComp* transMove = Move->GetComponent<TransformComp>();;
 	transMove->SetScale({ 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f) ,80 });
 	transMove->SetPos({ 150 - (750 - 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f)) / 2, -380 });
+
+	TransformComp* transHP = HP->GetComponent<TransformComp>();
+	transHP->SetScale({ 80,200*(float(player->GetComponent<PlayerComp>()->data.hp)/ player->GetComponent<PlayerComp>()->data.maxLife)});
+	transHP->SetPos({ -720, -330-( 200-200* (float(player->GetComponent<PlayerComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife))/2.f});
+
+	TransformComp* transEnemyHP = enemyHP->GetComponent<TransformComp>();
+	transEnemyHP->SetScale({ 80,200 * (float(player->GetComponent<PlayerComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife) });
+	transEnemyHP->SetPos({ 720, -330 - (200-200 * (float(player->GetComponent<PlayerComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife)) / 2.f });
+
 }
 
 void ExitCombatUI()

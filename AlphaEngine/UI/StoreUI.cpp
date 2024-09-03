@@ -1,58 +1,49 @@
 #include "StoreUI.h"
+#include "../Data/Data.h"
 #include "../Components/SpriteComp.h"
+#include "../Components/PlayerComp.h"
 #include <random>
 
-GameObject* Openbtn = nullptr;
-GameObject* StorePopup = nullptr;
-GameObject* Closebtn = nullptr;
-GameObject* article_1 = nullptr;
-GameObject* article_2 = nullptr;
-GameObject* article_3 = nullptr;
-GameObject* article_4 = nullptr;
 
-bool isStore = false;
+void StoreUI::SetUIVisibility(bool isVisible)
+{
+    int alphaValue = isVisible ? 1 : 0;
 
-void SetStoreUI()
+    SpriteComp* OpenSprite = Openbtn->GetComponent<SpriteComp>();
+    SpriteComp* storeSprite = StorePopup->GetComponent<SpriteComp>();
+    SpriteComp* CloseSprite = Closebtn->GetComponent<SpriteComp>();
+    SpriteComp* HpSprite = UpHp->GetComponent<SpriteComp>();
+    SpriteComp* AttackSprite = UpAttack->GetComponent<SpriteComp>();
+    SpriteComp* DefenseSprite = UpDefense->GetComponent<SpriteComp>();
+    SpriteComp* fullSprite = fullPotion->GetComponent<SpriteComp>();
+    SpriteComp* smallSprite = smallPotion->GetComponent<SpriteComp>();
+    SpriteComp* ArrowSprite = Arrow->GetComponent<SpriteComp>();
+
+    OpenSprite->SetAlpha(isVisible ? 0 : 1);  // Open 버튼
+    storeSprite->SetAlpha(alphaValue);        // 상점 팝업
+    CloseSprite->SetAlpha(alphaValue);        // Close 버튼
+    smallSprite->SetAlpha(alphaValue);        // 상품들
+    DefenseSprite->SetAlpha(alphaValue);
+    fullSprite->SetAlpha(alphaValue);
+    HpSprite->SetAlpha(alphaValue);
+    AttackSprite->SetAlpha(alphaValue);
+    ArrowSprite->SetAlpha(alphaValue);
+}
+
+void StoreUI::SetStoreUI()
 {
     isStore = true;
-    SpriteComp* OpenSprite = Openbtn->GetComponent<SpriteComp>();
-    SpriteComp* storeSprite = StorePopup->GetComponent<SpriteComp>();
-    SpriteComp* CloseSprite = Closebtn->GetComponent<SpriteComp>();
-    SpriteComp* art1Sprite = article_1->GetComponent<SpriteComp>();
-    SpriteComp* art2Sprite = article_2->GetComponent<SpriteComp>();
-    SpriteComp* art3Sprite = article_3->GetComponent<SpriteComp>();
-    SpriteComp* art4Sprite = article_4->GetComponent<SpriteComp>();
-
-    OpenSprite->SetAlpha(0);  // Open 버튼은 숨김
-    storeSprite->SetAlpha(1);  // 상점 팝업 표시
-    CloseSprite->SetAlpha(1);  // Close 버튼 표시
-    art1Sprite->SetAlpha(1);   // 상품들 표시
-    art2Sprite->SetAlpha(1);
-    art3Sprite->SetAlpha(1);
-    art4Sprite->SetAlpha(1);
+    SetUIVisibility(true);
 }
 
-void Setoff()
+void StoreUI::Setoff()
 {
     isStore = false;
-    SpriteComp* OpenSprite = Openbtn->GetComponent<SpriteComp>();
-    SpriteComp* storeSprite = StorePopup->GetComponent<SpriteComp>();
-    SpriteComp* CloseSprite = Closebtn->GetComponent<SpriteComp>();
-    SpriteComp* art1Sprite = article_1->GetComponent<SpriteComp>();
-    SpriteComp* art2Sprite = article_2->GetComponent<SpriteComp>();
-    SpriteComp* art3Sprite = article_3->GetComponent<SpriteComp>();
-    SpriteComp* art4Sprite = article_4->GetComponent<SpriteComp>();
-
-    OpenSprite->SetAlpha(1);  // Open 버튼 표시
-    storeSprite->SetAlpha(0);  // 상점 팝업 숨김
-    CloseSprite->SetAlpha(0);  // Close 버튼 숨김
-    art1Sprite->SetAlpha(0);   // 상품들 숨김
-    art2Sprite->SetAlpha(0);
-    art3Sprite->SetAlpha(0);
-    art4Sprite->SetAlpha(0);
+    SetUIVisibility(false);
 }
 
-void InitStoreUI()
+
+void StoreUI::InitStoreUI(GameObject* player)
 {
     // Open 버튼 설정
     Openbtn = new GameObject();
@@ -67,9 +58,9 @@ void InitStoreUI()
     OpenSprite->SetAlpha(1);
     Openbtn->AddComponent<ButtonComp>();
     ButtonComp* OpenButton = Openbtn->GetComponent<ButtonComp>();
-    OpenButton->SetOnClickFunction([]() {
+    OpenButton->SetOnClickFunction([this]() {
         SetStoreUI();  // 상점 열기
-    });
+        });
     ButtonManager::GetInstance().RegisterButton(OpenButton);
 
     // Store Popup 설정
@@ -97,83 +88,120 @@ void InitStoreUI()
     CloseSprite->SetAlpha(0);
     Closebtn->AddComponent<ButtonComp>();
     ButtonComp* CloseButton = Closebtn->GetComponent<ButtonComp>();
-    CloseButton->SetOnClickFunction([]() {
+    CloseButton->SetOnClickFunction([this]() {
         Setoff();  // 상점 닫기
-    });
+        });
     ButtonManager::GetInstance().RegisterButton(CloseButton);
 
     // Article 1 설정
-    article_1 = new GameObject();
-    article_1->AddComponent<SpriteComp>();
-    article_1->AddComponent<TransformComp>();
-    TransformComp* transArt1 = article_1->GetComponent<TransformComp>();
+    Arrow = new GameObject();
+    Arrow->AddComponent<SpriteComp>();
+    Arrow->AddComponent<TransformComp>();
+    TransformComp* transArt1 = Arrow->GetComponent<TransformComp>();
     transArt1->SetScale({ 150,150 });
     transArt1->SetPos({ 400, 100 });
-    SpriteComp* art1Sprite = article_1->GetComponent<SpriteComp>();
+    SpriteComp* art1Sprite = Arrow->GetComponent<SpriteComp>();
     art1Sprite->SetTexture("Assets/arrow.png");
     art1Sprite->SetColor(250, 250, 0);
     art1Sprite->SetAlpha(0);
-    article_1->AddComponent<ButtonComp>();
-    ButtonComp* art1Button = article_1->GetComponent<ButtonComp>();
-    art1Button->SetOnClickFunction([]() {
-        // 상품 1 클릭 이벤트 추가
-    });
+    Arrow->AddComponent<ButtonComp>();
+    ButtonComp* art1Button = Arrow->GetComponent<ButtonComp>();
+    art1Button->SetOnClickFunction([player]() {  // 여기서 player를 캡처
+        // Arrow 클릭 이벤트
+        });
     ButtonManager::GetInstance().RegisterButton(art1Button);
 
-    // Article 2 설정
-    article_2 = new GameObject();
-    article_2->AddComponent<SpriteComp>();
-    article_2->AddComponent<TransformComp>();
-    TransformComp* transArt2 = article_2->GetComponent<TransformComp>();
-    transArt2->SetScale({ 150,150 });
-    transArt2->SetPos({ 400, -100 });
-    SpriteComp* art2Sprite = article_2->GetComponent<SpriteComp>();
-    art2Sprite->SetTexture("Assets/arrow.png");
-    art2Sprite->SetColor(250, 250, 0);
-    art2Sprite->SetAlpha(0);
-    article_2->AddComponent<ButtonComp>();
-    ButtonComp* art2Button = article_2->GetComponent<ButtonComp>();
-    art2Button->SetOnClickFunction([]() {
-        // 상품 2 클릭 이벤트 추가
-    });
-    ButtonManager::GetInstance().RegisterButton(art2Button);
-
-    article_3 = new GameObject();
-    article_3->AddComponent<SpriteComp>();
-    article_3->AddComponent<TransformComp>();
-    TransformComp* transArt3 = article_3->GetComponent<TransformComp>();
+    fullPotion = new GameObject();
+    fullPotion->AddComponent<SpriteComp>();
+    fullPotion->AddComponent<TransformComp>();
+    TransformComp* transArt3 = fullPotion->GetComponent<TransformComp>();
     transArt3->SetScale({ 150,150 });
     transArt3->SetPos({ 200, 100 });
-    SpriteComp* art3Sprite = article_3->GetComponent<SpriteComp>();
+    SpriteComp* art3Sprite = fullPotion->GetComponent<SpriteComp>();
     art3Sprite->SetTexture("Assets/arrow.png");
     art3Sprite->SetColor(250, 250, 0);
     art3Sprite->SetAlpha(0);
-    article_3->AddComponent<ButtonComp>();
-    ButtonComp* art3Button = article_3->GetComponent<ButtonComp>();
-    art2Button->SetOnClickFunction([]() {
-        // 상품 2 클릭 이벤트 추가
+    fullPotion->AddComponent<ButtonComp>();
+    ButtonComp* art3Button = fullPotion->GetComponent<ButtonComp>();
+    art3Button->SetOnClickFunction([player]() {  // player를 캡처
+        player->GetComponent<PlayerComp>()->data.hp = player->GetComponent<PlayerComp>()->data.maxLife;
         });
     ButtonManager::GetInstance().RegisterButton(art3Button);
 
-    article_4 = new GameObject();
-    article_4->AddComponent<SpriteComp>();
-    article_4->AddComponent<TransformComp>();
-    TransformComp* transArt4 = article_4->GetComponent<TransformComp>();
+    smallPotion = new GameObject();
+    smallPotion->AddComponent<SpriteComp>();
+    smallPotion->AddComponent<TransformComp>();
+    TransformComp* transArt6 = smallPotion->GetComponent<TransformComp>();
+    transArt6->SetScale({ 150,150 });
+    transArt6->SetPos({ 0, 100 });
+    SpriteComp* art6Sprite = smallPotion->GetComponent<SpriteComp>();
+    art6Sprite->SetTexture("Assets/arrow.png");
+    art6Sprite->SetColor(250, 250, 0);
+    art6Sprite->SetAlpha(0);
+    smallPotion->AddComponent<ButtonComp>();
+    ButtonComp* art6Button = smallPotion->GetComponent<ButtonComp>();
+    art6Button->SetOnClickFunction([player]() {  // player를 캡처
+        if (player->GetComponent<PlayerComp>()->data.hp + player->GetComponent<PlayerComp>()->data.maxLife * 0.1 < player->GetComponent<PlayerComp>()->data.maxLife)
+            player->GetComponent<PlayerComp>()->data.hp += player->GetComponent<PlayerComp>()->data.maxLife * 0.1;
+        else
+            player->GetComponent<PlayerComp>()->data.hp = player->GetComponent<PlayerComp>()->data.maxLife;
+        });
+    ButtonManager::GetInstance().RegisterButton(art6Button);
+
+    UpHp = new GameObject();
+    UpHp->AddComponent<SpriteComp>();
+    UpHp->AddComponent<TransformComp>();
+    TransformComp* transArt5 = UpHp->GetComponent<TransformComp>();
+    transArt5->SetScale({ 150,150 });
+    transArt5->SetPos({ 0, -100 });
+    SpriteComp* art5Sprite = UpHp->GetComponent<SpriteComp>();
+    art5Sprite->SetTexture("Assets/arrow.png");
+    art5Sprite->SetColor(250, 250, 0);
+    art5Sprite->SetAlpha(0);
+    UpHp->AddComponent<ButtonComp>();
+    ButtonComp* art5Button = UpHp->GetComponent<ButtonComp>();
+    art5Button->SetOnClickFunction([player]() {  // player를 캡처
+        player->GetComponent<PlayerComp>()->data.maxLife++;
+        });
+    ButtonManager::GetInstance().RegisterButton(art5Button);
+
+    UpDefense = new GameObject();
+    UpDefense->AddComponent<SpriteComp>();
+    UpDefense->AddComponent<TransformComp>();
+    TransformComp* transArt2 = UpDefense->GetComponent<TransformComp>();
+    transArt2->SetScale({ 150,150 });
+    transArt2->SetPos({ 400, -100 });
+    SpriteComp* art2Sprite = UpDefense->GetComponent<SpriteComp>();
+    art2Sprite->SetTexture("Assets/arrow.png");
+    art2Sprite->SetColor(250, 250, 0);
+    art2Sprite->SetAlpha(0);
+    UpDefense->AddComponent<ButtonComp>();
+    ButtonComp* art2Button = UpDefense->GetComponent<ButtonComp>();
+    art2Button->SetOnClickFunction([player]() {  // player를 캡처
+        player->GetComponent<PlayerComp>()->data.armor++;
+        });
+    ButtonManager::GetInstance().RegisterButton(art2Button);
+
+    UpAttack = new GameObject();
+    UpAttack->AddComponent<SpriteComp>();
+    UpAttack->AddComponent<TransformComp>();
+    TransformComp* transArt4 = UpAttack->GetComponent<TransformComp>();
     transArt4->SetScale({ 150,150 });
     transArt4->SetPos({ 200, -100 });
-    SpriteComp* art4Sprite = article_4->GetComponent<SpriteComp>();
+    SpriteComp* art4Sprite = UpAttack->GetComponent<SpriteComp>();
     art4Sprite->SetTexture("Assets/arrow.png");
     art4Sprite->SetColor(250, 250, 0);
     art4Sprite->SetAlpha(0);
-    article_4->AddComponent<ButtonComp>();
-    ButtonComp* art4Button = article_4->GetComponent<ButtonComp>();
-    art2Button->SetOnClickFunction([]() {
-        // 상품 2 클릭 이벤트 추가
+    UpAttack->AddComponent<ButtonComp>();
+    ButtonComp* art4Button = UpAttack->GetComponent<ButtonComp>();
+    art4Button->SetOnClickFunction([player]() {  // player를 캡처
+        player->GetComponent<PlayerComp>()->data.damage++;
         });
     ButtonManager::GetInstance().RegisterButton(art4Button);
 }
 
-void UpdateStoreUI()
+
+void StoreUI::UpdateStoreUI()
 {
     if (!isStore) {
         Setoff();

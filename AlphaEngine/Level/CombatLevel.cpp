@@ -14,6 +14,8 @@
 #include <string>
 #include "../UI/CombatUI.h"
 #include "../UIM/BtnManager.h"
+#include "../UI/StoreUI.h"
+StoreUI storeUI;
 GameObject* background = nullptr;
 GameObject* player = nullptr;
 GameObject* directionArrow = nullptr;
@@ -269,16 +271,17 @@ void level::CombatLevel::Init()
 	directionArrow->GetComponent<CombatComp>()->isCombat = true;
 
 	//InitData
-	player->GetComponent<PlayerComp>()->data.InitData(10, 1, 1);
+	player->GetComponent<PlayerComp>()->data.InitData(0,20,10, 1, 1);
 	enemy->GetComponent<EnemyComp>()->data.InitData(10, 1, 1, Data::EnemyData::GRADE::Normal);
-
+	storeUI.InitStoreUI(player);
 	//Init UI
 	InitCombatUI();
+	
 }
 
 void level::CombatLevel::Update()
 {
-	UpdateCombatUI(player);
+	UpdateCombatUI(player, enemy);
 
 	if (AEInputCheckTriggered(AEVK_1))
 	{

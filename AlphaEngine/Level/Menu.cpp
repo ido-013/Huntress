@@ -12,9 +12,7 @@
 #include "../GSM/GameStateManager.h"
 #include "../GameObjectManager/GameObjectManager.h"
 
-GameObject* Logo = nullptr;
-GameObject* startButtonObj = nullptr;
-GameObject* quitButtonObj = nullptr;
+
 void level::Menu::Init() {
     // 로고 초기화
     Logo = new GameObject("Logo");
@@ -43,6 +41,10 @@ void level::Menu::Init() {
         std::cout << "Start Button Clicked!" << std::endl;
         GSM::GameStateManager::GetInstance().ChangeLevel(new level::CombatLevel);
     });
+    startBtn->SetOnHoverFunction([]() {
+        std::cout << "Start Button Clicked!" << std::endl;
+     
+        });
     ButtonManager::GetInstance().RegisterButton(startBtn);
 
     // Quit 버튼 초기화 및 등록
@@ -61,6 +63,7 @@ void level::Menu::Init() {
         std::cout << "Quit Button Clicked!" << std::endl;
         // Quit 게임 종료 로직 추가
     });
+    
     ButtonManager::GetInstance().RegisterButton(quitBtn);
 }
 
