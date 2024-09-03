@@ -34,7 +34,7 @@ void Data::PrintSeparator()
 {
 	std::cout << "---------------------------" << std::endl;
 }
-Data::PlayerData::PlayerData() : hp(0), damage(0), armor(0)
+Data::PlayerData::PlayerData() : gold(0), maxLife(0), hp(0), damage(0), armor(0)
 {
 }
 

@@ -269,8 +269,8 @@ void level::CombatLevel::Init()
 	directionArrow->GetComponent<CombatComp>()->isCombat = true;
 
 	//InitData
-	player->GetComponent<PlayerComp>()->data.InitData(10, 1, 1);
-	enemy->GetComponent<EnemyComp>()->data.InitData(10, 1, 1, Data::EnemyData::GRADE::Normal);
+	player->GetComponent<PlayerComp>()->data.InitData(100, 50, 50, 2, 1);
+	enemy->GetComponent<EnemyComp>()->data.InitData(30, 0, 1, Data::EnemyData::GRADE::Normal);
 
 	//Init UI
 	InitCombatUI();
