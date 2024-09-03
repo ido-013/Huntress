@@ -1,8 +1,9 @@
 #include "CombatUI.h"
-#include "../Components/PlayerComp.h"
+#include "../GameObject/GameObject.h"
 #include "../Components/AudioComp.h"
 #include "../Components/TransformComp.h"
 #include "../Components/SpriteComp.h"
+#include "../Components/PlayerComp.h"
 
 GameObject* UIBAR = nullptr;
 GameObject* Power = nullptr;

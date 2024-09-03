@@ -110,6 +110,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="dice.cpp" />
     <ClCompile Include="dice.h" />
     <ClCompile Include="Components\ColliderComp.cpp" />
+    <ClCompile Include="Event\ButtonClickEvent.cpp" />
     <ClCompile Include="GameObject\GameObject.cpp" />
     <ClCompile Include="ComponentManager\GraphicComponent.cpp" />
     <ClCompile Include="ComponentManager\LogicComponent.cpp" />
@@ -126,6 +127,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="Level\NormalLevel.cpp" />
     <ClCompile Include="Level\PrefabLevel.cpp" />
     <ClCompile Include="Level\Menu.cpp" />
+    <ClCompile Include="Level\Store.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Particle\Particle.cpp" />
     <ClCompile Include="Prefab\Prefab.cpp" />
@@ -137,6 +139,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="RTTI\Registry.cpp" />
     <ClCompile Include="Serializer\Serializer.cpp" />
     <ClCompile Include="Shop\Shop.cpp" />
+    <ClCompile Include="UIM\BtnManager.cpp" />
     <ClCompile Include="UI\CombatUI.cpp" />
     <ClCompile Include="UI\StoreUI.cpp" />
     <ClCompile Include="Utils\Utils.cpp" />
@@ -153,7 +156,6 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="Components\EnemyComp.h" />
     <ClInclude Include="Components\LifetimeComp.h" />
     <ClInclude Include="Components\ButtonComp.h" />
-    <ClInclude Include="Event\Button.h" />
     <ClInclude Include="Event\ButtonClickEvent.h" />
     <ClInclude Include="Event\DestroyEvent.h" />
     <ClInclude Include="Event\DeathEvent.h" />
@@ -180,6 +182,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="Level\NormalLevel.h" />
     <ClInclude Include="Level\PrefabLevel.h" />
     <ClInclude Include="Level\Menu.h" />
+    <ClInclude Include="Level\Store.h" />
     <ClInclude Include="Map\Map.h" />
     <ClInclude Include="Particle\Particle.h" />
     <ClInclude Include="Prefab\Prefab.h" />

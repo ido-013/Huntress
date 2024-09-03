@@ -2,7 +2,6 @@
 #include "../GameObject/GameObject.h"
 #include "../EventManager/EventManager.h"
 #include "../Components/TransformComp.h"
-#include "../Components/SpriteComp.h"
 #include <functional>  // std::function »ç¿ë
 
 class ButtonComp : public EngineComponent, public Entity

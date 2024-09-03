@@ -12,6 +12,7 @@
 #include <iostream>
 #include <string>
 #include "../UI/CombatUI.h"
+#include "../UIM/BtnManager.h"
 GameObject* background = nullptr;
 GameObject* player = nullptr;
 GameObject* directionArrow = nullptr;

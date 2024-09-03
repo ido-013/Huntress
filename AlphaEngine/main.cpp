@@ -12,7 +12,7 @@
 #include "dice.h"
 #include "Level/Menu.h"
 #include "Level/CombatUI.h"
-#include "Level/StoreUI.h"
+#include "Level/Store.h"
 // ---------------------------------------------------------------------------
 // main
 

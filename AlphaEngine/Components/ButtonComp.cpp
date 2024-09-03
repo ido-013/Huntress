@@ -2,6 +2,8 @@
 #include "../EventManager/EventManager.h"
 #include "../UIM/BtnManager.h"
 #include "../Event/ButtonClickEvent.h"
+#include "../GameObjectManager/GameObjectManager.h"
+#include "../Components/SpriteComp.h"
 
 ButtonComp::ButtonComp(GameObject* _owner)
     : EngineComponent(_owner), pos(), scale()
@@ -53,6 +55,10 @@ AEVec2 ButtonComp::Getscale()
 
 bool ButtonComp::IsClicked(int mouseX, int mouseY) const
 {
+    SpriteComp* sprite = owner->GetComponent<SpriteComp>();
+    if (sprite && sprite->GetAlpha() != 1) {
+        return false;  
+    }
     return (mouseX > pos.x - scale.x / 2 && mouseX < pos.x + scale.x / 2 &&
         mouseY > pos.y - scale.y / 2 && mouseY < pos.y + scale.y / 2);
 }

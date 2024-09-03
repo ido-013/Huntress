@@ -53,6 +53,7 @@ void GSM::GameStateManager::Exit()
 {
     EventManager::GetInstance().DeleteUndispahchEvent();
     GameObjectManager::GetInstance().RemoveAllObject();
+    ButtonManager::GetInstance().RemoveAllButtons();
 
     if (currentLevel)
     {
