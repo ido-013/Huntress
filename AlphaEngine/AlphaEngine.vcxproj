@@ -153,6 +153,8 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="Components\EnemyComp.h" />
     <ClInclude Include="Components\LifetimeComp.h" />
     <ClInclude Include="Components\ButtonComp.h" />
+    <ClInclude Include="Data\Data.h" />
+    <ClInclude Include="Data\DataManager.h" />
     <ClInclude Include="Event\Button.h" />
     <ClInclude Include="Event\ButtonClickEvent.h" />
     <ClInclude Include="Event\DestroyEvent.h" />
