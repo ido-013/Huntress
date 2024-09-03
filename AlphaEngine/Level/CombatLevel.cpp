@@ -276,7 +276,7 @@ void level::CombatLevel::Init()
 void level::CombatLevel::Update()
 {
 	UpdateCombatUI(player);
-	ButtonManager::GetInstance().Update();
+
 }
 
 void level::CombatLevel::Exit()
