@@ -8,6 +8,7 @@
 #include <iostream>
 
 GameObject* temp = nullptr;
+GameObject* wall = nullptr;
 
 void level::PrefabLevel::Init()
 {
@@ -25,6 +26,8 @@ void level::PrefabLevel::Init()
 	ts = temp->AddComponent<SpriteComp>();
 	tc = temp->AddComponent<ColliderComp>();
 	ta = temp->AddComponent<AnimatorComp>();
+	temp->AddComponent<PlayerComp>();
+	temp->AddComponent<RigidbodyComp>();
 
 	tt->SetScale({ 100, 100 });
 	tt->SetPos({ 0, 0 });
@@ -58,159 +61,21 @@ void level::PrefabLevel::Init()
 	ta->UpdateAnimation(0.05f, "Assets/Character/TakeDamage/sprite/ScoutTakeDamage3.png", "takeDamage");
 	ta->UpdateAnimation(0.1f, "Assets/Character/TakeDamage/sprite/ScoutTakeDamage4.png", "takeDamage");
 
-	{
-	//
+	wall = new GameObject;
 
-	/*temp = new GameObject();
+	wall->type = GameObject::Square;
 
-	temp->type = GameObject::Square;
+	tt = wall->AddComponent<TransformComp>();
+	ts = wall->AddComponent<SpriteComp>();
+	tc = wall->AddComponent<ColliderComp>();
 
-	temp->AddComponent<TransformComp>();
-	temp->AddComponent<SpriteComp>();
-	temp->AddComponent<ColliderComp>();
-
-	tt = temp->GetComponent<TransformComp>();
 	tt->SetScale({ 100, 100 });
-	tt->SetPos({ 100, 0 });
+	tt->SetPos({ 0, 0 });
+	tt->SetRot(50);
 
-	ts = temp->GetComponent<SpriteComp>();
 	ts->SetColor(0, 0, 0);
-	ts->SetAlpha(1);
 
-	tc = temp->GetComponent<ColliderComp>();
-	tc->SetCollider();*/
-
-	//
-
-	/*temp = new GameObject();
-
-	temp->type = GameObject::LeftTri;
-
-	temp->AddComponent<TransformComp>();
-	temp->AddComponent<SpriteComp>();
-	temp->AddComponent<ColliderComp>();
-
-	tt = temp->GetComponent<TransformComp>();
-	tt->SetScale({ 200, 100 });
-	tt->SetPos({ -100, 100 });
-
-	ts = temp->GetComponent<SpriteComp>();
-	ts->SetColor(0, 0, 0);
-	ts->SetAlpha(1);
-
-	tc = temp->GetComponent<ColliderComp>();
-	tc->SetCollider();*/
-
-	//
-
-	/*temp = new GameObject();
-
-	temp->type = GameObject::RightTri;
-
-	temp->AddComponent<TransformComp>();
-	temp->AddComponent<SpriteComp>();
-	temp->AddComponent<ColliderComp>();
-
-	tt = temp->GetComponent<TransformComp>();
-	tt->SetScale({200, 100 });
-	tt->SetPos({ 100, 100 });
-
-	ts = temp->GetComponent<SpriteComp>();
-	ts->SetColor(0, 0, 0);
-	ts->SetAlpha(1);
-
-	tc = temp->GetComponent<ColliderComp>();
-	tc->SetCollider();*/
-
-	//
-
-	/*temp = new GameObject();
-
-	temp->type = GameObject::Square;
-
-	temp->AddComponent<TransformComp>();
-	temp->AddComponent<SpriteComp>();
-	temp->AddComponent<ColliderComp>();
-
-	tt = temp->GetComponent<TransformComp>();
-	tt->SetScale({ 100, 100 });
-	tt->SetPos({ -100, 0 });
-
-	ts = temp->GetComponent<SpriteComp>();
-	ts->SetColor(0, 0, 0);
-	ts->SetAlpha(1);
-
-	tc = temp->GetComponent<ColliderComp>();
-	tc->SetCollider();*/
-
-	//
-
-	/*temp = new GameObject();
-
-	temp->type = GameObject::Square;
-
-	temp->AddComponent<TransformComp>();
-	temp->AddComponent<SpriteComp>();
-	temp->AddComponent<ColliderComp>();
-
-	tt = temp->GetComponent<TransformComp>();
-	tt->SetScale({ 100, 100 });
-	tt->SetPos({ -200, 100 });
-
-	ts = temp->GetComponent<SpriteComp>();
-	ts->SetColor(0, 0, 0);
-	ts->SetAlpha(1);
-
-	tc = temp->GetComponent<ColliderComp>();
-	tc->SetCollider();*/
-
-	//
-
-	/*temp = new GameObject();
-
-	temp->type = GameObject::Square;
-
-	temp->AddComponent<TransformComp>();
-	temp->AddComponent<SpriteComp>();
-	temp->AddComponent<ColliderComp>();
-
-	tt = temp->GetComponent<TransformComp>();
-	tt->SetScale({ 100, 100 });
-	tt->SetPos({ 200, 100 });
-
-	ts = temp->GetComponent<SpriteComp>();
-	ts->SetColor(0, 0, 0);
-	ts->SetAlpha(1);
-
-	tc = temp->GetComponent<ColliderComp>();
-	tc->SetCollider();*/
-
-	//
-
-	/*temp = new GameObject();
-
-	temp->type = GameObject::Square;
-
-	temp->AddComponent<TransformComp>();
-	temp->AddComponent<SpriteComp>();
-	temp->AddComponent<PlayerComp>();
-	temp->AddComponent<RigidbodyComp>();
-	temp->AddComponent<ColliderComp>();
-
-	tt = temp->GetComponent<TransformComp>();
-	tt->SetScale({ 30, 30 });
-	tt->SetPos({ 0, 400 });
-
-	ts = temp->GetComponent<SpriteComp>();
-	ts->SetColor(255, 0, 0);
-	ts->SetAlpha(1);
-
-	tr = temp->GetComponent<RigidbodyComp>();
-	tr->useGravity = true;
-
-	tc = temp->GetComponent<ColliderComp>();
-	tc->SetCollider();*/
-	}
+	tc->SetCollider();
 }
 
 void level::PrefabLevel::Update()

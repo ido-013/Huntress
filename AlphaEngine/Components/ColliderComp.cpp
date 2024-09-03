@@ -20,7 +20,7 @@ ColliderComp::~ColliderComp()
 
 void ColliderComp::Update()
 {
-
+	
 }
 
 void ColliderComp::OnEvent(Event* e)
@@ -103,6 +103,11 @@ void ColliderComp::SetVertices()
 	{
 		vertices[i] = mat * vertices[i];
 	}
+}
+
+void ColliderComp::UpdateVertices()
+{
+	
 }
 
 void ColliderComp::LoadFromJson(const json& data)

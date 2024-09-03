@@ -14,7 +14,7 @@ CollisionManager::~CollisionManager()
 
 bool CollisionManager::isCollisionPointTri(ColliderComp* a, ColliderComp* b) const
 { 
-	if (!isCollisionPointAABB(a, b)) return false;
+	if (!isCollisionPointSquare(a, b)) return false;
 
 	float aX = a->GetPos().x;
 	float aY = a->GetPos().y;
@@ -36,7 +36,7 @@ bool CollisionManager::isCollisionPointTri(ColliderComp* a, ColliderComp* b) con
 	return true;
 }
 
-bool CollisionManager::isCollisionPointAABB(ColliderComp* a, ColliderComp* b) const
+bool CollisionManager::isCollisionPointSquare(ColliderComp* a, ColliderComp* b) const
 {
 	float aX = a->GetPos().x;
 	float aY = a->GetPos().y;
@@ -54,9 +54,9 @@ bool CollisionManager::isCollisionPointAABB(ColliderComp* a, ColliderComp* b) co
 	return true;
 }
 
-bool CollisionManager::isCollisionAABBTri(ColliderComp* a, ColliderComp* b) const
+bool CollisionManager::isCollisionSquareTri(ColliderComp* a, ColliderComp* b) const
 {
-	if (!isCollisionAABBAABB(a, b)) return false;
+	if (!isCollisionAABB(a, b)) return false;
 
 	float aX = a->GetPos().x;
 	float aY = a->GetPos().y;
@@ -94,13 +94,11 @@ bool CollisionManager::isCollisionOBB(ColliderComp* a, ColliderComp* b) const
 	// Check colA's normal vector
 	for (int i = 0; i < 4; i++)
 	{
-		int in = i + 1;
-		if (in == 4)
-			in = 0;
+		int in = (i + 1) % 4;
 
 		AEVec2 normal{
 			a->vertices[in].x - a->vertices[i].x,
-			a->vertices[in].y - b->vertices[i].y };
+			a->vertices[in].y - a->vertices[i].y };
 
 		minDotProduct = 1'000'000;
 
@@ -131,7 +129,7 @@ bool CollisionManager::isCollisionOBB(ColliderComp* a, ColliderComp* b) const
 		return true;
 }
 
-bool CollisionManager::isCollisionAABBAABB(ColliderComp* a, ColliderComp* b) const
+bool CollisionManager::isCollisionAABB(ColliderComp* a, ColliderComp* b) const
 {
 	float aX = a->GetPos().x;
 	float aY = a->GetPos().y;
@@ -193,13 +191,13 @@ bool CollisionManager::PointTriCheck(ColliderComp* a, ColliderComp* b)
 	return false;
 }
 
-bool CollisionManager::PointAABBCheck(ColliderComp* a, ColliderComp* b)
+bool CollisionManager::PointSquareCheck(ColliderComp* a, ColliderComp* b)
 {
 	EventManager& em = EventManager::GetInstance();
 
-	if (a->GetOwner()->type == GameObject::Point && b->GetOwner()->type == GameObject::Square)
+	if (a->GetOwner()->type == GameObject::Point && b->GetOwner()->type == GameObject::Player)
 	{
-		if (isCollisionPointAABB(a, b))
+		if (isCollisionPointSquare(a, b))
 		{
 			em.AddEvent<CollisionEvent>(a, b);
 			em.AddEvent<CollisionEvent>(b, a);
@@ -208,9 +206,9 @@ bool CollisionManager::PointAABBCheck(ColliderComp* a, ColliderComp* b)
 		return true;
 	}
 
-	else if (b->GetOwner()->type == GameObject::Point && a->GetOwner()->type == GameObject::Square)
+	else if (b->GetOwner()->type == GameObject::Point && a->GetOwner()->type == GameObject::Player)
 	{
-		if (isCollisionPointAABB(b, a))
+		if (isCollisionPointSquare(b, a))
 		{
 			em.AddEvent<CollisionEvent>(a, b);
 			em.AddEvent<CollisionEvent>(b, a);
@@ -222,13 +220,13 @@ bool CollisionManager::PointAABBCheck(ColliderComp* a, ColliderComp* b)
 	return false;
 }
 
-bool CollisionManager::AABBTriCheck(ColliderComp* a, ColliderComp* b)
+bool CollisionManager::PlayerTriCheck(ColliderComp* a, ColliderComp* b)
 {
 	EventManager& em = EventManager::GetInstance();
 
-	if (a->GetOwner()->type == GameObject::Square && (b->GetOwner()->type == GameObject::LeftTri || b->GetOwner()->type == GameObject::RightTri))
+	if (a->GetOwner()->type == GameObject::Player && (b->GetOwner()->type == GameObject::LeftTri || b->GetOwner()->type == GameObject::RightTri))
 	{
-		if (isCollisionAABBTri(a, b))
+		if (isCollisionSquareTri(a, b))
 		{
 			em.AddEvent<CollisionEvent>(a, b);
 			em.AddEvent<CollisionEvent>(b, a);
@@ -237,9 +235,9 @@ bool CollisionManager::AABBTriCheck(ColliderComp* a, ColliderComp* b)
 		return true;
 	}
 
-	else if (b->GetOwner()->type == GameObject::Square && (a->GetOwner()->type == GameObject::LeftTri || a->GetOwner()->type == GameObject::RightTri))
+	else if (b->GetOwner()->type == GameObject::Player && (a->GetOwner()->type == GameObject::LeftTri || a->GetOwner()->type == GameObject::RightTri))
 	{
-		if (isCollisionAABBTri(b, a))
+		if (isCollisionSquareTri(b, a))
 		{
 			em.AddEvent<CollisionEvent>(a, b);
 			em.AddEvent<CollisionEvent>(b, a);
@@ -251,13 +249,82 @@ bool CollisionManager::AABBTriCheck(ColliderComp* a, ColliderComp* b)
 	return false;
 }
 
-bool CollisionManager::AABBAABBCheck(ColliderComp* a, ColliderComp* b)
+bool CollisionManager::PlayerSquareCheck(ColliderComp* a, ColliderComp* b)
 {
 	EventManager& em = EventManager::GetInstance();
 
-	if (a->GetOwner()->type == GameObject::Square && b->GetOwner()->type == GameObject::Square)
+	if (a->GetOwner()->type == GameObject::Player && b->GetOwner()->type == GameObject::Square)
 	{
-		if (isCollisionOBB(a, b) || isCollisionOBB(b, a))
+		if (isCollisionAABB(a, b))
+		{
+			em.AddEvent<CollisionEvent>(a, b);
+			em.AddEvent<CollisionEvent>(b, a);
+		}
+
+		return true;
+	}
+
+	else if (b->GetOwner()->type == GameObject::Player && a->GetOwner()->type == GameObject::Square)
+	{
+		if (isCollisionAABB(b, a))
+		{
+			em.AddEvent<CollisionEvent>(a, b);
+			em.AddEvent<CollisionEvent>(b, a);
+		}
+
+		return true;
+	}
+
+	return false;
+}
+
+bool CollisionManager::EnemyTriCheck(ColliderComp* a, ColliderComp* b)
+{
+	EventManager& em = EventManager::GetInstance();
+
+	if (a->GetOwner()->type == GameObject::Enemy && (b->GetOwner()->type == GameObject::LeftTri || b->GetOwner()->type == GameObject::RightTri))
+	{
+		if (isCollisionSquareTri(a, b))
+		{
+			em.AddEvent<CollisionEvent>(a, b);
+			em.AddEvent<CollisionEvent>(b, a);
+		}
+
+		return true;
+	}
+
+	else if (b->GetOwner()->type == GameObject::Enemy && (a->GetOwner()->type == GameObject::LeftTri || a->GetOwner()->type == GameObject::RightTri))
+	{
+		if (isCollisionSquareTri(b, a))
+		{
+			em.AddEvent<CollisionEvent>(a, b);
+			em.AddEvent<CollisionEvent>(b, a);
+		}
+
+		return true;
+	}
+
+	return false;
+}
+
+bool CollisionManager::EnemySquareCheck(ColliderComp* a, ColliderComp* b)
+{
+	EventManager& em = EventManager::GetInstance();
+
+	if (a->GetOwner()->type == GameObject::Enemy && b->GetOwner()->type == GameObject::Square)
+	{
+		if (isCollisionAABB(a, b))
+		{
+			em.AddEvent<CollisionEvent>(a, b);
+			em.AddEvent<CollisionEvent>(b, a);
+		}
+
+		return true;
+	}
+
+	else if (b->GetOwner()->type == GameObject::Enemy && a->GetOwner()->type == GameObject::Square)
+	{
+		if (isCollisionAABB(b, a))
 		{
 			em.AddEvent<CollisionEvent>(a, b);
 			em.AddEvent<CollisionEvent>(b, a);
@@ -300,10 +367,11 @@ void CollisionManager::Update()
 			ColliderComp* a = colliderList[i];
 			ColliderComp* b = colliderList[j];
 
-			if (PointTriCheck(a, b)) continue;
-			if (PointAABBCheck(a, b)) continue;
-			if (AABBAABBCheck(a, b)) continue;
-			if (AABBTriCheck(a, b)) continue;
+			if (PlayerTriCheck(a, b)) continue;
+			if (PlayerSquareCheck(a, b)) continue;
+
+			if (EnemyTriCheck(a, b)) continue;
+			if (EnemySquareCheck(a, b)) continue;
 		}
 	}
 }

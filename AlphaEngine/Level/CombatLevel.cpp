@@ -25,12 +25,12 @@ void level::CombatLevel::Init()
 	background->AddComponent<AudioComp>();
 	background->AddComponent<TransformComp>();
 	background->AddComponent<SpriteComp>();
-	background->GetComponent<AudioComp>()->SetAudio("../Assets/Audio/BGM.mp3");
-	background->GetComponent<AudioComp>()->playAudio(-1, "../Assets/Audio/BGM.mp3");
+	background->GetComponent<AudioComp>()->SetAudio("Assets/Audio/BGM.mp3");
+	background->GetComponent<AudioComp>()->playAudio(-1, "Assets/Audio/BGM.mp3");
 
 	background->GetComponent<TransformComp>()->SetScale({ 1600, 900 });
 	background->GetComponent<TransformComp>()->SetPos({ 0, 0 });
-	background->GetComponent<SpriteComp>()->SetTexture("../Assets/Background/Background.png");
+	background->GetComponent<SpriteComp>()->SetTexture("Assets/Background/Background.png");
 	background->GetComponent<SpriteComp>()->SetAlpha(1);
 
 	{
@@ -209,7 +209,7 @@ void level::CombatLevel::Init()
 
 	// player
 	player = new GameObject("player");
-	player->type = GameObject::Square;
+	player->type = GameObject::Player;
 
 	player->AddComponent<TransformComp>();
 	player->AddComponent<PlayerComp>();
@@ -222,7 +222,7 @@ void level::CombatLevel::Init()
 
 	player->GetComponent<RigidbodyComp>()->useGravity = true;
 
-	player->GetComponent<SpriteComp>()->SetTexture("../Assets/Character/ArrowAttack/sprite/ScoutAttackArrow.png");
+	player->GetComponent<SpriteComp>()->SetTexture("Assets/Character/ArrowAttack/sprite/ScoutAttackArrow.png");
 	player->GetComponent<SpriteComp>()->SetAlpha(1);
 
 	player->GetComponent<ColliderComp>()->SetCollider();
@@ -235,22 +235,23 @@ void level::CombatLevel::Init()
 	directionArrow->AddComponent<CombatComp>();
 
 	directionArrow->GetComponent<TransformComp>()->SetScale({ 42, 260 });
-	directionArrow->GetComponent<SpriteComp>()->SetTexture("../Assets/Character/DirectionArrow.png");
+	directionArrow->GetComponent<SpriteComp>()->SetTexture("Assets/Character/DirectionArrow.png");
 	directionArrow->GetComponent<SpriteComp>()->SetAlpha(0);
 	directionArrow->GetComponent<CombatComp>()->turn = CombatComp::TURN::PLAYERTURN;
 	directionArrow->GetComponent<CombatComp>()->isCombat = true;
 
 	// enemy
 	enemy = new GameObject("enemy");
+	player->type = GameObject::Enemy;
 
 	enemy->AddComponent<TransformComp>();
 	enemy->AddComponent<RigidbodyComp>();
 	enemy->AddComponent<SpriteComp>();
 
-	enemy->GetComponent<TransformComp>()->SetScale({ -90, 120 });
-	enemy->GetComponent<TransformComp>()->SetPos({ 700, -280 });
+	enemy->GetComponent<TransformComp>()->SetScale({ 30, 30 });
+	enemy->GetComponent<TransformComp>()->SetPos({ 0, 100 });
 
-	enemy->GetComponent<SpriteComp>()->SetTexture("../Assets/Character/ArrowAttack/sprite/ScoutAttackArrow.png");
+	enemy->GetComponent<SpriteComp>()->SetTexture("Assets/Character/ArrowAttack/sprite/ScoutAttackArrow.png");
 	enemy->GetComponent<SpriteComp>()->SetAlpha(1);
 
 }

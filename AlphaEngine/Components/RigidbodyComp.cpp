@@ -13,16 +13,16 @@ bool RigidbodyComp::CheckEpsilon(float v, float EP)
 
 void RigidbodyComp::CorrectPosByAABB(ColliderComp* oc, ColliderComp* c, float& x, float& y)
 {
-	float dis[3];
+	float dis[4];
 	dis[0] = abs(oc->GetPos().x + oc->GetScale().x / 2 - (c->GetPos().x - c->GetScale().x));
 	dis[1] = abs(oc->GetPos().x - oc->GetScale().x / 2 - (c->GetPos().x + c->GetScale().x));
 	dis[2] = abs(oc->GetPos().y + oc->GetScale().y / 2 - (c->GetPos().y - c->GetScale().y));
-	//dis[3] = abs(oc->GetPos().y - oc->GetScale().y / 2 - (c->GetPos().y + c->GetScale().y));
+	dis[3] = abs(oc->GetPos().y - oc->GetScale().y / 2 - (c->GetPos().y + c->GetScale().y));
 
 	float minDis = dis[0];
 	int minInd = 0;
 
-	for (int i = 1; i < 3; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		if (dis[i] < minDis)
 		{
@@ -31,7 +31,7 @@ void RigidbodyComp::CorrectPosByAABB(ColliderComp* oc, ColliderComp* c, float& x
 		}
 	}
 
-	if (minInd < 0.1)
+	if (minDis < 0.1)
 		return;
 
 	switch (minInd)
@@ -48,9 +48,10 @@ void RigidbodyComp::CorrectPosByAABB(ColliderComp* oc, ColliderComp* c, float& x
 		y = oc->GetPos().y + oc->GetScale().y / 2 + c->GetScale().y / 2;
 		velocity.y = 0;
 		break;
-	/*case 3:
+	case 3:
 		y = oc->GetPos().y - oc->GetScale().y / 2 - c->GetScale().y / 2;
-		break;*/
+		velocity.y = 0;
+		break;
 	}
 }
 
@@ -242,8 +243,6 @@ void RigidbodyComp::Update()
 						(c->GetPos().x + (c->GetScale().x / 2 * (abs(AESin(targetRot) * 0.5f))) - oc->GetPos().x) *
 						(oc->GetScale().y / oc->GetScale().x) + 
 						c->GetScale().y / 2;
-					//y = oc->GetPos().y + ((c->GetPos().x + velocity.x * dt) + c->GetScale().x / 2 - oc->GetPos().x) * (oc->GetScale().y / oc->GetScale().x) + c->GetScale().y / 2;
-					//x = oc->GetPos().x + (y - c->GetScale().y / 2 - oc->GetPos().y) * (oc->GetScale().x / oc->GetScale().y) - c->GetScale().x / 2;
 				}
 			}
 		
@@ -261,8 +260,6 @@ void RigidbodyComp::Update()
 						(c->GetPos().x - (c->GetScale().x / 2 * (abs(AESin(targetRot) * 0.5f))) - oc->GetPos().x) *
 						(-oc->GetScale().y / oc->GetScale().x) +
 						c->GetScale().y / 2;
-					//y = oc->GetPos().y + ((c->GetPos().x + velocity.x * dt) - c->GetScale().x / 2 - oc->GetPos().x) * (-oc->GetScale().y / oc->GetScale().x) + c->GetScale().y / 2;
-					//x = oc->GetPos().x + (y - c->GetScale().y / 2 - oc->GetPos().y) * (-oc->GetScale().x / oc->GetScale().y) + c->GetScale().x / 2;
 				}
 			}
 		}
