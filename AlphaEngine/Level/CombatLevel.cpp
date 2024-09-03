@@ -18,21 +18,12 @@ GameObject* player = nullptr;
 GameObject* directionArrow = nullptr;
 GameObject* enemy = nullptr;
 
-GameObject* UIBAR = nullptr;
-GameObject* Power = nullptr;
-GameObject* Move = nullptr;
-GameObject* Angle = nullptr;
-GameObject* Wind = nullptr;
-GameObject* HP = nullptr;
-GameObject* enemyHP = nullptr;
-GameObject* Attack = nullptr;
-GameObject* enemyAttack = nullptr;
-
 void level::CombatLevel::Init()
 {
 	InitBackground();
 
 	{
+
 		GameObject* temp = nullptr;
 		TransformComp* tt = nullptr;
 		SpriteComp* ts = nullptr;
@@ -205,7 +196,7 @@ void level::CombatLevel::Init()
 		tc = temp->GetComponent<ColliderComp>();
 		tc->SetCollider();
 	}
-
+	
 	// player
 	player = new GameObject("player");
 	player->type = GameObject::Square;
@@ -217,7 +208,7 @@ void level::CombatLevel::Init()
 	player->AddComponent<ColliderComp>();
 
 	player->GetComponent<TransformComp>()->SetScale({ 30, 30 });
-	player->GetComponent<TransformComp>()->SetPos({ 0, 400 });
+	player->GetComponent<TransformComp>()->SetPos({ -30, 400 });
 
 	player->GetComponent<RigidbodyComp>()->useGravity = true;
 
@@ -241,7 +232,7 @@ void level::CombatLevel::Init()
 
 	enemy->GetComponent<RigidbodyComp>()->useGravity = true;
 	
-	enemy->GetComponent<SpriteComp>()->SetTexture("Assets/Character/ArrowAttack/sprite/ScoutAttackArrow.png");
+	enemy->GetComponent<SpriteComp>()->SetTexture("../Assets/Character/ArrowAttack/sprite/ScoutAttackArrow.png");
 	enemy->GetComponent<SpriteComp>()->SetAlpha(1);
 
 	enemy->GetComponent<ColliderComp>()->SetCollider();
@@ -257,24 +248,12 @@ void level::CombatLevel::Init()
 	directionArrow->GetComponent<TransformComp>()->SetScale({ 
 		directionArrow->GetComponent<CombatComp>()->directionArrowWidth, 
 		directionArrow->GetComponent<CombatComp>()->directionArrowHeight });
-	directionArrow->GetComponent<SpriteComp>()->SetTexture("Assets/Character/DirectionArrow.png");
+	directionArrow->GetComponent<SpriteComp>()->SetTexture("../Assets/Character/DirectionArrow.png");
 	directionArrow->GetComponent<SpriteComp>()->SetAlpha(0);
 	directionArrow->GetComponent<CombatComp>()->turn = CombatComp::TURN::PLAYERTURN;
 	directionArrow->GetComponent<CombatComp>()->isCombat = true;
 
-	// enemy
-	enemy = new GameObject("enemy");
-
-	enemy->AddComponent<TransformComp>();
-	enemy->AddComponent<RigidbodyComp>();
-	enemy->AddComponent<SpriteComp>();
-
-	enemy->GetComponent<TransformComp>()->SetScale({ -90, 120 });
-	enemy->GetComponent<TransformComp>()->SetPos({ 700, -280 });
-
-	enemy->GetComponent<SpriteComp>()->SetTexture("../Assets/Character/ArrowAttack/sprite/ScoutAttackArrow.png");
-	enemy->GetComponent<SpriteComp>()->SetAlpha(1);
-
+	InitCombatUI();
 }
 
 void level::CombatLevel::Update()

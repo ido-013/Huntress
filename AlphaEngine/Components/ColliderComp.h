@@ -11,7 +11,6 @@ private:
 	AEVec2 pos;
 	AEVec2 scale;
 	float rot;
-
 public:
 	ColliderComp(GameObject* _owner);
 	~ColliderComp();

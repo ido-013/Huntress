@@ -14,12 +14,21 @@ GameObject::GameObject(std::string str) : type(None)
 
 GameObject::~GameObject()
 {
+	auto objects = GameObjectManager::GetInstance().GetAllObjects();
+	for (auto it = objects.begin(); it != objects.end(); it++)
+	{
+		if (it->first == this)
+		{
+			it = objects.erase(it);
+			break;
+		}
+	}
+
 	for (auto& it : component)
 	{
 		if (it.second)
 			delete it.second;	
 	}
-
 	component.clear();
 }
 

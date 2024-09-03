@@ -107,6 +107,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="ComponentManager\EngineComponent.cpp" />
     <ClCompile Include="Components\AnimatorComp.cpp" />
     <ClCompile Include="Components\LifetimeComp.cpp" />
+    <ClCompile Include="Components\ButtonComp.cpp" />
     <ClCompile Include="dice.cpp" />
     <ClCompile Include="dice.h" />
     <ClCompile Include="Components\ColliderComp.cpp" />
@@ -123,11 +124,10 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="GameObjectManager\GameObejectManager.cpp" />
     <ClCompile Include="GSM\GameStateManager.cpp" />
     <ClCompile Include="Level\CombatLevel.cpp" />
-    <ClCompile Include="Level\CombatUI.cpp" />
     <ClCompile Include="Level\NormalLevel.cpp" />
     <ClCompile Include="Level\PrefabLevel.cpp" />
     <ClCompile Include="Level\Menu.cpp" />
-    <ClCompile Include="Level\StoreUI.cpp" />
+    <ClCompile Include="Level\Store.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Particle\Particle.cpp" />
     <ClCompile Include="Prefab\Prefab.cpp" />
@@ -139,6 +139,8 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="RTTI\Registry.cpp" />
     <ClCompile Include="Serializer\Serializer.cpp" />
     <ClCompile Include="Shop\Shop.cpp" />
+    <ClCompile Include="UI\CombatUI.cpp" />
+    <ClCompile Include="UI\StoreUI.cpp" />
     <ClCompile Include="Utils\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -151,7 +153,9 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="ComponentManager\EngineComponent.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="Components\AnimatorComp.h" />
+    <ClInclude Include="Components\EnemyComp.h" />
     <ClInclude Include="Components\LifetimeComp.h" />
+    <ClInclude Include="Components\ButtonComp.h" />
     <ClInclude Include="Event\Button.h" />
     <ClInclude Include="Event\ButtonClickEvent.h" />
     <ClInclude Include="Event\DestroyEvent.h" />
@@ -179,7 +183,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="Level\NormalLevel.h" />
     <ClInclude Include="Level\PrefabLevel.h" />
     <ClInclude Include="Level\Menu.h" />
-    <ClInclude Include="Level\StoreUI.h" />
+    <ClInclude Include="Level\Store.h" />
     <ClInclude Include="Map\Map.h" />
     <ClInclude Include="Particle\Particle.h" />
     <ClInclude Include="Prefab\Prefab.h" />
@@ -192,6 +196,9 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="RTTI\Registry.h" />
     <ClInclude Include="Serializer\Serializer.h" />
     <ClInclude Include="Shop\Shop.h" />
+    <ClInclude Include="UIM\BtnManager.h" />
+    <ClInclude Include="UI\CombatUI.h" />
+    <ClInclude Include="UI\StoreUI.h" />
     <ClInclude Include="Utils\Direction.h" />
     <ClInclude Include="Utils\Size.h" />
     <ClInclude Include="Utils\Utils.h" />

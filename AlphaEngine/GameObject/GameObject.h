@@ -20,6 +20,8 @@ public:
 		RightTri,
 		Point,
 		Player,
+		Button,
+		Enemy,
 		Particle,
 	};
 

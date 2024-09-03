@@ -6,8 +6,8 @@
 #include "../ComponentManager/EngineComponent.h"
 #include "../Combat/Projectile.h"
 
-#define DEFAULT_POWER 15.f
-#define POWER_LIMIT 10.f
+#define DEFAULT_POWER 1.f
+#define POWER_LIMIT 24.f
 
 #define ANGLE_LIMIT AEDegToRad(120.f)
 
@@ -16,7 +16,7 @@
 
 #define RAD90 AEDegToRad(90.f)
 
-#define HIT_RADIUS 50.0f // 플레이어에 대한 적중 판정 반경
+#define HIT_RADIUS 15.0f // 플레이어에 대한 적중 판정 반경
 
 class CombatComp : public EngineComponent
 {
@@ -30,6 +30,11 @@ class CombatComp : public EngineComponent
 	float eVelocity;
 	float ePower;
 public:
+	static int ArrowCount;
+
+	const float directionArrowWidth = 42;
+	const float directionArrowHeight = 260 / (DEFAULT_POWER + POWER_LIMIT); // * 1~25
+
 	CombatComp(GameObject* _owner);
 	~CombatComp();
 	
@@ -49,10 +54,11 @@ public:
 
 	static bool isSetLaunchAngle;
 
-	enum RESULT {
-		HIT = 0,
-		MISS = 1,
-		NOTFOUND = 2
+	enum STATE
+	{
+		NONE = 0,
+		CLEAR = 1,
+		GAMEOVER = 2
 	};
 
 	void SetPlayerAngle(float angle);
@@ -70,6 +76,14 @@ public:
 
 	void InitEnemyValue();
 
+	bool AICombatSystemApplyWind;
+
+	enum RESULT {
+		HIT = 0,
+		MISS = 1,
+		NOTFOUND = 2
+	};
+	
 	RESULT EnemyAICombatSystem();
 
 	void DrawDirectionPegline(GameObject& directionArrow,

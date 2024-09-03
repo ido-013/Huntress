@@ -33,7 +33,7 @@ void GSM::GameStateManager::Update()
 {
     if (currentLevel)
     {
-        AEGfxSetBackgroundColor(255, 255, 255);
+        AEGfxSetBackgroundColor(0, 0, 0);
 
         ComponentManager<LogicComponent>::GetInstance().Update();
         ComponentManager<EngineComponent>::GetInstance().Update();
@@ -51,6 +51,9 @@ void GSM::GameStateManager::Update()
 
 void GSM::GameStateManager::Exit()
 {
+    EventManager::GetInstance().DeleteUndispahchEvent();
+    GameObjectManager::GetInstance().RemoveAllObject();
+
     if (currentLevel)
     {
         currentLevel->Exit();
