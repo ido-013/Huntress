@@ -4,6 +4,7 @@
 #include "../ComponentManager/ComponentManager.h"
 #include "../ComponentManager/EngineComponent.h"
 #include "../Event/Entity.h"
+#include "../Utils/Vec3.h"
 
 class ColliderComp : public EngineComponent, public Entity
 {
@@ -11,9 +12,12 @@ private:
 	AEVec2 pos;
 	AEVec2 scale;
 	float rot;
+
 public:
 	ColliderComp(GameObject* _owner);
 	~ColliderComp();
+
+	Vec3 vertices[4];
 
 	void Update() override;
 
@@ -31,6 +35,8 @@ public:
 
 	void SetCollider();
 	void SetCollider(float posX, float posY, float scaleX, float scaleY, float _rot);
+
+	void SetVertices();
 
 	void LoadFromJson(const json&) override;
 	json SaveToJson() override;

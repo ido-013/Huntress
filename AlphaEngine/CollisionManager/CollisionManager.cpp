@@ -84,6 +84,53 @@ bool CollisionManager::isCollisionAABBTri(ColliderComp* a, ColliderComp* b) cons
 	return true;
 }
 
+bool CollisionManager::isCollisionOBB(ColliderComp* a, ColliderComp* b) const
+{
+	f32 minDotProducts[4];
+
+	f32 minDotProduct;
+	f32 maxDotProduct;
+
+	// Check colA's normal vector
+	for (int i = 0; i < 4; i++)
+	{
+		int in = i + 1;
+		if (in == 4)
+			in = 0;
+
+		AEVec2 normal{
+			a->vertices[in].x - a->vertices[i].x,
+			a->vertices[in].y - b->vertices[i].y };
+
+		minDotProduct = 1'000'000;
+
+		for (const Vec3& vB : b->vertices)
+		{
+			AEVec2 vecAB{
+				vB.x - a->vertices[in].x, vB.y - a->vertices[in].y
+			};
+
+			f32 dotProduct = normal.x * vecAB.x + normal.y * vecAB.y;
+			if (minDotProduct > dotProduct)
+				minDotProduct = dotProduct;
+		}
+
+		minDotProducts[in] = minDotProduct;
+	}
+
+	maxDotProduct = minDotProducts[0];
+	for (int i = 1; i < 4; i++)
+	{
+		if (maxDotProduct < minDotProducts[i])
+			maxDotProduct = minDotProducts[i];
+	}
+
+	if (maxDotProduct > 0)
+		return false;
+	else
+		return true;
+}
+
 bool CollisionManager::isCollisionAABBAABB(ColliderComp* a, ColliderComp* b) const
 {
 	float aX = a->GetPos().x;
@@ -210,7 +257,7 @@ bool CollisionManager::AABBAABBCheck(ColliderComp* a, ColliderComp* b)
 
 	if (a->GetOwner()->type == GameObject::Square && b->GetOwner()->type == GameObject::Square)
 	{
-		if (isCollisionAABBAABB(a, b))
+		if (isCollisionOBB(a, b) || isCollisionOBB(b, a))
 		{
 			em.AddEvent<CollisionEvent>(a, b);
 			em.AddEvent<CollisionEvent>(b, a);
