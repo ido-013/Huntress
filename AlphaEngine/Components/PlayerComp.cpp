@@ -9,6 +9,8 @@
 #include "../Prefab/Prefab.h"
 #include "../GameObjectManager/GameObjectManager.h"
 #include "../Particle/Particle.h"
+#include "../Combat/Combat.h"
+#include "../Combat/Projectile.h"
 
 PlayerComp::PlayerComp(GameObject* _owner) : LogicComponent(_owner)
 {
@@ -30,18 +32,16 @@ void PlayerComp::Update()
 	SpriteComp* s = owner->GetComponent<SpriteComp>();
 	if (!s) return;
 
-	speed = 100;
-
 	r->SetVelocityX(0);
 
-	if (AEInputCheckCurr(AEVK_A) && movementGauge > 0 && moveState)
+	if (AEInputCheckCurr(AEVK_A) && movementGauge > 0)
 	{
 		t->SetScale({ -abs(t->GetScale().x), t->GetScale().y });
 		r->SetVelocityX(-speed);
 		movementGauge--;
 	}
 
-	if (AEInputCheckCurr(AEVK_D) && movementGauge > 0 && moveState)
+	if (AEInputCheckCurr(AEVK_D) && movementGauge > 0)
 	{
 		t->SetScale({ abs(t->GetScale().x), t->GetScale().y });
 		r->SetVelocityX(speed);
@@ -57,6 +57,11 @@ void PlayerComp::Update()
 	{
 		movementGauge = maxMovementGauge;
 	}
+}
+
+float PlayerComp::GetMovegauge()
+{
+	return movementGauge;
 }
 
 void PlayerComp::LoadFromJson(const json& data)

@@ -187,7 +187,7 @@ void CombatComp::FireAnArrow(TURN turn, GameObject& directionArrow)
 	projectile->GetComponent<TransformComp>()->SetPos(player->GetComponent<TransformComp>()->GetPos());
 	projectile->GetComponent<TransformComp>()->SetScale({ 28, 10 });
 
-	projectile->GetComponent<SpriteComp>()->SetTexture("../Assets/Character/ArrowAttack/Arrow/Arrow.png");
+	projectile->GetComponent<SpriteComp>()->SetTexture("Assets/Character/ArrowAttack/Arrow/Arrow.png");
 	projectile->GetComponent<SpriteComp>()->SetAlpha(1);
 	turn == PLAYERTURN ? pVelocity = DEFAULT_POWER + pPower : eVelocity = DEFAULT_POWER + ePower;
 	projectile->GetComponent<Projectile>()->SetVelocity(turn == PLAYERTURN ? pVelocity : eVelocity);
@@ -367,36 +367,39 @@ void CombatComp::Update()
 	TransformComp* ptf = player->GetComponent<TransformComp>();
 	TransformComp* etf = enemy->GetComponent<TransformComp>();
 
-	switch (CombatComp::turn)
-	{
-		case PLAYERTURN: // player turn
+		switch (CombatComp::turn)
+		{
+			case PLAYERTURN: // player turn
+
+				if (!Projectile::isLaunchProjectile)
+					AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
 			
-			// 임시 트리거
-			if (AEInputCheckTriggered(AEVK_F))
-			{
-				directionArrow->GetComponent<CombatComp>()->isDrawDirection = true;
-				directionArrow->GetComponent<CombatComp>()->isChaseDirection = true;
-			}
-			if (AEInputCheckTriggered(AEVK_W))
-			{
-				directionArrow->GetComponent<CombatComp>()->pPower += 1;
-				std::cout << "Increase Player Power : " << directionArrow->GetComponent<CombatComp>()->pPower << std::endl;
-			}
-			if (AEInputCheckTriggered(AEVK_S))
-			{
-				directionArrow->GetComponent<CombatComp>()->pPower -= 1;
-				std::cout << "Decrease Player Power : " << directionArrow->GetComponent<CombatComp>()->pPower << std::endl;
-			}
-			if (AEInputCheckTriggered(AEVK_Q))
-			{
-				directionArrow->GetComponent<CombatComp>()->pAngle += AEDegToRad(1);
-				std::cout << "Increase Player Angle : " << AERadToDeg(directionArrow->GetComponent<CombatComp>()->pAngle) << std::endl;
-			}
-			if (AEInputCheckTriggered(AEVK_E))
-			{
-				directionArrow->GetComponent<CombatComp>()->pAngle -= AEDegToRad(1);
-				std::cout << "Decrease Player Angle : " << AERadToDeg(directionArrow->GetComponent<CombatComp>()->pAngle) << std::endl;
-			}
+				// 임시 트리거
+				if (AEInputCheckTriggered(AEVK_F))
+				{
+					directionArrow->GetComponent<CombatComp>()->isDrawDirection = true;
+					directionArrow->GetComponent<CombatComp>()->isChaseDirection = true;
+				}
+				if (AEInputCheckTriggered(AEVK_W))
+				{
+					directionArrow->GetComponent<CombatComp>()->pPower += 1;
+					std::cout << "Increase Player Power : " << directionArrow->GetComponent<CombatComp>()->pPower << std::endl;
+				}
+				if (AEInputCheckTriggered(AEVK_S))
+				{
+					directionArrow->GetComponent<CombatComp>()->pPower -= 1;
+					std::cout << "Decrease Player Power : " << directionArrow->GetComponent<CombatComp>()->pPower << std::endl;
+				}
+				if (AEInputCheckTriggered(AEVK_Q))
+				{
+					directionArrow->GetComponent<CombatComp>()->pAngle += AEDegToRad(1);
+					std::cout << "Increase Player Angle : " << AERadToDeg(directionArrow->GetComponent<CombatComp>()->pAngle) << std::endl;
+				}
+				if (AEInputCheckTriggered(AEVK_E))
+				{
+					directionArrow->GetComponent<CombatComp>()->pAngle -= AEDegToRad(1);
+					std::cout << "Decrease Player Angle : " << AERadToDeg(directionArrow->GetComponent<CombatComp>()->pAngle) << std::endl;
+				}
 
 			if (isDrawDirection)
 			{
@@ -433,15 +436,18 @@ void CombatComp::Update()
 			}
 			break;
 
-		case ENEMYTURN: // enemy turn
+			case ENEMYTURN: // enemy turn
+
+				if (!Projectile::isLaunchProjectile)
+					AEGfxSetCamPosition(etf->GetPos().x, etf->GetPos().y);
 			
-			// 임시 트리거
-			if (AEInputCheckTriggered(AEVK_F))
-			{
-				directionArrow->GetComponent<CombatComp>()->isDrawDirection = true;
-				directionArrow->GetComponent<CombatComp>()->isChaseDirection = true;
-				SetEnemyAngle(RAD90);
-			}
+				// 임시 트리거
+				if (AEInputCheckTriggered(AEVK_F))
+				{
+					directionArrow->GetComponent<CombatComp>()->isDrawDirection = true;
+					directionArrow->GetComponent<CombatComp>()->isChaseDirection = true;
+					SetEnemyAngle(RAD90);
+				}
 			 
 			if (isDrawDirection)
 			{
