@@ -375,7 +375,6 @@ void CombatComp::Update()
 		switch (CombatComp::turn)
 		{
 			case PLAYERTURN: // player turn
-			
 				// 임시 트리거
 				if (AEInputCheckTriggered(AEVK_F))
 				{
@@ -437,11 +436,12 @@ void CombatComp::Update()
 						FireAnArrow(PLAYERTURN, *directionArrow);
 					}
 				}
-
-				
-				break;
+			break;
 
 			case ENEMYTURN: // enemy turn
+
+				if (!Projectile::isLaunchProjectile)
+					AEGfxSetCamPosition(etf->GetPos().x, etf->GetPos().y);
 			
 				// 임시 트리거
 				if (AEInputCheckTriggered(AEVK_F))
@@ -486,57 +486,6 @@ void CombatComp::Update()
 				{
 					FireAnArrow(ENEMYTURN, *directionArrow);
 				}
-			}
-			break;
-
-			case ENEMYTURN: // enemy turn
-
-				if (!Projectile::isLaunchProjectile)
-					AEGfxSetCamPosition(etf->GetPos().x, etf->GetPos().y);
-			
-				// 임시 트리거
-				if (AEInputCheckTriggered(AEVK_F))
-				{
-					directionArrow->GetComponent<CombatComp>()->isDrawDirection = true;
-					directionArrow->GetComponent<CombatComp>()->isChaseDirection = true;
-					SetEnemyAngle(RAD90);
-				}
-			 
-			if (isDrawDirection)
-			{
-				if (isSetLaunchAngle)
-				{
-					isSetLaunchAngle = false;
-					isChaseDirection = false;
-					isReadyLaunch = true;
-				}
-
-				directionArrow->GetComponent<SpriteComp>()->SetAlpha(1);
-				if (isChaseDirection)
-				{
-					directionArrow->
-						GetComponent<CombatComp>()->
-						DrawDirectionPegline(*directionArrow,
-							ENEMYTURN, { -ANGLE_LIMIT, ANGLE_LIMIT });
-				}
-
-				dtf->SetPos(
-					RotatePointAround(
-						etf->GetPos(),
-						{ etf->GetPos().x , etf->GetPos().y + dtf->GetScale().y / 2 },
-						eAngle - RAD90
-					)
-				);
-			}
-			else
-			{
-				directionArrow->GetComponent<SpriteComp>()->SetAlpha(0);
-			}
-			if (isReadyLaunch)
-			{
-				FireAnArrow(ENEMYTURN, *directionArrow);
-				isReadyLaunch = false;
-			}
 			break;
 		}
 	}
