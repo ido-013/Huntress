@@ -265,16 +265,15 @@ void level::CombatLevel::Init()
 	enemy->GetComponent<EnemyComp>()->data.InitData(30, 0, 1, Data::EnemyData::GRADE::Normal);
 
 	//Init UI
-	InitCombatUI();
-	
+	InitCombatUI(player, enemy, directionArrow);
+	storeUI.InitStoreUI(player);
 }
 
 void level::CombatLevel::Update()
 {
 	UpdateCombatUI(player, enemy, directionArrow);
-
 	UpdateBackground();
-
+//	storeUI.UpdateStoreUI();
 	if (AEInputCheckTriggered(AEVK_1))
 	{
 		Data::PrintPlayerData(player->GetComponent<PlayerComp>()->data);

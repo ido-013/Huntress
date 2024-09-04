@@ -109,6 +109,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="Components\EnemyComp.cpp" />
     <ClCompile Include="Components\LifetimeComp.cpp" />
     <ClCompile Include="Components\ButtonComp.cpp" />
+    <ClCompile Include="Components\UIComp.cpp" />
     <ClCompile Include="Data\Data.cpp" />
     <ClCompile Include="Utils\Dice.cpp" />
     <ClCompile Include="Utils\Dice.h" />
@@ -161,6 +162,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="Components\EnemyComp.h" />
     <ClInclude Include="Components\LifetimeComp.h" />
     <ClInclude Include="Components\ButtonComp.h" />
+    <ClInclude Include="Components\UIComp.h" />
     <ClInclude Include="Data\Data.h" />
     <ClInclude Include="Data\DataManager.h" />
     <ClInclude Include="Event\Button.h" />
@@ -186,7 +188,6 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="Level\BaseLevel.h" />
     <ClInclude Include="GSM\GameStateManager.h" />
     <ClInclude Include="Level\CombatLevel.h" />
-    <ClInclude Include="Level\CombatUI.h" />
     <ClInclude Include="Level\NormalLevel.h" />
     <ClInclude Include="Level\PrefabLevel.h" />
     <ClInclude Include="Level\Menu.h" />

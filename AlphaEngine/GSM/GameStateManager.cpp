@@ -37,7 +37,7 @@ void GSM::GameStateManager::Update()
 
         ComponentManager<LogicComponent>::GetInstance().Update();
         ComponentManager<EngineComponent>::GetInstance().Update();
-        ComponentManager<GraphicComponent>::GetInstance().Update();
+
         ComponentManager<AudioComp>::GetInstance().Update();
         ComponentManager<LifetimeComp>::GetInstance().Update();
         ButtonManager::GetInstance().Update();
@@ -46,6 +46,7 @@ void GSM::GameStateManager::Update()
         CollisionManager::GetInstance().Update();
 
         currentLevel->Update();
+        ComponentManager<GraphicComponent>::GetInstance().Update();
     }
 }
 

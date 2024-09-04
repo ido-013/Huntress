@@ -1,8 +1,7 @@
 #include "CombatUI.h"
 #include "../GameObject/GameObject.h"
 #include "../Components/AudioComp.h"
-#include "../Components/TransformComp.h"
-#include "../Components/SpriteComp.h"
+#include "../Components/UIComp.h"
 #include "../Components/PlayerComp.h"
 #include "../Components/EnemyComp.h"
 #include "../Combat/Combat.h"
@@ -17,169 +16,136 @@ GameObject* enemyHP = nullptr;
 GameObject* Attack = nullptr;
 GameObject* enemyAttack = nullptr;
 GameObject* WindDirection = nullptr;
-void InitCombatUI()
-{
-	UIBAR = new GameObject();
-	UIBAR->AddComponent<SpriteComp>();
-	UIBAR->AddComponent<AudioComp>();
-	UIBAR->AddComponent<TransformComp>();
-	TransformComp* transLogo = UIBAR->GetComponent<TransformComp>();
-	transLogo->SetScale({ 1600,250 });
-	transLogo->SetPos({ 0, -330 });
-	SpriteComp* LogoSprite = UIBAR->GetComponent<SpriteComp>();
-	LogoSprite->SetTexture("Assets/arrow.png");
-	LogoSprite->SetColor(255, 255, 255);
 
-	Power = new GameObject();
-	Power->AddComponent<SpriteComp>();
-	Power->AddComponent<AudioComp>();
-	Power->AddComponent<TransformComp>();
-	TransformComp* transStart = Power->GetComponent<TransformComp>();
-	transStart->SetScale({ 750,80 });
-	transStart->SetPos({ 150, -280 });
-	SpriteComp* PowerSprite = Power->GetComponent<SpriteComp>();
-	PowerSprite->SetTexture("Assets/arrow.png");
-	PowerSprite->SetColor(255, 0, 0);
-
-	Move = new GameObject();
-	Move->AddComponent<SpriteComp>();
-	Move->AddComponent<AudioComp>();
-	Move->AddComponent<TransformComp>();
-	TransformComp* transMove = Move->GetComponent<TransformComp>();
-	transMove->SetScale({ 750,80 });
-	transMove->SetPos({ 150, -380 });
-	SpriteComp* MoveSprite = Move->GetComponent<SpriteComp>();
-	MoveSprite->SetTexture("Assets/arrow.png");
-	MoveSprite->SetColor(0, 255, 0);
-
-	Angle = new GameObject();
-	Angle->AddComponent<SpriteComp>();
-	Angle->AddComponent<AudioComp>();
-	Angle->AddComponent<TransformComp>();
-	TransformComp* transAngle = Angle->GetComponent<TransformComp>();
-	transAngle->SetScale({ 200,200 });
-	transAngle->SetPos({ -380, -330 });
-	SpriteComp* AngleSprite = Angle->GetComponent<SpriteComp>();
-	AngleSprite->SetTexture("Assets/arrow.png");
-	AngleSprite->SetColor(120, 120, 120);
-
-	HP = new GameObject();
-	HP->AddComponent<SpriteComp>();
-	HP->AddComponent<AudioComp>();
-	HP->AddComponent<TransformComp>();
-	TransformComp* transHP = HP->GetComponent<TransformComp>();
-	transHP->SetScale({ 80,200 });
-	transHP->SetPos({ -720, -330 });
-	SpriteComp* HPSprite = HP->GetComponent<SpriteComp>();
-	HPSprite->SetTexture("Assets/arrow.png");
-	HPSprite->SetColor(0, 200, 0);
-
-	Attack = new GameObject();
-	Attack->AddComponent<SpriteComp>();
-	Attack->AddComponent<AudioComp>();
-	Attack->AddComponent<TransformComp>();
-	TransformComp* transAttack = Attack->GetComponent<TransformComp>();
-	transAttack->SetScale({ 130,200 });
-	transAttack->SetPos({ -600, -330 });
-	SpriteComp* AttackSprite = Attack->GetComponent<SpriteComp>();
-	AttackSprite->SetTexture("Assets/arrow.png");
-	AttackSprite->SetColor(0, 0, 0);
-
-	enemyHP = new GameObject();
-	enemyHP->AddComponent<SpriteComp>();
-	enemyHP->AddComponent<AudioComp>();
-	enemyHP->AddComponent<TransformComp>();
-	TransformComp* transHP_e = enemyHP->GetComponent<TransformComp>();
-	transHP_e->SetScale({ 80,200 });
-	transHP_e->SetPos({ 720, -330 });
-	SpriteComp* HPSprite_e = enemyHP->GetComponent<SpriteComp>();
-	HPSprite_e->SetTexture("Assets/arrow.png");
-	HPSprite_e->SetColor(200, 200, 0);
-
-	enemyAttack = new GameObject();
-	enemyAttack->AddComponent<SpriteComp>();
-	enemyAttack->AddComponent<AudioComp>();
-	enemyAttack->AddComponent<TransformComp>();
-	TransformComp* transAttack_e = enemyAttack->GetComponent<TransformComp>();
-	transAttack_e->SetScale({ 130,200 });
-	transAttack_e->SetPos({ 600, -330 });
-	SpriteComp* AttackSprite_e = enemyAttack->GetComponent<SpriteComp>();
-	AttackSprite_e->SetTexture("Assets/arrow.png");
-	AttackSprite_e->SetColor(0, 0, 0);
-
-	Wind = new GameObject();
-	Wind->AddComponent<SpriteComp>();
-	Wind->AddComponent<AudioComp>();
-	Wind->AddComponent<TransformComp>();
-	TransformComp* transSetting = Wind->GetComponent<TransformComp>();
-	transSetting->SetScale({ 200,100 });
-	transSetting->SetPos({ -700, 400 });
-	SpriteComp* WindSprite = Wind->GetComponent<SpriteComp>();
-	WindSprite->SetTexture("Assets/arrow.png");
-	WindSprite->SetColor(120, 120, 120);
-
-	WindDirection = new GameObject();
-	WindDirection->AddComponent<SpriteComp>();
-	WindDirection->AddComponent<AudioComp>();
-	WindDirection->AddComponent<TransformComp>();
-	TransformComp* transWindDirect = WindDirection->GetComponent<TransformComp>();
-	transWindDirect->SetScale({ 150,20 });
-	transWindDirect->SetPos({ -700, 400 });
-	SpriteComp* WindDirectSprite = WindDirection->GetComponent<SpriteComp>();
-	WindDirectSprite->SetTexture("Assets/arrow.png");
-	WindDirectSprite->SetColor(0, 120, 120);
-	
-}
-
-void UpdateCombatUI(GameObject* player, GameObject* enemy, GameObject* directionArrow)
+void InitCombatUI(GameObject* player, GameObject* enemy, GameObject* directionArrow)
 {
 	float camX, camY;
 	AEGfxGetCamPosition(&camX, &camY);
 
-	TransformComp* transLogo = UIBAR->GetComponent<TransformComp>();
-	transLogo->SetPos({ 0 + camX, -330 + camY });
+	// UI BAR
+	UIBAR = new GameObject();
+	UIBAR->AddComponent<UIComponent>();
+	UIComponent* uiBarComp = UIBAR->GetComponent<UIComponent>();
+	uiBarComp->SetScale({ 1600, 250 });
+	uiBarComp->SetPos({ 0, -330 });
+	uiBarComp->SetTexture("Assets/arrow.png");
+	uiBarComp->SetColor(255, 255, 255);
 
-	TransformComp* transStart = Power->GetComponent<TransformComp>();
-	//transStart->SetPos({ 150 + camX, -280 + camY });
+	// Power Bar
+	Power = new GameObject();
+	Power->AddComponent<UIComponent>();
+	UIComponent* powerComp = Power->GetComponent<UIComponent>();
+	powerComp->SetScale({ 750 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (POWER_LIMIT + DEFAULT_POWER))), 80 });
+	powerComp->SetPos({ 150 - (750 - 750 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (POWER_LIMIT + DEFAULT_POWER)))) / 2 , -280 });
+	powerComp->SetTexture("Assets/arrow.png");
+	powerComp->SetColor(255, 0, 0);
 
-	transStart->SetScale({ 750 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (POWER_LIMIT + DEFAULT_POWER))) ,80 });
-	transStart->SetPos({ 150 - (750 - 750 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (POWER_LIMIT + DEFAULT_POWER)))) / 2 + camX, -280 + camY });
+	// Move Bar
+	Move = new GameObject();
+	Move->AddComponent<UIComponent>();
+	UIComponent* moveComp = Move->GetComponent<UIComponent>();
+	moveComp->SetScale({ 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f), 80 });
+	moveComp->SetPos({ 150 - (750 - 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f)) / 2 , -380  });
+	moveComp->SetTexture("Assets/arrow.png");
+	moveComp->SetColor(0, 255, 0);
 
-	TransformComp* transMove = Move->GetComponent<TransformComp>();
-	transMove->SetScale({ 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f) ,80 });
-	transMove->SetPos({ (150 - (750 - 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f)) / 2) + camX, -380 + camY });
+	// Angle UI
+	Angle = new GameObject();
+	Angle->AddComponent<UIComponent>();
 
-	TransformComp* transAngle = Angle->GetComponent<TransformComp>();
-	transAngle->SetPos({ -380 + camX, -330 + camY });
+	UIComponent* angleComp = Angle->GetComponent<UIComponent>();
+	angleComp->SetPos({ -380 + camX, -330 + camY });
+	angleComp->SetScale({ 200, 200 });
 
-	TransformComp* transSetting = Wind->GetComponent<TransformComp>();
-	transSetting->SetPos({ -700 + camX, 400 + camY });
+	angleComp->SetTexture("Assets/arrow.png");
+	angleComp->SetColor(120, 120, 120);
+
+	// HP Bar
+	HP = new GameObject();
+	HP->AddComponent<UIComponent>();
+	UIComponent* hpComp = HP->GetComponent<UIComponent>();
+	hpComp->SetScale({ 80, 200 * (float(player->GetComponent<PlayerComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife) });
+	hpComp->SetPos({ -720 , (-330 - (200 - 200 * (float(player->GetComponent<PlayerComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife)) / 2.f) });
+	hpComp->SetTexture("Assets/arrow.png");
+	hpComp->SetColor(0, 200, 0);
+
+	// Player Attack
+	Attack = new GameObject();
+	Attack->AddComponent<UIComponent>();
+	UIComponent* attackComp = Attack->GetComponent<UIComponent>();
+	attackComp->SetScale({ 130, 200 });
+	attackComp->SetPos({ -600, -330 });
+	attackComp->SetTexture("Assets/arrow.png");
+	attackComp->SetColor(0, 0, 0);
+
+	// Enemy HP Bar
+	enemyHP = new GameObject();
+	enemyHP->AddComponent<UIComponent>();
+
+	UIComponent* enemyHpComp = enemyHP->GetComponent<UIComponent>();
+	enemyHpComp->SetScale({ 80, 200 * (float(enemy->GetComponent<EnemyComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife) });
+	enemyHpComp->SetPos({ 720 , (-330 - (200 - 200 * (float(enemy->GetComponent<EnemyComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife)) / 2.f) });
+	enemyHpComp->SetTexture("Assets/arrow.png");
+	enemyHpComp->SetColor(200, 200, 0);
+
+	// Enemy Attack
+	enemyAttack = new GameObject();
+	enemyAttack->AddComponent<UIComponent>();
+	UIComponent* enemyAttackComp = enemyAttack->GetComponent<UIComponent>();
+	enemyAttackComp->SetScale({ 130, 200 });
+	enemyAttackComp->SetPos({ 600, -330 });
+	enemyAttackComp->SetTexture("Assets/arrow.png");
+	enemyAttackComp->SetColor(0, 0, 0);
+
+	// Wind UI
+	Wind = new GameObject();
+	Wind->AddComponent<UIComponent>();
+	UIComponent* windComp = Wind->GetComponent<UIComponent>();
+	windComp->SetScale({ 200, 100 });
+	windComp->SetPos({ -700, 400 });
+	windComp->SetTexture("Assets/arrow.png");
+	windComp->SetColor(120, 120, 120);
+
+	// Wind Direction Arrow
+	WindDirection = new GameObject();
+	WindDirection->AddComponent<UIComponent>();
+	float angle = directionArrow->GetComponent<CombatComp>()->data.windAngle;
+	UIComponent* windDirComp = WindDirection->GetComponent<UIComponent>();
+	windDirComp->SetRot(angle);  // Set rotation for wind direction arrow
+	windDirComp->SetScale({ 150, 20 });
+	windDirComp->SetPos({ -700 + camX, 400 + camY });
+	windDirComp->SetTexture("Assets/arrow.png");
+	windDirComp->SetColor(0, 120, 120);
+}
+
+void UpdateCombatUI(GameObject* player, GameObject* enemy, GameObject* directionArrow)
+{
+	float angle = directionArrow->GetComponent<CombatComp>()->data.windAngle;
+	UIComponent* windDirComp = WindDirection->GetComponent<UIComponent>();
+	windDirComp->SetRot(angle);  // Set rotation for wind direction arrow
+
+	UIComponent* moveComp = Move->GetComponent<UIComponent>();
+	moveComp->SetScale({ 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f), 80 });
+	moveComp->SetPos({ 150 - (750 - 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f)) / 2 , -380 });
+
+	UIComponent* powerComp = Power->GetComponent<UIComponent>();
+	powerComp->SetScale({ 750 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (POWER_LIMIT + DEFAULT_POWER))), 80 });
+	powerComp->SetPos({ 150 - (750 - 750 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (POWER_LIMIT + DEFAULT_POWER)))) / 2 , -280 });
 
 
-	TransformComp* transAttack = Attack->GetComponent<TransformComp>();
-	transAttack->SetPos({ -600 + camX, -330 + camY });
-
-	TransformComp* transAttack_e = enemyAttack->GetComponent<TransformComp>();
-	transAttack_e->SetPos({ 600 + camX, -330 + camY });
+	UIComponent* hpComp = HP->GetComponent<UIComponent>();
+	hpComp->SetScale({ 80, 200 * (float(player->GetComponent<PlayerComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife) });
+	hpComp->SetPos({ -720 , (-330 - (200 - 200 * (float(player->GetComponent<PlayerComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife)) / 2.f) });
 
 
-	TransformComp* transHP = HP->GetComponent<TransformComp>();
-	transHP->SetScale({ 80,200*(float(player->GetComponent<PlayerComp>()->data.hp)/ player->GetComponent<PlayerComp>()->data.maxLife)});
-	transHP->SetPos({ -720+ camX, (-330-( 200-200* (float(player->GetComponent<PlayerComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife))/2.f)+ camY });
+	UIComponent* enemyHpComp = enemyHP->GetComponent<UIComponent>();
+	enemyHpComp->SetScale({ 80, 200 * (float(enemy->GetComponent<EnemyComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife) });
+	enemyHpComp->SetPos({ 720 , (-330 - (200 - 200 * (float(enemy->GetComponent<EnemyComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife)) / 2.f) });
 
-	TransformComp* transEnemyHP = enemyHP->GetComponent<TransformComp>();
-	transEnemyHP->SetScale({ 80,200 * (float(player->GetComponent<PlayerComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife) });
-	transEnemyHP->SetPos({ 720+ camX, ( - 330 - (200 - 200 * (float(player->GetComponent<PlayerComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife)) / 2.f) + camY});
 
-	float angle = directionArrow->GetComponent<CombatComp>()->data.windAngle;  // angle 값 가져오기
-	TransformComp* windTransform = WindDirection->GetComponent<TransformComp>();
-	windTransform->SetRot(angle);  // WindDirection의 회전을 angle로 설정
-
-	// WindDirection의 위치와 크기 업데이트
-	windTransform->SetScale({ 150, 20 });
-	windTransform->SetPos({ -700 + camX, 400 + camY });
 }
 
 void ExitCombatUI()
 {
+
 }
