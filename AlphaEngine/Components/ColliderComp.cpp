@@ -59,15 +59,11 @@ void ColliderComp::OnEvent(Event* e)
 void ColliderComp::SetPos(const AEVec2& otherPos)
 {
 	this->pos = otherPos;
-
-	SetVertices();
 }
 
 void ColliderComp::SetScale(const AEVec2& otherScale)
 {
 	this->scale = otherScale;
-
-	SetVertices();
 }
 
 void ColliderComp::SetRot(const float& otherRot)
@@ -87,8 +83,6 @@ void ColliderComp::SetCollider()
 	scale.y = abs(t->GetScale().y);
 
 	rot = t->GetRot();
-
-	SetVertices();
 }
 
 void ColliderComp::SetCollider(float posX, float posY, float scaleX, float scaleY, float _rot)
@@ -100,13 +94,6 @@ void ColliderComp::SetCollider(float posX, float posY, float scaleX, float scale
 	scale.y = scaleY;
 
 	rot = _rot;
-
-	SetVertices();
-}
-
-void ColliderComp::SetVertices()
-{
-	
 }
 
 void ColliderComp::LoadFromJson(const json& data)

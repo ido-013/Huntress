@@ -24,6 +24,8 @@ public:
 		Enemy,
 		Projectile,
 		Particle,
+		LeftTri_R,
+		RightTri_R,
 	};
 
 	GameObject();

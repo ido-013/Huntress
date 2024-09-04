@@ -67,6 +67,22 @@ void SpriteComp::SetMesh()
 			-0.5f, -0.5f, 0xFFFFFFFF, 0.0f, 1.0f);
 	}
 
+	else if (owner->type == GameObject::LeftTri_R)
+	{
+		AEGfxTriAdd(
+			-0.5f, -0.5f, 0xFFFFFFFF, 0.0f, 1.0f,
+			0.5f, 0.5f, 0xFFFFFFFF, 1.0f, 0.0f,
+			-0.5f, 0.5f, 0xFFFFFFFF, 0.0f, 0.0f);
+	}
+
+	else if (owner->type == GameObject::RightTri_R)
+	{
+		AEGfxTriAdd(
+			0.5f, -0.5f, 0xFFFFFFFF, 1.0f, 1.0f,
+			0.5f, 0.5f, 0xFFFFFFFF, 1.0f, 0.0f,
+			-0.5f, 0.5f, 0xFFFFFFFF, 0.0f, 0.0f);
+	}
+		
 	else
 	{
 		AEGfxTriAdd(

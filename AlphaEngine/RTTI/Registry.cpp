@@ -6,6 +6,7 @@ Registry::Registry()
     rttiMap.insert({ TransformComp::TypeName, &TransformComp::CreateTransformComponent });
     rttiMap.insert({ AudioComp::TypeName, &AudioComp::CreateAudioComponent });
     rttiMap.insert({ PlayerComp::TypeName, &PlayerComp::CreatePlayerComponent });
+    rttiMap.insert({ EnemyComp::TypeName, &EnemyComp::CreateEnemyComponent });
     rttiMap.insert({ SpriteComp::TypeName, &SpriteComp::CreateSpriteComponent });
     rttiMap.insert({ RigidbodyComp::TypeName, &RigidbodyComp::CreateRigidBodyComponent });
     rttiMap.insert({ AnimatorComp::TypeName, &AnimatorComp::CreateAnimatorComponent });

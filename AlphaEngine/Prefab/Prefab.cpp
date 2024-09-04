@@ -13,7 +13,7 @@ Prefab::~Prefab()
 
 void Prefab::SavePrefab(const std::string& _name, GameObject* obj)
 {
-	std::string filename = _name + ".prefab";
+	std::string filename = "../Assets/Prefab/" + _name + ".prefab";
 
 	json prefab;
 	prefab["entityType"] = obj->type;
@@ -39,7 +39,7 @@ void Prefab::SavePrefab(const std::string& _name, GameObject* obj)
 
 void Prefab::LoadPrefab()
 {
-	std::string filename = name + ".prefab";
+	std::string filename = "../Assets/Prefab/" + name + ".prefab";
 	std::fstream file;
 
 	file.open(filename, std::fstream::in);
@@ -60,6 +60,39 @@ GameObject* Prefab::NewGameObject()
 	if (typeIt == data->end())
 		return nullptr;
 	
+	obj->type = typeIt.value();
+
+	auto compIt = data->find("components");
+	if (compIt == data->end())
+		return nullptr;
+
+	for (auto& comp : *compIt)
+	{
+		auto dataIt = comp.find("type");
+		if (dataIt == comp.end())
+			continue;
+
+		std::string typeName = dataIt.value().dump();
+		typeName = typeName.substr(1, typeName.size() - 2);
+
+		BaseRTTI* p = Registry::GetInstance().FindAndCreate(typeName, obj);
+		if (p != nullptr)
+			p->LoadFromJson(comp);
+	}
+
+	obj->name = name;
+
+	return obj;
+}
+
+GameObject* Prefab::NewGameObject(const std::string& _name)
+{
+	GameObject* obj = new GameObject(_name);
+
+	auto typeIt = data->find("entityType");
+	if (typeIt == data->end())
+		return nullptr;
+
 	obj->type = typeIt.value();
 
 	auto compIt = data->find("components");

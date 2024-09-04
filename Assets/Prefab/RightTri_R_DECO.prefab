@@ -1,5 +1,5 @@
 {
-  "entityType": 2,
+  "entityType": 11,
   "components": [
     {
       "type": "SpriteComp",
