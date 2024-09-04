@@ -7,13 +7,15 @@ public:
 	{
 	public:
 		PlayerData();
+		int gold;
+		float maxLife;
 		float hp;
 		float damage;
 		float armor;
 		// 아이템이나 업그레이드 상황 추가
-		void InitData(float hpV, float damageV, float armorV)
+		void InitData(int goldV, float maxLifeV, float hpV, float damageV, float armorV)
 		{
-			hp = hpV, damage = damageV, armor = armorV;
+			gold = goldV, maxLife = maxLifeV, hp = hpV, damage = damageV, armor = armorV;
 		};
 	};
 	class EnemyData
