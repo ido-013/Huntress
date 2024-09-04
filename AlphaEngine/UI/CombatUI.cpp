@@ -142,7 +142,7 @@ void UpdateCombatUI(GameObject* player, GameObject* enemy, GameObject* Direction
 
 	TransformComp* transMove = Move->GetComponent<TransformComp>();
 	transMove->SetScale({ 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f) ,80 });
-	transMove->SetPos({ 150 - (750 - 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f)) / 2 + camX, -380 + camY });
+	transMove->SetPos({ (150 - (750 - 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f)) / 2) + camX, -380 + camY });
 
 	TransformComp* transAngle = Angle->GetComponent<TransformComp>();
 	transAngle->SetPos({ -380 + camX, -330 + camY });
@@ -156,7 +156,7 @@ void UpdateCombatUI(GameObject* player, GameObject* enemy, GameObject* Direction
 
 	TransformComp* transAttack_e = enemyAttack->GetComponent<TransformComp>();
 	transAttack_e->SetPos({ 600 + camX, -330 + camY });
-	transMove->SetPos({ 150 - (750 - 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f)) / 2, -380 });
+
 
 	TransformComp* transHP = HP->GetComponent<TransformComp>();
 	transHP->SetScale({ 80,200*(float(player->GetComponent<PlayerComp>()->data.hp)/ player->GetComponent<PlayerComp>()->data.maxLife)});
