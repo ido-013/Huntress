@@ -141,10 +141,19 @@ void CombatComp::DrawDirectionPegline(GameObject& directionArrow,
 	float angle = 0;
 	if (turn == PLAYERTURN)
 	{
-		s32 px, py;
+		f32 cx, cy;
+		AEGfxGetCamPosition(&cx, &cy);
+		s32 px, py; 
 		AEInputGetCursorPosition(&px, &py);
-		angle = AngleBetweenSegments(atf->GetPos(), dtf->GetPos(), 
-			atf->GetPos(), { (float)px - windowWidthHalf, (float)-(py - windowHeightHalf) });
+		px -= windowWidthHalf;
+		py -= windowHeightHalf;
+		py = -py;
+		angle = AngleBetweenSegments(atf->GetPos(), dtf->GetPos(),
+			atf->GetPos(), { (float)px + cx, (float)py + cy });
+
+		/*std::cout << "px,py : " << px << "," << -(py - windowHeightHalf) << "\n"
+				  << "cx,cy : " << cx << "," << cy << "\n"
+				  << "atf.x/y : " << (int)atf->GetPos().x << "," << (int)atf->GetPos().y << std::endl;*/
 	}
 	else
 	{
@@ -421,13 +430,19 @@ void CombatComp::Update()
 				}
 				if (AEInputCheckTriggered(AEVK_W))
 				{
-					directionArrow->GetComponent<CombatComp>()->pPower += 1;
-					std::cout << "Increase Player Power : " << directionArrow->GetComponent<CombatComp>()->pPower << std::endl;
+					if (directionArrow->GetComponent<CombatComp>()->pPower <= POWER_LIMIT)
+					{
+						directionArrow->GetComponent<CombatComp>()->pPower += 1;
+						std::cout << "Increase Player Power : " << directionArrow->GetComponent<CombatComp>()->pPower << std::endl;
+					}
 				}
 				if (AEInputCheckTriggered(AEVK_S))
 				{
-					directionArrow->GetComponent<CombatComp>()->pPower -= 1;
-					std::cout << "Decrease Player Power : " << directionArrow->GetComponent<CombatComp>()->pPower << std::endl;
+					if (directionArrow->GetComponent<CombatComp>()->pPower > DEFAULT_POWER)
+					{
+						directionArrow->GetComponent<CombatComp>()->pPower -= 1;
+						std::cout << "Decrease Player Power : " << directionArrow->GetComponent<CombatComp>()->pPower << std::endl;
+					}
 				}
 				if (AEInputCheckTriggered(AEVK_Q))
 				{
