@@ -126,7 +126,7 @@ void InitCombatUI()
 	transWindDirect->SetScale({ 100,100 });
 	transWindDirect->SetPos({ -700, 400 });
 	SpriteComp* WindDirectSprite = WindDirection->GetComponent<SpriteComp>();
-	WindDirectSprite->SetTexture("../Assets/UI/windArrow.png");
+	WindDirectSprite->SetTexture("./Assets/UI/windArrow.png");
 	WindDirectSprite->SetColor(1, 1, 1);
 	
 }
