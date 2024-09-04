@@ -35,7 +35,7 @@ void CombatComp::DataUpdate()
 }
 
 CombatComp::CombatComp(GameObject* _owner) : EngineComponent(_owner),
-pAngle(0), eAngle(RAD90), pVelocity(0), eVelocity(0), pPower(8), ePower(5), AICombatSystemApplyWind(true)
+pAngle(0), eAngle(RAD90), pVelocity(0), eVelocity(0), pPower((int)(POWER_LIMIT / 2)), ePower((int)(POWER_LIMIT / 2)), AICombatSystemApplyWind(true)
 {
 	
 }
@@ -187,7 +187,10 @@ void CombatComp::DrawDirectionPegline(GameObject& directionArrow,
 	}
 	else if (turn == ENEMYTURN)
 	{
-		EnemyAICombatSystem(); // AISystem
+		while (!EnemyAICombatSystem() == RESEARCH) 
+		{ 
+			std::cout << "Research..." << std::endl;
+		}// AISystem
 		dtf->SetRot(eAngle - RAD90);
 	}
 }
@@ -238,18 +241,35 @@ void CombatComp::checkState()
 {
 	GameObject* player = GameObjectManager::GetInstance().GetObj("player");
 	GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
+
 	if (isCombat && state == COMBAT)
 	{
 		if (enemy->GetComponent<EnemyComp>()->data.hp <= 0)
 		{
-			state = CLEAR;
 			isCombat = false;
+			state = CLEAR;
+			turn = NOBODYTURN;
 		}
 		else if (player->GetComponent<PlayerComp>()->data.hp <= 0)
 		{
-			state = GAMEOVER;
 			isCombat = false;
+			state = GAMEOVER;
+			turn = NOBODYTURN;
 		}
+	}
+
+	if (enemy->GetComponent<TransformComp>()->GetPos().y < -windowHeightHalf)
+	{
+		isCombat = false;
+		state = CLEAR;
+		turn = NOBODYTURN;
+	}
+
+	if (player->GetComponent<TransformComp>()->GetPos().y < -windowHeightHalf)
+	{
+		isCombat = false;
+		state = GAMEOVER;
+		turn = NOBODYTURN;
 	}
 }
 
@@ -367,7 +387,8 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 			if (loc <= HIT_RADIUS)
 			{
 				isSetLaunchAngle = true;
-				//std::cout << "HIT" << std::endl;
+				enemy->GetComponent<RigidbodyComp>()->SetVelocityX(0);
+				std::cout << "HIT" << std::endl;
 				//std::cout << "ptf : " << ptf.x << " , " << ptf.y << "\np : " << p.x << " , " << p.y <<  std::endl;
 				//std::cout << "ePower : " << ePower <<  std::endl;
 				//std::cout << "eAngle : " << AERadToDeg(eAngle) <<  std::endl;
@@ -386,18 +407,31 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 		// 파워를 증가시킴
 		ePower += POWER_INTERVER;
 	}
+	
+	enemy->GetComponent<TransformComp>()->ReverseX(p.x < e.x ? 0 : 1);
 
 	// 각도 설정
 	eAngle += p.x < e.x ? ANGLE_INTERVER : -ANGLE_INTERVER;
-	if (p.x < e.x ? eAngle > ANGLE_LIMIT + RAD90 : ANGLE_LIMIT - RAD90)
+	//std::cout << p.x << " " << e.x << std::endl;
+	if (p.x < e.x ? eAngle > ANGLE_LIMIT + RAD90 : eAngle < ANGLE_LIMIT - RAD90)
 	{
-		ePower = POWER_LIMIT / 2;
-		eVelocity = ePower + DEFAULT_POWER;
-		eAngle = p.x < e.x ? ANGLE_LIMIT / 2 + RAD90 : -(ANGLE_LIMIT / 2 + RAD90);
-		isSetLaunchAngle = true;
-		std::cout << "Projectile : NOTFOUND" << std::endl;
-		enemy->GetComponent<EnemyComp>()->isMove = true;
-		return NOTFOUND;
+		if (enemy->GetComponent<EnemyComp>()->moveState)
+		{
+			std::cout << "Projectile : RESEARCH" << std::endl;
+			enemy->GetComponent<EnemyComp>()->isMove = true;
+			while (enemy->GetComponent<RigidbodyComp>()->GetVelocityX() > 0) { ; }
+			eAngle = RAD90;
+			return RESEARCH;
+		}
+		else
+		{
+			ePower = POWER_LIMIT / 2;
+			eVelocity = ePower + DEFAULT_POWER;
+			eAngle = p.x < e.x ? ANGLE_LIMIT / 2 + RAD90 : -(ANGLE_LIMIT / 2 + RAD90);
+			isSetLaunchAngle = true;
+			std::cout << "Projectile : NOT FOUND" << std::endl;
+			return NOTFOUND;
+		}
 	}
 	//std::cout << AERadToDeg(eAngle)<< std::endl;
 
@@ -421,12 +455,12 @@ void CombatComp::Update()
 			case PLAYERTURN: // player turn
 				if (!Projectile::isLaunchProjectile)
 					AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
-			
-				// 임시 트리거
-				if (AEInputCheckTriggered(AEVK_F) && ArrowCount < 1)
+
+				if (directionArrow->GetComponent<CombatComp>()->isDrawDirection == false && ArrowCount < 1)
 				{
 					directionArrow->GetComponent<CombatComp>()->isDrawDirection = true;
 					directionArrow->GetComponent<CombatComp>()->isChaseDirection = true;
+					Projectile::GenerateRandomWind();
 				}
 				if (AEInputCheckTriggered(AEVK_W))
 				{
@@ -500,7 +534,7 @@ void CombatComp::Update()
 					AEGfxSetCamPosition(etf->GetPos().x, etf->GetPos().y);
 			
 				// 임시 트리거
-				if (AEInputCheckTriggered(AEVK_F) && ArrowCount < 1)
+				if (directionArrow->GetComponent<CombatComp>()->isDrawDirection == false && ArrowCount < 1)
 				{
 					directionArrow->GetComponent<CombatComp>()->isDrawDirection = true;
 					directionArrow->GetComponent<CombatComp>()->isChaseDirection = true;

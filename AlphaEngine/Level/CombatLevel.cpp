@@ -214,7 +214,7 @@ void level::CombatLevel::Init()
 	player->AddComponent<ColliderComp>();
 
 	player->GetComponent<TransformComp>()->SetScale({ 30, 30 });
-	player->GetComponent<TransformComp>()->SetPos({ 30, 400 });
+	player->GetComponent<TransformComp>()->SetPos({ -100, 400 });
 
 	player->GetComponent<RigidbodyComp>()->useGravity = true;
 
@@ -234,7 +234,7 @@ void level::CombatLevel::Init()
 	enemy->AddComponent<ColliderComp>();
 
 	enemy->GetComponent<TransformComp>()->SetScale({ -30, 30 });
-	enemy->GetComponent<TransformComp>()->SetPos({ -100, 400 });
+	enemy->GetComponent<TransformComp>()->SetPos({ 100, 400 });
 
 	enemy->GetComponent<RigidbodyComp>()->useGravity = true;
 	
@@ -261,8 +261,8 @@ void level::CombatLevel::Init()
 	directionArrow->GetComponent<CombatComp>()->isCombat = true;
 
 	//InitData
-	player->GetComponent<PlayerComp>()->data.InitData(100, 50, 50, 2, 1);
-	enemy->GetComponent<EnemyComp>()->data.InitData(30, 0, 1, Data::EnemyData::GRADE::Normal);
+	player->GetComponent<PlayerComp>()->data.InitData(100, 50, 50, 5, 1);
+	enemy->GetComponent<EnemyComp>()->data.InitData(30, 30, 5, 1, Data::EnemyData::GRADE::Normal);
 
 	//Init UI
 	InitCombatUI();

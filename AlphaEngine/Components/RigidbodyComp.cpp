@@ -84,6 +84,16 @@ void RigidbodyComp::AddVelocity(float x, float y)
 	velocity.y += y;
 }
 
+float RigidbodyComp::GetVelocityX()
+{
+	return velocity.x;
+}
+
+float RigidbodyComp::GetVelocityY()
+{
+	return velocity.y;
+}
+
 void RigidbodyComp::SetVelocity(const AEVec2& other)
 {
 	velocity.x = other.x;

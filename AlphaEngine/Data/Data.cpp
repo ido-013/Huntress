@@ -4,6 +4,8 @@
 
 void Data::PrintPlayerData(Data::PlayerData data)
 {
+	std::cout << "Player GOLD : " << data.gold << std::endl;
+	std::cout << "Player MAX HP : " << data.maxLife << std::endl;
 	std::cout << "Player HP : " << data.hp << std::endl;
 	std::cout << "Player Damage : " << data.damage << std::endl;
 	std::cout << "Player Armor : " << data.armor << std::endl;
@@ -12,6 +14,7 @@ void Data::PrintPlayerData(Data::PlayerData data)
 
 void Data::PrintEnemyData(Data::EnemyData data)
 {
+	std::cout << "Enemy MAX HP : " << data.maxLife << std::endl;
 	std::cout << "Enemy HP : " << data.hp << std::endl;
 	std::cout << "Enemy Damage : " << data.damage << std::endl;
 	std::cout << "Enemy Armor : " << data.armor << std::endl;
@@ -38,7 +41,7 @@ Data::PlayerData::PlayerData() : gold(0), maxLife(0), hp(0), damage(0), armor(0)
 {
 }
 
-Data::EnemyData::EnemyData() : hp(0), damage(0), armor(0), grade(Data::EnemyData::GRADE::Normal)
+Data::EnemyData::EnemyData() : maxLife(0), hp(0), damage(0), armor(0), grade(Data::EnemyData::GRADE::Normal)
 {
 }
 

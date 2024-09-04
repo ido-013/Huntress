@@ -61,6 +61,32 @@ void TransformComp::SetRot(const float& otherRot)
 	CalculateMatrix();
 }
 
+void TransformComp::ReverseX(int val)
+{
+	switch (val)
+	{
+	case 0:
+		scale.x = -abs(scale.x);
+		break;
+	case 1:
+		scale.x = abs(scale.x);
+		break;
+	}
+}
+
+void TransformComp::ReverseY(int val)
+{
+	switch (val)
+	{
+	case 0:
+		scale.y = -abs(scale.y);
+		break;
+	case 1:
+		scale.y = abs(scale.y);
+		break;
+	}
+}
+
 void TransformComp::PrintMatrix()
 {
 	std::cout << "Printing Transform Comp. With this values: " << std::endl;

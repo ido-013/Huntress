@@ -39,7 +39,7 @@ public:
 	static bool isLaunchProjectile;
 
 	// 랜덤한 바람의 세기와 방향을 생성하는 함수 (라디안)
-	void GenerateRandomWind(AEVec2& wind);
+	static void GenerateRandomWind();
 	// 투사체의 위치를 계산하는 함수
 	void CalculateProjectileMotion();
 
