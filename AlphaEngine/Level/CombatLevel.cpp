@@ -375,12 +375,9 @@ void level::CombatLevel::Init()
 	Prefab s("Square");
 	Prefab l("LeftTri");
 	Prefab r("RightTri");
-	//Prefab sd("Square_DECO");
-	//Prefab lrd("LeftTri_R_DECO"); 
-	//Prefab rrd("RightTri_R_DECO"); 
-
-	Prefab p("Player");
-	Prefab e("Enemy");
+	Prefab sd("Square_DECO"); //a
+	Prefab lrd("LeftTri_R_DECO"); //b
+	Prefab rrd("RightTri_R_DECO"); //c
 
 	for (int i = 0; i < 30; i++)
 	{
@@ -446,10 +443,7 @@ void level::CombatLevel::Init()
 	}
 	
 	// player
-	player = p.NewGameObject("player");
-	player->GetComponent<TransformComp>()->SetPos({ 400, -400 });
-	
-	/*player = new GameObject("player");
+	player = new GameObject("player");
 	player->type = GameObject::Player;
 
 	player->AddComponent<TransformComp>();
@@ -466,13 +460,10 @@ void level::CombatLevel::Init()
 	player->GetComponent<SpriteComp>()->SetTexture("../Assets/Character/ArrowAttack/sprite/ScoutAttackArrow.png");
 	player->GetComponent<SpriteComp>()->SetAlpha(1);
 
-	player->GetComponent<ColliderComp>()->SetCollider();*/
+	player->GetComponent<ColliderComp>()->SetCollider();
 
 	// enemy
-	enemy = e.NewGameObject("enemy");
-	enemy->GetComponent<TransformComp>()->SetPos({ 500, -400 });
-
-	/*enemy = new GameObject("enemy");
+	enemy = new GameObject("enemy");
 	enemy->type = GameObject::Enemy;
 
 	enemy->AddComponent<TransformComp>();
@@ -489,7 +480,8 @@ void level::CombatLevel::Init()
 	enemy->GetComponent<SpriteComp>()->SetTexture("../Assets/Character/ArrowAttack/sprite/ScoutAttackArrow.png");
 	enemy->GetComponent<SpriteComp>()->SetAlpha(1);
 
-	enemy->GetComponent<ColliderComp>()->SetCollider();*/
+	enemy->GetComponent<ColliderComp>()->SetCollider();
+
 
 	// direction Arrow
 	directionArrow = new GameObject("directionArrow");
@@ -508,8 +500,8 @@ void level::CombatLevel::Init()
 	directionArrow->GetComponent<CombatComp>()->isCombat = true;
 
 	//InitData
-	player->GetComponent<PlayerComp>()->data.InitData(100, 50, 50, 2, 1);
-	enemy->GetComponent<EnemyComp>()->data.InitData(30, 0, 1, Data::EnemyData::GRADE::Normal);
+	player->GetComponent<PlayerComp>()->data.InitData(100, 50, 50, 5, 1);
+	enemy->GetComponent<EnemyComp>()->data.InitData(30, 30, 5, 1, Data::EnemyData::GRADE::Normal);
 
 	//Init UI
 	InitCombatUI();

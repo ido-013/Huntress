@@ -7,7 +7,7 @@
 class EnemyComp : public LogicComponent
 {
 private:
-	float speed = 100;
+	float speed = 50;
 	int movementGauge = 1000;
 	int maxMovementGauge = 1000;
 
@@ -16,7 +16,7 @@ public:
 	bool isMove = false;
 	bool moveState = true;
 	bool turnTemp = true;
-	bool isBack = true;
+	bool isGo = true;
 	void RandomMove();
 	int GetMovegauge();
 

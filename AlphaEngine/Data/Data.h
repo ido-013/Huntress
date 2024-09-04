@@ -22,6 +22,7 @@ public:
 	{
 	public:
 		EnemyData();
+		float maxLife;
 		float hp;
 		float damage;
 		float armor;
@@ -30,9 +31,9 @@ public:
 			Elite = 1,
 			Boss = 2
 		}grade;
-		void InitData(float hpV, float damageV, float armorV, GRADE gradeV)
+		void InitData(float maxLifeV, float hpV, float damageV, float armorV, GRADE gradeV)
 		{
-			hp = hpV, damage = damageV, armor = armorV, grade = gradeV;
+			maxLife = maxLifeV, hp = hpV, damage = damageV, armor = armorV, grade = gradeV;
 		};
 	};
 	class CombatData

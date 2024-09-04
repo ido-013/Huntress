@@ -123,11 +123,11 @@ void InitCombatUI()
 	WindDirection->AddComponent<AudioComp>();
 	WindDirection->AddComponent<TransformComp>();
 	TransformComp* transWindDirect = WindDirection->GetComponent<TransformComp>();
-	transWindDirect->SetScale({ 150,20 });
+	transWindDirect->SetScale({ 100,100 });
 	transWindDirect->SetPos({ -700, 400 });
 	SpriteComp* WindDirectSprite = WindDirection->GetComponent<SpriteComp>();
-	WindDirectSprite->SetTexture("Assets/arrow.png");
-	WindDirectSprite->SetColor(0, 120, 120);
+	WindDirectSprite->SetTexture("../Assets/UI/windArrow.png");
+	WindDirectSprite->SetColor(1, 1, 1);
 	
 }
 
@@ -140,7 +140,6 @@ void UpdateCombatUI(GameObject* player, GameObject* enemy, GameObject* direction
 	transLogo->SetPos({ 0 + camX, -330 + camY });
 
 	TransformComp* transStart = Power->GetComponent<TransformComp>();
-	//transStart->SetPos({ 150 + camX, -280 + camY });
 
 	transStart->SetScale({ 750 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (POWER_LIMIT + DEFAULT_POWER))) ,80 });
 	transStart->SetPos({ 150 - (750 - 750 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (POWER_LIMIT + DEFAULT_POWER)))) / 2 + camX, -280 + camY });
@@ -168,15 +167,14 @@ void UpdateCombatUI(GameObject* player, GameObject* enemy, GameObject* direction
 	transHP->SetPos({ -720+ camX, (-330-( 200-200* (float(player->GetComponent<PlayerComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife))/2.f)+ camY });
 
 	TransformComp* transEnemyHP = enemyHP->GetComponent<TransformComp>();
-	transEnemyHP->SetScale({ 80,200 * (float(player->GetComponent<PlayerComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife) });
-	transEnemyHP->SetPos({ 720+ camX, ( - 330 - (200 - 200 * (float(player->GetComponent<PlayerComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife)) / 2.f) + camY});
+	transEnemyHP->SetScale({ 80,200 * (float(enemy->GetComponent<EnemyComp>()->data.hp) / enemy->GetComponent<EnemyComp>()->data.maxLife) });
+	transEnemyHP->SetPos({ 720+ camX, ( - 330 - (200 - 200 * (float(enemy->GetComponent<EnemyComp>()->data.hp) / enemy->GetComponent<EnemyComp>()->data.maxLife)) / 2.f) + camY});
 
 	float angle = directionArrow->GetComponent<CombatComp>()->data.windAngle;  // angle 값 가져오기
 	TransformComp* windTransform = WindDirection->GetComponent<TransformComp>();
 	windTransform->SetRot(angle);  // WindDirection의 회전을 angle로 설정
 
 	// WindDirection의 위치와 크기 업데이트
-	windTransform->SetScale({ 150, 20 });
 	windTransform->SetPos({ -700 + camX, 400 + camY });
 }
 

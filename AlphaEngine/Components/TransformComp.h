@@ -32,6 +32,9 @@ public:
 	void SetScale(const AEVec2& otherScale);
 	void SetRot(const float& otherRot);
 
+	void ReverseX(int val);
+	void ReverseY(int val);
+
 	//Other Fn
 	void PrintMatrix();
 

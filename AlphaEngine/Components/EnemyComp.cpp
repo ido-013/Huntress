@@ -19,6 +19,8 @@ int EnemyComp::GetMovegauge()
 
 void EnemyComp::RandomMove() // 투사체가 맞지 않는다고 판정된 경우
 {
+	TransformComp* pt = GameObjectManager::GetInstance().GetObj("player")->GetComponent<TransformComp>();
+
 	TransformComp* t = owner->GetComponent<TransformComp>();
 	if (!t) return;
 
@@ -27,19 +29,24 @@ void EnemyComp::RandomMove() // 투사체가 맞지 않는다고 판정된 경우
 
 	r->SetVelocityX(0);
 
-	if (isBack && movementGauge > 0 && moveState)
+	if (t->GetPos().x < pt->GetPos().x) // 플레이어보다 -x에 있다고 판단되는 경우
 	{
-		t->SetScale({ -abs(t->GetScale().x), t->GetScale().y });
+		isGo = false;
+	}
+	else
+	{
+		isGo = true;
+	}
+
+	if (isGo && movementGauge > 0 && moveState)
+	{
+		t->ReverseX(0);
 		r->SetVelocityX(-speed);
 		movementGauge--;
-		if (t->GetPos().x >= windowWidthHalf) // 뒤로 이동이 더이상 불가능하다고 판단된 경우
-		{
-			isBack = false;
-		}
 	}
-	else if (!isBack && movementGauge > 0 && moveState)
+	else if (!isGo && movementGauge > 0 && moveState)
 	{
-		t->SetScale({ abs(t->GetScale().x), t->GetScale().y });
+		t->ReverseX(1);
 		r->SetVelocityX(speed);
 		movementGauge--;
 	}
@@ -68,7 +75,7 @@ void EnemyComp::Update()
 		}
 		else if (CombatComp::turn == CombatComp::TURN::PLAYERTURN)
 		{
-			isBack = true;
+			isGo = true;
 			turnTemp = true;
 		}
 

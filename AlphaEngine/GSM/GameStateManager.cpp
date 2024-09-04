@@ -44,9 +44,8 @@ void GSM::GameStateManager::Update()
 
         CollisionManager::GetInstance().Update();
 
-        ComponentManager<GraphicComponent>::GetInstance().Update();
-
         currentLevel->Update();
+        ComponentManager<GraphicComponent>::GetInstance().Update();
     }
 }
 

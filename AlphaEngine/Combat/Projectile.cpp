@@ -35,7 +35,7 @@ Projectile::~Projectile()
 }
 
 // 랜덤한 바람의 세기와 방향을 생성하는 함수 (라디안)
-void Projectile::GenerateRandomWind(AEVec2& wind) {
+void Projectile::GenerateRandomWind() {
     float wSpeed = (float)(std::rand() % ((WIND_MAX * 2) + 1) - WIND_MAX); // -50에서 50 사이의 속도
     float wAngle = AEDegToRad((f32)(std::rand() % 180)) * (std::rand() % 2 == 0 ? -1 : 1); // 0에서 360도 사이의 방향을 라디안으로 변환
 
@@ -43,8 +43,8 @@ void Projectile::GenerateRandomWind(AEVec2& wind) {
     directionArrow->GetComponent<CombatComp>()->data.windPower = wSpeed;
     directionArrow->GetComponent<CombatComp>()->data.windAngle = wAngle;
 
-    wind.x = wSpeed * std::cos(wAngle);
-    wind.y = wSpeed * std::sin(wAngle);
+    Projectile::wind.x = wSpeed * std::cos(wAngle);
+    Projectile::wind.y = wSpeed * std::sin(wAngle);
 }
 
 void Projectile::CalculateProjectileMotion()
@@ -53,8 +53,6 @@ void Projectile::CalculateProjectileMotion()
     initialVelocity.y = velocity * std::sin(theta);
     mass = 1.f;
     time = 0.0f;
-    if(CombatComp::turn == CombatComp::PLAYERTURN)
-        GenerateRandomWind(Projectile::wind);
 }
 
 void Projectile::UpdateCollision()
@@ -62,10 +60,10 @@ void Projectile::UpdateCollision()
     Particle p(5, 2, 5, { 255, 0, 0 });
 
     GameObject* player = GameObjectManager::GetInstance().GetObj("player");
-    Data::PlayerData pData = player->GetComponent<PlayerComp>()->data;
+    Data::PlayerData* pData = &player->GetComponent<PlayerComp>()->data;
 
     GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
-    Data::EnemyData eData = enemy->GetComponent<EnemyComp>()->data;
+    Data::EnemyData* eData = &enemy->GetComponent<EnemyComp>()->data;
     
     TransformComp* ptf = player->GetComponent<TransformComp>();
     TransformComp* etf = enemy->GetComponent<TransformComp>();
@@ -82,10 +80,15 @@ void Projectile::UpdateCollision()
             int first = res / 10;
             int second = res % 10;
 
-            float totalDmg = (pData.damage + first) - (eData.armor + second);
+            float totalDmg = (pData->damage + first) - (eData->armor + second);
 
-            eData.hp -= max(0, totalDmg);
-            
+     
+            eData->hp -= max(0, totalDmg);
+
+            if (eData->hp < 0)
+            {
+                eData->hp = 0;
+            }
             // particle
             
             p.PlayParticle(etf->GetPos().x, etf->GetPos().y);
@@ -103,9 +106,14 @@ void Projectile::UpdateCollision()
             int first = res / 10;
             int second = res % 10;
 
-            float totalDmg = (eData.damage + first) - (pData.armor + second);
+            float totalDmg = (eData->damage + first) - (pData->armor + second);
 
-            pData.hp -= max(0, totalDmg);
+            pData->hp -= max(0, totalDmg);
+
+            if (pData->hp < 0)
+            {
+                pData->hp = 0;
+            }
 
             // particle
             
@@ -144,8 +152,10 @@ void Projectile::Update()
 
         delay += static_cast<float>(AEFrameRateControllerGetFrameTime());
 
+        AEVec2 p = GameObjectManager::GetInstance().GetObj("player")->GetComponent<TransformComp>()->GetPos();
+        AEVec2 e = GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<TransformComp>()->GetPos();
         // 투사체가 화면 끝에 닿기 전까지 반복
-        if (ptf->GetPos().y >= -windowWidthHalf && colState < 1) {
+        if (ptf->GetPos().y >= -windowHeightHalf + (e.y > p.y ? p.y : e.y) && colState < 1) {
             if (delay > ProjectileDelay)
             {
                 // 시간 간격

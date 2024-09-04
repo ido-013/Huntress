@@ -29,6 +29,8 @@ public:
 
 	void AddVelocity(const AEVec2& otherVec);
 	void AddVelocity(float x, float y);
+	float GetVelocityX();
+	float GetVelocityY();
 	void SetVelocity(const AEVec2& otherVec);
 	void SetVelocity(float x, float y);
 	void SetVelocityX(float x);

@@ -8,12 +8,12 @@
 #include "../Data/Data.h"
 
 #define DEFAULT_POWER 1.f
-#define POWER_LIMIT 24.f
+#define POWER_LIMIT 24.f // 24
 
 #define ANGLE_LIMIT AEDegToRad(120.f)
 
 #define POWER_INTERVER 1.f
-#define ANGLE_INTERVER AEDegToRad(0.1f)
+#define ANGLE_INTERVER AEDegToRad(1.f)
 
 #define RAD90 AEDegToRad(90.f)
 
@@ -89,7 +89,8 @@ public:
 	enum RESULT {
 		HIT = 0,
 		MISS = 1,
-		NOTFOUND = 2
+		RESEARCH = 2,
+		NOTFOUND = 3
 	};
 	
 	RESULT EnemyAICombatSystem();
