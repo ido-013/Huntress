@@ -171,7 +171,7 @@ void UpdateCombatUI(GameObject* player, GameObject* enemy, GameObject* direction
 	transEnemyHP->SetScale({ 80,200 * (float(player->GetComponent<PlayerComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife) });
 	transEnemyHP->SetPos({ 720+ camX, ( - 330 - (200 - 200 * (float(player->GetComponent<PlayerComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife)) / 2.f) + camY});
 
-	float angle = DirectionArrow->GetComponent<CombatComp>()->data.windAngle;  // angle 값 가져오기
+	float angle = directionArrow->GetComponent<CombatComp>()->data.windAngle;  // angle 값 가져오기
 	TransformComp* windTransform = WindDirection->GetComponent<TransformComp>();
 	windTransform->SetRot(angle);  // WindDirection의 회전을 angle로 설정
 
