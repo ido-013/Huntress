@@ -8,7 +8,7 @@
 #include "../Data/Data.h"
 
 #define DEFAULT_POWER 1.f
-#define POWER_LIMIT 24.f // 24
+#define POWER_LIMIT 9.f // 24
 
 #define ANGLE_LIMIT AEDegToRad(120.f)
 

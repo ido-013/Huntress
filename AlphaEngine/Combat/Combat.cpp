@@ -187,7 +187,7 @@ void CombatComp::DrawDirectionPegline(GameObject& directionArrow,
 	}
 	else if (turn == ENEMYTURN)
 	{
-		while (!EnemyAICombatSystem() == RESEARCH) 
+		while (EnemyAICombatSystem() == RESEARCH) 
 		{ 
 			std::cout << "Research..." << std::endl;
 		}// AISystem
