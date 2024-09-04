@@ -243,8 +243,6 @@ void RigidbodyComp::Update()
 						(c->GetPos().x + (c->GetScale().x / 2 * (abs(AESin(targetRot) * 0.5f))) - oc->GetPos().x) *
 						(oc->GetScale().y / oc->GetScale().x) + 
 						c->GetScale().y / 2;
-					//y = oc->GetPos().y + ((c->GetPos().x + velocity.x * dt) + c->GetScale().x / 2 - oc->GetPos().x) * (oc->GetScale().y / oc->GetScale().x) + c->GetScale().y / 2;
-					//x = oc->GetPos().x + (y - c->GetScale().y / 2 - oc->GetPos().y) * (oc->GetScale().x / oc->GetScale().y) - c->GetScale().x / 2;
 				}
 			}
 		
@@ -262,8 +260,6 @@ void RigidbodyComp::Update()
 						(c->GetPos().x - (c->GetScale().x / 2 * (abs(AESin(targetRot) * 0.5f))) - oc->GetPos().x) *
 						(-oc->GetScale().y / oc->GetScale().x) +
 						c->GetScale().y / 2;
-					//y = oc->GetPos().y + ((c->GetPos().x + velocity.x * dt) - c->GetScale().x / 2 - oc->GetPos().x) * (-oc->GetScale().y / oc->GetScale().x) + c->GetScale().y / 2;
-					//x = oc->GetPos().x + (y - c->GetScale().y / 2 - oc->GetPos().y) * (-oc->GetScale().x / oc->GetScale().y) + c->GetScale().x / 2;
 				}
 			}
 		}

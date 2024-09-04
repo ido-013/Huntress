@@ -2,6 +2,7 @@
 #include "../GSM/GameStateManager.h"
 #include "../ComponentManager/ComponentManager.h"
 #include "../Components.h"
+#include "../Components/EnemyComp.h"
 #include "../GameObject/GameObject.h"
 #include "../EventManager/EventManager.h"
 #include "../Prefab/Prefab.h"
@@ -17,7 +18,7 @@ void level::PrefabLevel::Init()
 
 	temp = new GameObject();
 
-	temp->type = GameObject::RightTri;
+	temp->type = GameObject::Square;
 
 	temp->AddComponent<TransformComp>();
 	temp->AddComponent<SpriteComp>();
@@ -33,159 +34,27 @@ void level::PrefabLevel::Init()
 	tc = temp->GetComponent<ColliderComp>();
 	tc->SetCollider();
 
-	Prefab::SavePrefab("RightTri", temp);
+	Prefab::SavePrefab("Square", temp);
 
-	//
+	/*GameObject* enemy = new GameObject("enemy");
+	enemy->type = GameObject::Enemy;
 
-	/*temp = new GameObject();
+	enemy->AddComponent<TransformComp>();
+	enemy->AddComponent<RigidbodyComp>();
+	enemy->AddComponent<EnemyComp>();
+	enemy->AddComponent<SpriteComp>();
+	enemy->AddComponent<ColliderComp>();
 
-	temp->type = GameObject::Square;
+	enemy->GetComponent<TransformComp>()->SetScale({ -30, 30 });
+	enemy->GetComponent<TransformComp>()->SetPos({ 0, 0 });
 
-	temp->AddComponent<TransformComp>();
-	temp->AddComponent<SpriteComp>();
-	temp->AddComponent<ColliderComp>();
+	enemy->GetComponent<RigidbodyComp>()->useGravity = true;
 
-	tt = temp->GetComponent<TransformComp>();
-	tt->SetScale({ 100, 100 });
-	tt->SetPos({ 100, 0 });
+	enemy->GetComponent<SpriteComp>()->SetTexture("../Assets/Character/ArrowAttack/sprite/ScoutAttackArrow.png");
+	enemy->GetComponent<SpriteComp>()->SetColor(130, 0, 0);
 
-	ts = temp->GetComponent<SpriteComp>();
-	ts->SetColor(0, 0, 0);
-	ts->SetAlpha(1);
-
-	tc = temp->GetComponent<ColliderComp>();
-	tc->SetCollider();*/
-
-	//
-
-	/*temp = new GameObject();
-
-	temp->type = GameObject::LeftTri;
-
-	temp->AddComponent<TransformComp>();
-	temp->AddComponent<SpriteComp>();
-	temp->AddComponent<ColliderComp>();
-
-	tt = temp->GetComponent<TransformComp>();
-	tt->SetScale({ 200, 100 });
-	tt->SetPos({ -100, 100 });
-
-	ts = temp->GetComponent<SpriteComp>();
-	ts->SetColor(0, 0, 0);
-	ts->SetAlpha(1);
-
-	tc = temp->GetComponent<ColliderComp>();
-	tc->SetCollider();*/
-
-	//
-
-	/*temp = new GameObject();
-
-	temp->type = GameObject::RightTri;
-
-	temp->AddComponent<TransformComp>();
-	temp->AddComponent<SpriteComp>();
-	temp->AddComponent<ColliderComp>();
-
-	tt = temp->GetComponent<TransformComp>();
-	tt->SetScale({200, 100 });
-	tt->SetPos({ 100, 100 });
-
-	ts = temp->GetComponent<SpriteComp>();
-	ts->SetColor(0, 0, 0);
-	ts->SetAlpha(1);
-
-	tc = temp->GetComponent<ColliderComp>();
-	tc->SetCollider();*/
-	
-	//
-
-	/*temp = new GameObject();
-
-	temp->type = GameObject::Square;
-
-	temp->AddComponent<TransformComp>();
-	temp->AddComponent<SpriteComp>();
-	temp->AddComponent<ColliderComp>();
-
-	tt = temp->GetComponent<TransformComp>();
-	tt->SetScale({ 100, 100 });
-	tt->SetPos({ -100, 0 });
-	
-	ts = temp->GetComponent<SpriteComp>();
-	ts->SetColor(0, 0, 0);
-	ts->SetAlpha(1);
-
-	tc = temp->GetComponent<ColliderComp>();
-	tc->SetCollider();*/
-
-	//
-
-	/*temp = new GameObject();
-
-	temp->type = GameObject::Square;
-
-	temp->AddComponent<TransformComp>();
-	temp->AddComponent<SpriteComp>();
-	temp->AddComponent<ColliderComp>();
-
-	tt = temp->GetComponent<TransformComp>();
-	tt->SetScale({ 100, 100 });
-	tt->SetPos({ -200, 100 });
-
-	ts = temp->GetComponent<SpriteComp>();
-	ts->SetColor(0, 0, 0);
-	ts->SetAlpha(1);
-
-	tc = temp->GetComponent<ColliderComp>();
-	tc->SetCollider();*/
-
-	//
-
-	/*temp = new GameObject();
-
-	temp->type = GameObject::Square;
-
-	temp->AddComponent<TransformComp>();
-	temp->AddComponent<SpriteComp>();
-	temp->AddComponent<ColliderComp>();
-
-	tt = temp->GetComponent<TransformComp>();
-	tt->SetScale({ 100, 100 });
-	tt->SetPos({ 200, 100 });
-
-	ts = temp->GetComponent<SpriteComp>();
-	ts->SetColor(0, 0, 0);
-	ts->SetAlpha(1);
-
-	tc = temp->GetComponent<ColliderComp>();
-	tc->SetCollider();*/
-
-	//
-
-	/*temp = new GameObject();
-
-	temp->type = GameObject::Square;
-
-	temp->AddComponent<TransformComp>();
-	temp->AddComponent<SpriteComp>();
-	temp->AddComponent<PlayerComp>();
-	temp->AddComponent<RigidbodyComp>();
-	temp->AddComponent<ColliderComp>();
-
-	tt = temp->GetComponent<TransformComp>();
-	tt->SetScale({ 30, 30 });
-	tt->SetPos({ 0, 400 });
-
-	ts = temp->GetComponent<SpriteComp>();
-	ts->SetColor(255, 0, 0);
-	ts->SetAlpha(1);
-
-	tr = temp->GetComponent<RigidbodyComp>();
-	tr->useGravity = true;
-
-	tc = temp->GetComponent<ColliderComp>();
-	tc->SetCollider();*/
+	enemy->GetComponent<ColliderComp>()->SetCollider();
+	Prefab::SavePrefab("Enemy", enemy);*/
 }
 
 void level::PrefabLevel::Update()

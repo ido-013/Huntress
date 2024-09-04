@@ -84,6 +84,9 @@ void PlayerComp::LoadFromJson(const json& data)
 	{
 		auto it = compData->find("speed");
 		speed = it.value();
+
+		it = compData->find("maxMovementGauge");
+		maxMovementGauge = it.value();
 	}
 }
 
@@ -94,6 +97,7 @@ json PlayerComp::SaveToJson()
 
 	json compData;
 	compData["speed"] = speed;
+	compData["maxMovementGauge"] = maxMovementGauge;
 	data["compData"] = compData;
 
 	return data;

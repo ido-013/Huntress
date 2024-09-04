@@ -36,9 +36,6 @@ public:
 	void SetCollider();
 	void SetCollider(float posX, float posY, float scaleX, float scaleY, float _rot);
 
-	void SetVertices();
-	void UpdateVertices();
-
 	void LoadFromJson(const json&) override;
 	json SaveToJson() override;
 

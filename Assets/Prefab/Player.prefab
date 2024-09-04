@@ -1,0 +1,65 @@
+{
+  "entityType": 5,
+  "components": [
+    {
+      "type": "ColliderComp",
+      "compData": {
+        "position": [
+          0.0,
+          0.0
+        ],
+        "scale": [
+          30.0,
+          30.0
+        ],
+        "rotation": 0.0
+      }
+    },
+    {
+      "type": "PlayerComp",
+      "compData": {
+        "speed": 100.0,
+        "maxMovementGauge": 1000
+      }
+    },
+    {
+      "type": "RigidbodyComp",
+      "compData": {
+        "velocity": [
+          0.0,
+          0.0
+        ],
+        "maxVelocity": [
+          500.0,
+          500.0
+        ],
+        "useGravity": true
+      }
+    },
+    {
+      "type": "SpriteComp",
+      "compData": {
+        "color": [
+          0,
+          0,
+          0
+        ],
+        "textureName": "../Assets/Character/ArrowAttack/sprite/ScoutAttackArrow.png"
+      }
+    },
+    {
+      "type": "TransformComp",
+      "compData": {
+        "position": [
+          0.0,
+          0.0
+        ],
+        "scale": [
+          30.0,
+          30.0
+        ],
+        "rotation": 0.0
+      }
+    }
+  ]
+}
