@@ -39,6 +39,7 @@ void StoreUI::Setoff()
 {
     isStore = false;
     SetUIVisibility(false);
+
 }
 
 
@@ -189,12 +190,7 @@ void StoreUI::InitStoreUI(GameObject* player)
 
 void StoreUI::UpdateStoreUI()
 {
-    if (!isStore) {
-        Setoff();
-    }
-    else {
-        SetStoreUI();
-    }
+ 
 }
 
 void ExitStoreUI()

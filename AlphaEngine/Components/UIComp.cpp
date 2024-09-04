@@ -175,17 +175,66 @@ void UIComponent::LoadFromJson(const json& data)
 
     if (compData != data.end())
     {
-        auto it = compData->find("color");
-        color.r = it->begin().value();
-        color.g = (it->begin() + 1).value();
-        color.b = (it->begin() + 2).value();
+        // Load position
+        auto p = compData->find("position");
+        if (p != compData->end())
+        {
+            pos.x = (*p)["x"];
+            pos.y = (*p)["y"];
+        }
 
-        it = compData->find("textureName");
-        textureName = it.value();
-        SetTexture(textureName);
+        // Load scale
+        auto s = compData->find("scale");
+        if (s != compData->end())
+        {
+            scale.x = (*s)["x"];
+            scale.y = (*s)["y"];
+        }
+
+        // Load rotation
+        auto r = compData->find("rotation");
+        if (r != compData->end())
+        {
+            rot = *r;
+        }
+
+        // Load alpha
+        auto a = compData->find("alpha");
+        if (a != compData->end())
+        {
+            Alpha = *a;
+        }
+
+        // Load isScreenSpace flag
+        auto ss = compData->find("isScreenSpace");
+        if (ss != compData->end())
+        {
+            isScreenSpace = *ss;
+        }
+
+        // Load color
+        auto c = compData->find("color");
+        if (c != compData->end())
+        {
+            color.r = (*c)[0];
+            color.g = (*c)[1];
+            color.b = (*c)[2];
+        }
+
+        // Load texture name
+        auto t = compData->find("textureName");
+        if (t != compData->end())
+        {
+            textureName = *t;
+            SetTexture(textureName);
+        }
+
+        // Recalculate matrix after loading
+        CalculateMatrix();
+        isDirty = true;
     }
-    CalculateMatrix();
 }
+
 
 json UIComponent::SaveToJson()
 {
@@ -193,12 +242,33 @@ json UIComponent::SaveToJson()
     data["type"] = TypeName;
 
     json compData;
+
+    // Position
+    compData["position"] = { {"x", pos.x}, {"y", pos.y} };
+
+    // Scale
+    compData["scale"] = { {"x", scale.x}, {"y", scale.y} };
+
+    // Rotation
+    compData["rotation"] = rot;
+
+    // Alpha
+    compData["alpha"] = Alpha;
+
+    // Screen Space flag
+    compData["isScreenSpace"] = isScreenSpace;
+
+    // Color
     compData["color"] = { color.r, color.g, color.b };
+
+    // Texture name
     compData["textureName"] = textureName;
+
     data["compData"] = compData;
 
     return data;
 }
+
 
 BaseRTTI* UIComponent::CreateUIComponent(GameObject* owner)
 {

@@ -512,7 +512,7 @@ void level::CombatLevel::Update()
 {
 	UpdateCombatUI(player, enemy, directionArrow);
 	UpdateBackground();
-//	storeUI.UpdateStoreUI();
+
 	if (AEInputCheckTriggered(AEVK_1))
 	{
 		Data::PrintPlayerData(player->GetComponent<PlayerComp>()->data);

@@ -153,9 +153,6 @@
     <ClCompile Include="Components\EnemyComp.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Level\Store.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Utils\Vec3.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -329,9 +326,6 @@
     <ClInclude Include="Event\RestartEvent.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Level\CombatUI.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Components\ButtonComp.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -342,9 +336,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Data\DataManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Level\Store.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="UIM\BtnManager.h">
@@ -363,6 +354,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Components\UIComp.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\SubtitleComp.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
