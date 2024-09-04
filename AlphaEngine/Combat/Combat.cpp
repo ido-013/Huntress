@@ -212,7 +212,7 @@ void CombatComp::FireAnArrow(TURN turn, GameObject& directionArrow)
 	projectile->GetComponent<TransformComp>()->SetPos(player->GetComponent<TransformComp>()->GetPos());
 	projectile->GetComponent<TransformComp>()->SetScale({ 28, 10 });
 
-	projectile->GetComponent<SpriteComp>()->SetTexture("../Assets/Character/ArrowAttack/Arrow/Arrow.png");
+	projectile->GetComponent<SpriteComp>()->SetTexture("./Assets/Character/ArrowAttack/Arrow/Arrow.png");
 	projectile->GetComponent<SpriteComp>()->SetAlpha(1);
 	turn == PLAYERTURN ? pVelocity = DEFAULT_POWER + pPower : eVelocity = DEFAULT_POWER + ePower;
 	projectile->GetComponent<Projectile>()->SetVelocity(turn == PLAYERTURN ? pVelocity : eVelocity);
@@ -424,7 +424,6 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 		{
 			std::cout << "Projectile : RESEARCH" << std::endl;
 			enemy->GetComponent<EnemyComp>()->isMove = true;
-			while (enemy->GetComponent<RigidbodyComp>()->GetVelocityX() > 0) { ; }
 			eAngle = RAD90;
 			return RESEARCH;
 		}

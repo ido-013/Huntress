@@ -11,12 +11,12 @@ void InitBackground()
 	background->AddComponent<AudioComp>();
 	background->AddComponent<TransformComp>();
 	background->AddComponent<SpriteComp>();
-	background->GetComponent<AudioComp>()->SetAudio("../Assets/Audio/BGM.mp3");
-	background->GetComponent<AudioComp>()->playAudio(-1, "../Assets/Audio/BGM.mp3");
+	background->GetComponent<AudioComp>()->SetAudio("./Assets/Audio/BGM.mp3");
+	background->GetComponent<AudioComp>()->playAudio(-1, "./Assets/Audio/BGM.mp3");
 
 	background->GetComponent<TransformComp>()->SetScale({ 1800, 1000 });
 	background->GetComponent<TransformComp>()->SetPos({ 0, 0 });
-	background->GetComponent<SpriteComp>()->SetTexture("../Assets/Background/BG2.png");
+	background->GetComponent<SpriteComp>()->SetTexture("./Assets/Background/BG2.png");
 }
 
 void UpdateBackground()

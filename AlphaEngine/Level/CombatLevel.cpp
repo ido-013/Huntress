@@ -457,7 +457,7 @@ void level::CombatLevel::Init()
 
 	player->GetComponent<RigidbodyComp>()->useGravity = true;
 
-	player->GetComponent<SpriteComp>()->SetTexture("../Assets/Character/ArrowAttack/sprite/ScoutAttackArrow.png");
+	player->GetComponent<SpriteComp>()->SetTexture("./Assets/Character/ArrowAttack/sprite/ScoutAttackArrow.png");
 	player->GetComponent<SpriteComp>()->SetAlpha(1);
 
 	player->GetComponent<ColliderComp>()->SetCollider();
@@ -477,7 +477,7 @@ void level::CombatLevel::Init()
 
 	enemy->GetComponent<RigidbodyComp>()->useGravity = true;
 	
-	enemy->GetComponent<SpriteComp>()->SetTexture("../Assets/Character/ArrowAttack/sprite/ScoutAttackArrow.png");
+	enemy->GetComponent<SpriteComp>()->SetTexture("./Assets/Character/ArrowAttack/sprite/ScoutAttackArrow.png");
 	enemy->GetComponent<SpriteComp>()->SetAlpha(1);
 
 	enemy->GetComponent<ColliderComp>()->SetCollider();
@@ -493,7 +493,7 @@ void level::CombatLevel::Init()
 	directionArrow->GetComponent<TransformComp>()->SetScale({ 
 		directionArrow->GetComponent<CombatComp>()->directionArrowWidth, 
 		directionArrow->GetComponent<CombatComp>()->directionArrowHeight });
-	directionArrow->GetComponent<SpriteComp>()->SetTexture("../Assets/Character/DirectionArrow.png");
+	directionArrow->GetComponent<SpriteComp>()->SetTexture("./Assets/Character/DirectionArrow.png");
 	directionArrow->GetComponent<SpriteComp>()->SetAlpha(0);
 	directionArrow->GetComponent<CombatComp>()->turn = CombatComp::TURN::PLAYERTURN;
 	directionArrow->GetComponent<CombatComp>()->state = CombatComp::STATE::COMBAT;

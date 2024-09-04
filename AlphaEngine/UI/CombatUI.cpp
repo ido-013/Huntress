@@ -121,15 +121,14 @@ void InitCombatUI(GameObject* player, GameObject* enemy, GameObject* directionAr
 	windComp->SetColor(120, 120, 120);
 
 	// Wind Direction Arrow
-	WindDirection = new GameObject();
+	WindDirection = new GameObject(); 
 	WindDirection->AddComponent<UIComponent>();
-	float angle = directionArrow->GetComponent<CombatComp>()->data.windAngle;
-	UIComponent* windDirComp = WindDirection->GetComponent<UIComponent>();
-	windDirComp->SetRot(angle);  // Set rotation for wind direction arrow
-	windDirComp->SetScale({ 100,100 });
-	windDirComp->SetPos({ -700, 400 });
-	windDirComp->SetTexture("../Assets/UI/windArrow.png");
-	windDirComp->SetColor(1, 1, 1);
+	UIComponent* transWindDirect = WindDirection->GetComponent<UIComponent>();
+	transWindDirect->SetScale({ 100,100 });
+	transWindDirect->SetPos({ -700, 400 });
+	transWindDirect->SetTexture("./Assets/UI/windArrow.png");
+	transWindDirect->SetColor(1, 1, 1);
+	
 }
 
 void UpdateCombatUI(GameObject* player, GameObject* enemy, GameObject* directionArrow)
