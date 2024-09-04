@@ -17,12 +17,11 @@ void level::PrefabLevel::Init()
 
 	temp = new GameObject();
 
-	temp->type = GameObject::Square;
+	temp->type = GameObject::RightTri;
 
 	temp->AddComponent<TransformComp>();
 	temp->AddComponent<SpriteComp>();
 	temp->AddComponent<ColliderComp>();
-	temp->AddComponent<AudioComp>();
 
 	tt = temp->GetComponent<TransformComp>();
 	tt->SetScale({ 100, 100 });
@@ -33,6 +32,8 @@ void level::PrefabLevel::Init()
 
 	tc = temp->GetComponent<ColliderComp>();
 	tc->SetCollider();
+
+	Prefab::SavePrefab("RightTri", temp);
 
 	//
 

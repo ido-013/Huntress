@@ -18,8 +18,6 @@ private:
 	bool CheckEpsilon(float v, float EP = EPSILON);
 	void CorrectPosByAABB(ColliderComp*, ColliderComp*, float&, float&);
 
-	
-
 public:
 	bool useGravity = false;
 

@@ -1,25 +1,6 @@
 {
-  "entityType": 4,
+  "entityType": 10,
   "components": [
-    {
-      "type": "PlayerComp",
-      "compData": {
-        "speed": 500.0
-      }
-    },
-    {
-      "type": "RigidbodyComp",
-      "compData": {
-        "velocity": [
-          0.0,
-          0.0
-        ],
-        "maxVelocity": [
-          100.0,
-          100.0
-        ]
-      }
-    },
     {
       "type": "SpriteComp",
       "compData": {
