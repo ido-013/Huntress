@@ -14,7 +14,8 @@
 #include <string>
 #include "../UI/CombatUI.h"
 #include "../UIM/BtnManager.h"
-GameObject* background = nullptr;
+#include "../Background/Background.h"
+
 GameObject* player = nullptr;
 GameObject* directionArrow = nullptr;
 GameObject* enemy = nullptr;
@@ -22,22 +23,10 @@ GameObject* enemy = nullptr;
 void level::CombatLevel::Init()
 {
 	// background
-	background = new GameObject("background");
-
-	background->AddComponent<AudioComp>();
-	background->AddComponent<TransformComp>();
-	background->AddComponent<SpriteComp>();
-	background->GetComponent<AudioComp>()->SetAudio("../Assets/Audio/BGM.mp3");
-	background->GetComponent<AudioComp>()->playAudio(-1, "../Assets/Audio/BGM.mp3");
-
-	background->GetComponent<TransformComp>()->SetScale({ 1600, 900 });
-	background->GetComponent<TransformComp>()->SetPos({ 0, 0 });
-	background->GetComponent<SpriteComp>()->SetTexture("../Assets/Background/Background.png");
-	background->GetComponent<SpriteComp>()->SetAlpha(1);
-
+	InitBackground();
+	
 	// map
 	{
-
 		GameObject* temp = nullptr;
 		TransformComp* tt = nullptr;
 		SpriteComp* ts = nullptr;
@@ -213,7 +202,7 @@ void level::CombatLevel::Init()
 	
 	// player
 	player = new GameObject("player");
-	player->type = GameObject::Square;
+	player->type = GameObject::Player;
 
 	player->AddComponent<TransformComp>();
 	player->AddComponent<PlayerComp>();
@@ -233,7 +222,7 @@ void level::CombatLevel::Init()
 
 	// enemy
 	enemy = new GameObject("enemy");
-	enemy->type = GameObject::Square;
+	enemy->type = GameObject::Enemy;
 
 	enemy->AddComponent<TransformComp>();
 	enemy->AddComponent<RigidbodyComp>();
@@ -242,7 +231,7 @@ void level::CombatLevel::Init()
 	enemy->AddComponent<ColliderComp>();
 
 	enemy->GetComponent<TransformComp>()->SetScale({ -30, 30 });
-	enemy->GetComponent<TransformComp>()->SetPos({ -30, 400 });
+	enemy->GetComponent<TransformComp>()->SetPos({ -100, 400 });
 
 	enemy->GetComponent<RigidbodyComp>()->useGravity = true;
 	
@@ -279,6 +268,7 @@ void level::CombatLevel::Init()
 void level::CombatLevel::Update()
 {
 	UpdateCombatUI(player);
+	UpdateBackground();
 
 	if (AEInputCheckTriggered(AEVK_1))
 	{

@@ -101,6 +101,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation\Animation.cpp" />
+    <ClCompile Include="Background\Background.cpp" />
     <ClCompile Include="CollisionManager\CollisionManager.cpp" />
     <ClCompile Include="Combat\Combat.cpp" />
     <ClCompile Include="ComponentManager\EngineComponent.cpp" />
@@ -109,8 +110,8 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="Components\LifetimeComp.cpp" />
     <ClCompile Include="Components\ButtonComp.cpp" />
     <ClCompile Include="Data\Data.cpp" />
-    <ClCompile Include="dice.cpp" />
-    <ClCompile Include="dice.h" />
+    <ClCompile Include="Utils\Dice.cpp" />
+    <ClCompile Include="Utils\Dice.h" />
     <ClCompile Include="Components\ColliderComp.cpp" />
     <ClCompile Include="Event\ButtonClickEvent.cpp" />
     <ClCompile Include="GameObject\GameObject.cpp" />
@@ -145,9 +146,11 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="UI\CombatUI.cpp" />
     <ClCompile Include="UI\StoreUI.cpp" />
     <ClCompile Include="Utils\Utils.cpp" />
+    <ClCompile Include="Utils\Vec3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation\Animation.h" />
+    <ClInclude Include="Background\Background.h" />
     <ClInclude Include="CollisionManager\CollisionManager.h" />
     <ClInclude Include="Combat\Combat.h" />
     <ClInclude Include="ComponentManager\BaseComponent.h" />
@@ -206,7 +209,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="Utils\Direction.h" />
     <ClInclude Include="Utils\Size.h" />
     <ClInclude Include="Utils\Utils.h" />
-    <ClInclude Include="Economy.h" />
+    <ClInclude Include="Utils\Vec3.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ComponentManager\ComponentManager.inl" />

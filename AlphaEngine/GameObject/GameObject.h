@@ -22,6 +22,7 @@ public:
 		Player,
 		Button,
 		Enemy,
+		Projectile,
 		Particle,
 	};
 

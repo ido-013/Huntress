@@ -18,13 +18,18 @@ inline void EventManager::AddEvent(Entity* _src, Entity* _dst)
 }
 
 template<typename T>
-inline void EventManager::AddEvent(Entity* _src, GameObject::Type type)
+inline void EventManager::AddEvent(Entity* _src, Entity* _dst, bool b)
 {
-	for (auto& it : entityList)
+	if (_dst != nullptr)
 	{
-		if (it->GetType() == type)
+		Event* event = new T(_src, _dst, b);
+		allEvents.push(event);
+	}
+	else
+	{
+		for (auto& it : entityList)
 		{
-			Event* event = new T(_src, it);
+			Event* event = new T(_src, it, b);
 			allEvents.push(event);
 		}
 	}

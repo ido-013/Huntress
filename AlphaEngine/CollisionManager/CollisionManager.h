@@ -18,15 +18,25 @@ private:
 	std::vector<ColliderComp*> colliderList;
 
 	bool isCollisionPointTri(ColliderComp*, ColliderComp*) const;
-	bool isCollisionPointAABB(ColliderComp*, ColliderComp*) const;
-	bool isCollisionAABBTri(ColliderComp*, ColliderComp*) const;
-	bool isCollisionAABBAABB(ColliderComp*, ColliderComp*) const;
+	bool isCollisionPointSquare(ColliderComp*, ColliderComp*) const;
+	bool isCollisionSquareTri(ColliderComp*, ColliderComp*) const;
+	bool isCollisionOBB(ColliderComp*, ColliderComp*) const;
+	bool isCollisionAABB(ColliderComp*, ColliderComp*) const;
 	bool isCollisionCircleCircle(ColliderComp*, ColliderComp*) const;
 
 	bool PointTriCheck(ColliderComp*, ColliderComp*);
-	bool PointAABBCheck(ColliderComp*, ColliderComp*);
-	bool AABBTriCheck(ColliderComp*, ColliderComp*);
-	bool AABBAABBCheck(ColliderComp*, ColliderComp*);
+	bool PointSquareCheck(ColliderComp*, ColliderComp*);
+
+	bool PlayerTriCheck(ColliderComp*, ColliderComp*);
+	bool PlayerSquareCheck(ColliderComp*, ColliderComp*);
+
+	bool EnemyTriCheck(ColliderComp*, ColliderComp*);
+	bool EnemySquareCheck(ColliderComp*, ColliderComp*);
+
+	bool ProjectileEnemyCheck(ColliderComp*, ColliderComp*);
+	bool ProjectilePlayerCheck(ColliderComp*, ColliderComp*);
+	bool ProjectileTriCheck(ColliderComp*, ColliderComp*);
+	bool ProjectileSquareCheck(ColliderComp*, ColliderComp*);
 
 public:
 	static CollisionManager& GetInstance()

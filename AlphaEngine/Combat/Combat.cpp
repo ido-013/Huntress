@@ -190,10 +190,12 @@ void CombatComp::FireAnArrow(TURN turn, GameObject& directionArrow)
 		GameObjectManager::GetInstance().GetObj("enemy");
 
 	GameObject* projectile = new GameObject("projectile");
+	projectile->type = GameObject::Projectile;
 
 	projectile->AddComponent<TransformComp>();
 	projectile->AddComponent<SpriteComp>();
 	projectile->AddComponent<Projectile>();
+	projectile->AddComponent<ColliderComp>();
 
 	projectile->GetComponent<TransformComp>()->SetPos(player->GetComponent<TransformComp>()->GetPos());
 	projectile->GetComponent<TransformComp>()->SetScale({ 28, 10 });
@@ -207,6 +209,8 @@ void CombatComp::FireAnArrow(TURN turn, GameObject& directionArrow)
 	projectile->GetComponent<Projectile>()->SetProjectileObject(*projectile);
 	projectile->GetComponent<Projectile>()->CalculateProjectileMotion();
 	projectile->GetComponent<Projectile>()->isLaunchProjectile = true;
+
+	projectile->GetComponent<ColliderComp>()->SetCollider();
 
 	isReadyLaunch = false;
 	CombatComp::ArrowCount++;
@@ -406,6 +410,8 @@ void CombatComp::Update()
 		switch (CombatComp::turn)
 		{
 			case PLAYERTURN: // player turn
+				if (!Projectile::isLaunchProjectile)
+					AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
 			
 				// 임시 트리거
 				if (AEInputCheckTriggered(AEVK_F) && ArrowCount < 1)
@@ -474,6 +480,9 @@ void CombatComp::Update()
 				break;
 
 			case ENEMYTURN: // enemy turn
+
+				if (!Projectile::isLaunchProjectile)
+					AEGfxSetCamPosition(etf->GetPos().x, etf->GetPos().y);
 			
 				// 임시 트리거
 				if (AEInputCheckTriggered(AEVK_F) && ArrowCount < 1)
