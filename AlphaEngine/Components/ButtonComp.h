@@ -1,10 +1,10 @@
 #pragma once
 #include "../GameObject/GameObject.h"
 #include "../EventManager/EventManager.h"
-#include "../Components/TransformComp.h"
+#include "../Components/UIComp.h"
 #include <functional>  // std::function »ç¿ë
 
-class ButtonComp : public EngineComponent, public Entity
+class ButtonComp : public GraphicComponent, public Entity
 {
 private:
     AEVec2 pos;

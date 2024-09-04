@@ -4,23 +4,33 @@
 #include "../Event/ButtonClickEvent.h"
 #include "../GameObjectManager/GameObjectManager.h"
 #include "../Components/SpriteComp.h"
+#include "../Components/UIComp.h"
 
 ButtonComp::ButtonComp(GameObject* _owner)
-    : EngineComponent(_owner), pos(), scale()
+    : GraphicComponent(_owner), pos(), scale()
 {
     ButtonManager::GetInstance().RegisterButton(this);
     EventManager::GetInstance().AddEntity(this);
-    pos = owner->GetComponent<TransformComp>()->GetPos();
-    scale = owner->GetComponent<TransformComp>()->GetScale();
+    // pos와 scale을 UIComponent로부터 가져오도록 변경
+    if (auto* uiComp = owner->GetComponent<UIComponent>()) {
+        pos = uiComp->GetPos();
+        scale = uiComp->GetScale();
+    }
 }
+
 ButtonComp::~ButtonComp()
 {
     ButtonManager::GetInstance().RemoveButton(this);
     EventManager::GetInstance().DelEntity(this);
 }
+
 void ButtonComp::Update()
 {
-    // 필요 시 추가적인 업데이트 로직을 여기에 작성
+    // pos와 scale을 UIComponent로부터 계속 동기화
+    if (auto* uiComp = owner->GetComponent<UIComponent>()) {
+        pos = uiComp->GetPos();
+        scale = uiComp->GetScale();
+    }
 }
 
 void ButtonComp::OnEvent(Event* e)
@@ -33,39 +43,21 @@ void ButtonComp::OnEvent(Event* e)
     }
 }
 
-void ButtonComp::SetPos(const AEVec2& otherPos)
-{
-    pos = otherPos;
-}
-
-void ButtonComp::SetScale(const AEVec2& otherScale)
-{
-    scale = otherScale;
-}
-
-AEVec2 ButtonComp::GetPos()
-{
-    return pos;
-}
-
-AEVec2 ButtonComp::Getscale()
-{
-    return scale;
-}
-
 bool ButtonComp::IsClicked(int mouseX, int mouseY) const
 {
-    SpriteComp* sprite = owner->GetComponent<SpriteComp>();
-    if (sprite && sprite->GetAlpha() != 1) {
-        return false;  
+    // UIComponent의 알파값 확인 후 처리
+    UIComponent* uiComp = owner->GetComponent<UIComponent>();
+    if (uiComp && uiComp->GetAlpha() != 1) {
+        return false;
     }
+    // pos와 scale을 이용해 클릭 여부 확인
     return (mouseX > pos.x - scale.x / 2 && mouseX < pos.x + scale.x / 2 &&
         mouseY > pos.y - scale.y / 2 && mouseY < pos.y + scale.y / 2);
 }
 
 bool ButtonComp::IsHovered(int mouseX, int mouseY) const
 {
-    return IsClicked(mouseX, mouseY);
+    return IsClicked(mouseX, mouseY);  // 클릭 가능 여부와 동일하게 동작
 }
 
 void ButtonComp::OnClick()
@@ -88,7 +80,6 @@ void ButtonComp::SetOnHoverFunction(std::function<void()> func)
 {
     onHoverFunction = func;
 }
-
 
 void ButtonComp::LoadFromJson(const json& data)
 {
