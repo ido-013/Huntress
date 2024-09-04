@@ -5,11 +5,13 @@
 #include "../Components/PlayerComp.h"
 #include "../Components/EnemyComp.h"
 #include "../Combat/Combat.h"
-
+#include "../Components/TransformComp.h"
 GameObject* UIBAR = nullptr;
 GameObject* Power = nullptr;
 GameObject* Move = nullptr;
 GameObject* Angle = nullptr;
+GameObject* playerAngle = nullptr;
+GameObject* DirectAngle = nullptr;
 GameObject* Wind = nullptr;
 GameObject* HP = nullptr;
 GameObject* enemyHP = nullptr;
@@ -45,21 +47,37 @@ void InitCombatUI(GameObject* player, GameObject* enemy, GameObject* directionAr
 	Move->AddComponent<UIComponent>();
 	UIComponent* moveComp = Move->GetComponent<UIComponent>();
 	moveComp->SetScale({ 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f), 80 });
-	moveComp->SetPos({ 150 - (750 - 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f)) / 2 , -380  });
+	moveComp->SetPos({ 150 - (750 - 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f)) / 2 , -380 });
 	moveComp->SetTexture("Assets/arrow.png");
 	moveComp->SetColor(0, 255, 0);
 
 	// Angle UI
 	Angle = new GameObject();
 	Angle->AddComponent<UIComponent>();
-
 	UIComponent* angleComp = Angle->GetComponent<UIComponent>();
-	angleComp->SetPos({ -380 + camX, -330 + camY });
+	angleComp->SetPos({ -380 , -330 });
 	angleComp->SetScale({ 200, 200 });
-
 	angleComp->SetTexture("Assets/arrow.png");
 	angleComp->SetColor(120, 120, 120);
 
+	//playerAngleUI
+	playerAngle = new GameObject();
+	playerAngle->AddComponent<UIComponent>();
+	UIComponent* playerAngleComp = playerAngle->GetComponent<UIComponent>();
+	playerAngleComp->SetPos({ -380, -330 });
+	playerAngleComp->SetRot(0.5f);
+	playerAngleComp->SetScale({ 150,10 });
+	playerAngleComp->SetTexture("Assets/arrow.png");
+	playerAngleComp->SetColor(255, 0, 0);
+
+	//DirectAngleUI
+	DirectAngle = new GameObject();
+	DirectAngle->AddComponent<UIComponent>();
+	UIComponent* directAngleComp = DirectAngle->GetComponent<UIComponent>();
+	directAngleComp->SetPos({ -380,-330 });
+	directAngleComp->SetColor(0, 255, 0);
+	directAngleComp->SetTexture("");
+	directAngleComp->SetScale({150, 10});
 	// HP Bar
 	HP = new GameObject();
 	HP->AddComponent<UIComponent>();
@@ -123,6 +141,14 @@ void UpdateCombatUI(GameObject* player, GameObject* enemy, GameObject* direction
 	float angle = directionArrow->GetComponent<CombatComp>()->data.windAngle;
 	UIComponent* windDirComp = WindDirection->GetComponent<UIComponent>();
 	windDirComp->SetRot(angle);  // Set rotation for wind direction arrow
+
+	float playerslopeAngle = player->GetComponent<TransformComp>()->GetRot();
+	UIComponent* playerAngleComp = playerAngle->GetComponent<UIComponent>();
+	playerAngleComp->SetRot(playerslopeAngle);
+
+	float directAngle = directionArrow->GetComponent<CombatComp>()->data.angle;
+	UIComponent* directAngleComp = DirectAngle->GetComponent<UIComponent>();
+	directAngleComp->SetRot(directAngle);
 
 	UIComponent* moveComp = Move->GetComponent<UIComponent>();
 	moveComp->SetScale({ 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f), 80 });

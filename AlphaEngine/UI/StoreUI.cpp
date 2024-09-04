@@ -150,6 +150,7 @@ void StoreUI::InitStoreUI(GameObject* player)
     ButtonComp* UpHpButton = UpHp->GetComponent<ButtonComp>();
     UpHpButton->SetOnClickFunction([player]() {
         player->GetComponent<PlayerComp>()->data.maxLife++;
+        player->GetComponent<PlayerComp>()->data.hp++;
         });
     ButtonManager::GetInstance().RegisterButton(UpHpButton);
 
