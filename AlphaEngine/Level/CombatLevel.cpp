@@ -267,7 +267,7 @@ void level::CombatLevel::Init()
 
 void level::CombatLevel::Update()
 {
-	UpdateCombatUI(player);
+	UpdateCombatUI(player, enemy, directionArrow);
 	UpdateBackground();
 
 	if (AEInputCheckTriggered(AEVK_1))

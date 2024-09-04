@@ -4,6 +4,8 @@
 #include "../Components/TransformComp.h"
 #include "../Components/SpriteComp.h"
 #include "../Components/PlayerComp.h"
+#include "../Components/EnemyComp.h"
+#include "../Combat/Combat.h"
 
 GameObject* UIBAR = nullptr;
 GameObject* Power = nullptr;
@@ -117,7 +119,7 @@ void InitCombatUI()
 	WindSprite->SetColor(120, 120, 120);
 }
 
-void UpdateCombatUI(GameObject* player)
+void UpdateCombatUI(GameObject* player, GameObject* enemy, GameObject* directionArrow)
 {
 	float camX, camY;
 	AEGfxGetCamPosition(&camX, &camY);
@@ -126,7 +128,10 @@ void UpdateCombatUI(GameObject* player)
 	transLogo->SetPos({ 0 + camX, -330 + camY });
 
 	TransformComp* transStart = Power->GetComponent<TransformComp>();
-	transStart->SetPos({ 150 + camX, -280 + camY });
+	//transStart->SetPos({ 150 + camX, -280 + camY });
+
+	transStart->SetScale({ 750 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (POWER_LIMIT + DEFAULT_POWER))) ,80 });
+	transStart->SetPos({ 150 - (750 - 750 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (POWER_LIMIT + DEFAULT_POWER)))) / 2 + camX, -280 + camY });
 
 	TransformComp* transMove = Move->GetComponent<TransformComp>();
 	transMove->SetScale({ 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f) ,80 });

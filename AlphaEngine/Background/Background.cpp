@@ -16,7 +16,7 @@ void InitBackground()
 
 	background->GetComponent<TransformComp>()->SetScale({ 1600, 900 });
 	background->GetComponent<TransformComp>()->SetPos({ 0, 0 });
-	background->GetComponent<SpriteComp>()->SetTexture("../Assets/Background/Background.png");
+	background->GetComponent<SpriteComp>()->SetTexture("../Assets/Background/BG2.png");
 }
 
 void UpdateBackground()
