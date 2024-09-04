@@ -14,6 +14,9 @@
 #include <string>
 #include "../UI/CombatUI.h"
 #include "../UIM/BtnManager.h"
+#include "../UI/StoreUI.h"
+StoreUI storeUI;
+
 #include "../Background/Background.h"
 
 GameObject* player = nullptr;
@@ -263,11 +266,13 @@ void level::CombatLevel::Init()
 
 	//Init UI
 	InitCombatUI();
+	
 }
 
 void level::CombatLevel::Update()
 {
-	UpdateCombatUI(player);
+	UpdateCombatUI(player, enemy, directionArrow);
+
 	UpdateBackground();
 
 	if (AEInputCheckTriggered(AEVK_1))

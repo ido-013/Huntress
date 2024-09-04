@@ -20,13 +20,19 @@ void ButtonManager::HandleClickEvent(int mouseX, int mouseY) {
         }
     }
 }
-
+void ButtonManager::HandleHoverEvent(int mouseX, int mouseY) {
+    for (auto& button : buttons) {
+        if (button->IsHovered(mouseX, mouseY)) {
+            button->OnHover();  // 커서가 겹칠 때 OnHover 호출
+        }
+    }
+}
 void ButtonManager::Update() {
     s32 mouseX, mouseY;
     AEInputGetCursorPosition(&mouseX, &mouseY);
     mouseY = -mouseY + 450;  // 필요한 좌표 변환
     mouseX = mouseX - 800;   // 필요한 좌표 변환
-
+    HandleHoverEvent(mouseX, mouseY);
     if (AEInputCheckTriggered(AEVK_LBUTTON)) {
         HandleClickEvent(mouseX, mouseY);
     }

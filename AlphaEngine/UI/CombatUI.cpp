@@ -4,7 +4,7 @@
 #include "../Components/TransformComp.h"
 #include "../Components/SpriteComp.h"
 #include "../Components/PlayerComp.h"
-
+#include "../Combat/Combat.h"
 GameObject* UIBAR = nullptr;
 GameObject* Power = nullptr;
 GameObject* Move = nullptr;
@@ -14,7 +14,7 @@ GameObject* HP = nullptr;
 GameObject* enemyHP = nullptr;
 GameObject* Attack = nullptr;
 GameObject* enemyAttack = nullptr;
-
+GameObject* WindDirection = nullptr;
 void InitCombatUI()
 {
 	UIBAR = new GameObject();
@@ -115,9 +115,21 @@ void InitCombatUI()
 	SpriteComp* WindSprite = Wind->GetComponent<SpriteComp>();
 	WindSprite->SetTexture("Assets/arrow.png");
 	WindSprite->SetColor(120, 120, 120);
+
+	WindDirection = new GameObject();
+	WindDirection->AddComponent<SpriteComp>();
+	WindDirection->AddComponent<AudioComp>();
+	WindDirection->AddComponent<TransformComp>();
+	TransformComp* transWindDirect = WindDirection->GetComponent<TransformComp>();
+	transWindDirect->SetScale({ 150,20 });
+	transWindDirect->SetPos({ -700, 400 });
+	SpriteComp* WindDirectSprite = WindDirection->GetComponent<SpriteComp>();
+	WindDirectSprite->SetTexture("Assets/arrow.png");
+	WindDirectSprite->SetColor(0, 120, 120);
+	
 }
 
-void UpdateCombatUI(GameObject* player)
+void UpdateCombatUI(GameObject* player, GameObject* enemy, GameObject* DirectionArrow)
 {
 	float camX, camY;
 	AEGfxGetCamPosition(&camX, &camY);
@@ -138,17 +150,29 @@ void UpdateCombatUI(GameObject* player)
 	TransformComp* transSetting = Wind->GetComponent<TransformComp>();
 	transSetting->SetPos({ -700 + camX, 400 + camY });
 
-	TransformComp* transHP = HP->GetComponent<TransformComp>();
-	transHP->SetPos({ -720 + camX, -330 + camY });
-
-	TransformComp* transHP_e = enemyHP->GetComponent<TransformComp>();
-	transHP_e->SetPos({ 720 + camX, -330 + camY });
 
 	TransformComp* transAttack = Attack->GetComponent<TransformComp>();
 	transAttack->SetPos({ -600 + camX, -330 + camY });
 
 	TransformComp* transAttack_e = enemyAttack->GetComponent<TransformComp>();
 	transAttack_e->SetPos({ 600 + camX, -330 + camY });
+	transMove->SetPos({ 150 - (750 - 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f)) / 2, -380 });
+
+	TransformComp* transHP = HP->GetComponent<TransformComp>();
+	transHP->SetScale({ 80,200*(float(player->GetComponent<PlayerComp>()->data.hp)/ player->GetComponent<PlayerComp>()->data.maxLife)});
+	transHP->SetPos({ -720+ camX, (-330-( 200-200* (float(player->GetComponent<PlayerComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife))/2.f)+ camY });
+
+	TransformComp* transEnemyHP = enemyHP->GetComponent<TransformComp>();
+	transEnemyHP->SetScale({ 80,200 * (float(player->GetComponent<PlayerComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife) });
+	transEnemyHP->SetPos({ 720+ camX, ( - 330 - (200 - 200 * (float(player->GetComponent<PlayerComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife)) / 2.f) + camY});
+
+	float angle = DirectionArrow->GetComponent<CombatComp>()->data.windAngle;  // angle 값 가져오기
+	TransformComp* windTransform = WindDirection->GetComponent<TransformComp>();
+	windTransform->SetRot(angle);  // WindDirection의 회전을 angle로 설정
+
+	// WindDirection의 위치와 크기 업데이트
+	windTransform->SetScale({ 150, 20 });
+	windTransform->SetPos({ -700 + camX, 400 + camY });
 }
 
 void ExitCombatUI()

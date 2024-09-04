@@ -63,15 +63,32 @@ bool ButtonComp::IsClicked(int mouseX, int mouseY) const
         mouseY > pos.y - scale.y / 2 && mouseY < pos.y + scale.y / 2);
 }
 
+bool ButtonComp::IsHovered(int mouseX, int mouseY) const
+{
+    return IsClicked(mouseX, mouseY);
+}
+
 void ButtonComp::OnClick()
 {
     EventManager::GetInstance().AddEvent<ButtonClickEvent>(this, this);
+}
+
+void ButtonComp::OnHover()
+{
+    if (onHoverFunction) {
+        onHoverFunction();  // Hover 시 실행할 함수 호출
+    }
 }
 
 void ButtonComp::SetOnClickFunction(std::function<void()> func)
 {
     onClickFunction = func;
 }
+void ButtonComp::SetOnHoverFunction(std::function<void()> func)
+{
+    onHoverFunction = func;
+}
+
 
 void ButtonComp::LoadFromJson(const json& data)
 {

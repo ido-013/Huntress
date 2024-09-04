@@ -20,5 +20,6 @@ public:
     void RemoveAllButtons();
 
     void HandleClickEvent(int mouseX, int mouseY);
+    void HandleHoverEvent(int mouseX, int mouseY);
     void Update();
 };
