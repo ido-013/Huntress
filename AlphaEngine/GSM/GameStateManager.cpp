@@ -45,7 +45,8 @@ void GSM::GameStateManager::Update()
 
         CollisionManager::GetInstance().Update();
 
-        currentLevel->Update();
+        if (currentLevel)
+            currentLevel->Update();
         ComponentManager<GraphicComponent>::GetInstance().Update();
     }
 }
@@ -64,13 +65,10 @@ void GSM::GameStateManager::Exit()
 
 void GSM::GameStateManager::ChangeLevel(BaseLevel* newLvl)
 {
-    if (previousLevel)
-        delete previousLevel;
-
-    previousLevel = currentLevel;
+    Exit();
+    delete currentLevel;
 
     //Exit the current level
-    Exit();
 
     //Current level is now the "next" level
     currentLevel = newLvl;

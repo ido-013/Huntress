@@ -17,26 +17,28 @@
 #include <iostream>
 #include "../UI/CombatUI.h"
 #include "../UIM/BtnManager.h"
-#include "../UI/StoreUI.h"
+
 #include "../Background/Background.h"
 #include "../Utils/Utils.h"
 
 void level::NormalLevel::Init()
 {
-	//Serializer::GetInstance().LoadLevel("./Assets/Level/test.lvl");
 	Serializer::GetInstance().LoadLevel("./Assets/Level/test" + std::to_string(level) + ".lvl");
 
 	InitBackground();
 
-	std::cout << level << std::endl;
-
 	player = GameObjectManager::GetInstance().GetObj("player");
 	enemy = GameObjectManager::GetInstance().GetObj("enemy");
 
-	player->GetComponent<PlayerComp>()->playerData->InitData(100, 50, 50, 5, 1);
+	player->GetComponent<PlayerComp>()->playerData->InitData(100, 50, 50, 500, 1);
 
 	InitCombatUI();
-	//storeUI.InitStoreUI(player);
+
+	if (level == 1 || level == 6)
+	{
+		CombatComp::isCombat = false;
+		storeUI.InitStoreUI(player);
+	}
 }
 
 void level::NormalLevel::Update()
@@ -44,7 +46,7 @@ void level::NormalLevel::Update()
 	UpdateCombatUI();
 	UpdateBackground();
 
-	if (AEInputCheckTriggered(AEVK_1))
+	if (CombatComp::state == CombatComp::CLEAR)
 	{
 		GSM::GameStateManager::GetInstance().ChangeLevel(new NormalLevel(level + 1));
 	}

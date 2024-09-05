@@ -35,7 +35,7 @@ void CombatComp::DataUpdate()
 }
 
 CombatComp::CombatComp(GameObject* _owner) : EngineComponent(_owner),
-pAngle(0), eAngle(RAD90), pVelocity(0), eVelocity(0), pPower((int)(POWER_LIMIT / 2)), ePower((int)(POWER_LIMIT / 2)), AICombatSystemApplyWind(true)
+pAngle(RAD90), eAngle(RAD90), pVelocity(0), eVelocity(0), pPower((int)(POWER_LIMIT / 2)), ePower((int)(POWER_LIMIT / 2)), AICombatSystemApplyWind(true)
 {
 	
 }
@@ -249,14 +249,20 @@ void CombatComp::checkState()
 			isCombat = false;
 			state = CLEAR;
 			std::cout << "CLEAR!" << std::endl;
-			turn = NOBODYTURN;
+			turn = PLAYERTURN;
+			Projectile::isLaunchProjectile = false;
+			isChaseDirection = true;
+			isReadyLaunch = false;
 		}
 		else if (player->GetComponent<PlayerComp>()->playerData->hp <= 0)
 		{
 			isCombat = false;
 			state = GAMEOVER;
 			std::cout << "GAMEOVER" << std::endl;
-			turn = NOBODYTURN;
+			turn = PLAYERTURN;
+			Projectile::isLaunchProjectile = false;
+			isChaseDirection = true;
+			isReadyLaunch = false;
 		}
 	}
 	f32 x, y;
@@ -266,7 +272,10 @@ void CombatComp::checkState()
 		isCombat = false;
 		state = CLEAR;
 		std::cout << "CLEAR!" << std::endl;
-		turn = NOBODYTURN;
+		turn = PLAYERTURN;
+		Projectile::isLaunchProjectile = false;
+		isChaseDirection = true;
+		isReadyLaunch = false;
 	}
 
 	if (player->GetComponent<TransformComp>()->GetPos().y < -(windowHeightHalf * 10) + y)
@@ -274,7 +283,10 @@ void CombatComp::checkState()
 		isCombat = false;
 		state = GAMEOVER;
 		std::cout << "GAMEOVER" << std::endl;
-		turn = NOBODYTURN;
+		turn = PLAYERTURN;
+		Projectile::isLaunchProjectile = false;
+		isChaseDirection = true;
+		isReadyLaunch = false;
 	}
 }
 
