@@ -65,10 +65,11 @@ void GSM::GameStateManager::Exit()
 
 void GSM::GameStateManager::ChangeLevel(BaseLevel* newLvl)
 {
-    Exit();
-    delete currentLevel;
+    delete previousLevel;
+    previousLevel = currentLevel;
 
     //Exit the current level
+    Exit();
 
     //Current level is now the "next" level
     currentLevel = newLvl;

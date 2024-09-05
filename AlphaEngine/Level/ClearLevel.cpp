@@ -1,4 +1,4 @@
-#include "Menu.h"
+#include "ClearLevel.h"
 #include "../GameObject/GameObject.h"
 #include "../Components/AudioComp.h"
 #include "../Components/UIComp.h"      // UIComponent 사용
@@ -13,7 +13,7 @@
 #include "../GSM/GameStateManager.h"
 #include "../GameObjectManager/GameObjectManager.h"
 
-void level::Menu::Init() {
+void level::ClearLevel::Init() {
     AEGfxSetCamPosition(0, 0);
 
     // 로고 초기화
@@ -72,10 +72,11 @@ void level::Menu::Init() {
     ButtonManager::GetInstance().RegisterButton(quitBtn);
 }
 
-void level::Menu::Update() {
+void level::ClearLevel::Update() {
 
 }
 
-void level::Menu::Exit() {
+void level::ClearLevel::Exit() {
     // 리소스 정리 등의 코드
 }
+

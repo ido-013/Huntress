@@ -39,29 +39,36 @@ void level::PrefabLevel::Init()
 
 	Prefab::SavePrefab("Square", temp);*/
 
-	da = new GameObject("directionArrow");
+	GameObject* enemy = new GameObject("player");
+	enemy->type = GameObject::Player;
 
-	da->AddComponent<TransformComp>();
-	da->AddComponent<SpriteComp>();
-	da->AddComponent<CombatComp>();
+	enemy->AddComponent<TransformComp>();
+	enemy->AddComponent<RigidbodyComp>();
+	enemy->AddComponent<PlayerComp>();
+	enemy->AddComponent<SpriteComp>();
+	enemy->AddComponent<AnimatorComp>();
+	enemy->AddComponent<ColliderComp>();
 
-	da->GetComponent<TransformComp>()->SetScale({
-		da->GetComponent<CombatComp>()->directionArrowWidth,
-		da->GetComponent<CombatComp>()->directionArrowHeight });
+	enemy->GetComponent<TransformComp>()->SetScale({ 30, 30 });
+	enemy->GetComponent<TransformComp>()->SetPos({ 0, 0 });
 
-	da->GetComponent<SpriteComp>()->SetTexture("./Assets/Character/da.png");
-	da->GetComponent<SpriteComp>()->SetAlpha(0);
+	enemy->GetComponent<RigidbodyComp>()->useGravity = true;
 
-	da->GetComponent<CombatComp>()->turn = CombatComp::TURN::PLAYERTURN;
-	da->GetComponent<CombatComp>()->state = CombatComp::STATE::COMBAT;
-	da->GetComponent<CombatComp>()->isCombat = true;
+	enemy->GetComponent<AnimatorComp>()->AddAnimation("walk");
+	enemy->GetComponent<AnimatorComp>()->UpdateAnimation(0.5, "./Assets/Character/Walk/sprite/ScoutWalk2.png", "walk");
+	enemy->GetComponent<AnimatorComp>()->UpdateAnimation(0.5, "./Assets/Character/Walk/sprite/ScoutWalk3.png", "walk");
 
-	Prefab::SavePrefab("da", da);
+	enemy->GetComponent<SpriteComp>()->SetTexture("./Assets/Character/ArrowAttack/sprite/ScoutAttackArrow.png");	
+	enemy->GetComponent<AnimatorComp>()->SetAnimation(true, 1, "walk");
+
+	enemy->GetComponent<ColliderComp>()->SetCollider();
+
+	Prefab::SavePrefab("Player", enemy);
 }
 
 void level::PrefabLevel::Update()
 {
-
+	
 }
 
 void level::PrefabLevel::Exit()

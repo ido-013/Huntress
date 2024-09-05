@@ -1,4 +1,4 @@
-#include "Menu.h"
+#include "OverLevel.h"
 #include "../GameObject/GameObject.h"
 #include "../Components/AudioComp.h"
 #include "../Components/UIComp.h"      // UIComponent 사용
@@ -13,7 +13,7 @@
 #include "../GSM/GameStateManager.h"
 #include "../GameObjectManager/GameObjectManager.h"
 
-void level::Menu::Init() {
+void level::OverLevel::Init() {
     AEGfxSetCamPosition(0, 0);
 
     // 로고 초기화
@@ -72,10 +72,11 @@ void level::Menu::Init() {
     ButtonManager::GetInstance().RegisterButton(quitBtn);
 }
 
-void level::Menu::Update() {
+void level::OverLevel::Update() {
 
 }
 
-void level::Menu::Exit() {
+void level::OverLevel::Exit() {
     // 리소스 정리 등의 코드
 }
+

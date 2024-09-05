@@ -32,8 +32,6 @@ void PlayerComp::Update()
 	//SpriteComp* s = owner->GetComponent<SpriteComp>();
 	//if (!s) return;
 
-	speed = 500;
-
 	r->SetVelocityX(0);
 
 	if(CombatComp::isCombat)

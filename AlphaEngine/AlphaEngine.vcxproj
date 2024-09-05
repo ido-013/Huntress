@@ -111,6 +111,8 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="Components\ButtonComp.cpp" />
     <ClCompile Include="Components\UIComp.cpp" />
     <ClCompile Include="Data\Data.cpp" />
+    <ClCompile Include="Level\ClearLevel.cpp" />
+    <ClCompile Include="Level\OverLevel.cpp" />
     <ClCompile Include="Utils\Dice.cpp" />
     <ClCompile Include="Utils\Dice.h" />
     <ClCompile Include="Components\ColliderComp.cpp" />
@@ -187,8 +189,10 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="GameObjectManager\GameObjectManager.h" />
     <ClInclude Include="Level\BaseLevel.h" />
     <ClInclude Include="GSM\GameStateManager.h" />
+    <ClInclude Include="Level\ClearLevel.h" />
     <ClInclude Include="Level\CombatLevel.h" />
     <ClInclude Include="Level\NormalLevel.h" />
+    <ClInclude Include="Level\OverLevel.h" />
     <ClInclude Include="Level\PrefabLevel.h" />
     <ClInclude Include="Level\Menu.h" />
     <ClInclude Include="Map\Map.h" />

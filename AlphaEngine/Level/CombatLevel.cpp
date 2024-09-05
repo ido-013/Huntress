@@ -467,7 +467,7 @@ void level::CombatLevel::Init()
 	int n = 9;
 
 	//InitData
-	player->GetComponent<PlayerComp>()->playerData->InitData(100, 50, 50, 5, 1);
+	//player->GetComponent<PlayerComp>()->playerData->InitData(100, 50, 50, 5, 1);
 	//enemy->GetComponent<EnemyComp>()->enemyData->InitData(30 + n, 30 + n, 0 + n, 0, Data::EnemyData::GRADE::Normal);
 	//enemy->GetComponent<EnemyComp>()->enemyData->InitData(45 + 15 * n, 45 + 15 * n, 4 + 3 * n, 3, Data::EnemyData::GRADE::Elite);
 	enemy->GetComponent<EnemyComp>()->enemyData->InitData((float)60 + (float)60 * n, (float)60 + 60 * n, (float)9 + 6 * n, (float)5, Data::EnemyData::GRADE::Boss);

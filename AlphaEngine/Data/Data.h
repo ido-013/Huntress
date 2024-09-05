@@ -9,12 +9,15 @@ public:
 	class PlayerData
 	{
 	public:
-		PlayerData();
-		int gold = 100;
-		float maxLife = 50;
-		float hp = 50;
-		float damage = 5;
-		float armor = 1;
+		PlayerData()
+		{
+		}
+		static int gold;
+		static float maxLife;
+		static float hp;
+		static float damage;
+		static float armor;
+
 		// 아이템이나 업그레이드 상황 추가
 		void InitData(int goldV, float maxLifeV, float hpV, float damageV, float armorV)
 		{
