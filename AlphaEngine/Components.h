@@ -12,3 +12,4 @@
 #include "Components/AnimatorComp.h"
 #include "Components/ColliderComp.h"
 #include "Components/LifetimeComp.h"
+#include "Combat/Combat.h"

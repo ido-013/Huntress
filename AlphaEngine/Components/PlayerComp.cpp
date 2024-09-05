@@ -11,13 +11,14 @@
 #include "../Particle/Particle.h"
 #include "../Combat/Combat.h"
 
-PlayerComp::PlayerComp(GameObject* _owner) : LogicComponent(_owner), data(*new Data::PlayerData)
+PlayerComp::PlayerComp(GameObject* _owner) : LogicComponent(_owner), playerData(new Data::PlayerData)
 {
 	
 }
 
 PlayerComp::~PlayerComp()
 {
+	delete playerData;
 }
 
 void PlayerComp::Update()
@@ -30,6 +31,8 @@ void PlayerComp::Update()
 
 	//SpriteComp* s = owner->GetComponent<SpriteComp>();
 	//if (!s) return;
+
+	speed = 500;
 
 	r->SetVelocityX(0);
 

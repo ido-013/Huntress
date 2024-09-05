@@ -23,7 +23,40 @@ void Serializer::LoadLevel(const std::string& filename)
 	json allData;
 	file >> allData;	// the json has all the file data
 
-	for (auto& item : allData)
+	json background;
+	background = allData.find("background").value();
+	auto& item = background;
+	{
+		auto objIt = background.find("object");
+		Prefab p(objIt.value());
+		GameObject* go = p.NewGameObject("background");
+
+		if (objIt != item.end())
+		{
+			auto compIt = item.find("components");
+
+			// iterate on the json on cmp for each component, add it
+			for (auto& comp : *compIt)
+			{
+				auto dataIt = comp.find("type");
+				if (dataIt == comp.end())	// not found
+					continue;
+
+				std::string typeName = dataIt.value().dump();	// convert to string
+				typeName = typeName.substr(1, typeName.size() - 2);
+
+				go->GetBase(typeName)->LoadFromJson(comp);
+			}
+		}
+
+		if (go->GetComponent<ColliderComp>() != nullptr)
+			go->GetComponent<ColliderComp>()->SetCollider();
+	}
+
+	json objects;
+	objects = allData.find("objects").value();
+
+	for (auto& item : objects)
 	{
 		auto objIt = item.find("object");
 		Prefab p(objIt.value());
@@ -48,10 +81,115 @@ void Serializer::LoadLevel(const std::string& filename)
 				go->GetBase(typeName)->LoadFromJson(comp);
 			}
 		}
+
+		if (go->GetComponent<ColliderComp>() != nullptr)
+			go->GetComponent<ColliderComp>()->SetCollider();
 	}
+
+	json player;
+	player = allData.find("player").value();
+	item = player;
+	{
+		auto objIt = item.find("object");
+		Prefab p(objIt.value());
+		GameObject* go = p.NewGameObject("player");
+
+		if (objIt != item.end())
+		{
+			auto compIt = item.find("components");
+
+			// iterate on the json on cmp for each component, add it
+			for (auto& comp : *compIt)
+			{
+				auto dataIt = comp.find("type");
+				if (dataIt == comp.end())	// not found
+					continue;
+
+				std::string typeName = dataIt.value().dump();	// convert to string
+				typeName = typeName.substr(1, typeName.size() - 2);
+
+				go->GetBase(typeName)->LoadFromJson(comp);
+			}
+		}
+
+		if (go->GetComponent<ColliderComp>() != nullptr)
+			go->GetComponent<ColliderComp>()->SetCollider();
+	}
+
+	json enemy;
+	enemy = allData.find("enemy").value();
+	item = enemy;
+	{
+		auto objIt = item.find("object");
+		Prefab p(objIt.value());
+		GameObject* go = p.NewGameObject("enemy");
+
+		if (objIt != item.end())
+		{
+			auto compIt = item.find("components");
+
+			// iterate on the json on cmp for each component, add it
+			for (auto& comp : *compIt)
+			{
+				auto dataIt = comp.find("type");
+				if (dataIt == comp.end())	// not found
+					continue;
+
+				std::string typeName = dataIt.value().dump();	// convert to string
+				typeName = typeName.substr(1, typeName.size() - 2);
+
+				go->GetBase(typeName)->LoadFromJson(comp);
+			}
+		}
+
+		if (go->GetComponent<ColliderComp>() != nullptr)
+			go->GetComponent<ColliderComp>()->SetCollider();
+	}
+
+	json directionArrow;
+	directionArrow = allData.find("directionArrow").value();
+	item = directionArrow;
+	{
+		auto objIt = item.find("object");
+		Prefab p(objIt.value());
+		GameObject* go = p.NewGameObject("directionArrow");
+
+		if (objIt != item.end())
+		{
+			auto compIt = item.find("components");
+
+			// iterate on the json on cmp for each component, add it
+			for (auto& comp : *compIt)
+			{
+				auto dataIt = comp.find("type");
+				if (dataIt == comp.end())	// not found
+					continue;
+
+				std::string typeName = dataIt.value().dump();	// convert to string
+				typeName = typeName.substr(1, typeName.size() - 2);
+
+				go->GetBase(typeName)->LoadFromJson(comp);
+			}
+		}
+
+		if (go->GetComponent<ColliderComp>() != nullptr)
+			go->GetComponent<ColliderComp>()->SetCollider();
+	}
+
+	json enemyData = allData.find("enemyData").value();
+	GameObject* enemyObj = GameObjectManager::GetInstance().GetObj("enemy");
+	enemyObj->GetComponent<EnemyComp>()->enemyData->LoadFromJson(enemyData);
+
+	if (enemyObj->GetComponent<EnemyComp>()->enemyData->grade == Data::EnemyData::Elite)
+		enemyObj->GetComponent<SpriteComp>()->SetColor(130, 0, 130);
+
+	if (enemyObj->GetComponent<EnemyComp>()->enemyData->grade == Data::EnemyData::Boss)
+		enemyObj->GetComponent<SpriteComp>()->SetColor(130, 130, 0);
+
+	GameObjectManager::GetInstance().GetObj("background")->GetComponent<SpriteComp>()->SetTexture(allData.find("backgroundFileName").value());
 }
 
-void Serializer::SaveLevel(const std::string& filename)
+void Serializer::SaveLevel(const std::string& filename, const std::string& backgroundFileName)
 {
 	json allData;
 
@@ -61,14 +199,22 @@ void Serializer::SaveLevel(const std::string& filename)
 	for (auto go : GameObjectManager::GetInstance().GetAllObjects())
 	{
 		json obj;
-		obj["object"] = go.first->name;
+		obj["object"] = go.first->prefabName;
 
 		json components;
 		components.push_back(go.first->GetComponent<TransformComp>()->SaveToJson());
 		obj["components"] = components;
 
-		allData.push_back(obj);
+		if (go.first->name.size() > 0)
+		{
+			allData[go.first->name] = obj;
+		}
+		else
+			allData["objects"].push_back(obj);
 	}
+
+	allData["enemyData"] = GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<EnemyComp>()->enemyData->SaveToJson();
+	allData["backgroundFileName"] = backgroundFileName;
 
 	// Open file
 	std::fstream file;

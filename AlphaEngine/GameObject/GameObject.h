@@ -9,6 +9,7 @@ class GameObject
 private:
 	//GO now will have a container of BaseComponent*
 	std::map<std::string, BaseComponent*> component;
+	std::string prefabName;
 	std::string name;
 
 public:

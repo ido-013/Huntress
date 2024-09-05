@@ -5,13 +5,15 @@
 #include "../GameObjectManager/GameObjectManager.h"
 #include "../Utils/Size.h"
 
-EnemyComp::EnemyComp(GameObject* _owner) : LogicComponent(_owner), data(*new Data::EnemyData)
+EnemyComp::EnemyComp(GameObject* _owner) : LogicComponent(_owner), enemyData(new Data::EnemyData)
 {
 }
 
 EnemyComp::~EnemyComp()
 {
+	delete enemyData;
 }
+
 int EnemyComp::GetMovegauge()
 {
 	return movementGauge;
@@ -108,7 +110,7 @@ json EnemyComp::SaveToJson()
 	json compData;
 	compData["speed"] = speed;
 	compData["maxMovementGauge"] = maxMovementGauge;
-	
+
 	data["compData"] = compData;
 
 	return data;

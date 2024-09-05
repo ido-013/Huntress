@@ -10,6 +10,7 @@
 #include "../ResourceManager/ResourceManager.h"
 #include "../Combat/Combat.h"
 #include "../Components/EnemyComp.h"
+#include "../Serializer/Serializer.h"
 #include <iostream>
 #include <string>
 #include "../UI/CombatUI.h"
@@ -93,7 +94,7 @@ GameObject* enemy = nullptr;
 //	"-------------------------------",
 //	"-------------------------------",
 //};
-
+//
 //std::string map[30] =
 //{
 //	"-------------------------------",
@@ -162,39 +163,39 @@ GameObject* enemy = nullptr;
 //	"-------------------------------",
 //};
 
-std::string map[30] =
-{
-	"-------------------------------",
-	"-------------------------------",
-	"-------------------------------",
-	"-------------------------------",
-	"-------------------------------",
-	"-------------------------------",
-	"-------------------------------",
-	"-------------------------------",
-	"-------------------------------",
-	"-------------------------------",
-	"-------------------------------",
-	"-------------------------------",
-	"-------------------------------",
-	"-------------------------------",
-	"-------------------------------",
-	"-------------------------------",
-	"-------------------------------",
-	"-------------------------------",
-	"-------------------------------",
-	"-------------------------------",
-	"-------------------------------",
-	"-SL-------------------------RS-",
-	"----L---------rSl----------R---",
-	"------L------rSSSl------R------",
-	"--------L---rSSSSSl---R--------",
-	"----------L---------R----------",
-	"------------L-----R------------",
-	"--------------L-R--------------",
-	"-------------------------------",
-	"-------------------------------",
-};
+//std::string map[30] =
+//{
+//	"-------------------------------",
+//	"-------------------------------",
+//	"-------------------------------",
+//	"-------------------------------",
+//	"-------------------------------",
+//	"-------------------------------",
+//	"-------------------------------",
+//	"-------------------------------",
+//	"-------------------------------",
+//	"-------------------------------",
+//	"-------------------------------",
+//	"-------------------------------",
+//	"-------------------------------",
+//	"-------------------------------",
+//	"-------------------------------",
+//	"-------------------------------",
+//	"-------------------------------",
+//	"-------------------------------",
+//	"-------------------------------",
+//	"-------------------------------",
+//	"-------------------------------",
+//	"SL-------------------------R-S-",
+//	"---L---------rSl---------R-----",
+//	"-----L------rSSSl------R-------",
+//	"-------L---rSSSSSl---R---------",
+//	"---------L---------R-----------",
+//	"-----------L-----R-------------",
+//	"-------------L-R---------------",
+//	"-------------------------------",
+//	"-------------------------------",
+//};
 
 //std::string map[30] =
 //{
@@ -332,39 +333,39 @@ std::string map[30] =
 //	"-------------------------------",
 //};
 
-//std::string map[30] =
-//{
-//	"-------------------------------",
-//	"-------------------------------",
-//	"-------------------------------",
-//	"-------------------------------",
-//	"-------------------------------",
-//	"-------------------------------",
-//	"-------------------------------",
-//	"-------------------------------",
-//	"-------------------------------",
-//	"-------------------------------",
-//	"-------------------------------",
-//	"-------------------------------",
-//	"-------------------------------",
-//	"-------------------------------",
-//	"-------------------------------",
-//	"-------------------------------",
-//	"-------------------------------",
-//	"-------------------------------",
-//	"-------------------------------",
-//	"------rSl-------------rSl------",
-//	"-----r---l-----------r---l-----",
-//	"----r-----l---------r-----l----",
-//	"---r-------l-------r-------l---",
-//	"--r---------l-----r---------l--",
-//	"-S-----------SSSSS-----------S-",
-//	"-------------------------------",
-//	"-------------------------------",
-//	"-------------------------------",
-//	"-------------------------------",
-//	"-------------------------------",
-//};
+std::string map[30] =
+{
+	"-------------------------------",
+	"-------------------------------",
+	"-------------------------------",
+	"-------------------------------",
+	"-------------------------------",
+	"-------------------------------",
+	"-------------------------------",
+	"-------------------------------",
+	"-------------------------------",
+	"-------------------------------",
+	"-------------------------------",
+	"-------------------------------",
+	"-------------------------------",
+	"-------------------------------",
+	"-------------------------------",
+	"-------------------------------",
+	"-------------------------------",
+	"-------------------------------",
+	"-------------------------------",
+	"------rSl-------------rSl------",
+	"-----r---l-----------r---l-----",
+	"----r-----l---------r-----l----",
+	"---r-------l-------r-------l---",
+	"--r---------l-----r---------l--",
+	"-S-----------SSSSS-----------S-",
+	"-------------------------------",
+	"-------------------------------",
+	"-------------------------------",
+	"-------------------------------",
+	"-------------------------------",
+};
 
 void level::CombatLevel::Init()
 {
@@ -374,12 +375,13 @@ void level::CombatLevel::Init()
 	GameObject* go = nullptr;
 	TransformComp* t = nullptr;
 	ColliderComp* c = nullptr;
+
 	Prefab s("Square");
 	Prefab l("LeftTri");
 	Prefab r("RightTri");
-	Prefab sd("Square_DECO"); //a
-	Prefab lrd("LeftTri_R_DECO"); //b
-	Prefab rrd("RightTri_R_DECO"); //c
+	Prefab p("Player");
+	Prefab e("Enemy");
+	Prefab d("DirectionArrow");
 
 	for (int i = 0; i < 30; i++)
 	{
@@ -406,8 +408,11 @@ void level::CombatLevel::Init()
 			else if (map[i][j] == 'R')
 			{
 				go = r.NewGameObject();
+
 				t = go->GetComponent<TransformComp>();
+
 				t->SetScale({ width * 2, height });
+
 				float x = MapToPosX((float)j);
 				float y = MapToPosY((float)i);
 				t->SetPos({ x + width / 2, y });
@@ -421,8 +426,11 @@ void level::CombatLevel::Init()
 			else if (map[i][j] == 'L')
 			{
 				go = l.NewGameObject();
+
 				t = go->GetComponent<TransformComp>();
+
 				t->SetScale({ width * 2, height });
+
 				float x = MapToPosX((float)j);
 				float y = MapToPosY((float)i);
 				t->SetPos({ x + width / 2, y });
@@ -434,9 +442,12 @@ void level::CombatLevel::Init()
 			}
 
 			t = go->GetComponent<TransformComp>();
+
 			t->SetScale({ width, height }); 
+
 			float x = MapToPosX((float)j);
 			float y = MapToPosY((float)i);
+
 			t->SetPos({ x, y });
 
 			c = go->GetComponent<ColliderComp>();
@@ -445,84 +456,44 @@ void level::CombatLevel::Init()
 	}
 	
 	// player
-	player = new GameObject("player");
-	player->type = GameObject::Player;
-
-	player->AddComponent<TransformComp>();
-	player->AddComponent<PlayerComp>();
-	player->AddComponent<RigidbodyComp>();
-	player->AddComponent<SpriteComp>();
-	player->AddComponent<ColliderComp>();
-
-	player->GetComponent<TransformComp>()->SetScale({ 30, 30 });
-	player->GetComponent<TransformComp>()->SetPos({ 400, -400 });
-
-	player->GetComponent<RigidbodyComp>()->useGravity = true;
-
-	player->GetComponent<SpriteComp>()->SetTexture("./Assets/Character/ArrowAttack/sprite/ScoutAttackArrow.png");
-	player->GetComponent<SpriteComp>()->SetAlpha(1);
-
-	player->GetComponent<ColliderComp>()->SetCollider();
+	player = p.NewGameObject("player");
+	player->GetComponent<TransformComp>()->SetPos({ 115, -2335 });
 
 	// enemy
-	enemy = new GameObject("enemy");
-	enemy->type = GameObject::Enemy;
-
-	enemy->AddComponent<TransformComp>();
-	enemy->AddComponent<RigidbodyComp>();
-	enemy->AddComponent<EnemyComp>();
-	enemy->AddComponent<SpriteComp>();
-	enemy->AddComponent<ColliderComp>();
-
-	enemy->GetComponent<TransformComp>()->SetScale({ -30, 30 });
-	enemy->GetComponent<TransformComp>()->SetPos({ 500, -400 });
-
-	enemy->GetComponent<RigidbodyComp>()->useGravity = true;
-	
-	enemy->GetComponent<SpriteComp>()->SetTexture("./Assets/Character/ArrowAttack/sprite/ScoutAttackArrow.png");
-	enemy->GetComponent<SpriteComp>()->SetAlpha(1);
-
-	enemy->GetComponent<ColliderComp>()->SetCollider();
-
+	enemy = e.NewGameObject("enemy");
+	enemy->GetComponent<TransformComp>()->SetPos({ 2875, -2335 });
 
 	// direction Arrow
-	directionArrow = new GameObject("directionArrow");
+	directionArrow = d.NewGameObject("directionArrow");
 
-	directionArrow->AddComponent<TransformComp>();
-	directionArrow->AddComponent<SpriteComp>();
-	directionArrow->AddComponent<CombatComp>();
-
-	directionArrow->GetComponent<TransformComp>()->SetScale({ 
-		directionArrow->GetComponent<CombatComp>()->directionArrowWidth, 
-		directionArrow->GetComponent<CombatComp>()->directionArrowHeight });
-	directionArrow->GetComponent<SpriteComp>()->SetTexture("./Assets/Character/DirectionArrow.png");
-	directionArrow->GetComponent<SpriteComp>()->SetAlpha(0);
-	directionArrow->GetComponent<CombatComp>()->turn = CombatComp::TURN::PLAYERTURN;
-	directionArrow->GetComponent<CombatComp>()->state = CombatComp::STATE::COMBAT;
-	directionArrow->GetComponent<CombatComp>()->isCombat = true;
+	int n = 9;
 
 	//InitData
-	player->GetComponent<PlayerComp>()->data.InitData(100, 50, 50, 5, 1);
-	enemy->GetComponent<EnemyComp>()->data.InitData(30, 30, 5, 1, Data::EnemyData::GRADE::Normal);
+	player->GetComponent<PlayerComp>()->playerData->InitData(100, 50, 50, 5, 1);
+	//enemy->GetComponent<EnemyComp>()->enemyData->InitData(30 + n, 30 + n, 0 + n, 0, Data::EnemyData::GRADE::Normal);
+	//enemy->GetComponent<EnemyComp>()->enemyData->InitData(45 + 15 * n, 45 + 15 * n, 4 + 3 * n, 3, Data::EnemyData::GRADE::Elite);
+	enemy->GetComponent<EnemyComp>()->enemyData->InitData((float)60 + (float)60 * n, (float)60 + 60 * n, (float)9 + 6 * n, (float)5, Data::EnemyData::GRADE::Boss);
+
+	//Serializer::GetInstance().SaveLevel("./Assets/Level/test10.lvl", "./Assets/Background/BG8.png");
 
 	//Init UI
-	InitCombatUI(player, enemy, directionArrow);
+	InitCombatUI();
 	storeUI.InitStoreUI(player);
 
 }
 
 void level::CombatLevel::Update()
 {
-	UpdateCombatUI(player, enemy, directionArrow);
+	UpdateCombatUI();
 	UpdateBackground();
 
 	if (AEInputCheckTriggered(AEVK_1))
 	{
-		Data::PrintPlayerData(player->GetComponent<PlayerComp>()->data);
+		Data::PrintPlayerData(*player->GetComponent<PlayerComp>()->playerData);
 	}
 	if (AEInputCheckTriggered(AEVK_2))
 	{
-		Data::PrintEnemyData(enemy->GetComponent<EnemyComp>()->data);
+		Data::PrintEnemyData(*enemy->GetComponent<EnemyComp>()->enemyData);
 	}
 	if (AEInputCheckTriggered(AEVK_3))
 	{

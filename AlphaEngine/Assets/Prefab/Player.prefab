@@ -44,7 +44,8 @@
           0,
           0
         ],
-        "textureName": "../Assets/Character/ArrowAttack/sprite/ScoutAttackArrow.png"
+        "alpha": 1.0,
+        "textureName": "./Assets/Character/ArrowAttack/sprite/ScoutAttackArrow.png"
       }
     },
     {

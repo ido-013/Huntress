@@ -1,7 +1,5 @@
 #include "GameObjectManager.h"
 
-int GameObjectManager::counter = 0;
-
 GameObjectManager::GameObjectManager()
 {
 }
@@ -22,7 +20,7 @@ void GameObjectManager::InsertObject(GameObject* obj, std::string str)
 
 void GameObjectManager::AddObject(GameObject* obj)
 {
-	objects.insert({ obj, std::to_string(GameObjectManager::counter++) });
+	objects.insert({ obj, "0" });
 }
 
 GameObject* GameObjectManager::GetObj(const std::string& id) {

@@ -10,6 +10,7 @@
 #include "../UIM/BtnManager.h"
 #include <iostream>
 #include "CombatLevel.h"
+#include "NormalLevel.h"
 #include "../GameObjectManager/GameObjectManager.h"
 #include "../GSM/GameStateManager.h"
 #include "../GameObjectManager/GameObjectManager.h"
@@ -41,7 +42,7 @@ void level::Menu::Init() {
 
     startBtn->SetOnClickFunction([]() {
         std::cout << "Start Button Clicked!" << std::endl;
-        GSM::GameStateManager::GetInstance().ChangeLevel(new level::CombatLevel);
+        GSM::GameStateManager::GetInstance().ChangeLevel(new level::NormalLevel(1));
         });
 
     startBtn->SetOnHoverFunction([]() {
@@ -66,6 +67,7 @@ void level::Menu::Init() {
     quitBtn->SetOnClickFunction([]() {
         std::cout << "Quit Button Clicked!" << std::endl;
         // Quit 게임 종료 로직 추가
+        GSM::GameStateManager::GetInstance().ChangeLevel(nullptr);
         });
 
     ButtonManager::GetInstance().RegisterButton(quitBtn);

@@ -346,7 +346,6 @@ bool CollisionManager::ProjectileEnemyCheck(ColliderComp* a, ColliderComp* b)
 		{
 			em.AddEvent<CollisionEvent>(a, b, true);
 			em.AddEvent<CollisionEvent>(b, a, true);
-			std::cout << "E" << std::endl;
 		}
 
 		return true;
@@ -358,7 +357,6 @@ bool CollisionManager::ProjectileEnemyCheck(ColliderComp* a, ColliderComp* b)
 		{
 			em.AddEvent<CollisionEvent>(a, b, true);
 			em.AddEvent<CollisionEvent>(b, a, true);
-			std::cout << "E" << std::endl;
 		}
 
 		return true;
@@ -377,7 +375,6 @@ bool CollisionManager::ProjectilePlayerCheck(ColliderComp* a, ColliderComp* b)
 		{
 			em.AddEvent<CollisionEvent>(a, b, true);
 			em.AddEvent<CollisionEvent>(b, a, true);
-			std::cout << "P" << std::endl;
 		}
 		
 		return true;
@@ -389,7 +386,6 @@ bool CollisionManager::ProjectilePlayerCheck(ColliderComp* a, ColliderComp* b)
 		{
 			em.AddEvent<CollisionEvent>(a, b, true);
 			em.AddEvent<CollisionEvent>(b, a, true);
-			std::cout << "P" << std::endl;
 		}
 		
 		return true;
@@ -408,6 +404,8 @@ bool CollisionManager::ProjectileTriCheck(ColliderComp* a, ColliderComp* b)
 		{
 			em.AddEvent<CollisionEvent>(a, b, true);
 			em.AddEvent<CollisionEvent>(b, a, true);
+
+			std::cout << "T" << std::endl;
 		}
 
 		return true;
@@ -419,6 +417,8 @@ bool CollisionManager::ProjectileTriCheck(ColliderComp* a, ColliderComp* b)
 		{
 			em.AddEvent<CollisionEvent>(a, b, true);
 			em.AddEvent<CollisionEvent>(b, a, true);
+
+			std::cout << "T" << std::endl;
 		}
 
 		return true;

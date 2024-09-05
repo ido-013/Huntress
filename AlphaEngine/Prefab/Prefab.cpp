@@ -1,6 +1,6 @@
 #include "Prefab.h"
 
-Prefab::Prefab(std::string _name) : data(nullptr), name(_name)
+Prefab::Prefab(std::string _name) : data(nullptr), prefabName(_name)
 {
 	LoadPrefab();
 }
@@ -39,7 +39,7 @@ void Prefab::SavePrefab(const std::string& _name, GameObject* obj)
 
 void Prefab::LoadPrefab()
 {
-	std::string filename = "./Assets/Prefab/" + name + ".prefab";
+	std::string filename = "./Assets/Prefab/" + prefabName + ".prefab";
 	std::fstream file;
 
 	file.open(filename, std::fstream::in);
@@ -80,7 +80,7 @@ GameObject* Prefab::NewGameObject()
 			p->LoadFromJson(comp);
 	}
 
-	obj->name = name;
+	obj->prefabName = prefabName;
 
 	return obj;
 }
@@ -113,7 +113,7 @@ GameObject* Prefab::NewGameObject(const std::string& _name)
 			p->LoadFromJson(comp);
 	}
 
-	obj->name = name;
+	obj->prefabName = prefabName;
 
 	return obj;
 }

@@ -1,4 +1,7 @@
 #pragma once
+#include "json.hpp"
+
+using json = nlohmann::ordered_json;
 
 class Data
 {
@@ -7,11 +10,11 @@ public:
 	{
 	public:
 		PlayerData();
-		int gold;
-		float maxLife;
-		float hp;
-		float damage;
-		float armor;
+		int gold = 100;
+		float maxLife = 50;
+		float hp = 50;
+		float damage = 5;
+		float armor = 1;
 		// 아이템이나 업그레이드 상황 추가
 		void InitData(int goldV, float maxLifeV, float hpV, float damageV, float armorV)
 		{
@@ -35,6 +38,8 @@ public:
 		{
 			maxLife = maxLifeV, hp = hpV, damage = damageV, armor = armorV, grade = gradeV;
 		};
+		void LoadFromJson(const json& data);
+		json SaveToJson();
 	};
 	class CombatData
 	{

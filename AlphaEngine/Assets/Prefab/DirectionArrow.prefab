@@ -1,18 +1,12 @@
 {
-  "entityType": 2,
+  "entityType": 0,
   "components": [
     {
-      "type": "ColliderComp",
+      "type": "CombatComp",
       "compData": {
-        "position": [
-          0.0,
-          0.0
-        ],
-        "scale": [
-          100.0,
-          100.0
-        ],
-        "rotation": 0.0
+        "turn": 1,
+        "state": 1,
+        "isCombat": true
       }
     },
     {
@@ -23,8 +17,8 @@
           0,
           0
         ],
-        "alpha": 1.0,
-        "textureName": ""
+        "alpha": 0.0,
+        "textureName": "./Assets/Character/DirectionArrow.png"
       }
     },
     {
@@ -35,8 +29,8 @@
           0.0
         ],
         "scale": [
-          100.0,
-          100.0
+          42.0,
+          17.33333396911621
         ],
         "rotation": 0.0
       }

@@ -59,16 +59,20 @@ public:
 	// AICombatSystem에서만 사용
 	static bool isSetLaunchAngle;
 
+	static bool once;
+	static f64 currTime;
+
 	enum STATE
 	{
 		NONE = 0,
 		COMBAT = 1,
 		CLEAR = 2,
-		GAMEOVER = 3
+		GAMEOVER = 3,
+		READY = 4
 	};
 	static STATE state;
 	void checkState();
-
+	static void ResetCombat();
 	void SetPlayerAngle(float angle);
 	float GetPlayerAngle();
 	void SetEnemyAngle(float angle);
@@ -101,6 +105,7 @@ public:
 	void FireAnArrow(TURN turn, GameObject& directionArrow);
 
 	void Update() override;
+
 	void LoadFromJson(const json& data) override;
 	json SaveToJson() override;
 

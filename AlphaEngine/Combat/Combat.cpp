@@ -15,6 +15,9 @@
 #include "../Utils/Size.h"
 #include "../Components/SubtitleComp.h"
 
+f64 CombatComp::currTime = 0;
+bool CombatComp::once = false;
+
 CombatComp::TURN CombatComp::turn = NOBODYTURN;
 CombatComp::STATE CombatComp::state = NONE;
 
@@ -36,7 +39,7 @@ void CombatComp::DataUpdate()
 }
 
 CombatComp::CombatComp(GameObject* _owner) : EngineComponent(_owner),
-pAngle(0), eAngle(RAD90), pVelocity(0), eVelocity(0), pPower((int)(POWER_LIMIT / 2)), ePower((int)(POWER_LIMIT / 2)), AICombatSystemApplyWind(true)
+pAngle(RAD90), eAngle(RAD90), pVelocity(0), eVelocity(0), pPower((int)(POWER_LIMIT / 2)), ePower((int)(POWER_LIMIT / 2)), AICombatSystemApplyWind(true)
 {
 	
 }
@@ -245,44 +248,48 @@ void CombatComp::checkState()
 
 	if (isCombat && state == COMBAT)
 	{
-		if (enemy->GetComponent<EnemyComp>()->data.hp <= 0)
+		if (enemy->GetComponent<EnemyComp>()->enemyData->hp <= 0)
 		{
-			isCombat = false;
 			state = CLEAR;
 			std::cout << "CLEAR!" << std::endl;
-			SubtitleComp::IntersectDissolveText({ {{-0.15,0.1}, 1, "CLEAR!", 1, 1, 1, 1},  3, 1, 1 });
-			turn = NOBODYTURN;
+			return;
 		}
-		else if (player->GetComponent<PlayerComp>()->data.hp <= 0)
+		else if (player->GetComponent<PlayerComp>()->playerData->hp <= 0)
 		{
-			isCombat = false;
 			state = GAMEOVER;
 			std::cout << "GAMEOVER" << std::endl;
-			SubtitleComp::IntersectDissolveText({ {{-0.2,0.1}, 1, "GAME OVER", 1, 1, 1, 1},  3, 1, 1 });
-			turn = NOBODYTURN;
+			return;
 		}
 	}
 	f32 x, y;
 	AEGfxGetCamPosition(&x, &y);
 	if (enemy->GetComponent<TransformComp>()->GetPos().y < -(windowHeightHalf * 10) + y)
 	{
-		isCombat = false;
 		state = CLEAR;
 		std::cout << "CLEAR!" << std::endl;
-		SubtitleComp::IntersectDissolveText({ {{-0.15,0.1}, 1, "CLEAR!", 1, 1, 1, 1},  3, 1, 1 });
-		turn = NOBODYTURN;
+		return;
 	}
 
 	if (player->GetComponent<TransformComp>()->GetPos().y < -(windowHeightHalf * 10) + y)
 	{
-		isCombat = false;
 		state = GAMEOVER;
-		std::cout << "GAME OVER" << std::endl;
-		SubtitleComp::IntersectDissolveText({ {{-0.2,0.1}, 1, "GAME OVER", 1, 1, 1, 1},  3, 1, 1 });
-		turn = NOBODYTURN;
+		std::cout << "GAMEOVER" << std::endl;
+		return;
 	}
 }
 
+void CombatComp::ResetCombat()
+{
+	isCombat = true;
+	state = READY;
+	turn = PLAYERTURN;
+	Projectile::isLaunchProjectile = false;
+	isDrawDirection = false;
+	isChaseDirection = true;
+	isReadyLaunch = false;
+	currTime = 0;
+	ArrowCount = 0;
+}
 // Get&Set
 void CombatComp::SetPlayerAngle(float angle)
 {
@@ -451,6 +458,7 @@ void CombatComp::Update()
 {
 	if (isCombat && state == COMBAT)
 	{
+		std::cout << ArrowCount << std::endl;
 		GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
 		GameObject* player = GameObjectManager::GetInstance().GetObj("player");
 		GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
@@ -473,6 +481,7 @@ void CombatComp::Update()
 					std::cout << "PLAYERTURN" << std::endl;
 					directionArrow->GetComponent<CombatComp>()->isDrawDirection = true;
 					directionArrow->GetComponent<CombatComp>()->isChaseDirection = true;
+					directionArrow->GetComponent<SpriteComp>()->SetAlpha(1);
 					Projectile::GenerateRandomWind();
 				}
 				if (AEInputCheckTriggered(AEVK_W))
@@ -603,6 +612,50 @@ void CombatComp::Update()
 		DataUpdate();
 		checkState();
 	}
+	else if (isCombat && state == READY)
+	{
+		GameObject* player = GameObjectManager::GetInstance().GetObj("player");
+		TransformComp* ptf = player->GetComponent<TransformComp>();
+		GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
+		TransformComp* etf = enemy->GetComponent<TransformComp>();
+		//2초간 플레이어 고정
+		if (currTime < 2)
+		{
+			player->GetComponent<PlayerComp>()->moveState = false;
+			AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
+			if (once == false)
+			{
+				once = true;
+				SubtitleComp::IntersectDissolveText({ {{-0.15,0.1}, 1, "READY", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+			}
+		}
+		//2초간 적 위치 고정
+		else if (currTime < 4)
+		{
+			AEGfxSetCamPosition(etf->GetPos().x, etf->GetPos().y);
+			if (once == true)
+			{
+				once = false;
+				SubtitleComp::IntersectDissolveText({ {{-0.1,0.1}, 1, "Set", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+			}
+		}
+		else if (currTime < 6)
+		{
+			AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
+			if (once == false)
+			{
+				once = true;
+				SubtitleComp::IntersectDissolveText({ {{-0.12,0.1}, 1, "Go!!", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+			}
+		}
+		else {
+			once = false;
+			player->GetComponent<PlayerComp>()->moveState = true;
+			state = COMBAT;
+			currTime = 0;
+		}
+		currTime += AEFrameRateControllerGetFrameTime();
+	}
 }
 
 void CombatComp::LoadFromJson(const json& data)
@@ -611,6 +664,14 @@ void CombatComp::LoadFromJson(const json& data)
 
 	if (compData != data.end())
 	{
+		auto it = compData->find("turn");
+		turn = it.value();
+
+		it = compData->find("state");
+		state = it.value();
+
+		it = compData->find("isCombat");
+		isCombat = it.value();
 	}
 }
 
@@ -620,6 +681,9 @@ json CombatComp::SaveToJson()
 	data["type"] = TypeName;
 
 	json compData;
+	compData["turn"] = turn;
+	compData["state"] = state;
+	compData["isCombat"] = isCombat;
 	data["compData"] = compData;
 
 	return data;

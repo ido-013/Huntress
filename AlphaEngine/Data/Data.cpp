@@ -46,6 +46,37 @@ Data::EnemyData::EnemyData() : maxLife(0), hp(0), damage(0), armor(0), grade(Dat
 {
 }
 
+void Data::EnemyData::LoadFromJson(const json& data)
+{
+	auto it = data.find("maxLife");
+	maxLife = it.value();
+
+	it = data.find("hp");
+	hp = it.value();
+
+	it = data.find("damage");
+	damage = it.value();
+
+	it = data.find("armor");
+	armor = it.value();
+
+	it = data.find("grade");
+	grade = it.value();
+}
+
+json Data::EnemyData::SaveToJson()
+{
+	json data;
+
+	data["maxLife"] = maxLife;
+	data["hp"] = hp;
+	data["damage"] = damage;
+	data["armor"] = armor;
+	data["grade"] = grade;
+
+	return data;
+}
+
 Data::CombatData::CombatData() : randomValue1(0), randomValue2(0), windAngle(0), windPower(0), angle(0), power(0), moveGauge(0)
 {
 }

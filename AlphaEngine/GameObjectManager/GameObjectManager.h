@@ -30,6 +30,4 @@ public:
 	GameObject* GetLastObject();
 	void RemoveObject(GameObject* obj);
 	void RemoveAllObject();
-
-	static int counter;
 };
