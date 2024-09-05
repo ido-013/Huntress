@@ -1,6 +1,7 @@
 #include "SubtitleComp.h"
 #include "AEEngine.h"
 
+std::map<std::string, Subtitle> SubtitleComp::contexts;
 std::vector<DissolveSubtitle> SubtitleComp::subtitles;
 f64 SubtitleComp::currTime = 0;
 s8 SubtitleComp::pFont = NULL;
@@ -28,6 +29,35 @@ void SubtitleComp::DestroyFont()
 void SubtitleComp::OnSubtitle(Subtitle subtitle)
 {
 	AEGfxPrint(pFont, subtitle.content.c_str(), subtitle.loc.x, subtitle.loc.y, subtitle.size, subtitle.r, subtitle.g, subtitle.b, subtitle.a);
+}
+
+void SubtitleComp::AddSubtitle(Subtitle subtitle)
+{
+	contexts.emplace(subtitle.content, subtitle);
+}
+
+bool SubtitleComp::FindSubtitle(std::string str)
+{
+	if (contexts.find(str) != contexts.end())
+		return true;
+	return false;
+}
+
+void SubtitleComp::ModifySubtitle(std::string str1, std::string str2)
+{
+	if (contexts.find(str1) == contexts.end())
+		return;
+	contexts.find(str1)->second.content = str2;
+}
+
+void SubtitleComp::RemoveSubtitle(std::string str)
+{
+	contexts.erase(str);
+}
+
+void SubtitleComp::ClearSubtitle()
+{
+	contexts.clear();
 }
 
 void SubtitleComp::IntersectDissolveText(DissolveSubtitle dissolveSubtitle)
@@ -71,7 +101,13 @@ void SubtitleComp::Update()
 			std::cout << "Erase Text" << std::endl;
 		}
 	}
-
+	if (!contexts.empty())
+	{
+		for (auto temp : contexts)
+		{
+			OnSubtitle(temp.second);
+		}
+	}
 }
 
 DissolveSubtitle::DissolveSubtitle(Subtitle subtitleV, f64 durationV, f64 startIntersectTimeV, f64 endIntersectTimeV) :

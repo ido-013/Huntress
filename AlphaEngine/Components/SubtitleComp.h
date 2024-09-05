@@ -39,6 +39,7 @@ public:
 	SubtitleComp();
 	~SubtitleComp();
 	
+	static std::map<std::string, Subtitle> contexts;
 	static std::vector<DissolveSubtitle> subtitles;
 	static f64 currTime;
 	static s8 pFont;
@@ -47,6 +48,12 @@ public:
 	static void DestroyFont();
 	
 	static void OnSubtitle(Subtitle subtitle);
+	static void AddSubtitle(Subtitle subtitle);
+	static bool FindSubtitle(std::string str);
+	static void ModifySubtitle(std::string str1, std::string str2);
+	static void RemoveSubtitle(std::string str);
+	static void ClearSubtitle();
+
 	static void IntersectDissolveText(DissolveSubtitle dissolveSubtitle);
 
 	static void Update();

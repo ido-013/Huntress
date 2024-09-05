@@ -8,8 +8,8 @@ class EnemyComp : public LogicComponent
 {
 private:
 	float speed = 50;
-	int movementGauge = 1000;
-	int maxMovementGauge = 1000;
+	int movementGauge = 100;
+	int maxMovementGauge = 100;
 
 public:
 	Data::EnemyData* enemyData;

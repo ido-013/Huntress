@@ -1,5 +1,6 @@
 #pragma once
 #include "../UIM/BtnManager.h"
+#include <string>
 class ButtonComp;
 class PlayerComp;
 class AudioComp;
@@ -13,7 +14,7 @@ class StoreUI {
 	GameObject* Closebtn = nullptr;
 	GameObject* smallPotion = nullptr;
 	GameObject* UpHp = nullptr;
-	GameObject* fullPotion = nullptr;
+	GameObject* bigPotion = nullptr;
 	GameObject* UpAttack = nullptr;
 	GameObject* UpDefense = nullptr;
 	GameObject* Arrow = nullptr;
@@ -21,6 +22,8 @@ class StoreUI {
 	bool isStore = true;
 
 public:
+
+	static std::string goldText;
 	void SetUIVisibility(bool isVisible);
 	void SetStoreUI();
 	void Setoff();

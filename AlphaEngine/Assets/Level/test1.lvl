@@ -27,25 +27,6 @@
           "compData": {
             "position": [
               1400.0,
-              -2000.0
-            ],
-            "scale": [
-              100.0,
-              100.0
-            ],
-            "rotation": 0.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              1400.0,
               -2400.0
             ],
             "scale": [

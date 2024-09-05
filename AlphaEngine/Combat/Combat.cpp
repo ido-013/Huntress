@@ -250,13 +250,13 @@ void CombatComp::checkState()
 	{
 		if (enemy->GetComponent<EnemyComp>()->enemyData->hp <= 0)
 		{
-			state = CLEAR;
+			state = KILLENEMY;
 			std::cout << "CLEAR!" << std::endl;
 			return;
 		}
 		else if (player->GetComponent<PlayerComp>()->playerData->hp <= 0)
 		{
-			state = GAMEOVER;
+			state = KILLPLAYER;
 			std::cout << "GAMEOVER" << std::endl;
 			return;
 		}
@@ -365,6 +365,22 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 	AEVec2 p = player->GetComponent<TransformComp>()->GetPos();
 	AEVec2 e = enemy->GetComponent<TransformComp>()->GetPos();
 
+	switch (enemy->GetComponent<EnemyComp>()->enemyData->grade)
+	{
+	case Data::EnemyData::GRADE::Normal :
+		AICombatSystemApplyWind = false;
+		angleInterval = AEDegToRad(1.f);
+		break;
+	case Data::EnemyData::GRADE::Elite :
+		AICombatSystemApplyWind = true;
+		angleInterval = AEDegToRad(5.f);
+		break;
+	case Data::EnemyData::GRADE::Boss :
+		AICombatSystemApplyWind = true;
+		angleInterval = AEDegToRad(1.f);
+		break;
+	}
+
 	ePower = 1.0f; // 초기 파워
 
 	while (ePower <= POWER_LIMIT)
@@ -376,6 +392,7 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 
 		float initialVelocityX = eVelocity * std::cos(eAngle);
 		float initialVelocityY = eVelocity * std::sin(eAngle);
+
 
 		while (true)
 		{
@@ -429,7 +446,7 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 	enemy->GetComponent<TransformComp>()->ReverseX(p.x < e.x ? 0 : 1);
 
 	// 각도 설정
-	eAngle += p.x < e.x ? ANGLE_INTERVER : -ANGLE_INTERVER;
+	eAngle += p.x < e.x ? angleInterval : -angleInterval;
 	//std::cout << p.x << " " << e.x << std::endl;
 	if (p.x < e.x ? eAngle > ANGLE_LIMIT + RAD90 : eAngle < ANGLE_LIMIT - RAD90)
 	{
@@ -652,6 +669,63 @@ void CombatComp::Update()
 			once = false;
 			player->GetComponent<PlayerComp>()->moveState = true;
 			state = COMBAT;
+			currTime = 0;
+		}
+		currTime += AEFrameRateControllerGetFrameTime();
+	}
+	else if (isCombat && state == KILLENEMY)
+	{
+		GameObject* player = GameObjectManager::GetInstance().GetObj("player");
+		TransformComp* ptf = player->GetComponent<TransformComp>();
+		GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
+		TransformComp* etf = enemy->GetComponent<TransformComp>();
+		//2초간 적 고정
+		if (currTime < 2)
+		{
+			player->GetComponent<PlayerComp>()->moveState = false; 
+			AEGfxSetCamPosition(etf->GetPos().x, etf->GetPos().y);
+			if (once == false)
+			{
+				once = true;
+				SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, "YOU WIN!", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+			}
+		}
+		else {
+			once = false;
+			state = CLEAR;
+			currTime = 0;
+		}
+		currTime += AEFrameRateControllerGetFrameTime();
+	}
+	else if (isCombat && state == KILLPLAYER)
+	{
+		GameObject* player = GameObjectManager::GetInstance().GetObj("player");
+		TransformComp* ptf = player->GetComponent<TransformComp>();
+		GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
+		TransformComp* etf = enemy->GetComponent<TransformComp>();
+		//2초간 플레이어 고정
+		if (currTime < 2)
+		{
+			player->GetComponent<PlayerComp>()->moveState = false; 
+			AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
+			if (once == false)
+			{
+				once = true;
+				SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, "YOU LOSE", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+			}
+		}
+		else if (currTime < 4)
+		{
+			AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
+			if (once == false)
+			{
+				once = true;
+				SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, "GAME OVER", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+			}
+		}
+		else {
+			once = false;
+			state = GAMEOVER;
 			currTime = 0;
 		}
 		currTime += AEFrameRateControllerGetFrameTime();

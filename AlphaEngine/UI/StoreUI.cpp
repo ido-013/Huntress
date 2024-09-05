@@ -3,7 +3,14 @@
 #include "../Components/UIComp.h"
 #include "../Components/PlayerComp.h"
 #include "../Combat/Combat.h"
+#include "../Components/SubtitleComp.h"
+#include "../GameObjectManager/GameObjectManager.h"
+#include "../Components/PlayerComp.h"
+#include "../Components/SubtitleComp.h"
+#include <string>
 #include <random>
+
+std::string StoreUI::goldText = "";
 
 void StoreUI::SetUIVisibility(bool isVisible)
 {
@@ -21,7 +28,7 @@ void StoreUI::SetUIVisibility(bool isVisible)
     UIComponent* HpSprite = UpHp->GetComponent<UIComponent>();
     UIComponent* AttackSprite = UpAttack->GetComponent<UIComponent>();
     UIComponent* DefenseSprite = UpDefense->GetComponent<UIComponent>();
-    UIComponent* fullSprite = fullPotion->GetComponent<UIComponent>();
+    UIComponent* fullSprite = bigPotion->GetComponent<UIComponent>();
     UIComponent* smallSprite = smallPotion->GetComponent<UIComponent>();
     UIComponent* ArrowSprite = Arrow->GetComponent<UIComponent>();
 
@@ -51,6 +58,7 @@ void StoreUI::SetStoreUI()
 void StoreUI::Setoff()
 {
     isStore = false;
+    SubtitleComp::RemoveSubtitle("goldText");
     SetUIVisibility(false);
 
 }
@@ -100,7 +108,7 @@ void StoreUI::InitStoreUI(GameObject* player)
         Setoff();  // 상점 닫기
         CombatComp::ResetCombat();
         });
-    ButtonManager::GetInstance().RegisterButton(CloseButton);
+    //ButtonManager::GetInstance().RegisterButton(CloseButton);
     Frame[0] = new GameObject();
     Frame[0]->AddComponent<UIComponent>();
     UIComponent* Frame1 = Frame[0]->GetComponent<UIComponent>();
@@ -127,6 +135,7 @@ void StoreUI::InitStoreUI(GameObject* player)
     Frame3->SetAlpha(0);
     Frame[3] = new GameObject();
     Frame[3]->AddComponent<UIComponent>();
+
     UIComponent* Frame4 = Frame[3]->GetComponent<UIComponent>();
     Frame4->SetScale({ 170,170 });
     Frame4->SetPos({ 400, -100 });
@@ -163,25 +172,50 @@ void StoreUI::InitStoreUI(GameObject* player)
     art1Button->SetOnClickFunction([player]() {
         // Arrow 클릭 이벤트
         });
-    ButtonManager::GetInstance().RegisterButton(art1Button);
-
-
+    //ButtonManager::GetInstance().RegisterButton(art1Button);
 
     // FullPotion 설정
-    fullPotion = new GameObject();
-    fullPotion->AddComponent<UIComponent>();
-    UIComponent* fullPotionUI = fullPotion->GetComponent<UIComponent>();
+    bigPotion = new GameObject();
+    bigPotion->AddComponent<UIComponent>();
+    UIComponent* fullPotionUI = bigPotion->GetComponent<UIComponent>();
     fullPotionUI->SetScale({ 100,100 });
     fullPotionUI->SetPos({ 200, 100 });
     fullPotionUI->SetTexture("Assets/UI/fullpotion.png");
     fullPotionUI->SetColor(0, 0, 0);
     fullPotionUI->SetAlpha(0);
-    fullPotion->AddComponent<ButtonComp>();
-    ButtonComp* fullPotionButton = fullPotion->GetComponent<ButtonComp>();
+    bigPotion->AddComponent<ButtonComp>();
+    ButtonComp* fullPotionButton = bigPotion->GetComponent<ButtonComp>();
     fullPotionButton->SetOnClickFunction([player]() {
-        player->GetComponent<PlayerComp>()->playerData->hp = player->GetComponent<PlayerComp>()->playerData->maxLife;
-        });
-    ButtonManager::GetInstance().RegisterButton(fullPotionButton);
+        if (player->GetComponent<PlayerComp>()->playerData->gold >= 15)
+        {
+            if (player->GetComponent<PlayerComp>()->playerData->hp == player->GetComponent<PlayerComp>()->playerData->maxLife)
+            {
+                SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, "Already Full...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
+            }
+            else if (player->GetComponent<PlayerComp>()->playerData->hp + player->GetComponent<PlayerComp>()->playerData->maxLife * 0.3 < player->GetComponent<PlayerComp>()->playerData->maxLife)
+            {
+                player->GetComponent<PlayerComp>()->playerData->hp += player->GetComponent<PlayerComp>()->playerData->maxLife * 0.3;
+                std::string currentHP = "Current HP : ";
+                currentHP += std::to_string((int)player->GetComponent<PlayerComp>()->playerData->hp);
+                SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, currentHP, 1, 0, 0, 1}, 2, 0.7, 0.7 });
+                player->GetComponent<PlayerComp>()->playerData->gold -= 5;
+            }
+            else
+            {
+                player->GetComponent<PlayerComp>()->playerData->hp = player->GetComponent<PlayerComp>()->playerData->maxLife;
+                std::string currentHP = "Current HP : ";
+                currentHP += std::to_string((int)player->GetComponent<PlayerComp>()->playerData->hp);
+                currentHP += "(MAX)";
+                SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, currentHP, 1, 0, 0, 1}, 2, 0.7, 0.7 });
+                player->GetComponent<PlayerComp>()->playerData->gold -= 5;
+            }
+        }
+        else
+        {
+            SubtitleComp::IntersectDissolveText({ {{-0.5,0.1}, 1, "You don't have enough money...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
+        }
+    });
+    //ButtonManager::GetInstance().RegisterButton(fullPotionButton);
 
     // SmallPotion 설정
     smallPotion = new GameObject();
@@ -195,12 +229,36 @@ void StoreUI::InitStoreUI(GameObject* player)
     smallPotion->AddComponent<ButtonComp>();
     ButtonComp* smallPotionButton = smallPotion->GetComponent<ButtonComp>();
     smallPotionButton->SetOnClickFunction([player]() {
-        if (player->GetComponent<PlayerComp>()->playerData->hp + player->GetComponent<PlayerComp>()->playerData->maxLife * 0.1 < player->GetComponent<PlayerComp>()->playerData->maxLife)
-            player->GetComponent<PlayerComp>()->playerData->hp += player->GetComponent<PlayerComp>()->playerData->maxLife * 0.1;
+        if (player->GetComponent<PlayerComp>()->playerData->gold >= 5)
+        {
+            if (player->GetComponent<PlayerComp>()->playerData->hp == player->GetComponent<PlayerComp>()->playerData->maxLife)
+            {
+                SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, "Already Full...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
+            }
+            else if (player->GetComponent<PlayerComp>()->playerData->hp + player->GetComponent<PlayerComp>()->playerData->maxLife * 0.1 < player->GetComponent<PlayerComp>()->playerData->maxLife)
+            {
+                player->GetComponent<PlayerComp>()->playerData->hp += player->GetComponent<PlayerComp>()->playerData->maxLife * 0.1;
+                std::string currentHP = "Current HP : ";
+                currentHP += std::to_string((int)player->GetComponent<PlayerComp>()->playerData->hp);
+                SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, currentHP, 1, 0, 0, 1}, 2, 0.7, 0.7 });
+                player->GetComponent<PlayerComp>()->playerData->gold -= 15;
+            }
+            else
+            {
+                player->GetComponent<PlayerComp>()->playerData->hp = player->GetComponent<PlayerComp>()->playerData->maxLife;
+                std::string currentHP = "Current HP : ";
+                currentHP += std::to_string((int)player->GetComponent<PlayerComp>()->playerData->hp);
+                currentHP += "(MAX)";
+                SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, currentHP, 1, 0, 0, 1}, 2, 0.7, 0.7 });
+                player->GetComponent<PlayerComp>()->playerData->gold -= 15;
+            }
+        }
         else
-            player->GetComponent<PlayerComp>()->playerData->hp = player->GetComponent<PlayerComp>()->playerData->maxLife;
-        });
-    ButtonManager::GetInstance().RegisterButton(smallPotionButton);
+        {
+            SubtitleComp::IntersectDissolveText({ {{-0.5,0.1}, 1, "You don't have enough money...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
+        }
+    });
+    //ButtonManager::GetInstance().RegisterButton(smallPotionButton);
 
     // UpHp 설정
     UpHp = new GameObject();
@@ -214,10 +272,21 @@ void StoreUI::InitStoreUI(GameObject* player)
     UpHp->AddComponent<ButtonComp>();
     ButtonComp* UpHpButton = UpHp->GetComponent<ButtonComp>();
     UpHpButton->SetOnClickFunction([player]() {
-        player->GetComponent<PlayerComp>()->playerData->maxLife++;
-        player->GetComponent<PlayerComp>()->playerData->hp++;
-        });
-    ButtonManager::GetInstance().RegisterButton(UpHpButton);
+        if (player->GetComponent<PlayerComp>()->playerData->gold >= 15)
+        {
+            player->GetComponent<PlayerComp>()->playerData->gold -= 15;
+            player->GetComponent<PlayerComp>()->playerData->maxLife += 5;
+            player->GetComponent<PlayerComp>()->playerData->hp += 5;
+            std::string currentHP = "Current HP : ";
+            currentHP += std::to_string((int)player->GetComponent<PlayerComp>()->playerData->hp);
+            SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, currentHP, 1, 0, 0, 1}, 2, 0.7, 0.7 });
+        }
+        else
+        {
+            SubtitleComp::IntersectDissolveText({ {{-0.5,0.1}, 1, "You don't have enough money...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
+        }
+    });
+    //ButtonManager::GetInstance().RegisterButton(UpHpButton);
 
     // UpDefense 설정
     UpDefense = new GameObject();
@@ -231,9 +300,20 @@ void StoreUI::InitStoreUI(GameObject* player)
     UpDefense->AddComponent<ButtonComp>();
     ButtonComp* UpDefenseButton = UpDefense->GetComponent<ButtonComp>();
     UpDefenseButton->SetOnClickFunction([player]() {
-        player->GetComponent<PlayerComp>()->playerData->armor++;
-        });
-    ButtonManager::GetInstance().RegisterButton(UpDefenseButton);
+        if (player->GetComponent<PlayerComp>()->playerData->gold >= 15)
+        {
+            player->GetComponent<PlayerComp>()->playerData->gold -= 15;
+            player->GetComponent<PlayerComp>()->playerData->armor++;
+            std::string currentArmor = "Current Armor : ";
+            currentArmor += std::to_string((int)player->GetComponent<PlayerComp>()->playerData->armor);
+            SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, currentArmor, 1, 0, 0, 1}, 2, 0.7, 0.7 });
+        }
+        else
+        {
+            SubtitleComp::IntersectDissolveText({ {{-0.5,0.1}, 1, "You don't have enough money...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
+        }
+    });
+    //ButtonManager::GetInstance().RegisterButton(UpDefenseButton);
 
     // UpAttack 설정
     UpAttack = new GameObject();
@@ -247,18 +327,42 @@ void StoreUI::InitStoreUI(GameObject* player)
     UpAttack->AddComponent<ButtonComp>();
     ButtonComp* UpAttackButton = UpAttack->GetComponent<ButtonComp>();
     UpAttackButton->SetOnClickFunction([player]() {
-        player->GetComponent<PlayerComp>()->playerData->damage++;
-        });
-    ButtonManager::GetInstance().RegisterButton(UpAttackButton);
+        if (player->GetComponent<PlayerComp>()->playerData->gold >= 15)
+        {
+            player->GetComponent<PlayerComp>()->playerData->gold -= 15;
+            player->GetComponent<PlayerComp>()->playerData->damage++;
+            std::string currentDamage = "Current Damage : ";
+            currentDamage += std::to_string((int)player->GetComponent<PlayerComp>()->playerData->damage);
+            SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, currentDamage, 1, 0, 0, 1}, 2, 0.7, 0.7 });
+        }
+        else
+        {
+            SubtitleComp::IntersectDissolveText({ {{-0.5,0.1}, 1, "You don't have enough money...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
+        }
+    });
+
+    //ButtonManager::GetInstance().RegisterButton(UpAttackButton);
     SetStoreUI();
+
+    SubtitleComp::AddSubtitle({ {0.3, 0.455}, 0.6, "goldText", 0.9, 0.9, 0, 1 });
 }
 
 void StoreUI::UpdateStoreUI()
 {
-
+    if (SubtitleComp::FindSubtitle("goldText"))
+    {
+        goldText = "";
+        goldText += "GOLD : ";
+        goldText += std::to_string(
+            GameObjectManager::GetInstance().GetObj("player")->
+            GetComponent<PlayerComp>()->playerData->gold
+        );
+        SubtitleComp::ModifySubtitle("goldText", goldText);
+    }
 }
 
-void ExitStoreUI()
+void StoreUI::ExitStoreUI()
 {
-    // 필요한 리소스 정리
+    // 리소스 정리 등의 코드
+    SubtitleComp::ClearSubtitle();
 }

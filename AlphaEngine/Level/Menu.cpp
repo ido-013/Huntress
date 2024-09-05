@@ -62,6 +62,7 @@ void level::Menu::Init() {
 
     ButtonManager::GetInstance().RegisterButton(startBtn);
 
+
     // Quit 버튼 초기화 및 등록
     quitButtonObj = new GameObject();
     quitButtonObj->AddComponent<UIComponent>();  // UIComponent로 변경
@@ -81,16 +82,17 @@ void level::Menu::Init() {
         });
 
     ButtonManager::GetInstance().RegisterButton(quitBtn);
+
+    SubtitleComp::AddSubtitle({ {-0.15,-0.27}, 1, "START", 0.2, 0, 0, 1 });
+    SubtitleComp::AddSubtitle({ {-0.11,-0.72}, 1, "EXIT", 0.2, 0, 0, 1 });
+
 }
 
 void level::Menu::Update() {
 
-    if (AEInputCheckTriggered(AEVK_4))
-    {
-        SubtitleComp::IntersectDissolveText({ {{0,0}, 1, "Test", 1, 1, 1, 1}, 5, 2, 2 });
-    }
 }
 
 void level::Menu::Exit() {
     // 리소스 정리 등의 코드
+    SubtitleComp::ClearSubtitle();
 }

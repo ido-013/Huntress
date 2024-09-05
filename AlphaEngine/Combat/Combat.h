@@ -8,12 +8,11 @@
 #include "../Data/Data.h"
 
 #define DEFAULT_POWER 1.f
-#define POWER_LIMIT 19.f // 24
+#define POWER_LIMIT 19.f // 20
 
 #define ANGLE_LIMIT AEDegToRad(120.f)
 
 #define POWER_INTERVER 1.f
-#define ANGLE_INTERVER AEDegToRad(1.f)
 
 #define RAD90 AEDegToRad(90.f)
 
@@ -69,7 +68,9 @@ public:
 		CLEAR = 2,
 		GAMEOVER = 3,
 		READY = 4,
-		STORE = 5
+		STORE = 5,
+		KILLPLAYER = 6,
+		KILLENEMY = 7
 	};
 	static STATE state;
 	void checkState();
@@ -97,7 +98,8 @@ public:
 		RESEARCH = 2,
 		NOTFOUND = 3
 	};
-	
+
+	f32 angleInterval;
 	RESULT EnemyAICombatSystem();
 
 	void DrawDirectionPegline(GameObject& directionArrow,

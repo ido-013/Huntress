@@ -7,9 +7,7 @@ namespace level
 {
 	class ClearLevel : public GSM::BaseLevel
 	{
-		GameObject* Logo = nullptr;
-		GameObject* startButtonObj = nullptr;
-		GameObject* quitButtonObj = nullptr;
+		GameObject* Credit = nullptr;
 	public:
 		void Init() override;
 		void Update() override;
