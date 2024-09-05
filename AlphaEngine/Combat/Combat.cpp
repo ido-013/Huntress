@@ -244,14 +244,14 @@ void CombatComp::checkState()
 
 	if (isCombat && state == COMBAT)
 	{
-		if (enemy->GetComponent<EnemyComp>()->data.hp <= 0)
+		if (enemy->GetComponent<EnemyComp>()->enemyData->hp <= 0)
 		{
 			isCombat = false;
 			state = CLEAR;
 			std::cout << "CLEAR!" << std::endl;
 			turn = NOBODYTURN;
 		}
-		else if (player->GetComponent<PlayerComp>()->data.hp <= 0)
+		else if (player->GetComponent<PlayerComp>()->playerData->hp <= 0)
 		{
 			isCombat = false;
 			state = GAMEOVER;
@@ -597,6 +597,14 @@ void CombatComp::LoadFromJson(const json& data)
 
 	if (compData != data.end())
 	{
+		auto it = compData->find("turn");
+		turn = it.value();
+
+		it = compData->find("state");
+		state = it.value();
+
+		it = compData->find("isCombat");
+		isCombat = it.value();
 	}
 }
 
@@ -606,6 +614,9 @@ json CombatComp::SaveToJson()
 	data["type"] = TypeName;
 
 	json compData;
+	compData["turn"] = turn;
+	compData["state"] = state;
+	compData["isCombat"] = isCombat;
 	data["compData"] = compData;
 
 	return data;

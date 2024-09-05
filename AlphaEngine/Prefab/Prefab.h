@@ -12,7 +12,7 @@ using json = nlohmann::ordered_json;
 class Prefab
 {
 private:
-	std::string name;
+	std::string prefabName;
 	json* data;
 
 	void LoadPrefab();

@@ -1,4 +1,7 @@
 #pragma once
+#include "json.hpp"
+
+using json = nlohmann::ordered_json;
 
 class Data
 {
@@ -35,6 +38,8 @@ public:
 		{
 			maxLife = maxLifeV, hp = hpV, damage = damageV, armor = armorV, grade = gradeV;
 		};
+		void LoadFromJson(const json& data);
+		json SaveToJson();
 	};
 	class CombatData
 	{

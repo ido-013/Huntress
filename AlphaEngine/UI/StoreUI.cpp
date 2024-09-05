@@ -115,7 +115,7 @@ void StoreUI::InitStoreUI(GameObject* player)
     fullPotion->AddComponent<ButtonComp>();
     ButtonComp* fullPotionButton = fullPotion->GetComponent<ButtonComp>();
     fullPotionButton->SetOnClickFunction([player]() {
-        player->GetComponent<PlayerComp>()->data.hp = player->GetComponent<PlayerComp>()->data.maxLife;
+        player->GetComponent<PlayerComp>()->playerData->hp = player->GetComponent<PlayerComp>()->playerData->maxLife;
         });
     ButtonManager::GetInstance().RegisterButton(fullPotionButton);
 
@@ -131,10 +131,10 @@ void StoreUI::InitStoreUI(GameObject* player)
     smallPotion->AddComponent<ButtonComp>();
     ButtonComp* smallPotionButton = smallPotion->GetComponent<ButtonComp>();
     smallPotionButton->SetOnClickFunction([player]() {
-        if (player->GetComponent<PlayerComp>()->data.hp + player->GetComponent<PlayerComp>()->data.maxLife * 0.1 < player->GetComponent<PlayerComp>()->data.maxLife)
-            player->GetComponent<PlayerComp>()->data.hp += player->GetComponent<PlayerComp>()->data.maxLife * 0.1;
+        if (player->GetComponent<PlayerComp>()->playerData->hp + player->GetComponent<PlayerComp>()->playerData->maxLife * 0.1 < player->GetComponent<PlayerComp>()->playerData->maxLife)
+            player->GetComponent<PlayerComp>()->playerData->hp += player->GetComponent<PlayerComp>()->playerData->maxLife * 0.1;
         else
-            player->GetComponent<PlayerComp>()->data.hp = player->GetComponent<PlayerComp>()->data.maxLife;
+            player->GetComponent<PlayerComp>()->playerData->hp = player->GetComponent<PlayerComp>()->playerData->maxLife;
         });
     ButtonManager::GetInstance().RegisterButton(smallPotionButton);
 
@@ -150,8 +150,8 @@ void StoreUI::InitStoreUI(GameObject* player)
     UpHp->AddComponent<ButtonComp>();
     ButtonComp* UpHpButton = UpHp->GetComponent<ButtonComp>();
     UpHpButton->SetOnClickFunction([player]() {
-        player->GetComponent<PlayerComp>()->data.maxLife++;
-        player->GetComponent<PlayerComp>()->data.hp++;
+        player->GetComponent<PlayerComp>()->playerData->maxLife++;
+        player->GetComponent<PlayerComp>()->playerData->hp++;
         });
     ButtonManager::GetInstance().RegisterButton(UpHpButton);
 
@@ -167,7 +167,7 @@ void StoreUI::InitStoreUI(GameObject* player)
     UpDefense->AddComponent<ButtonComp>();
     ButtonComp* UpDefenseButton = UpDefense->GetComponent<ButtonComp>();
     UpDefenseButton->SetOnClickFunction([player]() {
-        player->GetComponent<PlayerComp>()->data.armor++;
+        player->GetComponent<PlayerComp>()->playerData->armor++;
         });
     ButtonManager::GetInstance().RegisterButton(UpDefenseButton);
 
@@ -183,7 +183,7 @@ void StoreUI::InitStoreUI(GameObject* player)
     UpAttack->AddComponent<ButtonComp>();
     ButtonComp* UpAttackButton = UpAttack->GetComponent<ButtonComp>();
     UpAttackButton->SetOnClickFunction([player]() {
-        player->GetComponent<PlayerComp>()->data.damage++;
+        player->GetComponent<PlayerComp>()->playerData->damage++;
         });
     ButtonManager::GetInstance().RegisterButton(UpAttackButton);
 }

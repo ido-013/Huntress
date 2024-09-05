@@ -101,6 +101,7 @@ public:
 	void FireAnArrow(TURN turn, GameObject& directionArrow);
 
 	void Update() override;
+
 	void LoadFromJson(const json& data) override;
 	json SaveToJson() override;
 

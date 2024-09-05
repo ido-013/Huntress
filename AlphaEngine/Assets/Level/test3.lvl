@@ -1,0 +1,411 @@
+{
+  "background": {
+    "object": "Background",
+    "components": [
+      {
+        "type": "TransformComp",
+        "compData": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1800.0,
+            1000.0
+          ],
+          "rotation": 0.0
+        }
+      }
+    ]
+  },
+  "objects": [
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              2800.0,
+              -2400.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "RightTri",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              950.0,
+              -2000.0
+            ],
+            "scale": [
+              200.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "LeftTri",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              2450.0,
+              -2200.0
+            ],
+            "scale": [
+              200.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "LeftTri",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              2650.0,
+              -2300.0
+            ],
+            "scale": [
+              200.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              100.0,
+              -2400.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "LeftTri",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              2050.0,
+              -2000.0
+            ],
+            "scale": [
+              200.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "RightTri",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              350.0,
+              -2300.0
+            ],
+            "scale": [
+              200.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1500.0,
+              -1800.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "RightTri",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              750.0,
+              -2100.0
+            ],
+            "scale": [
+              200.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "RightTri",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1350.0,
+              -1800.0
+            ],
+            "scale": [
+              200.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "LeftTri",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1650.0,
+              -1800.0
+            ],
+            "scale": [
+              200.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "LeftTri",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              2250.0,
+              -2100.0
+            ],
+            "scale": [
+              200.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              200.0,
+              -2400.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "LeftTri",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1850.0,
+              -1900.0
+            ],
+            "scale": [
+              200.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "RightTri",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1150.0,
+              -1900.0
+            ],
+            "scale": [
+              200.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              2900.0,
+              -2400.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "RightTri",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              550.0,
+              -2200.0
+            ],
+            "scale": [
+              200.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    }
+  ],
+  "directionArrow": {
+    "object": "DirectionArrow",
+    "components": [
+      {
+        "type": "TransformComp",
+        "compData": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            42.0,
+            17.33333396911621
+          ],
+          "rotation": 0.0
+        }
+      }
+    ]
+  },
+  "enemy": {
+    "object": "Enemy",
+    "components": [
+      {
+        "type": "TransformComp",
+        "compData": {
+          "position": [
+            2800.0,
+            -2335.0
+          ],
+          "scale": [
+            -30.0,
+            30.0
+          ],
+          "rotation": 0.0
+        }
+      }
+    ]
+  },
+  "player": {
+    "object": "Player",
+    "components": [
+      {
+        "type": "TransformComp",
+        "compData": {
+          "position": [
+            225.0,
+            -2335.0
+          ],
+          "scale": [
+            30.0,
+            30.0
+          ],
+          "rotation": 0.0
+        }
+      }
+    ]
+  },
+  "enemyData": {
+    "maxLife": 75.0,
+    "hp": 75.0,
+    "damage": 10.0,
+    "armor": 3.0,
+    "grade": 1
+  },
+  "backgroundFileName": "./Assets/Background/BG3.png"
+}

@@ -5,7 +5,6 @@
 #include "AEEngine.h"
 #include "GSM/GameStateManager.h"
 #include "Level/NormalLevel.h"
-#include "Level/TestLevel.h"
 #include "Level/PrefabLevel.h"
 #include "Level/CombatLevel.h"
 #include "Utils/Utils.h"
@@ -39,7 +38,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// reset the system modules
 	AESysReset();
 
-	GSM::GameStateManager::GetInstance().ChangeLevel(new level::Menu);
+	GSM::GameStateManager::GetInstance().ChangeLevel(new level::NormalLevel(1));
 	//GSM::GameStateManager::GetInstance().ChangeLevel(new level::Store);
 
 	// Game Loop

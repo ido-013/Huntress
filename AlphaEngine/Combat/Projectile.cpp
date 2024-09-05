@@ -60,10 +60,10 @@ void Projectile::UpdateCollision()
     Particle p(5, 2, 5, { 255, 0, 0 });
 
     GameObject* player = GameObjectManager::GetInstance().GetObj("player");
-    Data::PlayerData* pData = &player->GetComponent<PlayerComp>()->data;
+    Data::PlayerData* pData = player->GetComponent<PlayerComp>()->playerData;
 
     GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
-    Data::EnemyData* eData = &enemy->GetComponent<EnemyComp>()->data;
+    Data::EnemyData* eData = enemy->GetComponent<EnemyComp>()->enemyData;
     
     TransformComp* ptf = player->GetComponent<TransformComp>();
     TransformComp* etf = enemy->GetComponent<TransformComp>();
@@ -149,6 +149,7 @@ void Projectile::Update()
     if (isLaunchProjectile)
     {
         TransformComp* ptf = projectile->GetComponent<TransformComp>();
+        ColliderComp* pc = projectile->GetComponent<ColliderComp>();
 
         delay += static_cast<float>(AEFrameRateControllerGetFrameTime());
 
@@ -182,6 +183,7 @@ void Projectile::Update()
                 float y = ptf->GetPos().y; // 투사체의 위치 벡터 중 y
 
                 ptf->SetPos({ x + velocityX * time, y + velocityY * time });
+                pc->SetPos({ x + velocityX * time, y + velocityY * time });
 
                 // 카메라 업데이트
                 AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);

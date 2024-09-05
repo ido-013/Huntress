@@ -4,11 +4,13 @@
 
 GameObject::GameObject() : type(None)
 {
+	name = "";
 	GameObjectManager::GetInstance().AddObject(this);
 }
 
 GameObject::GameObject(std::string str) : type(None)
 {
+	name = str;
 	GameObjectManager::GetInstance().InsertObject(this, str);
 }
 

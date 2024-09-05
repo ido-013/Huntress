@@ -1,22 +1,17 @@
 #include "Background.h"
 #include "../Components.h"
+#include "../Prefab/Prefab.h"
+#include "../GameObjectManager/GameObjectManager.h"
 
 GameObject* background = nullptr;
 
 void InitBackground()
 {
-	// background
-	background = new GameObject("background");
+	/*Prefab b("Background");
+	background = b.NewGameObject();*/
 
-	background->AddComponent<AudioComp>();
-	background->AddComponent<TransformComp>();
-	background->AddComponent<SpriteComp>();
-	background->GetComponent<AudioComp>()->SetAudio("./Assets/Audio/BGM.mp3");
+	background = GameObjectManager::GetInstance().GetObj("background");
 	background->GetComponent<AudioComp>()->playAudio(-1, "./Assets/Audio/BGM.mp3");
-
-	background->GetComponent<TransformComp>()->SetScale({ 1800, 1000 });
-	background->GetComponent<TransformComp>()->SetPos({ 0, 0 });
-	background->GetComponent<SpriteComp>()->SetTexture("./Assets/Background/BG2.png");
 }
 
 void UpdateBackground()

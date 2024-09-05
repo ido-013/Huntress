@@ -1,0 +1,791 @@
+{
+  "background": {
+    "object": "Background",
+    "components": [
+      {
+        "type": "TransformComp",
+        "compData": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1800.0,
+            1000.0
+          ],
+          "rotation": 0.0
+        }
+      }
+    ]
+  },
+  "objects": [
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1100.0,
+              -1700.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "RightTri",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1950.0,
+              -1800.0
+            ],
+            "scale": [
+              200.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              600.0,
+              -1800.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              900.0,
+              -1800.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              600.0,
+              -1900.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              700.0,
+              -1800.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1200.0,
+              -1800.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              2900.0,
+              -1400.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              700.0,
+              -1700.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              600.0,
+              -1700.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              900.0,
+              -1700.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1100.0,
+              -1800.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              800.0,
+              -1800.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "RightTri",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              2350.0,
+              -1600.0
+            ],
+            "scale": [
+              200.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1200.0,
+              -1700.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              700.0,
+              -1900.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "RightTri",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              2750.0,
+              -1400.0
+            ],
+            "scale": [
+              200.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "RightTri",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              2550.0,
+              -1500.0
+            ],
+            "scale": [
+              200.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              800.0,
+              -1700.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "RightTri",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              2150.0,
+              -1700.0
+            ],
+            "scale": [
+              200.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1000.0,
+              -1800.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              800.0,
+              -1900.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              900.0,
+              -1900.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1000.0,
+              -1900.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1100.0,
+              -1900.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1000.0,
+              -1700.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "RightTri",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              950.0,
+              -2300.0
+            ],
+            "scale": [
+              200.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "RightTri",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              550.0,
+              -2500.0
+            ],
+            "scale": [
+              200.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "RightTri",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              750.0,
+              -2400.0
+            ],
+            "scale": [
+              200.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "RightTri",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1350.0,
+              -2100.0
+            ],
+            "scale": [
+              200.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1200.0,
+              -1900.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "RightTri",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1550.0,
+              -2000.0
+            ],
+            "scale": [
+              200.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              200.0,
+              -2700.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "RightTri",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              350.0,
+              -2600.0
+            ],
+            "scale": [
+              200.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "RightTri",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1750.0,
+              -1900.0
+            ],
+            "scale": [
+              200.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              100.0,
+              -2700.0
+            ],
+            "scale": [
+              100.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "RightTri",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1150.0,
+              -2200.0
+            ],
+            "scale": [
+              200.0,
+              100.0
+            ],
+            "rotation": 0.0
+          }
+        }
+      ]
+    }
+  ],
+  "enemy": {
+    "object": "Enemy",
+    "components": [
+      {
+        "type": "TransformComp",
+        "compData": {
+          "position": [
+            2875.0,
+            -1335.0
+          ],
+          "scale": [
+            -30.0,
+            30.0
+          ],
+          "rotation": 0.0
+        }
+      }
+    ]
+  },
+  "directionArrow": {
+    "object": "DirectionArrow",
+    "components": [
+      {
+        "type": "TransformComp",
+        "compData": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "scale": [
+            42.0,
+            17.33333396911621
+          ],
+          "rotation": 0.0
+        }
+      }
+    ]
+  },
+  "player": {
+    "object": "Player",
+    "components": [
+      {
+        "type": "TransformComp",
+        "compData": {
+          "position": [
+            225.0,
+            -2635.0
+          ],
+          "scale": [
+            30.0,
+            30.0
+          ],
+          "rotation": 0.0
+        }
+      }
+    ]
+  },
+  "enemyData": {
+    "maxLife": 35.0,
+    "hp": 35.0,
+    "damage": 5.0,
+    "armor": 0.0,
+    "grade": 0
+  },
+  "backgroundFileName": "./Assets/Background/BG6.png"
+}

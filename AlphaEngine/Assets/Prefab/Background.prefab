@@ -1,18 +1,14 @@
 {
-  "entityType": 2,
+  "entityType": 0,
   "components": [
     {
-      "type": "ColliderComp",
+      "type": "AudioComp",
       "compData": {
-        "position": [
-          0.0,
-          0.0
+        "audio": [
+          "./Assets/Audio/BGM.mp3"
         ],
-        "scale": [
-          100.0,
-          100.0
-        ],
-        "rotation": 0.0
+        "volume": 0.5,
+        "pitch": 1.0
       }
     },
     {
@@ -24,7 +20,7 @@
           0
         ],
         "alpha": 1.0,
-        "textureName": ""
+        "textureName": "./Assets/Background/BG2.png"
       }
     },
     {
@@ -35,8 +31,8 @@
           0.0
         ],
         "scale": [
-          100.0,
-          100.0
+          1800.0,
+          1000.0
         ],
         "rotation": 0.0
       }

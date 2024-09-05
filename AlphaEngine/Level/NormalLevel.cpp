@@ -13,219 +13,44 @@
 #include "../Utils/Utils.h"
 #include "../GameObjectManager/GameObjectManager.h"
 #include "../Background/Background.h"
+#include "../Serializer/Serializer.h"
 #include <iostream>
-
-//std::string map[30] =
-//{
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
-//	"SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
-//	"SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
-//	"SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
-//	"SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"
-//};
-
-//std::string map[30] =
-//{
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"SL---------------------------S",
-//	"SSSL-------------------------S",
-//	"SSSSSL-----------------------S",
-//	"SSSSSSSL---------------------S",
-//	"SSSSSSSSSL-------------------S",
-//	"SSSSSSSSSSSL-----------------S",
-//	"SSSSSSSSSSSSSL---------------S",
-//	"SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
-//	"SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
-//	"SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
-//	"SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
-//	"SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"
-//};
-
-//std::string map[30] =
-//{
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S------------R-L-------------S",
-//	"S----------R-SSSSL-----------S",
-//	"S--------R-SSSSSSSSL---------S",
-//	"S------R-SSSSSSSSSSSSL-------S",
-//	"S----R-SSSSSSSSSSSSSSSSL-----S",
-//	"S--R-SSSSSSSSSSSSSSSSSSSSL---S",
-//	"SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
-//	"SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"
-//};
-
-//std::string map[30] =
-//{
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"S----------------------------S",
-//	"SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
-//	"SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
-//	"SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
-//	"SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
-//	"SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"
-//};
+#include "../UI/CombatUI.h"
+#include "../UIM/BtnManager.h"
+#include "../UI/StoreUI.h"
+#include "../Background/Background.h"
+#include "../Utils/Utils.h"
 
 void level::NormalLevel::Init()
 {
-	//InitBackground();
+	//Serializer::GetInstance().LoadLevel("./Assets/Level/test.lvl");
+	Serializer::GetInstance().LoadLevel("./Assets/Level/test" + std::to_string(level) + ".lvl");
 
-	//GameObject* go = nullptr;
-	//TransformComp* t = nullptr;
-	//Prefab s("Square");
-	//Prefab l("LeftTri");
-	//Prefab r("RightTri");
+	InitBackground();
 
-	//for (int i = 0; i < 30; i++)
-	//{
-	//	for (int j = 0; j < 30; j++)
-	//	{
-	//		if (map[i][j] == '-')
-	//			continue;
+	std::cout << level << std::endl;
 
-	//		else if (map[i][j] == 'S')
-	//		{
-	//			go = s.NewGameObject();
-	//		}
+	player = GameObjectManager::GetInstance().GetObj("player");
+	enemy = GameObjectManager::GetInstance().GetObj("enemy");
 
-	//		else if (map[i][j] == 'r')
-	//		{
-	//			go = r.NewGameObject();
-	//		}
+	player->GetComponent<PlayerComp>()->playerData->InitData(100, 50, 50, 5, 1);
 
-	//		else if (map[i][j] == 'l')
-	//		{
-	//			go = l.NewGameObject();
-	//		}
-
-	//		else if (map[i][j] == 'R')
-	//		{
-	//			go = r.NewGameObject();
-	//			t = go->GetComponent<TransformComp>();
-	//			t->SetScale({ windowWidth / width * 2, windowHeight / height });
-	//			//t->SetScale({ width * 2, height });
-	//			float x = MapToPosX((float)j);
-	//			float y = MapToPosY((float)i);
-	//			t->SetPos({ x + (windowWidth / width / 2), y });
-	//			//t->SetPos({ x + width / 2, y });
-	//			continue;
-	//		}
-
-	//		else if (map[i][j] == 'L')
-	//		{
-	//			go = l.NewGameObject();
-	//			t = go->GetComponent<TransformComp>();
-	//			t->SetScale({ windowWidth / width * 2, windowHeight / height });
-	//			//t->SetScale({ width * 2, height });
-	//			float x = MapToPosX((float)j);
-	//			float y = MapToPosY((float)i);
-	//			t->SetPos({ x + (windowWidth / width / 2), y });
-	//			//t->SetPos({ x + width / 2, y });
-	//			continue;
-	//		}
-
-	//		t = go->GetComponent<TransformComp>();
-	//		t->SetScale({ windowWidth / width, windowHeight / height });
-	//		//t->SetScale({ width, height }); 
-	//		float x = MapToPosX((float)j);
-	//		float y = MapToPosY((float)i);
-	//		t->SetPos({ x, y });
-	//	}
-	//}
+	InitCombatUI();
+	//storeUI.InitStoreUI(player);
 }
 
 void level::NormalLevel::Update()
 {
+	UpdateCombatUI();
+	UpdateBackground();
 
+	if (AEInputCheckTriggered(AEVK_1))
+	{
+		GSM::GameStateManager::GetInstance().ChangeLevel(new NormalLevel(level + 1));
+	}
 }
 
 void level::NormalLevel::Exit()
 {
-	EventManager::GetInstance().DeleteUndispahchEvent();
-	GameObjectManager::GetInstance().RemoveAllObject();
+
 }
