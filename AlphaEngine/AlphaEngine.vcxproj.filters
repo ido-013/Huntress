@@ -156,6 +156,12 @@
     <ClCompile Include="Components\UIComp.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Level\ClearLevel.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Level\OverLevel.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
     <ClCompile Include="Components\SubtitleComp.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -354,6 +360,12 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Components\SubtitleComp.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Level\ClearLevel.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Level\OverLevel.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

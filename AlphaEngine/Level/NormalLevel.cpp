@@ -21,6 +21,9 @@
 #include "../Background/Background.h"
 #include "../Utils/Utils.h"
 
+#include "../Level/ClearLevel.h"
+#include "../Level/OverLevel.h"
+
 void level::NormalLevel::Init()
 {
 	Serializer::GetInstance().LoadLevel("./Assets/Level/test" + std::to_string(level) + ".lvl");
@@ -30,9 +33,12 @@ void level::NormalLevel::Init()
 	player = GameObjectManager::GetInstance().GetObj("player");
 	enemy = GameObjectManager::GetInstance().GetObj("enemy");
 
-	player->GetComponent<PlayerComp>()->playerData->InitData(100, 50, 50, 500, 1);
-
 	InitCombatUI();
+
+	if (level == 1)
+	{
+		player->GetComponent<PlayerComp>()->playerData->InitData(100, 50, 50, 5, 1);
+	}
 
 	if (level == 1 || level == 6)
 	{
@@ -48,7 +54,15 @@ void level::NormalLevel::Update()
 
 	if (CombatComp::state == CombatComp::CLEAR)
 	{
-		GSM::GameStateManager::GetInstance().ChangeLevel(new NormalLevel(level + 1));
+		if (level == 10)
+			GSM::GameStateManager::GetInstance().ChangeLevel(new ClearLevel);
+		else
+			GSM::GameStateManager::GetInstance().ChangeLevel(new NormalLevel(level + 1));
+	}
+
+	if (CombatComp::state == CombatComp::GAMEOVER)
+	{
+		GSM::GameStateManager::GetInstance().ChangeLevel(new OverLevel);
 	}
 }
 

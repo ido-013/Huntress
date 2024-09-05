@@ -2,6 +2,12 @@
 #include <iostream>
 #include "AEEngine.h"
 
+int Data::PlayerData::gold = 100;
+float Data::PlayerData::maxLife = 50;
+float Data::PlayerData::hp = 50;
+float Data::PlayerData::damage = 5;
+float Data::PlayerData::armor = 1;
+
 void Data::PrintPlayerData(Data::PlayerData data)
 {
 	std::cout << "Player GOLD : " << data.gold << std::endl;
@@ -38,10 +44,6 @@ void Data::PrintSeparator()
 {
 	std::cout << "---------------------------" << std::endl;
 }
-Data::PlayerData::PlayerData() : gold(0), maxLife(0), hp(0), damage(0), armor(0)
-{
-}
-
 Data::EnemyData::EnemyData() : maxLife(0), hp(0), damage(0), armor(0), grade(Data::EnemyData::GRADE::Normal)
 {
 }
