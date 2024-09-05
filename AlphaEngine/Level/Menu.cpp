@@ -17,14 +17,24 @@
 void level::Menu::Init() {
     AEGfxSetCamPosition(0, 0);
 
-    // 로고 초기화
+    menuBg = new GameObject("menuBg");
+    menuBg->AddComponent<UIComponent>();
+    UIComponent* BgUI = menuBg->GetComponent<UIComponent>();
+    BgUI->SetScale({ 1600, 900 });
+    BgUI->SetPos({ 0, 0 });
+    BgUI->SetTexture("Assets/Background/BG5.png");
+    BgUI->SetColor(0, 0, 0);
+    BgUI->SetAlpha(1);
+    BgUI->SetScreenSpace(true);
+
+
     Logo = new GameObject("Logo");
     Logo->AddComponent<UIComponent>();
     UIComponent* LogoUI = Logo->GetComponent<UIComponent>();
-    LogoUI->SetScale({ 800, 300 });
-    LogoUI->SetPos({ 0, 200 });
-    LogoUI->SetTexture("Assets/arrow.png");
-    LogoUI->SetColor(255, 255, 255);
+    LogoUI->SetScale({ 700, 450 });
+    LogoUI->SetPos({ 0, 150 });
+    LogoUI->SetTexture("Assets/UI/hutress Logo2.png");
+    LogoUI->SetColor(0, 0, 0);
     LogoUI->SetAlpha(1);
     LogoUI->SetScreenSpace(true);
     // Start 버튼 초기화 및 등록
@@ -33,8 +43,8 @@ void level::Menu::Init() {
     UIComponent* startUI = startButtonObj->GetComponent<UIComponent>();
     startUI->SetPos({ 0, -100 });
     startUI->SetScale({ 500, 100 });
-    startUI->SetTexture("Assets/arrow.png");
-    startUI->SetColor(255, 255, 255);
+    startUI->SetTexture("Assets/UI/Menu.png");
+    startUI->SetColor(0, 0, 0);
     startUI->SetScreenSpace(true);
 
     startButtonObj->AddComponent<ButtonComp>();
@@ -58,8 +68,8 @@ void level::Menu::Init() {
     UIComponent* quitUI = quitButtonObj->GetComponent<UIComponent>();
     quitUI->SetPos({ 0, -300 });
     quitUI->SetScale({ 500, 100 });
-    quitUI->SetTexture("Assets/arrow.png");
-    quitUI->SetColor(255, 255, 255);
+    quitUI->SetTexture("Assets/UI/Menu.png");
+    quitUI->SetColor(0, 0, 0);
     quitUI->SetScreenSpace(true);  // Quit 버튼도 스크린 공간에 있게 설정
     quitButtonObj->AddComponent<ButtonComp>();
     ButtonComp* quitBtn = quitButtonObj->GetComponent<ButtonComp>();

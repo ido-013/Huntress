@@ -17,7 +17,7 @@ void StoreUI::SetUIVisibility(bool isVisible)
     UIComponent* Frame4 = Frame[3]->GetComponent<UIComponent>();
     UIComponent* Frame5 = Frame[4]->GetComponent<UIComponent>();
     UIComponent* Frame6 = Frame[5]->GetComponent<UIComponent>();
-    UIComponent* CloseSprite = Closebtn->GetComponent<UIComponent>();
+	UIComponent* CloseSprite = Closebtn->GetComponent<UIComponent>();
     UIComponent* HpSprite = UpHp->GetComponent<UIComponent>();
     UIComponent* AttackSprite = UpAttack->GetComponent<UIComponent>();
     UIComponent* DefenseSprite = UpDefense->GetComponent<UIComponent>();
@@ -83,7 +83,7 @@ void StoreUI::InitStoreUI(GameObject* player)
     storeUI->SetTexture("Assets/UI/Storebg.png");
     storeUI->SetColor(0, 0, 0);
     storeUI->SetAlpha(0);
-
+   
     Closebtn = new GameObject();
     Closebtn->AddComponent<UIComponent>();
     UIComponent* CloseUI = Closebtn->GetComponent<UIComponent>();
@@ -162,8 +162,8 @@ void StoreUI::InitStoreUI(GameObject* player)
         // Arrow 클릭 이벤트
         });
     ButtonManager::GetInstance().RegisterButton(art1Button);
-
-
+       
+ 
 
     // FullPotion 설정
     fullPotion = new GameObject();

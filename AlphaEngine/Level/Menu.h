@@ -7,6 +7,7 @@ namespace level
 {
 	class Menu : public GSM::BaseLevel
 	{
+		GameObject* menuBg = nullptr;
 		GameObject* Logo = nullptr;
 		GameObject* startButtonObj = nullptr;
 		GameObject* quitButtonObj = nullptr;
