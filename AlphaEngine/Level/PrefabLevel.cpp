@@ -6,7 +6,10 @@
 #include "../GameObject/GameObject.h"
 #include "../EventManager/EventManager.h"
 #include "../Prefab/Prefab.h"
+#include "../Combat/Combat.h"
 #include <iostream>
+
+GameObject* da = nullptr;
 
 void level::PrefabLevel::Init()
 {
@@ -16,7 +19,7 @@ void level::PrefabLevel::Init()
 	RigidbodyComp* tr = nullptr;
 	ColliderComp* tc = nullptr;
 
-	temp = new GameObject();
+	/*temp = new GameObject();
 
 	temp->type = GameObject::Square;
 
@@ -34,27 +37,26 @@ void level::PrefabLevel::Init()
 	tc = temp->GetComponent<ColliderComp>();
 	tc->SetCollider();
 
-	Prefab::SavePrefab("Square", temp);
+	Prefab::SavePrefab("Square", temp);*/
 
-	/*GameObject* enemy = new GameObject("enemy");
-	enemy->type = GameObject::Enemy;
+	da = new GameObject("directionArrow");
 
-	enemy->AddComponent<TransformComp>();
-	enemy->AddComponent<RigidbodyComp>();
-	enemy->AddComponent<EnemyComp>();
-	enemy->AddComponent<SpriteComp>();
-	enemy->AddComponent<ColliderComp>();
+	da->AddComponent<TransformComp>();
+	da->AddComponent<SpriteComp>();
+	da->AddComponent<CombatComp>();
 
-	enemy->GetComponent<TransformComp>()->SetScale({ -30, 30 });
-	enemy->GetComponent<TransformComp>()->SetPos({ 0, 0 });
+	da->GetComponent<TransformComp>()->SetScale({
+		da->GetComponent<CombatComp>()->directionArrowWidth,
+		da->GetComponent<CombatComp>()->directionArrowHeight });
 
-	enemy->GetComponent<RigidbodyComp>()->useGravity = true;
+	da->GetComponent<SpriteComp>()->SetTexture("./Assets/Character/da.png");
+	da->GetComponent<SpriteComp>()->SetAlpha(0);
 
-	enemy->GetComponent<SpriteComp>()->SetTexture("../Assets/Character/ArrowAttack/sprite/ScoutAttackArrow.png");
-	enemy->GetComponent<SpriteComp>()->SetColor(130, 0, 0);
+	da->GetComponent<CombatComp>()->turn = CombatComp::TURN::PLAYERTURN;
+	da->GetComponent<CombatComp>()->state = CombatComp::STATE::COMBAT;
+	da->GetComponent<CombatComp>()->isCombat = true;
 
-	enemy->GetComponent<ColliderComp>()->SetCollider();
-	Prefab::SavePrefab("Enemy", enemy);*/
+	Prefab::SavePrefab("da", da);
 }
 
 void level::PrefabLevel::Update()

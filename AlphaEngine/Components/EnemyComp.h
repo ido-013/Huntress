@@ -12,7 +12,7 @@ private:
 	int maxMovementGauge = 1000;
 
 public:
-	Data::EnemyData data;
+	Data::EnemyData* enemyData;
 	bool isMove = false;
 	bool moveState = true;
 	bool turnTemp = true;

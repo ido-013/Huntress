@@ -6,6 +6,8 @@
 #include "../Components/EnemyComp.h"
 #include "../Combat/Combat.h"
 #include "../Components/TransformComp.h"
+#include "../GameObjectManager/GameObjectManager.h"
+
 GameObject* UIBAR = nullptr;
 GameObject* Power = nullptr;
 GameObject* Move = nullptr;
@@ -19,8 +21,12 @@ GameObject* Attack = nullptr;
 GameObject* enemyAttack = nullptr;
 GameObject* WindDirection = nullptr;
 
-void InitCombatUI(GameObject* player, GameObject* enemy, GameObject* directionArrow)
+void InitCombatUI()
 {
+	GameObject* player = GameObjectManager::GetInstance().GetObj("player");
+	GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
+	GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
+
 	UIBAR = new GameObject();
 	UIBAR->AddComponent<UIComponent>();
 	UIComponent* uiBarComp = UIBAR->GetComponent<UIComponent>();
@@ -74,12 +80,13 @@ void InitCombatUI(GameObject* player, GameObject* enemy, GameObject* directionAr
 	directAngleComp->SetColor(0, 255, 0);
 	directAngleComp->SetTexture("");
 	directAngleComp->SetScale({150, 10});
+
 	// HP Bar
 	HP = new GameObject();
 	HP->AddComponent<UIComponent>();
 	UIComponent* hpComp = HP->GetComponent<UIComponent>();
-	hpComp->SetScale({ 80, 200 * (float(player->GetComponent<PlayerComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife) });
-	hpComp->SetPos({ -720 , (-330 - (200 - 200 * (float(player->GetComponent<PlayerComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife)) / 2.f) });
+	hpComp->SetScale({ 80, 200 * (float(player->GetComponent<PlayerComp>()->playerData->hp) / player->GetComponent<PlayerComp>()->playerData->maxLife) });
+	hpComp->SetPos({ -720 , (-330 - (200 - 200 * (float(player->GetComponent<PlayerComp>()->playerData->hp) / player->GetComponent<PlayerComp>()->playerData->maxLife)) / 2.f) });
 	hpComp->SetTexture("Assets/arrow.png");
 	hpComp->SetColor(0, 200, 0);
 
@@ -97,8 +104,8 @@ void InitCombatUI(GameObject* player, GameObject* enemy, GameObject* directionAr
 	enemyHP->AddComponent<UIComponent>();
 
 	UIComponent* enemyHpComp = enemyHP->GetComponent<UIComponent>();
-	enemyHpComp->SetScale({ 80, 200 * (float(enemy->GetComponent<EnemyComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife) });
-	enemyHpComp->SetPos({ 720 , (-330 - (200 - 200 * (float(enemy->GetComponent<EnemyComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife)) / 2.f) });
+	enemyHpComp->SetScale({ 80, 200 * (float(enemy->GetComponent<EnemyComp>()->enemyData->hp) / player->GetComponent<PlayerComp>()->playerData->maxLife) });
+	enemyHpComp->SetPos({ 720 , (-330 - (200 - 200 * (float(enemy->GetComponent<EnemyComp>()->enemyData->hp) / player->GetComponent<PlayerComp>()->playerData->maxLife)) / 2.f) });
 	enemyHpComp->SetTexture("Assets/arrow.png");
 	enemyHpComp->SetColor(200, 200, 0);
 
@@ -131,8 +138,12 @@ void InitCombatUI(GameObject* player, GameObject* enemy, GameObject* directionAr
 	
 }
 
-void UpdateCombatUI(GameObject* player, GameObject* enemy, GameObject* directionArrow)
+void UpdateCombatUI()
 {
+	GameObject* player = GameObjectManager::GetInstance().GetObj("player");
+	GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
+	GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
+
 	float angle = directionArrow->GetComponent<CombatComp>()->data.windAngle;
 	UIComponent* windDirComp = WindDirection->GetComponent<UIComponent>();
 	windDirComp->SetRot(angle);  // Set rotation for wind direction arrow
@@ -155,13 +166,13 @@ void UpdateCombatUI(GameObject* player, GameObject* enemy, GameObject* direction
 
 
 	UIComponent* hpComp = HP->GetComponent<UIComponent>();
-	hpComp->SetScale({ 80, 200 * (float(player->GetComponent<PlayerComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife) });
-	hpComp->SetPos({ -720 , (-330 - (200 - 200 * (float(player->GetComponent<PlayerComp>()->data.hp) / player->GetComponent<PlayerComp>()->data.maxLife)) / 2.f) });
+	hpComp->SetScale({ 80, 200 * (float(player->GetComponent<PlayerComp>()->playerData->hp) / player->GetComponent<PlayerComp>()->playerData->maxLife) });
+	hpComp->SetPos({ -720 , (-330 - (200 - 200 * (float(player->GetComponent<PlayerComp>()->playerData->hp) / player->GetComponent<PlayerComp>()->playerData->maxLife)) / 2.f) });
 
 
 	UIComponent* enemyHpComp = enemyHP->GetComponent<UIComponent>();
-	enemyHpComp->SetScale({ 80, 200 * (float(enemy->GetComponent<EnemyComp>()->data.hp) / enemy->GetComponent<EnemyComp>()->data.maxLife) });
-	enemyHpComp->SetPos({ 720 , (-330 - (200 - 200 * (float(enemy->GetComponent<EnemyComp>()->data.hp) / enemy->GetComponent<EnemyComp>()->data.maxLife)) / 2.f) });
+	enemyHpComp->SetScale({ 80, 200 * (float(enemy->GetComponent<EnemyComp>()->enemyData->hp) / enemy->GetComponent<EnemyComp>()->enemyData->maxLife) });
+	enemyHpComp->SetPos({ 720 , (-330 - (200 - 200 * (float(enemy->GetComponent<EnemyComp>()->enemyData->hp) / enemy->GetComponent<EnemyComp>()->enemyData->maxLife)) / 2.f) });
 
 
 }

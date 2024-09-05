@@ -1,14 +1,15 @@
 #include "StoreUI.h"
-#include "../Data/Data.h"
+#include "../data/data.h"
 #include "../Components/UIComp.h"
 #include "../Components/PlayerComp.h"
+#include "../Combat/Combat.h"
 #include <random>
 
 void StoreUI::SetUIVisibility(bool isVisible)
 {
     int alphaValue = isVisible ? 1 : 0;
 
-    UIComponent* OpenSprite = Openbtn->GetComponent<UIComponent>();
+    //UIComponent* OpenSprite = Openbtn->GetComponent<UIComponent>();
     UIComponent* storeSprite = StorePopup->GetComponent<UIComponent>();
     UIComponent* CloseSprite = Closebtn->GetComponent<UIComponent>();
     UIComponent* HpSprite = UpHp->GetComponent<UIComponent>();
@@ -18,7 +19,7 @@ void StoreUI::SetUIVisibility(bool isVisible)
     UIComponent* smallSprite = smallPotion->GetComponent<UIComponent>();
     UIComponent* ArrowSprite = Arrow->GetComponent<UIComponent>();
 
-    OpenSprite->SetAlpha(isVisible ? 0 : 1);  // Open 버튼
+    //OpenSprite->SetAlpha(isVisible ? 0 : 1);  // Open 버튼
     storeSprite->SetAlpha(alphaValue);        // 상점 팝업
     CloseSprite->SetAlpha(alphaValue);        // Close 버튼
     smallSprite->SetAlpha(alphaValue);        // 상품들
@@ -45,21 +46,21 @@ void StoreUI::Setoff()
 
 void StoreUI::InitStoreUI(GameObject* player)
 {
-    // Open 버튼 설정
-    Openbtn = new GameObject();
-    Openbtn->AddComponent<UIComponent>();
-    UIComponent* OpenUI = Openbtn->GetComponent<UIComponent>();
-    OpenUI->SetScale({ 50,50 });
-    OpenUI->SetPos({ 0, 320 });
-    OpenUI->SetTexture("Assets/arrow.png");
-    OpenUI->SetColor(250, 0, 255);
-    OpenUI->SetAlpha(1);
-    Openbtn->AddComponent<ButtonComp>();
-    ButtonComp* OpenButton = Openbtn->GetComponent<ButtonComp>();
-    OpenButton->SetOnClickFunction([this]() {
-        SetStoreUI();  // 상점 열기
-        });
-    ButtonManager::GetInstance().RegisterButton(OpenButton);
+    //// Open 버튼 설정
+    //Openbtn = new GameObject();
+    //Openbtn->AddComponent<UIComponent>();
+    //UIComponent* OpenUI = Openbtn->GetComponent<UIComponent>();
+    //OpenUI->SetScale({ 50,50 });
+    //OpenUI->SetPos({ 0, 320 });
+    //OpenUI->SetTexture("Assets/arrow.png");
+    //OpenUI->SetColor(250, 0, 255);
+    //OpenUI->SetAlpha(1);
+    //Openbtn->AddComponent<ButtonComp>();
+    //ButtonComp* OpenButton = Openbtn->GetComponent<ButtonComp>();
+    //OpenButton->SetOnClickFunction([this]() {
+    //    SetStoreUI();  // 상점 열기
+    //    });
+    //ButtonManager::GetInstance().RegisterButton(OpenButton);
 
     // Store Popup 설정
     StorePopup = new GameObject();
@@ -84,6 +85,7 @@ void StoreUI::InitStoreUI(GameObject* player)
     ButtonComp* CloseButton = Closebtn->GetComponent<ButtonComp>();
     CloseButton->SetOnClickFunction([this]() {
         Setoff();  // 상점 닫기
+        CombatComp::isCombat = true;
         });
     ButtonManager::GetInstance().RegisterButton(CloseButton);
 
@@ -115,7 +117,7 @@ void StoreUI::InitStoreUI(GameObject* player)
     fullPotion->AddComponent<ButtonComp>();
     ButtonComp* fullPotionButton = fullPotion->GetComponent<ButtonComp>();
     fullPotionButton->SetOnClickFunction([player]() {
-        player->GetComponent<PlayerComp>()->data.hp = player->GetComponent<PlayerComp>()->data.maxLife;
+        player->GetComponent<PlayerComp>()->playerData->hp = player->GetComponent<PlayerComp>()->playerData->maxLife;
         });
     ButtonManager::GetInstance().RegisterButton(fullPotionButton);
 
@@ -131,10 +133,10 @@ void StoreUI::InitStoreUI(GameObject* player)
     smallPotion->AddComponent<ButtonComp>();
     ButtonComp* smallPotionButton = smallPotion->GetComponent<ButtonComp>();
     smallPotionButton->SetOnClickFunction([player]() {
-        if (player->GetComponent<PlayerComp>()->data.hp + player->GetComponent<PlayerComp>()->data.maxLife * 0.1 < player->GetComponent<PlayerComp>()->data.maxLife)
-            player->GetComponent<PlayerComp>()->data.hp += player->GetComponent<PlayerComp>()->data.maxLife * 0.1;
+        if (player->GetComponent<PlayerComp>()->playerData->hp + player->GetComponent<PlayerComp>()->playerData->maxLife * 0.1 < player->GetComponent<PlayerComp>()->playerData->maxLife)
+            player->GetComponent<PlayerComp>()->playerData->hp += player->GetComponent<PlayerComp>()->playerData->maxLife * 0.1;
         else
-            player->GetComponent<PlayerComp>()->data.hp = player->GetComponent<PlayerComp>()->data.maxLife;
+            player->GetComponent<PlayerComp>()->playerData->hp = player->GetComponent<PlayerComp>()->playerData->maxLife;
         });
     ButtonManager::GetInstance().RegisterButton(smallPotionButton);
 
@@ -150,8 +152,8 @@ void StoreUI::InitStoreUI(GameObject* player)
     UpHp->AddComponent<ButtonComp>();
     ButtonComp* UpHpButton = UpHp->GetComponent<ButtonComp>();
     UpHpButton->SetOnClickFunction([player]() {
-        player->GetComponent<PlayerComp>()->data.maxLife++;
-        player->GetComponent<PlayerComp>()->data.hp++;
+        player->GetComponent<PlayerComp>()->playerData->maxLife++;
+        player->GetComponent<PlayerComp>()->playerData->hp++;
         });
     ButtonManager::GetInstance().RegisterButton(UpHpButton);
 
@@ -167,7 +169,7 @@ void StoreUI::InitStoreUI(GameObject* player)
     UpDefense->AddComponent<ButtonComp>();
     ButtonComp* UpDefenseButton = UpDefense->GetComponent<ButtonComp>();
     UpDefenseButton->SetOnClickFunction([player]() {
-        player->GetComponent<PlayerComp>()->data.armor++;
+        player->GetComponent<PlayerComp>()->playerData->armor++;
         });
     ButtonManager::GetInstance().RegisterButton(UpDefenseButton);
 
@@ -183,14 +185,15 @@ void StoreUI::InitStoreUI(GameObject* player)
     UpAttack->AddComponent<ButtonComp>();
     ButtonComp* UpAttackButton = UpAttack->GetComponent<ButtonComp>();
     UpAttackButton->SetOnClickFunction([player]() {
-        player->GetComponent<PlayerComp>()->data.damage++;
+        player->GetComponent<PlayerComp>()->playerData->damage++;
         });
     ButtonManager::GetInstance().RegisterButton(UpAttackButton);
+    SetStoreUI();
 }
 
 void StoreUI::UpdateStoreUI()
 {
- 
+
 }
 
 void ExitStoreUI()

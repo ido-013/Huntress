@@ -139,6 +139,9 @@ void SpriteComp::LoadFromJson(const json& data)
 		it = compData->find("textureName");
 		textureName = it.value();
 		SetTexture(textureName);
+
+		it = compData->find("alpha");
+		Alpha = it.value();
 	}
 }
 
@@ -150,6 +153,7 @@ json SpriteComp::SaveToJson()
 	json compData;
 	compData["color"] = { color.r, color.g, color.b };
 	compData["textureName"] = textureName;
+	compData["alpha"] = Alpha;
 	data["compData"] = compData;
 
 	return data;

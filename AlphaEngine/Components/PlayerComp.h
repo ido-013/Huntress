@@ -12,7 +12,7 @@ private:
 	int maxMovementGauge = 1000;
 
 public:
-	Data::PlayerData data;
+	Data::PlayerData* playerData;
 	bool moveState = true;
 	bool turnTemp = true;
 	int GetMovegauge();

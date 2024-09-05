@@ -17,7 +17,8 @@ class StoreUI {
 	GameObject* UpDefense = nullptr;
 	GameObject* Arrow = nullptr;
 
-	bool isStore = false;
+	bool isStore = true;
+
 public:
 	void SetUIVisibility(bool isVisible);
 	void SetStoreUI();
