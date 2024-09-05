@@ -458,7 +458,6 @@ void CombatComp::Update()
 {
 	if (isCombat && state == COMBAT)
 	{
-		std::cout << ArrowCount << std::endl;
 		GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
 		GameObject* player = GameObjectManager::GetInstance().GetObj("player");
 		GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
