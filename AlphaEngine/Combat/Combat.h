@@ -8,7 +8,7 @@
 #include "../Data/Data.h"
 
 #define DEFAULT_POWER 1.f
-#define POWER_LIMIT 14.f // 24
+#define POWER_LIMIT 19.f // 24
 
 #define ANGLE_LIMIT AEDegToRad(120.f)
 
@@ -37,7 +37,7 @@ public:
 	static int ArrowCount;
 
 	const float directionArrowWidth = 42;
-	const float directionArrowHeight = 260 / (DEFAULT_POWER + POWER_LIMIT); // * 1~25
+	const float directionArrowHeight = 80 / (DEFAULT_POWER + POWER_LIMIT); // * 1~25
 
 	CombatComp(GameObject* _owner); 
 	~CombatComp();

@@ -13,6 +13,7 @@
 #include "../GameObjectManager/GameObjectManager.h"
 #include "../GSM/GameStateManager.h"
 #include "../GameObjectManager/GameObjectManager.h"
+#include "../Components/SubtitleComp.h"
 
 void level::Menu::Init() {
     // 로고 초기화
@@ -72,6 +73,10 @@ void level::Menu::Init() {
 
 void level::Menu::Update() {
 
+    if (AEInputCheckTriggered(AEVK_4))
+    {
+        SubtitleComp::IntersectDissolveText({ {{0,0}, 1, "Test", 1, 1, 1, 1}, 5, 2, 2 });
+    }
 }
 
 void level::Menu::Exit() {

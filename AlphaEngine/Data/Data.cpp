@@ -24,7 +24,8 @@ void Data::PrintEnemyData(Data::EnemyData data)
 
 void Data::PrintCombatData(Data::CombatData data)
 {
-	std::cout << "Combat randomValue : " << data.randomValue << std::endl;
+	std::cout << "Combat randomValue1 : " << data.randomValue1 << std::endl;
+	std::cout << "Combat randomValue2 : " << data.randomValue2 << std::endl;
 	std::cout << "Combat windAngle : " << AERadToDeg(data.windAngle) << std::endl;
 	std::cout << "Combat windPower : " << data.windPower << std::endl;
 	std::cout << "Combat angle : " << AERadToDeg(data.angle) << std::endl;
@@ -45,7 +46,7 @@ Data::EnemyData::EnemyData() : maxLife(0), hp(0), damage(0), armor(0), grade(Dat
 {
 }
 
-Data::CombatData::CombatData() : randomValue(0), windAngle(0), windPower(0), angle(0), power(0), moveGauge(0)
+Data::CombatData::CombatData() : randomValue1(0), randomValue2(0), windAngle(0), windPower(0), angle(0), power(0), moveGauge(0)
 {
 }
 

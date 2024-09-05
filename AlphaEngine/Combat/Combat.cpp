@@ -13,6 +13,7 @@
 #include "AEInput.h"
 #include "AEMath.h"
 #include "../Utils/Size.h"
+#include "../Components/SubtitleComp.h"
 
 CombatComp::TURN CombatComp::turn = NOBODYTURN;
 CombatComp::STATE CombatComp::state = NONE;
@@ -249,6 +250,7 @@ void CombatComp::checkState()
 			isCombat = false;
 			state = CLEAR;
 			std::cout << "CLEAR!" << std::endl;
+			SubtitleComp::IntersectDissolveText({ {{-0.15,0.1}, 1, "CLEAR!", 1, 1, 1, 1},  3, 1, 1 });
 			turn = NOBODYTURN;
 		}
 		else if (player->GetComponent<PlayerComp>()->data.hp <= 0)
@@ -256,6 +258,7 @@ void CombatComp::checkState()
 			isCombat = false;
 			state = GAMEOVER;
 			std::cout << "GAMEOVER" << std::endl;
+			SubtitleComp::IntersectDissolveText({ {{-0.2,0.1}, 1, "GAME OVER", 1, 1, 1, 1},  3, 1, 1 });
 			turn = NOBODYTURN;
 		}
 	}
@@ -266,6 +269,7 @@ void CombatComp::checkState()
 		isCombat = false;
 		state = CLEAR;
 		std::cout << "CLEAR!" << std::endl;
+		SubtitleComp::IntersectDissolveText({ {{-0.15,0.1}, 1, "CLEAR!", 1, 1, 1, 1},  3, 1, 1 });
 		turn = NOBODYTURN;
 	}
 
@@ -273,7 +277,8 @@ void CombatComp::checkState()
 	{
 		isCombat = false;
 		state = GAMEOVER;
-		std::cout << "GAMEOVER" << std::endl;
+		std::cout << "GAME OVER" << std::endl;
+		SubtitleComp::IntersectDissolveText({ {{-0.2,0.1}, 1, "GAME OVER", 1, 1, 1, 1},  3, 1, 1 });
 		turn = NOBODYTURN;
 	}
 }
@@ -387,7 +392,7 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 
 			t += static_cast<float>(AEFrameRateControllerGetFrameTime());
 
-			// 플레이어와 포물선 위치가 가까운지 확인
+			// 플레이어와 포물선 위치가 가까운지 확인	
 			float loc = sqrt((ptf.x - p.x) * (ptf.x - p.x) + (ptf.y - p.y) * (ptf.y - p.y));
 			if (loc <= HIT_RADIUS)
 			{
@@ -464,6 +469,7 @@ void CombatComp::Update()
 
 				if (directionArrow->GetComponent<CombatComp>()->isDrawDirection == false && ArrowCount < 1)
 				{
+					SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, "PLAYER TURN", 1, 1, 1, 1}, 3, 1, 1 });
 					std::cout << "PLAYERTURN" << std::endl;
 					directionArrow->GetComponent<CombatComp>()->isDrawDirection = true;
 					directionArrow->GetComponent<CombatComp>()->isChaseDirection = true;
@@ -500,9 +506,18 @@ void CombatComp::Update()
 				{
 					if (AEInputCheckTriggered(AEVK_LBUTTON))
 					{
-						player->GetComponent<PlayerComp>()->moveState = false;
-						isChaseDirection = false;
-						isReadyLaunch = true;
+						if (isChaseDirection == false)
+						{
+							player->GetComponent<PlayerComp>()->moveState = true;
+							isChaseDirection = true;
+							isReadyLaunch = false;
+						}
+						else
+						{
+							player->GetComponent<PlayerComp>()->moveState = false;
+							isChaseDirection = false;
+							isReadyLaunch = true;
+						}
 					}				
 					directionArrow->GetComponent<SpriteComp>()->SetAlpha(1);
 					if (isChaseDirection)
@@ -521,9 +536,7 @@ void CombatComp::Update()
 							pAngle - RAD90
 						)
 					);
-
 				}
-
 				if (AEInputCheckTriggered(AEVK_RBUTTON))
 				{
 					if (isReadyLaunch)
@@ -544,6 +557,7 @@ void CombatComp::Update()
 				if (directionArrow->GetComponent<CombatComp>()->isDrawDirection == false && ArrowCount < 1)
 				{
 					std::cout << "ENEMYTURN" << std::endl;
+					SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, "ENEMY TURN", 1, 1, 1, 1}, 3, 1, 1 });
 					directionArrow->GetComponent<CombatComp>()->isDrawDirection = true;
 					directionArrow->GetComponent<CombatComp>()->isChaseDirection = true;
 					SetEnemyAngle(RAD90);

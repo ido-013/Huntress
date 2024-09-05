@@ -9,6 +9,7 @@
 #include "../Serializer/Serializer.h"
 #include "../RTTI/Registry.h"
 #include "../UIM/BtnManager.h"
+#include "../Components/SubtitleComp.h"
 
 GSM::GameStateManager::GameStateManager() : previousLevel(nullptr), currentLevel(nullptr) {}
 
@@ -27,6 +28,7 @@ void GSM::GameStateManager::Init()
     {
         currentLevel->Init();
     }
+    SubtitleComp::InitFont("Assets/Arial-Italic.ttf", 72);
 }
 
 void GSM::GameStateManager::Update()
@@ -47,11 +49,13 @@ void GSM::GameStateManager::Update()
 
         currentLevel->Update();
         ComponentManager<GraphicComponent>::GetInstance().Update();
+        SubtitleComp::Update();
     }
 }
 
 void GSM::GameStateManager::Exit()
 {
+    SubtitleComp::DestroyFont();
     EventManager::GetInstance().DeleteUndispahchEvent();
     GameObjectManager::GetInstance().RemoveAllObject();
     ButtonManager::GetInstance().RemoveAllButtons();

@@ -96,12 +96,6 @@
     <ClCompile Include="Level\NormalLevel.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Utils\Dice.h">
-      <Filter>헤더 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Utils\Dice.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Shop\Shop.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -160,6 +154,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Components\UIComp.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\SubtitleComp.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

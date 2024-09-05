@@ -10,7 +10,6 @@
 #include "../GameObjectManager/GameObjectManager.h"
 #include "../EventManager/EventManager.h"
 #include "../Particle/Particle.h"
-#include "../Utils/Dice.h"
 
 AEVec2 Projectile::wind = { 0.f, 0.f };
 bool Projectile::isLaunchProjectile = false;
@@ -64,6 +63,9 @@ void Projectile::UpdateCollision()
 
     GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
     Data::EnemyData* eData = &enemy->GetComponent<EnemyComp>()->data;
+
+    GameObject* direction = GameObjectManager::GetInstance().GetObj("directionArrow");
+    Data::CombatData* dData = &direction->GetComponent<CombatComp>()->data;
     
     TransformComp* ptf = player->GetComponent<TransformComp>();
     TransformComp* etf = enemy->GetComponent<TransformComp>();
@@ -76,12 +78,11 @@ void Projectile::UpdateCollision()
 
             // enemy hp update
             // dice
-            int res = PerformRoll();
-            int first = res / 10;
-            int second = res % 10;
-
-            float totalDmg = (pData->damage + first) - (eData->armor + second);
-
+            int randomDamage = 1 + (rand() % 6);
+            int randomArmor = 1 + (rand() % 6);
+            float totalDmg = (pData->damage + randomDamage) - (eData->armor + randomArmor);
+            dData->randomValue1 = randomDamage;
+            dData->randomValue2 = randomArmor;
      
             eData->hp -= max(0, totalDmg);
 
@@ -102,11 +103,11 @@ void Projectile::UpdateCollision()
 
             // player hp update
             // dice
-            int res = PerformRoll();
-            int first = res / 10;
-            int second = res % 10;
-
-            float totalDmg = (eData->damage + first) - (pData->armor + second);
+            int randomDamage = 1 + (rand() % 6);
+            int randomArmor = 1 + (rand() % 6);
+            float totalDmg = (eData->damage + randomDamage) - (pData->armor + randomArmor);
+            dData->randomValue1 = randomArmor;
+            dData->randomValue2 = randomDamage;
 
             pData->hp -= max(0, totalDmg);
 

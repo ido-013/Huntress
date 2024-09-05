@@ -15,6 +15,7 @@
 #include "../UI/CombatUI.h"
 #include "../UIM/BtnManager.h"
 #include "../UI/StoreUI.h"
+#include "../Components/SubtitleComp.h"
 StoreUI storeUI;
 
 #include "../Background/Background.h"
@@ -23,6 +24,7 @@ StoreUI storeUI;
 GameObject* player = nullptr;
 GameObject* directionArrow = nullptr;
 GameObject* enemy = nullptr;
+
 
 //std::string map[30] =
 //{
@@ -506,6 +508,7 @@ void level::CombatLevel::Init()
 	//Init UI
 	InitCombatUI(player, enemy, directionArrow);
 	storeUI.InitStoreUI(player);
+
 }
 
 void level::CombatLevel::Update()
@@ -524,6 +527,10 @@ void level::CombatLevel::Update()
 	if (AEInputCheckTriggered(AEVK_3))
 	{
 		Data::PrintCombatData(directionArrow->GetComponent<CombatComp>()->data);
+	}
+	if (AEInputCheckTriggered(AEVK_4))
+	{
+		SubtitleComp::IntersectDissolveText({ {{0,0}, 1, "Test", 1, 1, 1, 1}, 5, 2, 2 });
 	}
 }
 

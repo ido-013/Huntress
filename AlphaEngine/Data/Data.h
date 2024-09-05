@@ -40,15 +40,16 @@ public:
 	{
 	public:
 		CombatData();
-		int randomValue;
+		int randomValue1;
+		int randomValue2;
 		float windAngle;
 		float windPower;
 		float angle;
 		float power;
 		int moveGauge;
-		void InitData(int randomValueV, float windAngleV, float windPowerV, float angleV, float powerV, int moveGaugeV)
+		void InitData(int randomValue1V, int randomValue2V, float windAngleV, float windPowerV, float angleV, float powerV, int moveGaugeV)
 		{
-			randomValue = randomValueV, windAngle = windAngleV, windPower = windPowerV, angle = angleV, power = powerV, moveGauge = moveGaugeV;
+			randomValue1 = randomValue1V, randomValue2 = randomValue2V, windAngle = windAngleV, windPower = windPowerV, angle = angleV, power = powerV, moveGauge = moveGaugeV;
 		};
 	};
 

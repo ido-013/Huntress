@@ -2,22 +2,52 @@
 
 #include "../ComponentManager/GraphicComponent.h"
 #include <string>
+#include <map>
 #include "AEEngine.h"
 
-
-class SubtitleComp : public GraphicComponent
+class Subtitle
 {
-
 public:
-	SubtitleComp(GameObject* _owner);
+	Subtitle(AEVec2 locV, float sizeV, std::string contentV, f32 rV, f32 gV, f32 bV, f32 aV);
+	~Subtitle();
+
+	AEVec2 loc;
+	float size;
+	std::string content;
+	f32 r;
+	f32 g;
+	f32 b;
+	f32 a;
+};
+
+class DissolveSubtitle
+{
+public:
+	DissolveSubtitle(Subtitle subtitleV, f64 durationV, f64 startIntersectTimeV, f64 endIntersectTimeV);
+	~DissolveSubtitle();
+
+	Subtitle subtitle;
+	f64 duration;
+	f64 startIntersectTime;
+	f64 endIntersectTime;
+};
+
+class SubtitleComp
+{
+public:
+	
+	SubtitleComp();
 	~SubtitleComp();
+	
+	static std::vector<DissolveSubtitle> subtitles;
+	static f64 currTime;
+	static s8 pFont;
 
-	void OnSubtitle(AEVec2& loc, float size, std::string content, );
+	static void InitFont(std::string ttfDirectory, int fontHeight);
+	static void DestroyFont();
+	
+	static void OnSubtitle(Subtitle subtitle);
+	static void IntersectDissolveText(DissolveSubtitle dissolveSubtitle);
 
-	void Update() override;
-	void LoadFromJson(const json& data) override;
-	json SaveToJson() override;
-
-	static BaseRTTI* CreateSubtitleComponent(GameObject* owner);
-	static constexpr const char* TypeName = "SubtitleComp";
+	static void Update();
 };
