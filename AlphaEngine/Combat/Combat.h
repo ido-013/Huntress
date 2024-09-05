@@ -68,7 +68,8 @@ public:
 		COMBAT = 1,
 		CLEAR = 2,
 		GAMEOVER = 3,
-		READY = 4
+		READY = 4,
+		STORE = 5
 	};
 	static STATE state;
 	void checkState();

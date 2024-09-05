@@ -9,8 +9,8 @@
           0.0
         ],
         "scale": [
-          100.0,
-          100.0
+          1.0,
+          1.0
         ],
         "rotation": 0.0
       }
@@ -23,8 +23,8 @@
           0,
           0
         ],
-        "alpha": 1.0,
-        "textureName": ""
+        "textureName": "./Assets/Tile/FallGrassTileRect.png",
+        "alpha": 1.0
       }
     },
     {

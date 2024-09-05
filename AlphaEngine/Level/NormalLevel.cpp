@@ -20,7 +20,7 @@
 
 #include "../Background/Background.h"
 #include "../Utils/Utils.h"
-
+#include "../Tile/Tile.h"
 #include "../Level/ClearLevel.h"
 #include "../Level/OverLevel.h"
 
@@ -34,7 +34,7 @@ void level::NormalLevel::Init()
 	enemy = GameObjectManager::GetInstance().GetObj("enemy");
 
 	InitCombatUI();
-
+	
 	if (level == 1)
 	{
 		player->GetComponent<PlayerComp>()->playerData->InitData(100, 50, 50, 5, 1);
@@ -42,8 +42,11 @@ void level::NormalLevel::Init()
 
 	if (level == 1 || level == 6)
 	{
-		CombatComp::isCombat = false;
 		storeUI.InitStoreUI(player);
+	}
+	else
+	{
+		Tile::ChangeTile();
 	}
 }
 

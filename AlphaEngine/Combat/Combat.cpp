@@ -290,6 +290,7 @@ void CombatComp::ResetCombat()
 	currTime = 0;
 	ArrowCount = 0;
 }
+
 // Get&Set
 void CombatComp::SetPlayerAngle(float angle)
 {

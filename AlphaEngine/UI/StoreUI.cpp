@@ -58,6 +58,8 @@ void StoreUI::Setoff()
 
 void StoreUI::InitStoreUI(GameObject* player)
 {
+    CombatComp::isCombat = false;
+    CombatComp::state = CombatComp::STATE::STORE;
     //// Open 버튼 설정
     //Openbtn = new GameObject();
     //Openbtn->AddComponent<UIComponent>();
@@ -96,7 +98,7 @@ void StoreUI::InitStoreUI(GameObject* player)
     ButtonComp* CloseButton = Closebtn->GetComponent<ButtonComp>();
     CloseButton->SetOnClickFunction([this]() {
         Setoff();  // 상점 닫기
-        CombatComp::isCombat = true;
+        CombatComp::ResetCombat();
         });
     ButtonManager::GetInstance().RegisterButton(CloseButton);
     Frame[0] = new GameObject();

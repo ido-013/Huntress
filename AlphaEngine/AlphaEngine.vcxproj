@@ -114,8 +114,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="Data\Data.cpp" />
     <ClCompile Include="Level\ClearLevel.cpp" />
     <ClCompile Include="Level\OverLevel.cpp" />
-    <ClCompile Include="Utils\Dice.cpp" />
-    <ClCompile Include="Utils\Dice.h" />
+    <ClCompile Include="Tile\Tile.cpp" />
     <ClCompile Include="Components\ColliderComp.cpp" />
     <ClCompile Include="Event\ButtonClickEvent.cpp" />
     <ClCompile Include="GameObject\GameObject.cpp" />
@@ -208,6 +207,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="RTTI\Registry.h" />
     <ClInclude Include="Serializer\Serializer.h" />
     <ClInclude Include="Shop\Shop.h" />
+    <ClInclude Include="Tile\Tile.h" />
     <ClInclude Include="UIM\BtnManager.h" />
     <ClInclude Include="UI\CombatUI.h" />
     <ClInclude Include="UI\StoreUI.h" />
@@ -217,6 +217,28 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="Utils\Vec3.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Level\test1.lvl" />
+    <None Include="Assets\Level\test10.lvl" />
+    <None Include="Assets\Level\test2.lvl" />
+    <None Include="Assets\Level\test3.lvl" />
+    <None Include="Assets\Level\test4.lvl" />
+    <None Include="Assets\Level\test5.lvl" />
+    <None Include="Assets\Level\test6.lvl" />
+    <None Include="Assets\Level\test7.lvl" />
+    <None Include="Assets\Level\test8.lvl" />
+    <None Include="Assets\Level\test9.lvl" />
+    <None Include="Assets\Prefab\Background.prefab" />
+    <None Include="Assets\Prefab\DirectionArrow.prefab" />
+    <None Include="Assets\Prefab\Enemy.prefab" />
+    <None Include="Assets\Prefab\LeftTri.prefab" />
+    <None Include="Assets\Prefab\LeftTri_R_DECO.prefab" />
+    <None Include="Assets\Prefab\Player.prefab" />
+    <None Include="Assets\Prefab\RightTri.prefab" />
+    <None Include="Assets\Prefab\RightTri_R_DECO.prefab" />
+    <None Include="Assets\Prefab\Square.prefab" />
+    <None Include="Assets\Prefab\Square_DECO.prefab" />
+    <None Include="Assets\UI\huntress.webp" />
+    <None Include="Assets\UI\Storebg.webp" />
     <None Include="ComponentManager\ComponentManager.inl" />
     <None Include="GameObject\GameObject.inl" />
     <None Include="cpp.hint" />
@@ -226,6 +248,60 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <None Include="RightTri.prefab" />
     <None Include="Square.prefab" />
     <None Include="test.prefab" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Background\Background.png" />
+    <Image Include="Assets\Background\BG1.png" />
+    <Image Include="Assets\Background\BG2.png" />
+    <Image Include="Assets\Background\BG3.png" />
+    <Image Include="Assets\Background\BG4.png" />
+    <Image Include="Assets\Background\BG5.png" />
+    <Image Include="Assets\Background\BG6.png" />
+    <Image Include="Assets\Background\BG7.png" />
+    <Image Include="Assets\Background\BG8.png" />
+    <Image Include="Assets\PlanetTexture.png" />
+    <Image Include="Assets\Tile\FallGrassTileLeftTri.png" />
+    <Image Include="Assets\Tile\FallGrassTileRect.png" />
+    <Image Include="Assets\Tile\FallGrassTileRightTri.png" />
+    <Image Include="Assets\Tile\SnowTileLeftTri.png" />
+    <Image Include="Assets\Tile\SnowTileRect.png" />
+    <Image Include="Assets\Tile\SnowTileRightTri.png" />
+    <Image Include="Assets\Tile\SpringGrassTileLeftTri.png" />
+    <Image Include="Assets\Tile\SpringGrassTileRect.png" />
+    <Image Include="Assets\Tile\SpringGrassTileRightTri.png" />
+    <Image Include="Assets\UI\Angle.png" />
+    <Image Include="Assets\UI\Arrow.png" />
+    <Image Include="Assets\UI\AttackUp.png" />
+    <Image Include="Assets\UI\AttackUp2.png" />
+    <Image Include="Assets\UI\DefenseUp.png" />
+    <Image Include="Assets\UI\Frame.png" />
+    <Image Include="Assets\UI\fullpotion.png" />
+    <Image Include="Assets\UI\GAUGE_BOARD.png" />
+    <Image Include="Assets\UI\HearthUp.png" />
+    <Image Include="Assets\UI\HP_FRAME.png" />
+    <Image Include="Assets\UI\HP_GAUGE.png" />
+    <Image Include="Assets\UI\hutress Logo.png" />
+    <Image Include="Assets\UI\hutress Logo2.png" />
+    <Image Include="Assets\UI\itemFrame.png" />
+    <Image Include="Assets\UI\Menu.png" />
+    <Image Include="Assets\UI\menubg.png" />
+    <Image Include="Assets\UI\move.png" />
+    <Image Include="Assets\UI\MOVE_GAUGE.png" />
+    <Image Include="Assets\UI\nomalize.png" />
+    <Image Include="Assets\UI\power.png" />
+    <Image Include="Assets\UI\POWER_GAUGE.png" />
+    <Image Include="Assets\UI\smallpotion.png" />
+    <Image Include="Assets\UI\START.png" />
+    <Image Include="Assets\UI\Storebg.png" />
+    <Image Include="Assets\UI\storeFrame.png" />
+    <Image Include="Assets\UI\UIBar.png" />
+    <Image Include="Assets\UI\windArrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Assets\Arial-Italic.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Assets\Audio\BGM.mp3" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
