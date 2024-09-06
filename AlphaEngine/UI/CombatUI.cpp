@@ -7,6 +7,7 @@
 #include "../Combat/Combat.h"
 #include "../Components/TransformComp.h"
 #include "../GameObjectManager/GameObjectManager.h"
+#include "../Components/SubtitleComp.h"
 GameObject* UIBAR = nullptr;
 
 GameObject* PowerFrame = nullptr;
@@ -121,8 +122,9 @@ void InitCombatUI()
 	UIComponent* attackComp = Attack->GetComponent<UIComponent>();
 	attackComp->SetScale({ 130, 200 });
 	attackComp->SetPos({ -600, -330 });
-	attackComp->SetTexture("Assets/arrow.png");
+	attackComp->SetTexture("Assets/UI/HP_FRAME.png");
 	attackComp->SetColor(0, 0, 0);
+	//SubtitleComp::AddSubtitle({ {-0.75, -0.77}, 0.6, "randomVal1", 0, 0, 0, 1 });
 
 	// Enemy HP Bar
 	enemyHPFrame = new GameObject();
@@ -147,8 +149,9 @@ void InitCombatUI()
 	UIComponent* enemyAttackComp = enemyAttack->GetComponent<UIComponent>();
 	enemyAttackComp->SetScale({ 130, 200 });
 	enemyAttackComp->SetPos({ 600, -330 });
-	enemyAttackComp->SetTexture("Assets/arrow.png");
+	enemyAttackComp->SetTexture("Assets/UI/HP_FRAME.png");
 	enemyAttackComp->SetColor(0, 0, 0);
+	//SubtitleComp::AddSubtitle({ {0.75, -0.77}, 0.6, "randomVal2", 0, 0, 0, 1 });
 
 	// Wind UI
 	Wind = new GameObject();
@@ -208,6 +211,21 @@ void UpdateCombatUI()
 	enemyHpComp->SetPos({ 720 , (-330 - (200 - 200 * (float(enemy->GetComponent<EnemyComp>()->enemyData->hp) / enemy->GetComponent<EnemyComp>()->enemyData->maxLife)) / 2.f) });
 
 
+	/*if (SubtitleComp::FindSubtitle("randomVal1"))
+	{
+		SubtitleComp::ModifySubtitle("randomVal1", std::to_string(
+			GameObjectManager::GetInstance().GetObj("directionArrow")->
+			GetComponent<CombatComp>()->data.randomValue1
+		));
+	}
+
+	if (SubtitleComp::FindSubtitle("randomVal2"))
+	{
+		SubtitleComp::ModifySubtitle("randomVal2", std::to_string(
+			GameObjectManager::GetInstance().GetObj("directionArrow")->
+			GetComponent<CombatComp>()->data.randomValue2
+		));
+	}*/
 }
 
 void ExitCombatUI()
