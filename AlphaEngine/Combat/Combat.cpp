@@ -759,12 +759,10 @@ void CombatComp::Update()
 	elapsedTime += deltaTime;
 	if (elapsedTime >= delayTime)
 	{
-		
 		if (GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<AnimatorComp>()->GetCurrentAnimation() != "walk")
 		{
 			GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<AnimatorComp>()->SetAnimation(true, 1, "Walk");
 		}
-
 		if (GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->GetCurrentAnimation() != "walk")
 		{
 			GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->SetAnimation(true, 1, "walk");

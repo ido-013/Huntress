@@ -225,7 +225,7 @@ void Projectile::Update()
                 GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->SetAnimation(true, 0.5, "TakeDamage");
             }
         }
-        else {
+        else if(CombatComp::turn == CombatComp::ENEMYTURN){
             if (GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<AnimatorComp>()->GetCurrentAnimation() != "TakeDamage")
             {
                 GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<AnimatorComp>()->SetAnimation(true, 0.5, "TakeDamage");
