@@ -3,6 +3,7 @@
 //include
 #include "Combat.h"
 #include "../Components/TransformComp.h"
+#include "../Components/AnimatorComp.h"
 #include "../Components/RigidbodyComp.h"
 #include "../GameObjectManager/GameObjectManager.h"
 #include "../Components/SpriteComp.h"
@@ -14,7 +15,8 @@
 #include "AEMath.h"
 #include "../Utils/Size.h"
 #include "../Components/SubtitleComp.h"
-
+float delayTime = 0.2f;  // 2초 딜레이
+float elapsedTime = 0.0f;  // 경과 시간 저장
 f64 CombatComp::currTime = 0;
 bool CombatComp::once = false;
 
@@ -205,6 +207,7 @@ void CombatComp::FireAnArrow(TURN turn, GameObject& directionArrow)
 		GameObjectManager::GetInstance().GetObj("player") :
 		GameObjectManager::GetInstance().GetObj("enemy");
 
+	
 	GameObject* projectile = new GameObject("projectile");
 	projectile->type = GameObject::Projectile;
 
@@ -238,7 +241,18 @@ CombatComp::TURN CombatComp::TurnChange()
 	{
 		return NOBODYTURN;
 	}
+
 	return CombatComp::turn == PLAYERTURN ? ENEMYTURN : PLAYERTURN;
+}
+
+void CombatComp::setWalkAnimation()
+{
+
+
+
+	
+
+
 }
 
 void CombatComp::checkState()
@@ -256,6 +270,7 @@ void CombatComp::checkState()
 		}
 		else if (player->GetComponent<PlayerComp>()->playerData->hp <= 0)
 		{
+			player->GetComponent<AnimatorComp>()->SetAnimation(false, 1, "Die");
 			state = GAMEOVER;
 			std::cout << "GAMEOVER" << std::endl;
 			return;
@@ -280,6 +295,7 @@ void CombatComp::checkState()
 
 void CombatComp::ResetCombat()
 {
+
 	isCombat = true;
 	state = READY;
 	turn = PLAYERTURN;
@@ -456,8 +472,10 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 
 void CombatComp::Update()
 {
+
 	if (isCombat && state == COMBAT)
 	{
+		
 		GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
 		GameObject* player = GameObjectManager::GetInstance().GetObj("player");
 		GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
@@ -469,6 +487,7 @@ void CombatComp::Update()
 		switch (CombatComp::turn)
 		{
 			case PLAYERTURN: // player turn
+
 				if (!Projectile::isLaunchProjectile)
 				{
 					AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
@@ -549,11 +568,13 @@ void CombatComp::Update()
 				{
 					if (isReadyLaunch)
 					{
+						if (GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->GetCurrentAnimation() != "ArrowAttack");
+							GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->SetAnimation(false, 0.3, "ArrowAttack");
 						FireAnArrow(PLAYERTURN, *directionArrow);
+
 					}
 				}
 
-				
 				break;
 
 			case ENEMYTURN: // enemy turn
@@ -604,10 +625,13 @@ void CombatComp::Update()
 				}
 				if (isReadyLaunch)
 				{
+
 					FireAnArrow(ENEMYTURN, *directionArrow);
 				}
+
 				break;
 		}
+		
 		DataUpdate();
 		checkState();
 	}
@@ -654,6 +678,22 @@ void CombatComp::Update()
 			currTime = 0;
 		}
 		currTime += AEFrameRateControllerGetFrameTime();
+	}
+	float deltaTime = AEFrameRateControllerGetFrameTime();  // 프레임 경과 시간 가져오기
+	elapsedTime += deltaTime;
+	if (elapsedTime >= delayTime)
+	{
+		
+		if (GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<AnimatorComp>()->GetCurrentAnimation() != "walk")
+		{
+			GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<AnimatorComp>()->SetAnimation(true, 1, "Walk");
+		}
+
+		if (GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->GetCurrentAnimation() != "walk")
+		{
+			GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->SetAnimation(true, 1, "walk");
+		}
+		elapsedTime = 0;
 	}
 }
 
