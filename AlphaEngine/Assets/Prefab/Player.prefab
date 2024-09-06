@@ -9,12 +9,79 @@
             "name": "walk",
             "frame": [
               [
-                0.5,
+                0.25,
                 "./Assets/Character/Walk/sprite/ScoutWalk2.png"
               ],
               [
-                0.5,
+                0.25,
                 "./Assets/Character/Walk/sprite/ScoutWalk3.png"
+              ]
+            ]
+          },
+          {
+            "name": "ArrowAttack",
+            "frame": [
+              [
+                0.1,
+                "./Assets/Character/ArrowAttack/sprite/ScoutAttackArrow1.png"
+              ],
+              [
+                0.1,
+                "./Assets/Character/ArrowAttack/sprite/ScoutAttackArrow2.png"
+              ],
+              [
+                0.1,
+                "./Assets/Character/ArrowAttack/sprite/ScoutAttackArrow3.png"
+              ],
+              [
+                0.1,
+                "./Assets/Character/ArrowAttack/sprite/ScoutAttackArrow4.png"
+              ],
+              [
+                0.1,
+                "./Assets/Character/ArrowAttack/sprite/ScoutAttackArrow5.png"
+              ]
+            ]
+          },
+          {
+            "name": "TakeDamage",
+            "frame": [
+              [
+                0.1,
+                "./Assets/Character/TakeDamage/sprite/ScoutTakeDamage1.png"
+              ],
+              [
+                0.1,
+                "./Assets/Character/TakeDamage/sprite/ScoutTakeDamage2.png"
+              ],
+              [
+                0.2,
+                "./Assets/Character/TakeDamage/sprite/ScoutTakeDamage3.png"
+              ],
+              [
+                0.1,
+                "./Assets/Character/TakeDamage/sprite/ScoutTakeDamage4.png"
+              ]
+            ]
+          },
+          {
+            "name": "Die",
+            "frame": [
+              [
+                0.1,
+                "./Assets/Character/Die/sprite/ScoutTakeDamage1.png"
+              ],
+              [
+                0.1,
+                "./Assets/Character/Die/sprite/ScoutTakeDamage2.png"
+              ],
+              [
+                0.1,
+                "./Assets/Character/Die/sprite/ScoutTakeDamage3.png"
+              ],
+              [
+                0.2,
+                "./Assets/Character/Die/sprite/ScoutTakeDamage4.png"
               ]
             ]
           }

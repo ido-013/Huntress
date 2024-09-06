@@ -91,9 +91,9 @@ void Projectile::UpdateCollision()
                 eData->hp = 0;
             }
             // particle
-            
-            p.PlayParticle(etf->GetPos().x, etf->GetPos().y);
 
+            p.PlayParticle(etf->GetPos().x, etf->GetPos().y);
+         
             break;
         }
 
@@ -116,10 +116,11 @@ void Projectile::UpdateCollision()
                 pData->hp = 0;
             }
 
+       
             // particle
             
             p.PlayParticle(ptf->GetPos().x, ptf->GetPos().y);
-
+ 
             break;
         }
 
@@ -201,6 +202,7 @@ void Projectile::Update()
         }
         else
         {
+
             isLaunchProjectile = false;
             projectile->GetComponent<SpriteComp>()->SetAlpha(0);
             GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
@@ -208,6 +210,8 @@ void Projectile::Update()
             directionArrow->GetComponent<CombatComp>()->InitEnemyValue();
             directionArrow->GetComponent<SpriteComp>()->SetAlpha(0);
             CombatComp::turn = CombatComp::TurnChange();
+
+       
             for (int i = 0; i < CombatComp::ArrowCount; i++)
             {
                 GameObjectManager::GetInstance().RemoveObject(GameObjectManager::GetInstance().GetObj("projectile"));
@@ -215,6 +219,19 @@ void Projectile::Update()
             EventManager::GetInstance().DeleteUndispahchEvent();
             CombatComp::ArrowCount = 0;
         }
+        if (CombatComp::turn == CombatComp::PLAYERTURN) {
+            if (GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->GetCurrentAnimation() != "TakeDamage")
+            {
+                GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->SetAnimation(true, 0.5, "TakeDamage");
+            }
+        }
+        else {
+            if (GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<AnimatorComp>()->GetCurrentAnimation() != "TakeDamage")
+            {
+                GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<AnimatorComp>()->SetAnimation(true, 0.5, "TakeDamage");
+            }
+        }
+
     }
 }
 

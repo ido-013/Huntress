@@ -13,6 +13,7 @@ private:
 	double timer;
 	std::map<std::string, Animation*> animation;
 	Animation* current;
+	std::string currentAnimationName;
 
 public:
 	AnimatorComp(GameObject* _owner);
@@ -23,7 +24,7 @@ public:
 
 	void SetAnimation(bool _loop, double _speed, std::string _name);
 	void Update() override;
-
+	std::string GetCurrentAnimation() const;
 	void LoadFromJson(const json&) override;
 	json SaveToJson() override;
 

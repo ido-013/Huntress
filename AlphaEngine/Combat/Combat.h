@@ -20,6 +20,9 @@
 
 class CombatComp : public EngineComponent
 {
+	//set animation
+
+
 	//player
 	float pAngle;
 	float pVelocity;
@@ -32,7 +35,7 @@ class CombatComp : public EngineComponent
 public:
 	Data::CombatData data;
 	void DataUpdate();
-
+	
 	static int ArrowCount;
 
 	const float directionArrowWidth = 42;
@@ -73,6 +76,7 @@ public:
 		KILLENEMY = 7
 	};
 	static STATE state;
+	void setWalkAnimation();
 	void checkState();
 	static void ResetCombat();
 	void SetPlayerAngle(float angle);
