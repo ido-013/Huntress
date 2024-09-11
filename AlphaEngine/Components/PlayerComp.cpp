@@ -67,7 +67,7 @@ void PlayerComp::Update()
 
 		if (CombatComp::turn == CombatComp::TURN::PLAYERTURN)
 		{
-			GameObjectManager::GetInstance().GetObj("directionArrow")->GetComponent<CombatComp>()->data.moveGauge = movementGauge;
+			//GameObjectManager::GetInstance().GetObj("directionArrow")->GetComponent<CombatComp>()->data.moveGauge = movementGauge;
 		}
 	}
 }

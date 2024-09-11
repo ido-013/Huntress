@@ -491,10 +491,8 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 
 void CombatComp::Update()
 {
-
 	if (isCombat && state == COMBAT)
 	{
-		
 		GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
 		GameObject* player = GameObjectManager::GetInstance().GetObj("player");
 		GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");

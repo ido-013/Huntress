@@ -348,8 +348,8 @@ AE_API void AEGfxSetCamPosition(f32 X, f32 Y);
 AE_API void AEGfxGetCamPosition(f32 *pX, f32 *pY);
 
 // Sets/Gets the camera distance, used to zoom in/out
-//AE_API void AEGfxSetCamZoom(f32 Distance);
-//AE_API f32 AEGfxGetCamZoom();
+AE_API void AEGfxSetCamZoom(f32 Distance);
+AE_API f32 AEGfxGetCamZoom();
 
 /******************************************************************************/
 /*!

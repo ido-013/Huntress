@@ -9,8 +9,6 @@
 #include "../Combat/Combat.h"
 #include <iostream>
 
-GameObject* da = nullptr;
-
 void level::PrefabLevel::Init()
 {
 	GameObject* temp = nullptr;
@@ -19,7 +17,7 @@ void level::PrefabLevel::Init()
 	RigidbodyComp* tr = nullptr;
 	ColliderComp* tc = nullptr;
 
-	/*temp = new GameObject();
+	temp = new GameObject();
 
 	temp->type = GameObject::Square;
 
@@ -37,7 +35,7 @@ void level::PrefabLevel::Init()
 	tc = temp->GetComponent<ColliderComp>();
 	tc->SetCollider();
 
-	Prefab::SavePrefab("Square", temp);*/
+	//Prefab::SavePrefab("Square", temp);
 
 	GameObject* enemy = new GameObject("player");
 	enemy->type = GameObject::Player;
@@ -63,7 +61,7 @@ void level::PrefabLevel::Init()
 
 	enemy->GetComponent<ColliderComp>()->SetCollider();
 
-	Prefab::SavePrefab("Player", enemy);
+	//Prefab::SavePrefab("Player", enemy);
 }
 
 void level::PrefabLevel::Update()

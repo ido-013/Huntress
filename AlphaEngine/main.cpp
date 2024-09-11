@@ -7,6 +7,7 @@
 #include "Level/NormalLevel.h"
 #include "Level/PrefabLevel.h"
 #include "Level/CombatLevel.h"
+#include "Level/LogoLevel.h"
 #include "Utils/Utils.h"
 #include "Level/Menu.h"
 
@@ -28,7 +29,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// Initialization of your own variables go here
 
 	// Using custom window procedure
-	AESysInit(hInstance, nCmdShow, windowWidth, windowHeight, 1, 60, true, NULL);
+	AESysInit(hInstance, nCmdShow, windowWidth, windowHeight, 0, 60, true, NULL);
+	AESysSetFullScreen(1);
 
 	// Changing the window title
 	AESysSetWindowTitle("Huntress");
