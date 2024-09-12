@@ -15,6 +15,8 @@
 #include "AEMath.h"
 #include "../Utils/Size.h"
 #include "../Components/SubtitleComp.h"
+#include "../Camera/Camera.h"
+
 float delayTime = 0.2f;  // 2초 딜레이
 float elapsedTime = 0.0f;  // 경과 시간 저장
 f64 CombatComp::currTime = 0;
@@ -148,7 +150,8 @@ void CombatComp::DrawDirectionPegline(GameObject& directionArrow,
 	if (turn == PLAYERTURN)
 	{
 		f32 cx, cy;
-		AEGfxGetCamPosition(&cx, &cy);
+		//AEGfxGetCamPosition(&cx, &cy);
+		Camera::GetInstance().GetPos(&cx, &cy);
 		s32 px, py; 
 		AEInputGetCursorPosition(&px, &py);
 		px -= windowWidthHalf;
@@ -278,7 +281,8 @@ void CombatComp::checkState()
 		}
 	}
 	f32 x, y;
-	AEGfxGetCamPosition(&x, &y);
+	//AEGfxGetCamPosition(&x, &y);
+	Camera::GetInstance().GetPos(&x, &y);
 	if (enemy->GetComponent<TransformComp>()->GetPos().y < -(windowHeightHalf * 10) + y)
 	{
 		state = CLEAR;
@@ -507,7 +511,8 @@ void CombatComp::Update()
 
 				if (!Projectile::isLaunchProjectile)
 				{
-					AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
+					//AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
+					Camera::GetInstance().SetPos(ptf->GetPos().x, ptf->GetPos().y);
 				}
 
 				if (directionArrow->GetComponent<CombatComp>()->isDrawDirection == false && ArrowCount < 1)
@@ -597,7 +602,9 @@ void CombatComp::Update()
 			case ENEMYTURN: // enemy turn
 
 				if (!Projectile::isLaunchProjectile)
-					AEGfxSetCamPosition(etf->GetPos().x, etf->GetPos().y);
+				{
+					Camera::GetInstance().SetPos(etf->GetPos().x, etf->GetPos().y);
+				}
 			
 				// 임시 트리거
 				if (directionArrow->GetComponent<CombatComp>()->isDrawDirection == false && ArrowCount < 1)
@@ -662,7 +669,8 @@ void CombatComp::Update()
 		if (currTime < 2)
 		{
 			player->GetComponent<PlayerComp>()->moveState = false;
-			AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
+			//AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
+			Camera::GetInstance().SetPos(ptf->GetPos().x, ptf->GetPos().y);
 			if (once == false)
 			{
 				once = true;
@@ -672,7 +680,8 @@ void CombatComp::Update()
 		//2초간 적 위치 고정
 		else if (currTime < 4)
 		{
-			AEGfxSetCamPosition(etf->GetPos().x, etf->GetPos().y);
+			//AEGfxSetCamPosition(etf->GetPos().x, etf->GetPos().y);
+			Camera::GetInstance().SetPos(etf->GetPos().x, etf->GetPos().y);
 			if (once == true)
 			{
 				once = false;
@@ -681,7 +690,8 @@ void CombatComp::Update()
 		}
 		else if (currTime < 6)
 		{
-			AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
+			//AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
+			Camera::GetInstance().SetPos(ptf->GetPos().x, ptf->GetPos().y);
 			if (once == false)
 			{
 				once = true;
@@ -730,7 +740,8 @@ void CombatComp::Update()
 		if (currTime < 2)
 		{
 			player->GetComponent<PlayerComp>()->moveState = false; 
-			AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
+			//AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
+			Camera::GetInstance().SetPos(ptf->GetPos().x, ptf->GetPos().y);
 			if (once == false)
 			{
 				once = true;
@@ -739,7 +750,8 @@ void CombatComp::Update()
 		}
 		else if (currTime < 4)
 		{
-			AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
+			//AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
+			Camera::GetInstance().SetPos(ptf->GetPos().x, ptf->GetPos().y);
 			if (once == false)
 			{
 				once = true;

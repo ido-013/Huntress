@@ -165,6 +165,15 @@
     <ClCompile Include="Components\SubtitleComp.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Level\LogoLevel.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile\Tile.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera\Camera.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GSM\GameStateManager.h">
@@ -368,6 +377,15 @@
     <ClInclude Include="Level\OverLevel.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Level\LogoLevel.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile\Tile.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera\Camera.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ComponentManager\ComponentManager.inl">
@@ -387,5 +405,173 @@
     <None Include="RightTri.prefab" />
     <None Include="Square.prefab" />
     <None Include="test.prefab" />
+    <None Include="Assets\Level\test1.lvl" />
+    <None Include="Assets\Level\test10.lvl" />
+    <None Include="Assets\Level\test2.lvl" />
+    <None Include="Assets\Level\test3.lvl" />
+    <None Include="Assets\Level\test4.lvl" />
+    <None Include="Assets\Level\test5.lvl" />
+    <None Include="Assets\Level\test6.lvl" />
+    <None Include="Assets\Level\test7.lvl" />
+    <None Include="Assets\Level\test8.lvl" />
+    <None Include="Assets\Level\test9.lvl" />
+    <None Include="Assets\Prefab\Background.prefab" />
+    <None Include="Assets\Prefab\DirectionArrow.prefab" />
+    <None Include="Assets\Prefab\Enemy.prefab" />
+    <None Include="Assets\Prefab\LeftTri.prefab" />
+    <None Include="Assets\Prefab\LeftTri_R_DECO.prefab" />
+    <None Include="Assets\Prefab\Player.prefab" />
+    <None Include="Assets\Prefab\RightTri.prefab" />
+    <None Include="Assets\Prefab\RightTri_R_DECO.prefab" />
+    <None Include="Assets\Prefab\Square.prefab" />
+    <None Include="Assets\Prefab\Square_DECO.prefab" />
+    <None Include="Assets\UI\huntress.webp" />
+    <None Include="Assets\UI\Storebg.webp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Assets\Audio\BGM.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Background\Background.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\Background\BG1.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\Background\BG2.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\Background\BG3.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\Background\BG4.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\Background\BG5.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\Background\BG6.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\Background\BG7.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\Background\BG8.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\PlanetTexture.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\Tile\FallGrassTileLeftTri.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\Tile\FallGrassTileRect.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\Tile\FallGrassTileRightTri.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\Tile\SnowTileLeftTri.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\Tile\SnowTileRect.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\Tile\SnowTileRightTri.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\Tile\SpringGrassTileLeftTri.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\Tile\SpringGrassTileRect.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\Tile\SpringGrassTileRightTri.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\UI\Angle.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\UI\Arrow.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\UI\AttackUp.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\UI\AttackUp2.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\UI\DefenseUp.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\UI\Frame.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\UI\fullpotion.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\UI\GAUGE_BOARD.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\UI\HearthUp.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\UI\HP_FRAME.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\UI\HP_GAUGE.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\UI\hutress Logo.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\UI\hutress Logo2.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\UI\itemFrame.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\UI\Menu.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\UI\menubg.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\UI\move.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\UI\MOVE_GAUGE.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\UI\nomalize.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\UI\power.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\UI\POWER_GAUGE.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\UI\smallpotion.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\UI\START.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\UI\Storebg.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\UI\storeFrame.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\UI\UIBar.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\UI\windArrow.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Assets\Arial-Italic.ttf" />
   </ItemGroup>
 </Project>

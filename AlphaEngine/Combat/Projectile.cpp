@@ -10,6 +10,7 @@
 #include "../GameObjectManager/GameObjectManager.h"
 #include "../EventManager/EventManager.h"
 #include "../Particle/Particle.h"
+#include "../Camera/Camera.h"
 
 AEVec2 Projectile::wind = { 0.f, 0.f };
 bool Projectile::isLaunchProjectile = false;
@@ -188,7 +189,8 @@ void Projectile::Update()
                 pc->SetPos({ x + velocityX * time, y + velocityY * time });
 
                 // 카메라 업데이트
-                AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
+                //AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
+                Camera::GetInstance().SetPos(ptf->GetPos().x, ptf->GetPos().y);
 
                 // 시간 증가
                 time += timeStep;

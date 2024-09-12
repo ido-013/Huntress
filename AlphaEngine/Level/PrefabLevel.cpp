@@ -30,14 +30,32 @@ void level::PrefabLevel::Init()
 	tt->SetPos({ 0, 0 });
 
 	ts = temp->GetComponent<SpriteComp>();
-	ts->SetColor(0, 0, 0);
+	ts->SetColor(255, 0, 0);
+
+	tc = temp->GetComponent<ColliderComp>();
+	tc->SetCollider();
+
+	temp = new GameObject();
+
+	temp->type = GameObject::Square;
+
+	temp->AddComponent<TransformComp>();
+	temp->AddComponent<SpriteComp>();
+	temp->AddComponent<ColliderComp>();
+
+	tt = temp->GetComponent<TransformComp>();
+	tt->SetScale({ 100, 100 });
+	tt->SetPos({ 0, 100 });
+
+	ts = temp->GetComponent<SpriteComp>();
+	ts->SetColor(255, 255, 0);
 
 	tc = temp->GetComponent<ColliderComp>();
 	tc->SetCollider();
 
 	//Prefab::SavePrefab("Square", temp);
 
-	GameObject* enemy = new GameObject("player");
+	/*GameObject* enemy = new GameObject("player");
 	enemy->type = GameObject::Player;
 
 	enemy->AddComponent<TransformComp>();
@@ -59,7 +77,7 @@ void level::PrefabLevel::Init()
 	enemy->GetComponent<SpriteComp>()->SetTexture("./Assets/Character/ArrowAttack/sprite/ScoutAttackArrow.png");	
 	enemy->GetComponent<AnimatorComp>()->SetAnimation(true, 1, "walk");
 
-	enemy->GetComponent<ColliderComp>()->SetCollider();
+	enemy->GetComponent<ColliderComp>()->SetCollider();*/
 
 	//Prefab::SavePrefab("Player", enemy);
 }
