@@ -1,4 +1,5 @@
 #include "TransformComp.h"
+#include "../Camera/Camera.h"
 
 void TransformComp::CalculateMatrix()
 {
@@ -17,6 +18,9 @@ void TransformComp::CalculateMatrix()
 	//Concatenate them
 	AEMtx33Concat(&transformMatrix, &rotationMtx, &scaleMtx);
 	AEMtx33Concat(&transformMatrix, &translateMtx, &transformMatrix);
+
+	if (affectedByZoom)
+		AEMtx33Concat(&transformMatrix, &Camera::GetInstance().GetMatrix(), &transformMatrix);
 }
 
 TransformComp::TransformComp(GameObject* _owner) : EngineComponent(_owner), pos(), scale(), rot(0), transformMatrix()
@@ -37,28 +41,28 @@ TransformComp::~TransformComp()
 
 void TransformComp::Update()
 {
-	
+	CalculateMatrix();
 }
 
 void TransformComp::SetPos(const AEVec2& otherPos)
 {
 	this->pos = otherPos;
 
-	CalculateMatrix();
+	//CalculateMatrix();
 }
 
 void TransformComp::SetScale(const AEVec2& otherScale)
 {
 	this->scale = otherScale;
 
-	CalculateMatrix();
+	//CalculateMatrix();
 }
 
 void TransformComp::SetRot(const float& otherRot)
 {
 	this->rot = otherRot;
 
-	CalculateMatrix();
+	//CalculateMatrix();
 }
 
 void TransformComp::ReverseX(int val)
