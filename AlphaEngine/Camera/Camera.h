@@ -38,7 +38,7 @@ public:
 	void Update();
 
 	AEMtx33& GetMatrix() { return world_to_ndc_xform; }
-	void GetPos(float* px, float* py) { *px = x; *py = y; }
+	void GetPos(float* px, float* py);
 
 	void AddHeight(float value);
 	void SetHeight(float value);

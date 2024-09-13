@@ -22,9 +22,6 @@
 
 class CombatComp : public EngineComponent
 {
-	//set animation
-
-
 	//player
 	float pAngle;
 	float pVelocity;
@@ -78,7 +75,6 @@ public:
 		KILLENEMY = 7
 	};
 	static STATE state;
-	void setWalkAnimation();
 	void checkState();
 	static void ResetCombat();
 	void SetPlayerAngle(float angle);

@@ -29,8 +29,8 @@ void PlayerComp::Update()
 	RigidbodyComp* r = owner->GetComponent<RigidbodyComp>();
 	if (!r) return;
 
-	//SpriteComp* s = owner->GetComponent<SpriteComp>();
-	//if (!s) return;
+	AnimatorComp* a = owner->GetComponent<AnimatorComp>();
+	if (!a) return;
 
 	r->SetVelocityX(0);
 
@@ -42,6 +42,7 @@ void PlayerComp::Update()
 		{
 			t->SetScale({ -abs(t->GetScale().x), t->GetScale().y });
 			r->SetVelocityX(-speed);
+			a->SetAnimation(false, 1, "walk");
 			movementGauge--;
 		}
 
@@ -49,8 +50,10 @@ void PlayerComp::Update()
 		{
 			t->SetScale({ abs(t->GetScale().x), t->GetScale().y });
 			r->SetVelocityX(speed);
+			a->SetAnimation(false, 1, "walk");
 			movementGauge--;
 		}
+
 		if (movementGauge <= 0)
 		{
 			moveState = false;
@@ -69,7 +72,7 @@ void PlayerComp::Update()
 
 		if (CombatComp::turn == CombatComp::TURN::PLAYERTURN)
 		{
-			//GameObjectManager::GetInstance().GetObj("directionArrow")->GetComponent<CombatComp>()->data.moveGauge = movementGauge;
+			GameObjectManager::GetInstance().GetObj("directionArrow")->GetComponent<CombatComp>()->data.moveGauge = movementGauge;
 		}
 	}
 }

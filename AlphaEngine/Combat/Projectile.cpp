@@ -221,19 +221,6 @@ void Projectile::Update()
             EventManager::GetInstance().DeleteUndispahchEvent();
             CombatComp::ArrowCount = 0;
         }
-        if (CombatComp::turn == CombatComp::PLAYERTURN) {
-            if (GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->GetCurrentAnimation() != "TakeDamage")
-            {
-                GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->SetAnimation(true, 0.5, "TakeDamage");
-            }
-        }
-        else if(CombatComp::turn == CombatComp::ENEMYTURN){
-            if (GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<AnimatorComp>()->GetCurrentAnimation() != "TakeDamage")
-            {
-                GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<AnimatorComp>()->SetAnimation(true, 0.5, "TakeDamage");
-            }
-        }
-
     }
 }
 

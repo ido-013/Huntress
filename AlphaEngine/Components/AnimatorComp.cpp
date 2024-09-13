@@ -34,7 +34,12 @@ void AnimatorComp::SetAnimation(bool _loop, double _speed, std::string _name)
 {
 	loop = _loop;
 	speed = _speed;
-	timer = 0;
+
+	if (currentAnimationName.compare(_name) != 0)
+	{
+		ind = 0;
+		timer = 0;
+	}
 
 	auto it = animation.find(_name);
 	if (it != animation.end())

@@ -112,7 +112,7 @@ float AngleBetweenVectors(const AEVec2& v1, const AEVec2& v2) {
 }
 
 // 두 선분 사이의 각도를 계산하는 함수
-float AngleBetweenSegments(const AEVec2& p1, const AEVec2& p2, const AEVec2& p3, const AEVec2& p4) {
+float AngleBetweenSegments(const AEVec2 p1, const AEVec2 p2, const AEVec2 p3, const AEVec2& p4) {
 	// 선분 1과 선분 2의 벡터 계산
 	AEVec2 v1 = VectorFromPoints(p1, p2);
 	AEVec2 v2 = VectorFromPoints(p3, p4);
@@ -157,8 +157,22 @@ void CombatComp::DrawDirectionPegline(GameObject& directionArrow,
 		px -= windowWidthHalf;
 		py -= windowHeightHalf;
 		py = -py;
-		angle = AngleBetweenSegments(atf->GetPos(), dtf->GetPos(),
-			atf->GetPos(), { (float)px + cx, (float)py + cy });
+
+		{
+			AEMtx33 mtx = Camera::GetInstance().GetMatrix();
+			AEVec2 tmp1 = atf->GetPos();
+			AEVec2 tmp2 = dtf->GetPos();
+			AEVec2 tmp3 = { cx, cy };
+			AEMtx33MultVec(&tmp1, &mtx, &tmp1);
+			AEMtx33MultVec(&tmp2, &mtx, &tmp2);
+			AEMtx33MultVec(&tmp3, &mtx, &tmp3);
+
+			angle = AngleBetweenSegments(tmp1, tmp2,
+				tmp1, { (float)px + tmp3.x, (float)py + tmp3.y });
+		}
+
+		/*angle = AngleBetweenSegments(atf->GetPos(), dtf->GetPos(),
+			atf->GetPos(), { (float)px + cx, (float)py + cy });*/
 
 		/*std::cout << "px,py : " << px << "," << -(py - windowHeightHalf) << "\n"
 				  << "cx,cy : " << cx << "," << cy << "\n"
@@ -248,16 +262,6 @@ CombatComp::TURN CombatComp::TurnChange()
 	return CombatComp::turn == PLAYERTURN ? ENEMYTURN : PLAYERTURN;
 }
 
-void CombatComp::setWalkAnimation()
-{
-
-
-
-	
-
-
-}
-
 void CombatComp::checkState()
 {
 	GameObject* player = GameObjectManager::GetInstance().GetObj("player");
@@ -274,7 +278,6 @@ void CombatComp::checkState()
 		else if (player->GetComponent<PlayerComp>()->playerData->hp <= 0)
 		{
 			state = KILLPLAYER;
-			player->GetComponent<AnimatorComp>()->SetAnimation(false, 1, "Die");
 
 			std::cout << "GAMEOVER" << std::endl;
 			return;
@@ -603,10 +606,7 @@ void CombatComp::Update()
 				{
 					if (isReadyLaunch)
 					{
-						if (GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->GetCurrentAnimation() != "ArrowAttack")
-							GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->SetAnimation(false, 0.3, "ArrowAttack");
 						FireAnArrow(PLAYERTURN, *directionArrow);
-
 					}
 				}
 
@@ -817,14 +817,6 @@ void CombatComp::Update()
 	elapsedTime += deltaTime;
 	if (elapsedTime >= delayTime)
 	{
-		if (GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<AnimatorComp>()->GetCurrentAnimation() != "walk")
-		{
-			GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<AnimatorComp>()->SetAnimation(true, 1, "Walk");
-		}
-		if (GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->GetCurrentAnimation() != "walk")
-		{
-			GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->SetAnimation(true, 1, "walk");
-		}
 		elapsedTime = 0;
 	}
 }

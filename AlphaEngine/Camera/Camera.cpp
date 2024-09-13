@@ -76,6 +76,20 @@ void Camera::Update()
 	preTurn = CombatComp::turn;
 }
 
+void Camera::GetPos(float* px, float* py)
+{
+	if (fix)
+	{
+		*px = srcX;
+		*py = srcY;
+	}
+	else
+	{
+		*px = x;
+		*py = y;
+	}
+}
+
 void Camera::AddHeight(float value)
 {
 	if (CombatComp::state == CombatComp::COMBAT)

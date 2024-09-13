@@ -186,8 +186,9 @@ void Serializer::LoadLevel(const std::string& filename)
 	if (enemyObj->GetComponent<EnemyComp>()->enemyData->grade == Data::EnemyData::Boss)
 		enemyObj->GetComponent<SpriteComp>()->SetColor(130, 130, 0);
 
-	GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->SetAnimation(true, 1, "walk");
-	GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<AnimatorComp>()->SetAnimation(true, 1, "walk");
+	GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->SetAnimation(true, 1, "idle");
+	GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<AnimatorComp>()->SetAnimation(true, 1, "idle");
+
 	GameObjectManager::GetInstance().GetObj("background")->GetComponent<SpriteComp>()->SetTexture(allData.find("backgroundFileName").value());
 }
 
