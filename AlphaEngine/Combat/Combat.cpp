@@ -312,66 +312,6 @@ void CombatComp::ResetCombat()
 	ArrowCount = 0;
 }
 
-// Get&Set
-void CombatComp::SetPlayerAngle(float angle)
-{
-	pAngle = angle;
-	//std::cout << "Set Player Angle : " << AERadToDeg(angle) << std::endl;
-}
-float CombatComp::GetPlayerAngle()
-{
-	return pAngle;
-}
-void CombatComp::SetEnemyAngle(float angle)
-{
-	eAngle = angle;
-	//std::cout << "Set Enemy Angle : " << AERadToDeg(angle) << std::endl;
-}
-float CombatComp::GetEnemyAngle()
-{
-	return eAngle;
-}
-void CombatComp::SetPlayerVelocity(float velocity)
-{
-	pVelocity = velocity;
-	//std::cout << "Set Player Velocity : " << pVelocity << std::endl;
-}
-float CombatComp::GetPlayerVelocity()
-{
-	return pVelocity;
-}
-void CombatComp::SetEnemyVelocity(float velocity)
-{
-	eVelocity = velocity;
-	//std::cout << "Set Enemy Velocity : " << eVelocity << std::endl;
-}
-float CombatComp::GetEnemyVelocity()
-{
-	return eVelocity;
-}
-void CombatComp::SetPlayerPower(float power)
-{
-	pPower = power;
-}
-float CombatComp::GetPlayerPower()
-{
-	return pPower;
-}
-void CombatComp::SetEnemyPower(float power)
-{
-	ePower = power;
-}
-float CombatComp::GetEnemyPower()
-{
-	return ePower;
-}
-
-void CombatComp::InitEnemyValue()
-{
-	eAngle = RAD90;
-	eVelocity = DEFAULT_POWER;
-	ePower = 0;
-}
 
 CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 {
@@ -552,16 +492,6 @@ void CombatComp::Update()
 						directionArrow->GetComponent<CombatComp>()->pPower -= 1;
 						std::cout << "Decrease Player Power : " << directionArrow->GetComponent<CombatComp>()->pPower << std::endl;
 					}
-				}
-				if (AEInputCheckTriggered(AEVK_Q))
-				{
-					directionArrow->GetComponent<CombatComp>()->pAngle += AEDegToRad(1);
-					std::cout << "Increase Player Angle : " << AERadToDeg(directionArrow->GetComponent<CombatComp>()->pAngle) << std::endl;
-				}
-				if (AEInputCheckTriggered(AEVK_E))
-				{
-					directionArrow->GetComponent<CombatComp>()->pAngle -= AEDegToRad(1);
-					std::cout << "Decrease Player Angle : " << AERadToDeg(directionArrow->GetComponent<CombatComp>()->pAngle) << std::endl;
 				}
 
 				if (isDrawDirection)
@@ -863,4 +793,65 @@ BaseRTTI* CombatComp::CreateCombatComponent(GameObject* owner)
 	BaseRTTI* p = new CombatComp(owner);
 	owner->AddComponent<CombatComp>(static_cast<CombatComp*>(p));
 	return p;
+}
+
+void CombatComp::InitEnemyValue()
+{
+	eAngle = RAD90;
+	eVelocity = DEFAULT_POWER;
+	ePower = 0;
+}
+
+// Get&Set
+void CombatComp::SetPlayerAngle(float angle)
+{
+	pAngle = angle;
+	//std::cout << "Set Player Angle : " << AERadToDeg(angle) << std::endl;
+}
+float CombatComp::GetPlayerAngle()
+{
+	return pAngle;
+}
+void CombatComp::SetEnemyAngle(float angle)
+{
+	eAngle = angle;
+	//std::cout << "Set Enemy Angle : " << AERadToDeg(angle) << std::endl;
+}
+float CombatComp::GetEnemyAngle()
+{
+	return eAngle;
+}
+void CombatComp::SetPlayerVelocity(float velocity)
+{
+	pVelocity = velocity;
+	//std::cout << "Set Player Velocity : " << pVelocity << std::endl;
+}
+float CombatComp::GetPlayerVelocity()
+{
+	return pVelocity;
+}
+void CombatComp::SetEnemyVelocity(float velocity)
+{
+	eVelocity = velocity;
+	//std::cout << "Set Enemy Velocity : " << eVelocity << std::endl;
+}
+float CombatComp::GetEnemyVelocity()
+{
+	return eVelocity;
+}
+void CombatComp::SetPlayerPower(float power)
+{
+	pPower = power;
+}
+float CombatComp::GetPlayerPower()
+{
+	return pPower;
+}
+void CombatComp::SetEnemyPower(float power)
+{
+	ePower = power;
+}
+float CombatComp::GetEnemyPower()
+{
+	return ePower;
 }

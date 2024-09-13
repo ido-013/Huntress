@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseLevel.h"
+#include "AEEngine.h"
 
 class GameObject;
 
@@ -11,7 +12,7 @@ namespace level
 		GameObject* digipenLogo = nullptr;
 		GameObject* teamLogo = nullptr;
 
-		float timer = 0.f;
+		f64 timer = 0;
 
 	public:
 		void Init() override;

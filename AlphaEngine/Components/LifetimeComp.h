@@ -1,17 +1,18 @@
 #pragma once
 #include "../ComponentManager/BaseComponent.h"
+#include "AEEngine.h"
 
 class LifetimeComp : public BaseComponent
 {
 private:
-	float lifeTime;
-	float currentTime;
+	f64 lifeTime;
+	f64 currentTime;
 
 public:
 	LifetimeComp(GameObject* _owner);
 	~LifetimeComp();
 
-	void SetLifetime(float _lifeTime) { lifeTime = _lifeTime; }
+	void SetLifetime(f64 _lifeTime) { lifeTime = _lifeTime; }
 
 	void Update() override;
 

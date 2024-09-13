@@ -15,7 +15,7 @@ LifetimeComp::~LifetimeComp()
 
 void LifetimeComp::Update()
 {
-	float dt = AEFrameRateControllerGetFrameTime();
+	f64 dt = AEFrameRateControllerGetFrameTime();
 	currentTime += dt;
 	
 	if (currentTime > lifeTime)
