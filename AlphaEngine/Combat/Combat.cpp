@@ -692,7 +692,9 @@ void CombatComp::Update()
 		if (currTime < 2)
 		{
 			player->GetComponent<PlayerComp>()->moveState = false; 
-			AEGfxSetCamPosition(etf->GetPos().x, etf->GetPos().y);
+			
+			//AEGfxSetCamPosition(etf->GetPos().x, etf->GetPos().y);
+			Camera::GetInstance().SetPos(etf->GetPos().x, etf->GetPos().y);
 			if (once == false)
 			{
 				once = true;
