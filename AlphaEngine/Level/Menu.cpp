@@ -13,9 +13,11 @@
 #include "../GSM/GameStateManager.h"
 #include "../GameObjectManager/GameObjectManager.h"
 #include "../Components/SubtitleComp.h"
+#include "../Camera/Camera.h"
 
 void level::Menu::Init() {
-    AEGfxSetCamPosition(0, 0);
+    //AEGfxSetCamPosition(0, 0);
+    Camera::GetInstance().SetPos(0, 0);
 
     menuBg = new GameObject("menuBg");
     menuBg->AddComponent<UIComponent>();

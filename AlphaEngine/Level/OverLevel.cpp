@@ -12,9 +12,11 @@
 #include "../GameObjectManager/GameObjectManager.h"
 #include "../GSM/GameStateManager.h"
 #include "../GameObjectManager/GameObjectManager.h"
+#include "../Camera/Camera.h"
 
 void level::OverLevel::Init() {
-    AEGfxSetCamPosition(0, 0);
+    //AEGfxSetCamPosition(0, 0);
+    Camera::GetInstance().SetPos(0, 0);
 
     // 로고 초기화
     Logo = new GameObject("Logo");
