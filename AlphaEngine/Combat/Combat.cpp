@@ -41,7 +41,7 @@ void CombatComp::DataUpdate()
 }
 
 CombatComp::CombatComp(GameObject* _owner) : EngineComponent(_owner),
-pAngle(RAD90), eAngle(RAD90), pVelocity(0), eVelocity(0), pPower((int)(POWER_LIMIT / 2)), ePower((int)(POWER_LIMIT / 2)), AICombatSystemApplyWind(true)
+pAngle(RAD90), eAngle(RAD90), pVelocity(0), eVelocity(0), pPower((int)(POWER_LIMIT / 2)), ePower((int)(POWER_LIMIT / 2)), AICombatSystemApplyWind(true), angleInterval(0)
 {
 	
 }
@@ -514,7 +514,7 @@ void CombatComp::Update()
 
 				if (directionArrow->GetComponent<CombatComp>()->isDrawDirection == false && ArrowCount < 1)
 				{
-					SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, "PLAYER TURN", 1, 1, 1, 1}, 3, 1, 1 });
+					SubtitleComp::IntersectDissolveText({ {{(f32)-0.3,(f32)0.1}, 1, "PLAYER TURN", 1, 1, 1, 1}, 3, 1, 1 });
 					std::cout << "PLAYERTURN" << std::endl;
 					directionArrow->GetComponent<CombatComp>()->isDrawDirection = true;
 					directionArrow->GetComponent<CombatComp>()->isChaseDirection = true;
@@ -587,7 +587,7 @@ void CombatComp::Update()
 				{
 					if (isReadyLaunch)
 					{
-						if (GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->GetCurrentAnimation() != "ArrowAttack");
+						if (GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->GetCurrentAnimation() != "ArrowAttack")
 							GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->SetAnimation(false, 0.3, "ArrowAttack");
 						FireAnArrow(PLAYERTURN, *directionArrow);
 
@@ -605,7 +605,7 @@ void CombatComp::Update()
 				if (directionArrow->GetComponent<CombatComp>()->isDrawDirection == false && ArrowCount < 1)
 				{
 					std::cout << "ENEMYTURN" << std::endl;
-					SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, "ENEMY TURN", 1, 1, 1, 1}, 3, 1, 1 });
+					SubtitleComp::IntersectDissolveText({ {{(f32)-0.3,(f32)0.1}, 1, "ENEMY TURN", 1, 1, 1, 1}, 3, 1, 1 });
 					directionArrow->GetComponent<CombatComp>()->isDrawDirection = true;
 					directionArrow->GetComponent<CombatComp>()->isChaseDirection = true;
 					SetEnemyAngle(RAD90);
@@ -668,7 +668,7 @@ void CombatComp::Update()
 			if (once == false)
 			{
 				once = true;
-				SubtitleComp::IntersectDissolveText({ {{-0.15,0.1}, 1, "READY", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+				SubtitleComp::IntersectDissolveText({ {{(f32)-0.15,(f32)0.1}, 1, "READY", 1, 1, 1, 1}, 2, 0.7, 0.7 });
 			}
 		}
 		//2초간 적 위치 고정
@@ -678,7 +678,7 @@ void CombatComp::Update()
 			if (once == true)
 			{
 				once = false;
-				SubtitleComp::IntersectDissolveText({ {{-0.1,0.1}, 1, "Set", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+				SubtitleComp::IntersectDissolveText({ {{(f32)-0.1,(f32)0.1}, 1, "Set", 1, 1, 1, 1}, 2, 0.7, 0.7 });
 			}
 		}
 		else if (currTime < 6)
@@ -687,7 +687,7 @@ void CombatComp::Update()
 			if (once == false)
 			{
 				once = true;
-				SubtitleComp::IntersectDissolveText({ {{-0.12,0.1}, 1, "Go!!", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+				SubtitleComp::IntersectDissolveText({ {{(f32)-0.12,(f32)0.1}, 1, "Go!!", 1, 1, 1, 1}, 2, 0.7, 0.7 });
 			}
 		}
 		else {
@@ -712,7 +712,7 @@ void CombatComp::Update()
 			if (once == false)
 			{
 				once = true;
-				SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, "YOU WIN!", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+				SubtitleComp::IntersectDissolveText({ {{(f32)-0.3,(f32)0.1}, 1, "YOU WIN!", 1, 1, 1, 1}, 2, 0.7, 0.7 });
 			}
 		}
 		else {
@@ -736,7 +736,7 @@ void CombatComp::Update()
 			if (once == false)
 			{
 				once = true;
-				SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, "YOU LOSE", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+				SubtitleComp::IntersectDissolveText({ {{(f32)-0.3,(f32)0.1}, 1, "YOU LOSE", 1, 1, 1, 1}, 2, 0.7, 0.7 });
 			}
 		}
 		else if (currTime < 4)
@@ -745,7 +745,7 @@ void CombatComp::Update()
 			if (once == false)
 			{
 				once = true;
-				SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, "GAME OVER", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+				SubtitleComp::IntersectDissolveText({ {{(f32)-0.3,(f32)0.1}, 1, "GAME OVER", 1, 1, 1, 1}, 2, 0.7, 0.7 });
 			}
 		}
 		else {
@@ -755,7 +755,7 @@ void CombatComp::Update()
 		}
 		currTime += AEFrameRateControllerGetFrameTime();
 	}
-	float deltaTime = AEFrameRateControllerGetFrameTime();  // 프레임 경과 시간 가져오기
+	float deltaTime = (float) AEFrameRateControllerGetFrameTime();  // 프레임 경과 시간 가져오기
 	elapsedTime += deltaTime;
 	if (elapsedTime >= delayTime)
 	{
