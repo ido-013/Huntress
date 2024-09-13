@@ -19,6 +19,8 @@ public:
 	TransformComp(GameObject* _owner);
 	~TransformComp();
 
+	bool affectedByZoom = true;
+
 	void Update() override;
 
 	//Gettors

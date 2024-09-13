@@ -102,6 +102,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
   <ItemGroup>
     <ClCompile Include="Animation\Animation.cpp" />
     <ClCompile Include="Background\Background.cpp" />
+    <ClCompile Include="Camera\Camera.cpp" />
     <ClCompile Include="CollisionManager\CollisionManager.cpp" />
     <ClCompile Include="Combat\Combat.cpp" />
     <ClCompile Include="ComponentManager\EngineComponent.cpp" />
@@ -113,6 +114,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="Components\UIComp.cpp" />
     <ClCompile Include="Data\Data.cpp" />
     <ClCompile Include="Level\ClearLevel.cpp" />
+    <ClCompile Include="Level\LogoLevel.cpp" />
     <ClCompile Include="Level\OverLevel.cpp" />
     <ClCompile Include="Tile\Tile.cpp" />
     <ClCompile Include="Components\ColliderComp.cpp" />
@@ -153,6 +155,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
   <ItemGroup>
     <ClInclude Include="Animation\Animation.h" />
     <ClInclude Include="Background\Background.h" />
+    <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="CollisionManager\CollisionManager.h" />
     <ClInclude Include="Combat\Combat.h" />
     <ClInclude Include="ComponentManager\BaseComponent.h" />
@@ -191,6 +194,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="GSM\GameStateManager.h" />
     <ClInclude Include="Level\ClearLevel.h" />
     <ClInclude Include="Level\CombatLevel.h" />
+    <ClInclude Include="Level\LogoLevel.h" />
     <ClInclude Include="Level\NormalLevel.h" />
     <ClInclude Include="Level\OverLevel.h" />
     <ClInclude Include="Level\PrefabLevel.h" />

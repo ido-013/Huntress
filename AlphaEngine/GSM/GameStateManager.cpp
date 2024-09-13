@@ -10,6 +10,7 @@
 #include "../RTTI/Registry.h"
 #include "../UIM/BtnManager.h"
 #include "../Components/SubtitleComp.h"
+#include "../Camera/Camera.h"
 
 GSM::GameStateManager::GameStateManager() : previousLevel(nullptr), currentLevel(nullptr) {}
 
@@ -38,7 +39,9 @@ void GSM::GameStateManager::Update()
 {
     if (currentLevel)
     {
-        AEGfxSetBackgroundColor(0, 0, 0);
+        AEGfxSetBackgroundColor(255, 255, 255);
+
+        Camera::GetInstance().Update();
 
         ComponentManager<LogicComponent>::GetInstance().Update();
         ComponentManager<EngineComponent>::GetInstance().Update();

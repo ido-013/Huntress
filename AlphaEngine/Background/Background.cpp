@@ -12,6 +12,7 @@ void InitBackground()
 
 	background = GameObjectManager::GetInstance().GetObj("background");
 	background->GetComponent<AudioComp>()->playAudio(-1, "./Assets/Audio/BGM.mp3");
+	background->GetComponent<TransformComp>()->affectedByZoom = false;
 }
 
 void UpdateBackground()
