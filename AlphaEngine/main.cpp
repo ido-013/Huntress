@@ -21,11 +21,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 		if ((SHORT)HIWORD(wParam) > 0)
 		{
-			Camera::GetInstance().AddHeight(0.5);
+			Camera::GetInstance().AddHeight(-0.5);
 		}
 		else 
 		{
-			Camera::GetInstance().AddHeight(-0.5);
+			Camera::GetInstance().AddHeight(0.5);
 		}
 	}
 

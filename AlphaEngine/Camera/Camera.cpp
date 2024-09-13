@@ -2,7 +2,7 @@
 #include "../Combat/Combat.h"
 #include "../Combat/Projectile.h"
 
-Camera::Camera() : world_to_ndc_xform()
+Camera::Camera() : world_to_ndc_xform(), preTurn(CombatComp::turn)
 {
 }
 
@@ -16,8 +16,7 @@ void Camera::Update()
 	AEMtx33Identity(&world_to_ndc_xform);
 
 	if (CombatComp::state == CombatComp::COMBAT 
-		&& !Projectile::isLaunchProjectile 
-		&& CombatComp::turn == CombatComp::PLAYERTURN)
+		&& !Projectile::isLaunchProjectile)
 	{
 		float dt = AEFrameRateControllerGetFrameTime();
 
@@ -60,7 +59,7 @@ void Camera::Update()
 			}
 
 			//Press Space
-			if (AEInputCheckTriggered(AEVK_SPACE))
+			if (AEInputCheckTriggered(AEVK_SPACE) || preTurn != CombatComp::turn)
 			{
 				x = srcX;
 				y = srcY;
@@ -72,7 +71,9 @@ void Camera::Update()
 	else
 		AEMtx33TransApply(&world_to_ndc_xform, &world_to_ndc_xform, -srcX, -srcY);
 
-	AEMtx33ScaleApply(&world_to_ndc_xform, &world_to_ndc_xform, height, height);
+	AEMtx33ScaleApply(&world_to_ndc_xform, &world_to_ndc_xform, 1 / height, 1 / height);
+
+	preTurn = CombatComp::turn;
 }
 
 void Camera::AddHeight(float value)

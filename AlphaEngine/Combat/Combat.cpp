@@ -690,8 +690,21 @@ void CombatComp::Update()
 		}
 		else if (currTime < 6)
 		{
-			//AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
-			Camera::GetInstance().SetPos(ptf->GetPos().x, ptf->GetPos().y);
+			{
+				//AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
+				Camera::GetInstance().SetPos((ptf->GetPos().x + etf->GetPos().x) / 2, 
+											 (ptf->GetPos().y + etf->GetPos().y) / 2);
+
+				float pad = 600;
+				float disX = abs(ptf->GetPos().x - etf->GetPos().x) + pad;
+				float disY = abs(ptf->GetPos().y - etf->GetPos().y) + pad;
+
+				int width = AEGfxGetWindowWidth();
+				int height = AEGfxGetWindowHeight();
+			
+				Camera::GetInstance().SetHeight(max(max(1, disX / width), max(1, disY / height)));
+			}
+			
 			if (once == false)
 			{
 				once = true;
@@ -703,6 +716,7 @@ void CombatComp::Update()
 			player->GetComponent<PlayerComp>()->moveState = true;
 			state = COMBAT;
 			currTime = 0;
+			Camera::GetInstance().SetHeight(1);
 		}
 		currTime += AEFrameRateControllerGetFrameTime();
 	}

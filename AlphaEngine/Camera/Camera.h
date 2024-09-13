@@ -1,5 +1,6 @@
 #pragma once
 #include "AEEngine.h"
+#include "../Combat/Combat.h"
 
 class Camera
 {
@@ -20,6 +21,8 @@ private:
 
 	float speed = 340;
 	float height = 1;
+
+	CombatComp::TURN preTurn;
 
 	bool fix = true;
 
