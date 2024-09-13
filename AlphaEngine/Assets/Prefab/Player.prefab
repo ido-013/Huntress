@@ -6,6 +6,27 @@
       "compData": {
         "animation": [
           {
+            "name": "idle",
+            "frame": [
+              [
+                0.25,
+                "./Assets/Character/Idle/sprite/sprite_0.png"
+              ],
+              [
+                0.25,
+                "./Assets/Character/Idle/sprite/sprite_1.png"
+              ],
+              [
+                0.25,
+                "./Assets/Character/Idle/sprite/sprite_2.png"
+              ],
+              [
+                0.25,
+                "./Assets/Character/Idle/sprite/sprite_3.png"
+              ]
+            ]
+          },
+          {
             "name": "walk",
             "frame": [
               [
@@ -19,7 +40,7 @@
             ]
           },
           {
-            "name": "ArrowAttack",
+            "name": "arrowReady",
             "frame": [
               [
                 0.1,
@@ -32,7 +53,12 @@
               [
                 0.1,
                 "./Assets/Character/ArrowAttack/sprite/ScoutAttackArrow3.png"
-              ],
+              ]
+            ]
+          },
+          {
+            "name": "arrowShot",
+            "frame": [
               [
                 0.1,
                 "./Assets/Character/ArrowAttack/sprite/ScoutAttackArrow4.png"
@@ -44,7 +70,7 @@
             ]
           },
           {
-            "name": "TakeDamage",
+            "name": "takeDamage",
             "frame": [
               [
                 0.1,
@@ -65,7 +91,7 @@
             ]
           },
           {
-            "name": "Die",
+            "name": "die",
             "frame": [
               [
                 0.1,
