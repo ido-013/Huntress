@@ -15,60 +15,60 @@ void Camera::Update()
 {
 	AEMtx33Identity(&world_to_ndc_xform);
 
-	if (CombatComp::state == CombatComp::COMBAT 
-		&& !Projectile::isLaunchProjectile)
-	{
-		float dt = AEFrameRateControllerGetFrameTime();
+	//if (CombatComp::state == CombatComp::COMBAT 
+	//	&& !Projectile::isLaunchProjectile)
+	//{
+	//	float dt = AEFrameRateControllerGetFrameTime();
 
-		if (AEInputCheckTriggered(AEVK_Y))
-		{
-			fix = !fix;
-		}
+	//	if (AEInputCheckTriggered(AEVK_Y))
+	//	{
+	//		fix = !fix;
+	//	}
 
-		if (fix)
-		{
-			x = srcX;
-			y = srcY;
-			AEMtx33TransApply(&world_to_ndc_xform, &world_to_ndc_xform, -srcX, -srcY);
-		}
+	//	if (fix)
+	//	{
+	//		x = srcX;
+	//		y = srcY;
+	//		AEMtx33TransApply(&world_to_ndc_xform, &world_to_ndc_xform, -srcX, -srcY);
+	//	}
 
-		else
-		{
-			//Camera movement
-			int mouseX, mouseY;
-			AEInputGetCursorPosition(&mouseX, &mouseY);
+	//	else
+	//	{
+	//		//Camera movement
+	//		int mouseX, mouseY;
+	//		AEInputGetCursorPosition(&mouseX, &mouseY);
 
-			if (mouseX > AEGfxGetWindowWidth())
-			{
-				x += speed * dt;
-			}
+	//		if (mouseX > AEGfxGetWindowWidth())
+	//		{
+	//			x += speed * dt;
+	//		}
 
-			else if (mouseX < 0)
-			{
-				x -= speed * dt;
-			}
+	//		else if (mouseX < 0)
+	//		{
+	//			x -= speed * dt;
+	//		}
 
-			if (mouseY > AEGfxGetWindowHeight())
-			{
-				y -= speed * dt;
-			}
+	//		if (mouseY > AEGfxGetWindowHeight())
+	//		{
+	//			y -= speed * dt;
+	//		}
 
-			else if (mouseY < 0)
-			{
-				y += speed * dt;
-			}
+	//		else if (mouseY < 0)
+	//		{
+	//			y += speed * dt;
+	//		}
 
-			//Press Space
-			if (AEInputCheckTriggered(AEVK_SPACE) || preTurn != CombatComp::turn)
-			{
-				x = srcX;
-				y = srcY;
-			}
+	//		//Press Space
+	//		if (AEInputCheckTriggered(AEVK_SPACE) || preTurn != CombatComp::turn)
+	//		{
+	//			x = srcX;
+	//			y = srcY;
+	//		}
 
-			AEMtx33TransApply(&world_to_ndc_xform, &world_to_ndc_xform, -x, -y);
-		}
-	}
-	else
+	//		AEMtx33TransApply(&world_to_ndc_xform, &world_to_ndc_xform, -x, -y);
+	//	}
+	//}
+	//else
 		AEMtx33TransApply(&world_to_ndc_xform, &world_to_ndc_xform, -srcX, -srcY);
 
 	AEMtx33ScaleApply(&world_to_ndc_xform, &world_to_ndc_xform, 1 / height, 1 / height);
