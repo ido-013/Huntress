@@ -41,7 +41,7 @@ void CombatComp::DataUpdate()
 }
 
 CombatComp::CombatComp(GameObject* _owner) : EngineComponent(_owner),
-pAngle(RAD90), eAngle(RAD90), pVelocity(0), eVelocity(0), pPower((int)(POWER_LIMIT / 2)), ePower((int)(POWER_LIMIT / 2)), AICombatSystemApplyWind(true), angleInterval(0)
+pAngle(RAD90), eAngle(RAD90), pVelocity(0), eVelocity(0), pPower((int)(PLAYER_POWER_LIMIT / 2)), ePower((int)(PLAYER_POWER_LIMIT / 2)), AICombatSystemApplyWind(true), angleInterval(0), AICombatSystemObjectivePointCount(0)
 {
 	
 }
@@ -380,27 +380,38 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 	4. 끝까지해도 못찾으면 디폴트 값으로 날림 또는 날리지 않고 턴을 종료함
 	*/
 	AEVec2 p = player->GetComponent<TransformComp>()->GetPos();
+	AEVec2 op = p;
 	AEVec2 e = enemy->GetComponent<TransformComp>()->GetPos();
 
-	switch (enemy->GetComponent<EnemyComp>()->enemyData->grade)
+
+	switch (AICombatSystemObjectivePointCount)
 	{
-	case Data::EnemyData::GRADE::Normal :
-		AICombatSystemApplyWind = false;
-		angleInterval = AEDegToRad(1.f);
+	case -3:
+		op = { p.x + -100, p.y };
 		break;
-	case Data::EnemyData::GRADE::Elite :
-		AICombatSystemApplyWind = true;
-		angleInterval = AEDegToRad(5.f);
+	case -2:
+		op = { p.x + -70, p.y };
 		break;
-	case Data::EnemyData::GRADE::Boss :
-		AICombatSystemApplyWind = true;
-		angleInterval = AEDegToRad(1.f);
+	case -1:
+		op = { p.x + -30, p.y };
+		break;
+	case 0:
+		op = { p.x + 0, p.y };
+		break;
+	case 1:
+		op = { p.x + 30, p.y };
+		break;
+	case 2:
+		op = { p.x + 70, p.y };
+		break;
+	case 3:
+		op = { p.x + 100, p.y };
 		break;
 	}
 
 	ePower = 1.0f; // 초기 파워
 
-	while (ePower <= POWER_LIMIT)
+	while (ePower <= PLAYER_POWER_LIMIT)
 	{
 		float t = 0.0f;
 		AEVec2 ptf = e;
@@ -435,7 +446,7 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 			t += static_cast<float>(AEFrameRateControllerGetFrameTime());
 
 			// 플레이어와 포물선 위치가 가까운지 확인	
-			float loc = sqrt((ptf.x - p.x) * (ptf.x - p.x) + (ptf.y - p.y) * (ptf.y - p.y));
+			float loc = sqrt((ptf.x - op.x) * (ptf.x - op.x) + (ptf.y - op.y) * (ptf.y - op.y));
 			if (loc <= HIT_RADIUS)
 			{
 				isSetLaunchAngle = true;
@@ -476,9 +487,9 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 		}
 		else
 		{
-			ePower = POWER_LIMIT / 2;
+			ePower = ENEMY_POWER_LIMIT;
 			eVelocity = ePower + DEFAULT_POWER;
-			eAngle = p.x < e.x ? ANGLE_LIMIT / 2 + RAD90 : -(ANGLE_LIMIT / 2 + RAD90);
+			eAngle = p.x < e.x ? RAD10 * 2 + RAD90 : -(RAD10 * 2 + RAD90);
 			isSetLaunchAngle = true;
 			std::cout << "Projectile : NOT FOUND" << std::endl;
 			return NOTFOUND;
@@ -491,14 +502,15 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 
 void CombatComp::Update()
 {
-
+	
 	if (isCombat && state == COMBAT)
 	{
 		
 		GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
 		GameObject* player = GameObjectManager::GetInstance().GetObj("player");
 		GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
-
+		//std::cout << "playerMoveGauge: " << player->GetComponent<PlayerComp>()->GetMovegauge() << std::endl;
+		//std::cout << "enemyMoveGauge: " << enemy->GetComponent<EnemyComp>()->GetMovegauge() << std::endl;
 		TransformComp* dtf = directionArrow->GetComponent<TransformComp>();
 		TransformComp* ptf = player->GetComponent<TransformComp>();
 		TransformComp* etf = enemy->GetComponent<TransformComp>();
@@ -523,7 +535,7 @@ void CombatComp::Update()
 				}
 				if (AEInputCheckTriggered(AEVK_W))
 				{
-					if (directionArrow->GetComponent<CombatComp>()->pPower <= POWER_LIMIT)
+					if (directionArrow->GetComponent<CombatComp>()->pPower <= PLAYER_POWER_LIMIT)
 					{
 						directionArrow->GetComponent<CombatComp>()->pPower += 1;
 						std::cout << "Increase Player Power : " << directionArrow->GetComponent<CombatComp>()->pPower << std::endl;
@@ -606,6 +618,25 @@ void CombatComp::Update()
 				{
 					std::cout << "ENEMYTURN" << std::endl;
 					SubtitleComp::IntersectDissolveText({ {{(f32)-0.3,(f32)0.1}, 1, "ENEMY TURN", 1, 1, 1, 1}, 3, 1, 1 });
+					switch (enemy->GetComponent<EnemyComp>()->enemyData->grade)
+					{
+					case Data::EnemyData::GRADE::Normal:
+						AICombatSystemApplyWind = true;
+						AICombatSystemObjectivePointCount = rand() % 7 - 3; // -3
+						angleInterval = AEDegToRad(5.f);
+						break;
+					case Data::EnemyData::GRADE::Elite:
+						AICombatSystemApplyWind = true;
+						AICombatSystemObjectivePointCount = rand() % 5 - 2; // -2
+						angleInterval = AEDegToRad(5.f);
+						break;
+					case Data::EnemyData::GRADE::Boss:
+						AICombatSystemApplyWind = true;
+						AICombatSystemObjectivePointCount = rand() % 3 - 1; // -1
+						angleInterval = AEDegToRad(5.f);
+						break;
+					}
+					std::cout << "AICombatSystemObjectivePointCount : " << AICombatSystemObjectivePointCount << std::endl;
 					directionArrow->GetComponent<CombatComp>()->isDrawDirection = true;
 					directionArrow->GetComponent<CombatComp>()->isChaseDirection = true;
 					SetEnemyAngle(RAD90);

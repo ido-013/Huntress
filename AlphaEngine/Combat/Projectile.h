@@ -11,7 +11,7 @@
 // 물리 상수
 #define GRAVITY 9.81f // 중력 가속도 (m/s^2) 9.81f
 #define AIR_RESISTANCE_COEFFICIENT 0.01f // 공기 저항 계수
-#define WIND_MAX 5 // -n ~ n
+#define WIND_MAX 3 // -n ~ n
 
 class Projectile : public LogicComponent
 {

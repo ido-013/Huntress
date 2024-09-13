@@ -8,12 +8,14 @@
 #include "../Data/Data.h"
 
 #define DEFAULT_POWER 1.f
-#define POWER_LIMIT 19.f // 20
+#define PLAYER_POWER_LIMIT 24.f // 25
+#define ENEMY_POWER_LIMIT 19.f // 20
 
 #define ANGLE_LIMIT AEDegToRad(120.f)
 
 #define POWER_INTERVER 1.f
 
+#define RAD10 AEDegToRad(10.f)
 #define RAD90 AEDegToRad(90.f)
 
 #define HIT_RADIUS 15.0f // 플레이어에 대한 적중 판정 반경
@@ -39,7 +41,7 @@ public:
 	static int ArrowCount;
 
 	const float directionArrowWidth = 42;
-	const float directionArrowHeight = 80 / (DEFAULT_POWER + POWER_LIMIT); // * 1~25
+	const float directionArrowHeight = 80 / (DEFAULT_POWER + PLAYER_POWER_LIMIT); // * 1~25
 
 	CombatComp(GameObject* _owner); 
 	~CombatComp();
@@ -95,6 +97,7 @@ public:
 	void InitEnemyValue();
 
 	bool AICombatSystemApplyWind;
+	int AICombatSystemObjectivePointCount;
 
 	enum RESULT {
 		HIT = 0,

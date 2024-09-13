@@ -51,8 +51,8 @@ void InitCombatUI()
 	Power = new GameObject();
 	Power->AddComponent<UIComponent>();
 	UIComponent* powerComp = Power->GetComponent<UIComponent>();
-	powerComp->SetScale({ 750 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (POWER_LIMIT + DEFAULT_POWER))), 80 });
-	powerComp->SetPos({ 150 - (750 - 750 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (POWER_LIMIT + DEFAULT_POWER)))) / 2 , -280 });
+	powerComp->SetScale({ 750 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (PLAYER_POWER_LIMIT + DEFAULT_POWER))), 80 });
+	powerComp->SetPos({ 150 - (750 - 750 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (PLAYER_POWER_LIMIT + DEFAULT_POWER)))) / 2 , -280 });
 	powerComp->SetTexture("Assets/UI/MOVE_GAUGE.png");
 	powerComp->SetColor(255, 0, 0);
 
@@ -197,8 +197,8 @@ void UpdateCombatUI()
 	moveComp->SetPos({ 150 - (750 - 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f)) / 2 , -380 });
 
 	UIComponent* powerComp = Power->GetComponent<UIComponent>();
-	powerComp->SetScale({ 750 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (POWER_LIMIT + DEFAULT_POWER))), 80 });
-	powerComp->SetPos({ 150 - (750 - 750 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (POWER_LIMIT + DEFAULT_POWER)))) / 2 , -280 });
+	powerComp->SetScale({ 750 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (PLAYER_POWER_LIMIT + DEFAULT_POWER))), 80 });
+	powerComp->SetPos({ 150 - (750 - 750 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (PLAYER_POWER_LIMIT + DEFAULT_POWER)))) / 2 , -280 });
 
 
 	UIComponent* hpComp = HP->GetComponent<UIComponent>();
