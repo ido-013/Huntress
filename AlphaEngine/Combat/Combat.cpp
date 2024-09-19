@@ -9,6 +9,7 @@
 #include "../Components/SpriteComp.h"
 #include "../Components/PlayerComp.h"
 #include "../Components/EnemyComp.h"
+#include "../Components/AudioComp.h"
 #include "../Combat/Projectile.h"
 #include <cmath>
 #include "AEInput.h"
@@ -697,16 +698,24 @@ void CombatComp::Update()
 		TransformComp* ptf = player->GetComponent<TransformComp>();
 		GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
 		TransformComp* etf = enemy->GetComponent<TransformComp>();
+
+		GameObject* bg = GameObjectManager::GetInstance().GetObj("background");
+		AudioComp* bga = bg->GetComponent<AudioComp>();
+
 		//2초간 플레이어 고정
 		if (currTime < 2)
 		{
 			player->GetComponent<PlayerComp>()->moveState = false;
 			//AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
 			Camera::GetInstance().SetPos(ptf->GetPos().x, ptf->GetPos().y);
+			Camera::GetInstance().SetHeight(1);
+
 			if (once == false)
 			{
 				once = true;
 				SubtitleComp::IntersectDissolveText({ {{(f32)-0.15,(f32)0.1}, 1, "READY", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+
+				bga->playAudio(0, "./Assets/Audio/soda-bottle-base-drum.mp3");
 			}
 		}
 		//2초간 적 위치 고정
@@ -714,10 +723,13 @@ void CombatComp::Update()
 		{
 			//AEGfxSetCamPosition(etf->GetPos().x, etf->GetPos().y);
 			Camera::GetInstance().SetPos(etf->GetPos().x, etf->GetPos().y);
+
 			if (once == true)
 			{
 				once = false;
 				SubtitleComp::IntersectDissolveText({ {{(f32)-0.1,(f32)0.1}, 1, "Set", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+
+				bga->playAudio(0, "./Assets/Audio/soda-bottle-base-drum.mp3");
 			}
 		}
 		else if (currTime < 6)
@@ -741,6 +753,8 @@ void CombatComp::Update()
 			{
 				once = true;
 				SubtitleComp::IntersectDissolveText({ {{(f32)-0.12,(f32)0.1}, 1, "Go!!", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+
+				bga->playAudio(0, "./Assets/Audio/drum-hit.mp3");
 			}
 		}
 		else {

@@ -1,6 +1,8 @@
 #include "EnemyComp.h"
 #include "../Components/TransformComp.h"
 #include "../Components/RigidbodyComp.h"
+#include "../Components/AnimatorComp.h"
+#include "../Components/AudioComp.h"
 #include "../Combat/Combat.h"
 #include "../GameObjectManager/GameObjectManager.h"
 #include "../Utils/Size.h"
@@ -19,6 +21,20 @@ int EnemyComp::GetMovegauge()
 	return movementGauge;
 }
 
+void EnemyComp::AddHp(float value)
+{
+	enemyData->hp += value;
+
+	if (enemyData->hp < 0)
+	{
+		enemyData->hp = 0;
+	}
+
+	owner->GetComponent<AnimatorComp>()->SetAnimation(false, 1, "takeDamage");
+	owner->GetComponent<AudioComp>()->playAudio(0, "./Assets/Audio/weapon-arrow-shot.mp3", 0.3);
+}
+
+
 void EnemyComp::RandomMove() // 투사체가 맞지 않는다고 판정된 경우
 {
 	TransformComp* pt = GameObjectManager::GetInstance().GetObj("player")->GetComponent<TransformComp>();
@@ -28,6 +44,12 @@ void EnemyComp::RandomMove() // 투사체가 맞지 않는다고 판정된 경우
 
 	RigidbodyComp* r = owner->GetComponent<RigidbodyComp>();
 	if (!r) return;
+
+	AnimatorComp* a = owner->GetComponent<AnimatorComp>();
+	if (!a) return;
+
+	AudioComp* ad = owner->GetComponent<AudioComp>();
+	if (!ad) return;
 
 	r->SetVelocityX(0);
 
@@ -40,17 +62,38 @@ void EnemyComp::RandomMove() // 투사체가 맞지 않는다고 판정된 경우
 		isGo = true;
 	}
 
-	if (isGo && movementGauge > 0 && moveState)
+	if (enemyData->hp == 0)
+	{
+		a->SetAnimation(false, 1, "die");
+	}
+	else if (isGo && movementGauge > 0 && moveState)
 	{
 		t->ReverseX(0);
 		r->SetVelocityX(-speed);
+		a->SetAnimation(true, 2, "walk");
 		movementGauge--;
 	}
 	else if (!isGo && movementGauge > 0 && moveState)
 	{
 		t->ReverseX(1);
 		r->SetVelocityX(speed);
+		a->SetAnimation(true, 2, "walk");
 		movementGauge--;
+	}
+	else if (CombatComp::turn == CombatComp::ENEMYTURN && Projectile::isLaunchProjectile)
+	{
+		a->SetAnimation(false, 1, "arrowShot");
+		ad->playAudio(0, "./Assets/Audio/bow-release.mp3");
+	}
+
+	else if (CombatComp::turn == CombatComp::ENEMYTURN && !CombatComp::isChaseDirection)
+	{
+		a->SetAnimation(false, 1, "arrowReady");
+		ad->playAudio(0, "./Assets/Audio/bow-loading.mp3");
+	}
+	else
+	{
+		a->SetAnimation(true, 1, "idle");
 	}
 }
 

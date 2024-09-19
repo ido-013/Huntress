@@ -20,6 +20,8 @@ public:
 	void RandomMove();
 	int GetMovegauge();
 
+	void AddHp(float value);
+
 	EnemyComp(GameObject* _owner);
 	~EnemyComp();
 	void Update() override;

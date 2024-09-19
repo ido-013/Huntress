@@ -15,7 +15,11 @@ public:
 	Data::PlayerData* playerData;
 	bool moveState = true;
 	bool turnTemp = true;
+
 	int GetMovegauge();
+
+	void AddHp(float value);
+
 	PlayerComp(GameObject* _owner);
 	~PlayerComp();
 	void Update() override;
