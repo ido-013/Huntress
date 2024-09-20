@@ -446,7 +446,6 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 
 void CombatComp::Update()
 {
-	
 	if (isCombat && state == COMBAT)
 	{
 		GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
@@ -457,7 +456,10 @@ void CombatComp::Update()
 		TransformComp* dtf = directionArrow->GetComponent<TransformComp>();
 		TransformComp* ptf = player->GetComponent<TransformComp>();
 		TransformComp* etf = enemy->GetComponent<TransformComp>();
-
+		if (AEInputCheckTriggered(AEVK_T))
+		{
+			std::cout << std::sqrt(std::pow(ptf->GetPos().x - etf->GetPos().x, 2) + std::pow(ptf->GetPos().y - etf->GetPos().y, 2)) << std::endl;
+		}
 		switch (CombatComp::turn)
 		{
 			case PLAYERTURN: // player turn

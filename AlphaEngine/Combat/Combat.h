@@ -20,6 +20,14 @@
 
 #define HIT_RADIUS 15.0f // 플레이어에 대한 적중 판정 반경
 
+//거리비례 데미지 추가, 거리비례 AI 명중률 추가 (붙어서 싸우기 방지)를 위한 상수값
+//1에서 5로 갈수록 거리비례 데미지 상승, 거리 비례 AI 명중령 감소
+#define DISTANCE_ARANGE_1 100
+#define DISTANCE_ARANGE_2 500
+#define DISTANCE_ARANGE_3 1000
+#define DISTANCE_ARANGE_4 1500
+#define DISTANCE_ARANGE_5 2000
+
 class CombatComp : public EngineComponent
 {
 	//set animation
