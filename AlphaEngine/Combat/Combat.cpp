@@ -510,7 +510,9 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 
 void CombatComp::Update()
 {
-	
+	GameObject* bg = GameObjectManager::GetInstance().GetObj("background");
+	AudioComp* bga = bg->GetComponent<AudioComp>();
+
 	if (isCombat && state == COMBAT)
 	{
 		GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
@@ -682,8 +684,14 @@ void CombatComp::Update()
 				}
 				if (isReadyLaunch)
 				{
+					static float timer = 0;
+					timer += AEFrameRateControllerGetFrameTime();
 
-					FireAnArrow(ENEMYTURN, *directionArrow);
+					if (timer > 1)
+					{
+						timer = 0;
+						FireAnArrow(ENEMYTURN, *directionArrow);
+					}
 				}
 
 				break;
@@ -698,9 +706,6 @@ void CombatComp::Update()
 		TransformComp* ptf = player->GetComponent<TransformComp>();
 		GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
 		TransformComp* etf = enemy->GetComponent<TransformComp>();
-
-		GameObject* bg = GameObjectManager::GetInstance().GetObj("background");
-		AudioComp* bga = bg->GetComponent<AudioComp>();
 
 		//2초간 플레이어 고정
 		if (currTime < 2)
@@ -753,7 +758,6 @@ void CombatComp::Update()
 			{
 				once = true;
 				SubtitleComp::IntersectDissolveText({ {{(f32)-0.12,(f32)0.1}, 1, "Go!!", 1, 1, 1, 1}, 2, 0.7, 0.7 });
-
 				bga->playAudio(0, "./Assets/Audio/drum-hit.mp3");
 			}
 		}
@@ -782,6 +786,7 @@ void CombatComp::Update()
 			if (once == false)
 			{
 				once = true;
+				bga->playAudio(0, "./Assets/Audio/tada-military.mp3");
 				SubtitleComp::IntersectDissolveText({ {{(f32)-0.3,(f32)0.1}, 1, "YOU WIN!", 1, 1, 1, 1}, 2, 0.7, 0.7 });
 			}
 		}
@@ -808,6 +813,7 @@ void CombatComp::Update()
 			{
 				once = true;
 				SubtitleComp::IntersectDissolveText({ {{(f32)-0.3,(f32)0.1}, 1, "YOU LOSE", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+				bga->playAudio(0, "./Assets/Audio/failfare.mp3");
 			}
 		}
 		else if (currTime < 4)

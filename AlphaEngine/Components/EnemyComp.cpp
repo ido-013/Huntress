@@ -1,14 +1,19 @@
 #include "EnemyComp.h"
-#include "../Components/TransformComp.h"
-#include "../Components/RigidbodyComp.h"
-#include "../Components/AnimatorComp.h"
-#include "../Components/AudioComp.h"
+#include "../Components.h"
 #include "../Combat/Combat.h"
 #include "../GameObjectManager/GameObjectManager.h"
 #include "../Utils/Size.h"
 
 EnemyComp::EnemyComp(GameObject* _owner) : LogicComponent(_owner), enemyData(new Data::EnemyData)
 {
+	cliffChecker = new GameObject();
+	cliffChecker->type = GameObject::Enemy;
+
+	TransformComp* t = cliffChecker->AddComponent<TransformComp>();
+
+	t->SetScale({ 5, 200 });
+
+	cliffChecker->AddComponent<ColliderComp>();
 }
 
 EnemyComp::~EnemyComp()
@@ -34,22 +39,18 @@ void EnemyComp::AddHp(float value)
 	owner->GetComponent<AudioComp>()->playAudio(0, "./Assets/Audio/weapon-arrow-shot.mp3", 0.3);
 }
 
+bool EnemyComp::isCliff()
+{
+	return cliffChecker->GetComponent<ColliderComp>()->isCollision;
+}
 
 void EnemyComp::RandomMove() // 투사체가 맞지 않는다고 판정된 경우
 {
 	TransformComp* pt = GameObjectManager::GetInstance().GetObj("player")->GetComponent<TransformComp>();
 
 	TransformComp* t = owner->GetComponent<TransformComp>();
-	if (!t) return;
-
 	RigidbodyComp* r = owner->GetComponent<RigidbodyComp>();
-	if (!r) return;
-
 	AnimatorComp* a = owner->GetComponent<AnimatorComp>();
-	if (!a) return;
-
-	AudioComp* ad = owner->GetComponent<AudioComp>();
-	if (!ad) return;
 
 	r->SetVelocityX(0);
 
@@ -62,43 +63,61 @@ void EnemyComp::RandomMove() // 투사체가 맞지 않는다고 판정된 경우
 		isGo = true;
 	}
 
-	if (enemyData->hp == 0)
-	{
-		a->SetAnimation(false, 1, "die");
-	}
-	else if (isGo && movementGauge > 0 && moveState)
+	if (isGo && movementGauge > 0 && moveState)
 	{
 		t->ReverseX(0);
 		r->SetVelocityX(-speed);
-		a->SetAnimation(true, 2, "walk");
 		movementGauge--;
 	}
 	else if (!isGo && movementGauge > 0 && moveState)
 	{
 		t->ReverseX(1);
 		r->SetVelocityX(speed);
-		a->SetAnimation(true, 2, "walk");
 		movementGauge--;
 	}
+}
+
+void EnemyComp::Update()
+{
+	TransformComp* t = owner->GetComponent<TransformComp>();
+	if (!t) return;
+
+	RigidbodyComp* r = owner->GetComponent<RigidbodyComp>();
+	if (!r) return;
+
+	AnimatorComp* a = owner->GetComponent<AnimatorComp>();
+	if (!a) return;
+
+	AudioComp* ad = owner->GetComponent<AudioComp>();
+	if (!ad) return;
+
+	if (enemyData->hp == 0)
+	{
+		a->SetAnimation(false, 1, "die");
+	}
+
 	else if (CombatComp::turn == CombatComp::ENEMYTURN && Projectile::isLaunchProjectile)
 	{
 		a->SetAnimation(false, 1, "arrowShot");
 		ad->playAudio(0, "./Assets/Audio/bow-release.mp3");
 	}
 
-	else if (CombatComp::turn == CombatComp::ENEMYTURN && !CombatComp::isChaseDirection)
+	else if (CombatComp::turn == CombatComp::ENEMYTURN && CombatComp::isReadyLaunch)
 	{
 		a->SetAnimation(false, 1, "arrowReady");
 		ad->playAudio(0, "./Assets/Audio/bow-loading.mp3");
 	}
-	else
+
+	else if (r->GetVelocityX() == 0)
 	{
 		a->SetAnimation(true, 1, "idle");
 	}
-}
 
-void EnemyComp::Update()
-{
+	else
+	{
+		a->SetAnimation(true, 2, "walk");
+	}
+
 	if (CombatComp::isCombat)
 	{
 		if (isMove)
@@ -107,9 +126,10 @@ void EnemyComp::Update()
 			isMove = false;
 		}
 
-		if (movementGauge <= 0)
+		if (movementGauge <= 0 || !isCliff())
 		{
 			moveState = false;
+			RandomMove();
 		}
 
 		if (CombatComp::turn == CombatComp::TURN::ENEMYTURN && turnTemp)
@@ -128,6 +148,18 @@ void EnemyComp::Update()
 		{
 			GameObjectManager::GetInstance().GetObj("directionArrow")->GetComponent<CombatComp>()->data.moveGauge = movementGauge;
 		}
+
+		if (t->GetScale().x < 0)
+		{
+			cliffChecker->GetComponent<TransformComp>()->SetPos({ t->GetPos().x - 50, t->GetPos().y });
+		}
+
+		else
+		{
+			cliffChecker->GetComponent<TransformComp>()->SetPos({ t->GetPos().x + 50, t->GetPos().y });
+		}
+
+		cliffChecker->AddComponent<ColliderComp>()->SetCollider();
 	}
 }
 

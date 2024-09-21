@@ -12,6 +12,7 @@ private:
 	int maxMovementGauge = 100;
 
 public:
+	GameObject* cliffChecker;
 	Data::EnemyData* enemyData;
 	bool isMove = false;
 	bool moveState = true;
@@ -21,6 +22,8 @@ public:
 	int GetMovegauge();
 
 	void AddHp(float value);
+
+	bool isCliff();
 
 	EnemyComp(GameObject* _owner);
 	~EnemyComp();

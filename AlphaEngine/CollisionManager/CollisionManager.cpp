@@ -400,7 +400,7 @@ bool CollisionManager::ProjectileTriCheck(ColliderComp* a, ColliderComp* b)
 
 	if (a->GetOwner()->type == GameObject::Projectile && (b->GetOwner()->type == GameObject::LeftTri || b->GetOwner()->type == GameObject::RightTri))
 	{
-		if (isCollisionPointTri(a, b))
+		if (isCollisionSquareTri(a, b))
 		{
 			em.AddEvent<CollisionEvent>(a, b, true);
 			em.AddEvent<CollisionEvent>(b, a, true);
@@ -411,7 +411,7 @@ bool CollisionManager::ProjectileTriCheck(ColliderComp* a, ColliderComp* b)
 
 	else if (b->GetOwner()->type == GameObject::Projectile && (a->GetOwner()->type == GameObject::LeftTri || a->GetOwner()->type == GameObject::RightTri))
 	{
-		if (isCollisionPointTri(b, a))
+		if (isCollisionSquareTri(b, a))
 		{
 			em.AddEvent<CollisionEvent>(a, b, true);
 			em.AddEvent<CollisionEvent>(b, a, true);

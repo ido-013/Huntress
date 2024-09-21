@@ -11,6 +11,8 @@
 #include "Utils/Utils.h"
 #include "Level/Menu.h"
 #include "Camera/Camera.h"
+#include <dwmapi.h>
+#pragma comment(lib, "dwmapi.lib")
 
 // ---------------------------------------------------------------------------
 // main
@@ -74,7 +76,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 		if (GetActiveWindow() == hwnd)
 		{
-			GetWindowRect(hwnd, &rc);
+			DwmGetWindowAttribute(hwnd, DWMWA_EXTENDED_FRAME_BOUNDS, &rc, sizeof(RECT));
+			//GetWindowRect(hwnd, &rc);
+			rc.top += 31;
 			ClipCursor(&rc);
 		}
 

@@ -43,11 +43,11 @@
             "frame": [
               [
                 0.25,
-                "./Assets/Character/Walk/sprite/ScoutWalk2.png"
+                "./Assets/Character/Walk/sprite/sprite_0.png"
               ],
               [
                 0.25,
-                "./Assets/Character/Walk/sprite/ScoutWalk3.png"
+                "./Assets/Character/Walk/sprite/sprite_1.png"
               ]
             ]
           },

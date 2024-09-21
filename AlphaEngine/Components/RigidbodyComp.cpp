@@ -249,9 +249,9 @@ void RigidbodyComp::Update()
 				else
 				{
 					targetRot = AEATan(oc->GetScale().y / oc->GetScale().x);
-					y = oc->GetPos().y + 
+					y = oc->GetPos().y +
 						(c->GetPos().x + (c->GetScale().x / 2 * (abs(AESin(targetRot) * 0.5f))) - oc->GetPos().x) *
-						(oc->GetScale().y / oc->GetScale().x) + 
+						(oc->GetScale().y / oc->GetScale().x) +
 						c->GetScale().y / 2;
 				}
 			}
@@ -262,7 +262,7 @@ void RigidbodyComp::Update()
 				{
 					CorrectPosByAABB(oc, c, x, y);
 					targetRot = AEDegToRad(0);
-				}
+				}	
 				else
 				{
 					targetRot = AEATan(-oc->GetScale().y / oc->GetScale().x);

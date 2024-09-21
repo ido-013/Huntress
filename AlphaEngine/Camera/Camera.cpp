@@ -2,6 +2,8 @@
 #include "../Combat/Combat.h"
 #include "../Combat/Projectile.h"
 
+#define PADDING 20
+
 Camera::Camera() : world_to_ndc_xform(), preTurn(CombatComp::turn)
 {
 }
@@ -38,22 +40,22 @@ void Camera::Update()
 			int mouseX, mouseY;
 			AEInputGetCursorPosition(&mouseX, &mouseY);
 
-			if (mouseX > AEGfxGetWindowWidth())
+			if (mouseX > AEGfxGetWindowWidth() - PADDING)
 			{
 				x += speed * dt;
 			}
 
-			else if (mouseX < 0)
+			else if (mouseX < PADDING)
 			{
 				x -= speed * dt;
 			}
 
-			if (mouseY > AEGfxGetWindowHeight())
+			if (mouseY > AEGfxGetWindowHeight() - PADDING)
 			{
 				y -= speed * dt;
 			}
 
-			else if (mouseY < 0)
+			else if (mouseY < PADDING)
 			{
 				y += speed * dt;
 			}

@@ -37,8 +37,6 @@ void PlayerComp::Update()
 
 	r->SetVelocityX(0);
 
-	speed = 1000;
-
 	if(CombatComp::isCombat)
 	{
 		if (playerData->hp == 0)
@@ -62,7 +60,7 @@ void PlayerComp::Update()
 			movementGauge--;
 		}
 
-		else if (Projectile::isLaunchProjectile)
+		else if (CombatComp::turn == CombatComp::PLAYERTURN && Projectile::isLaunchProjectile)
 		{
 			a->SetAnimation(false, 1, "arrowShot");
 			ad->playAudio(0, "./Assets/Audio/bow-release.mp3");

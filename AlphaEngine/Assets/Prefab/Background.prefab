@@ -7,7 +7,11 @@
         "audio": [
           "./Assets/Audio/BGM.mp3",
           "./Assets/Audio/soda-bottle-base-drum.mp3",
-          "./Assets/Audio/drum-hit.mp3"
+          "./Assets/Audio/drum-hit.mp3",
+          "./Assets/Audio/tada-military.mp3",
+          "./Assets/Audio/failfare.mp3",
+          "./Assets/Audio/error.mp3",
+          "./Assets/Audio/coin-donation.mp3"
         ],
         "volume": 0.5,
         "pitch": 1.0
