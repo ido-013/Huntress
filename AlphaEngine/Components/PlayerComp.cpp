@@ -37,8 +37,6 @@ void PlayerComp::Update()
 
 	r->SetVelocityX(0);
 
-	speed = 1000;
-
 	if(CombatComp::isCombat)
 	{
 		if (playerData->hp == 0)
