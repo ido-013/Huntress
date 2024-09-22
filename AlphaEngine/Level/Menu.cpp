@@ -15,12 +15,15 @@
 #include "../Components/SubtitleComp.h"
 #include "../Camera/Camera.h"
 
+#define PLAY_AUDIO_CLICK GameObjectManager::GetInstance().GetObj("menuBg")->GetComponent<AudioComp>()->playAudio(0, "./Assets/Audio/click_effect.mp3")
+
 void level::Menu::Init() {
     //AEGfxSetCamPosition(0, 0);
     Camera::GetInstance().SetPos(0, 0);
 
     menuBg = new GameObject("menuBg");
     menuBg->AddComponent<UIComponent>();
+    menuBg->AddComponent<AudioComp>()->SetAudio("./Assets/Audio/click_effect.mp3");
     UIComponent* BgUI = menuBg->GetComponent<UIComponent>();
     BgUI->SetScale({ 1600, 900 });
     BgUI->SetPos({ 0, 0 });
@@ -53,7 +56,9 @@ void level::Menu::Init() {
     ButtonComp* startBtn = startButtonObj->GetComponent<ButtonComp>();
 
     startBtn->SetOnClickFunction([]() {
+
         std::cout << "Start Button Clicked!" << std::endl;
+        PLAY_AUDIO_CLICK;
         GSM::GameStateManager::GetInstance().ChangeLevel(new level::NormalLevel(1));
         });
 
@@ -79,6 +84,7 @@ void level::Menu::Init() {
 
     quitBtn->SetOnClickFunction([]() {
         std::cout << "Quit Button Clicked!" << std::endl;
+        PLAY_AUDIO_CLICK;
         // Quit 게임 종료 로직 추가
         GSM::GameStateManager::GetInstance().ChangeLevel(nullptr);
         });

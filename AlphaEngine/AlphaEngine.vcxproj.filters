@@ -401,10 +401,6 @@
     <None Include="ResourceManager\ResourceManager.inl">
       <Filter>헤더 파일</Filter>
     </None>
-    <None Include="LeftTri.prefab" />
-    <None Include="RightTri.prefab" />
-    <None Include="Square.prefab" />
-    <None Include="test.prefab" />
     <None Include="Assets\Level\test1.lvl" />
     <None Include="Assets\Level\test10.lvl" />
     <None Include="Assets\Level\test2.lvl" />

@@ -9,6 +9,7 @@
 #include "../Components/SpriteComp.h"
 #include "../Components/PlayerComp.h"
 #include "../Components/EnemyComp.h"
+#include "../Components/AudioComp.h"
 #include "../Combat/Projectile.h"
 #include <cmath>
 #include "AEInput.h"
@@ -509,7 +510,9 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 
 void CombatComp::Update()
 {
-	
+	GameObject* bg = GameObjectManager::GetInstance().GetObj("background");
+	AudioComp* bga = bg->GetComponent<AudioComp>();
+
 	if (isCombat && state == COMBAT)
 	{
 		GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
@@ -681,8 +684,14 @@ void CombatComp::Update()
 				}
 				if (isReadyLaunch)
 				{
+					static float timer = 0;
+					timer += AEFrameRateControllerGetFrameTime();
 
-					FireAnArrow(ENEMYTURN, *directionArrow);
+					if (timer > 1)
+					{
+						timer = 0;
+						FireAnArrow(ENEMYTURN, *directionArrow);
+					}
 				}
 
 				break;
@@ -697,16 +706,21 @@ void CombatComp::Update()
 		TransformComp* ptf = player->GetComponent<TransformComp>();
 		GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
 		TransformComp* etf = enemy->GetComponent<TransformComp>();
+
 		//2초간 플레이어 고정
 		if (currTime < 2)
 		{
 			player->GetComponent<PlayerComp>()->moveState = false;
 			//AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
 			Camera::GetInstance().SetPos(ptf->GetPos().x, ptf->GetPos().y);
+			Camera::GetInstance().SetHeight(1);
+
 			if (once == false)
 			{
 				once = true;
 				SubtitleComp::IntersectDissolveText({ {{(f32)-0.15,(f32)0.1}, 1, "READY", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+
+				bga->playAudio(0, "./Assets/Audio/soda-bottle-base-drum.mp3");
 			}
 		}
 		//2초간 적 위치 고정
@@ -714,10 +728,13 @@ void CombatComp::Update()
 		{
 			//AEGfxSetCamPosition(etf->GetPos().x, etf->GetPos().y);
 			Camera::GetInstance().SetPos(etf->GetPos().x, etf->GetPos().y);
+
 			if (once == true)
 			{
 				once = false;
 				SubtitleComp::IntersectDissolveText({ {{(f32)-0.1,(f32)0.1}, 1, "Set", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+
+				bga->playAudio(0, "./Assets/Audio/soda-bottle-base-drum.mp3");
 			}
 		}
 		else if (currTime < 6)
@@ -734,13 +751,14 @@ void CombatComp::Update()
 				int width = AEGfxGetWindowWidth();
 				int height = AEGfxGetWindowHeight();
 			
-				Camera::GetInstance().SetHeight(max(max(1, disX / width), max(1, disY / height)));
+				Camera::GetInstance().SetHeight(max(max(1, disX * 2 / width), max(1, disY * 2 / height)));
 			}
 			
 			if (once == false)
 			{
 				once = true;
 				SubtitleComp::IntersectDissolveText({ {{(f32)-0.12,(f32)0.1}, 1, "Go!!", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+				bga->playAudio(0, "./Assets/Audio/drum-hit.mp3");
 			}
 		}
 		else {
@@ -768,6 +786,7 @@ void CombatComp::Update()
 			if (once == false)
 			{
 				once = true;
+				bga->playAudio(0, "./Assets/Audio/tada-military.mp3");
 				SubtitleComp::IntersectDissolveText({ {{(f32)-0.3,(f32)0.1}, 1, "YOU WIN!", 1, 1, 1, 1}, 2, 0.7, 0.7 });
 			}
 		}
@@ -794,6 +813,7 @@ void CombatComp::Update()
 			{
 				once = true;
 				SubtitleComp::IntersectDissolveText({ {{(f32)-0.3,(f32)0.1}, 1, "YOU LOSE", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+				bga->playAudio(0, "./Assets/Audio/failfare.mp3");
 			}
 		}
 		else if (currTime < 4)

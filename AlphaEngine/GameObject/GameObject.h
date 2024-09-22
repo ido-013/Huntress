@@ -27,6 +27,7 @@ public:
 		Particle,
 		LeftTri_R,
 		RightTri_R,
+		Checker,
 	};
 
 	GameObject();

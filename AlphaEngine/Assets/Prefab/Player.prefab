@@ -2,6 +2,18 @@
   "entityType": 5,
   "components": [
     {
+      "type": "AudioComp",
+      "compData": {
+        "audio": [
+          "./Assets/Audio/bow-loading.mp3",
+          "./Assets/Audio/bow-release.mp3",
+          "./Assets/Audio/weapon-arrow-shot.mp3"
+        ],
+        "volume": 0.5,
+        "pitch": 1.0
+      }
+    },
+    {
       "type": "AnimatorComp",
       "compData": {
         "animation": [
@@ -31,11 +43,11 @@
             "frame": [
               [
                 0.25,
-                "./Assets/Character/Walk/sprite/ScoutWalk2.png"
+                "./Assets/Character/Walk/sprite/sprite_0.png"
               ],
               [
                 0.25,
-                "./Assets/Character/Walk/sprite/ScoutWalk3.png"
+                "./Assets/Character/Walk/sprite/sprite_1.png"
               ]
             ]
           },

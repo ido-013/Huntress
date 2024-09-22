@@ -2,6 +2,18 @@
   "entityType": 7,
   "components": [
     {
+      "type": "AudioComp",
+      "compData": {
+        "audio": [
+          "./Assets/Audio/bow-loading.mp3",
+          "./Assets/Audio/bow-release.mp3",
+          "./Assets/Audio/weapon-arrow-shot.mp3"
+        ],
+        "volume": 0.5,
+        "pitch": 1.0
+      }
+    },
+    {
       "type": "AnimatorComp",
       "compData": {
         "animation": [

@@ -19,6 +19,8 @@ public:
 
 	Vec3 vertices[4];
 
+	int isCollision = 0;
+
 	void Update() override;
 
 	void OnEvent(Event* e) override;

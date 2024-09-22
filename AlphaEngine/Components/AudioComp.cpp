@@ -4,7 +4,7 @@
 #include "../ComponentManager/ComponentManager.h"
 #include "../ResourceManager/ResourceManager.h"
 
-AudioComp::AudioComp(GameObject* owner) : BaseComponent(owner), group()
+AudioComp::AudioComp(GameObject* owner) : BaseComponent(owner), group(), current("")
 {
 	ComponentManager<AudioComp>::GetInstance().AddComp(this);
 	group = AEAudioCreateGroup();
@@ -24,14 +24,50 @@ AudioComp::~AudioComp()
 
 void AudioComp::Update()
 {
+	if (flag != 0)
+	{
+		if (preFlag == flag)
+		{
+			preFlag = 0;
+			flag = 0;
+		}
 
+		preFlag = flag;
+	}
 }
 
 void AudioComp::playAudio(s32 loops, std::string name)
 {
-	auto it = audio.find(name);
-	if (it != audio.end())
-		AEAudioPlay(it->second, group, volume, pitch, loops);
+	if (flag == 0 || current.compare(name) != 0)
+	{
+		auto it = audio.find(name);
+		if (it != audio.end())
+			AEAudioPlay(it->second, group, volume, pitch, loops);
+
+		flag = 1;
+		current = name;
+	}
+	else
+	{
+		flag = 3 - flag;
+	}
+}
+
+void AudioComp::playAudio(s32 loops, std::string name, float _volume)
+{
+	if (flag == 0 || current.compare(name) != 0)
+	{
+		auto it = audio.find(name);
+		if (it != audio.end())
+			AEAudioPlay(it->second, group, _volume, pitch, loops);
+
+		flag = 1;
+		current = name;
+	}
+	else
+	{
+		flag = 3 - flag;
+	}
 }
 
 void AudioComp::LoadFromJson(const json& data)

@@ -60,9 +60,11 @@ void Projectile::UpdateCollision()
     Particle p(5, 2, 5, { 255, 0, 0 });
 
     GameObject* player = GameObjectManager::GetInstance().GetObj("player");
-    Data::PlayerData* pData = player->GetComponent<PlayerComp>()->playerData;
+    PlayerComp* pComp = player->GetComponent<PlayerComp>();
+    Data::PlayerData* pData = pComp->playerData;
 
     GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
+    EnemyComp* eComp = enemy->GetComponent<EnemyComp>();
     Data::EnemyData* eData = enemy->GetComponent<EnemyComp>()->enemyData;
 
     GameObject* direction = GameObjectManager::GetInstance().GetObj("directionArrow");
@@ -85,14 +87,10 @@ void Projectile::UpdateCollision()
             dData->randomValue1 = randomDamage;
             dData->randomValue2 = randomArmor;
      
-            eData->hp -= max(0, totalDmg);
+            //eData->hp -= max(0, totalDmg);
+            eComp->AddHp(-max(0, totalDmg));
 
-            if (eData->hp < 0)
-            {
-                eData->hp = 0;
-            }
             // particle
-
             p.PlayParticle(etf->GetPos().x, etf->GetPos().y);
          
             break;
@@ -110,16 +108,10 @@ void Projectile::UpdateCollision()
             dData->randomValue1 = randomArmor;
             dData->randomValue2 = randomDamage;
 
-            pData->hp -= max(0, totalDmg);
+            //pData->hp -= max(0, totalDmg);
+            pComp->AddHp(-max(0, totalDmg));
 
-            if (pData->hp < 0)
-            {
-                pData->hp = 0;
-            }
-
-       
             // particle
-            
             p.PlayParticle(ptf->GetPos().x, ptf->GetPos().y);
  
             break;

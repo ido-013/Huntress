@@ -2,6 +2,8 @@
 #include "../Combat/Combat.h"
 #include "../Combat/Projectile.h"
 
+#define PADDING 20
+
 Camera::Camera() : world_to_ndc_xform(), preTurn(CombatComp::turn)
 {
 }
@@ -38,25 +40,28 @@ void Camera::Update()
 			int mouseX, mouseY;
 			AEInputGetCursorPosition(&mouseX, &mouseY);
 
-			if (mouseX > AEGfxGetWindowWidth())
+			if (mouseX > AEGfxGetWindowWidth() - PADDING)
 			{
 				x += speed * dt;
 			}
 
-			else if (mouseX < 0)
+			else if (mouseX < PADDING)
 			{
 				x -= speed * dt;
 			}
 
-			if (mouseY > AEGfxGetWindowHeight())
+			if (mouseY > AEGfxGetWindowHeight() - PADDING)
 			{
 				y -= speed * dt;
 			}
 
-			else if (mouseY < 0)
+			else if (mouseY < PADDING)
 			{
 				y += speed * dt;
 			}
+
+			x = AEClamp(x, 0, 2500);
+			y = AEClamp(y, -1865, 0);
 
 			//Press Space
 			if (AEInputCheckTriggered(AEVK_SPACE) || preTurn != CombatComp::turn)
@@ -71,7 +76,7 @@ void Camera::Update()
 	else
 		AEMtx33TransApply(&world_to_ndc_xform, &world_to_ndc_xform, -srcX, -srcY);
 
-	AEMtx33ScaleApply(&world_to_ndc_xform, &world_to_ndc_xform, 1 / height, 1 / height);
+	AEMtx33ScaleApply(&world_to_ndc_xform, &world_to_ndc_xform, 2 / height, 2 / height);
 
 	preTurn = CombatComp::turn;
 }
@@ -95,18 +100,21 @@ void Camera::AddHeight(float value)
 	if (CombatComp::state == CombatComp::COMBAT)
 	{
 		height += value;
-		height = AEClamp(height, 0.5, 10);
+		height = AEClamp(height, 0.5, 4);
 	}
 }
 
 void Camera::SetHeight(float value)
 {
-	height = AEClamp(value, 0.5, 10);
+	height = AEClamp(value, 0.5, 4);
 }
 
 void Camera::SetPos(float _x, float _y)
 {
 	srcX = _x;
 	srcY = _y;
+
+	srcX = AEClamp(srcX, 0, 3000);
+	srcY = AEClamp(srcY, -2335, 0);
 }
 

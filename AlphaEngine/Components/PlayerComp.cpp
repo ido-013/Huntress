@@ -32,26 +32,49 @@ void PlayerComp::Update()
 	AnimatorComp* a = owner->GetComponent<AnimatorComp>();
 	if (!a) return;
 
-	r->SetVelocityX(0);
+	AudioComp* ad = owner->GetComponent<AudioComp>();
+	if (!ad) return;
 
-	speed = 1000;
+	r->SetVelocityX(0);
 
 	if(CombatComp::isCombat)
 	{
-		if (AEInputCheckCurr(AEVK_A) && movementGauge > 0 && moveState)
+		if (playerData->hp == 0)
+		{
+			a->SetAnimation(false, 1, "die");
+		}
+
+		else if (AEInputCheckCurr(AEVK_A) && movementGauge > 0 && moveState)
 		{
 			t->SetScale({ -abs(t->GetScale().x), t->GetScale().y });
 			r->SetVelocityX(-speed);
-			a->SetAnimation(false, 1, "walk");
+			a->SetAnimation(true, 2, "walk");
 			movementGauge--;
 		}
 
-		if (AEInputCheckCurr(AEVK_D) && movementGauge > 0 && moveState)
+		else if (AEInputCheckCurr(AEVK_D) && movementGauge > 0 && moveState)
 		{
 			t->SetScale({ abs(t->GetScale().x), t->GetScale().y });
 			r->SetVelocityX(speed);
-			a->SetAnimation(false, 1, "walk");
+			a->SetAnimation(true, 2, "walk");
 			movementGauge--;
+		}
+
+		else if (CombatComp::turn == CombatComp::PLAYERTURN && Projectile::isLaunchProjectile)
+		{
+			a->SetAnimation(false, 1, "arrowShot");
+			ad->playAudio(0, "./Assets/Audio/bow-release.mp3");
+		}
+
+		else if (CombatComp::turn == CombatComp::PLAYERTURN && !CombatComp::isChaseDirection)
+		{
+			a->SetAnimation(false, 1, "arrowReady");
+			ad->playAudio(0, "./Assets/Audio/bow-loading.mp3");
+		}
+
+		else
+		{
+			a->SetAnimation(true, 1, "idle");
 		}
 
 		if (movementGauge <= 0)
@@ -80,6 +103,19 @@ void PlayerComp::Update()
 int PlayerComp::GetMovegauge()
 {
 	return movementGauge;
+}
+
+void PlayerComp::AddHp(float value)
+{
+	playerData->hp += value;
+	
+	if (playerData->hp < 0)
+	{
+		playerData->hp = 0;
+	}
+
+	owner->GetComponent<AnimatorComp>()->SetAnimation(false, 1, "takeDamage");
+	owner->GetComponent<AudioComp>()->playAudio(0, "./Assets/Audio/weapon-arrow-shot.mp3", 0.3);
 }
 
 void PlayerComp::LoadFromJson(const json& data)
