@@ -2,7 +2,6 @@
 
 //include
 #include "Combat.h"
-#include "../Components/TransformComp.h"
 #include "../Components/AnimatorComp.h"
 #include "../Components/RigidbodyComp.h"
 #include "../GameObjectManager/GameObjectManager.h"
@@ -16,6 +15,8 @@
 #include "../Utils/Size.h"
 #include "../Components/SubtitleComp.h"
 #include "../Camera/Camera.h"
+#include <random>
+#include <iostream>
 
 float delayTime = 0.2f;  // 2초 딜레이
 float elapsedTime = 0.0f;  // 경과 시간 저장
@@ -327,14 +328,16 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 	AEVec2 op = p;
 	AEVec2 e = enemy->GetComponent<TransformComp>()->GetPos();
 
-
 	switch (AICombatSystemObjectivePointCount)
 	{
+	case -4:
+		op = { p.x + -120, p.y };
+		break;
 	case -3:
-		op = { p.x + -100, p.y };
+		op = { p.x + -90, p.y };
 		break;
 	case -2:
-		op = { p.x + -70, p.y };
+		op = { p.x + -60, p.y };
 		break;
 	case -1:
 		op = { p.x + -30, p.y };
@@ -346,14 +349,19 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 		op = { p.x + 30, p.y };
 		break;
 	case 2:
-		op = { p.x + 70, p.y };
+		op = { p.x + 60, p.y };
 		break;
 	case 3:
-		op = { p.x + 100, p.y };
+		op = { p.x + 90, p.y };
+		break;
+	case 4:
+		op = { p.x + 120, p.y };
 		break;
 	}
 
-	ePower = 1.0f; // 초기 파워
+	// 초기 파워
+	ePower = 1.0f;
+
 
 	while (ePower <= PLAYER_POWER_LIMIT)
 	{
@@ -405,7 +413,7 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 			}
 
 			// 맵보다 더 낮게 떨어졌다면 포물선 궤적 벗어남
-			if (ptf.y < -windowHeightHalf + (e.y > p.y ? p.y : e.y))
+			if (ptf.y < MAP_BOTTOM_MAX)
 			{
 				break;
 			}
@@ -414,12 +422,7 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 		// 파워를 증가시킴
 		ePower += POWER_INTERVER;
 	}
-	
-	enemy->GetComponent<TransformComp>()->ReverseX(p.x < e.x ? 0 : 1);
 
-	// 각도 설정
-	eAngle += p.x < e.x ? angleInterval : -angleInterval;
-	//std::cout << p.x << " " << e.x << std::endl;
 	if (p.x < e.x ? eAngle > ANGLE_LIMIT + RAD90 : eAngle < ANGLE_LIMIT - RAD90)
 	{
 		if (enemy->GetComponent<EnemyComp>()->moveState)
@@ -439,9 +442,33 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 			return NOTFOUND;
 		}
 	}
-	//std::cout << AERadToDeg(eAngle)<< std::endl;
+
+	// 각도 설정
+	eAngle += p.x < e.x ? angleInterval : -angleInterval;
 
 	return MISS;
+}
+
+int getRandomIntInRange(int n) 
+{
+	// 랜덤 시드 생성
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	// 범위: -n부터 n까지
+	std::uniform_int_distribution<> dist(-n, n);
+
+	// 랜덤 정수 반환
+	return dist(gen);
+}
+
+void getDecreaseRange(int& n, int m)
+{
+	if (n == 0) return;
+	bool negative = n < 0 ? true : false;
+	n = abs(n);
+	if (n - m < 0) n = 0; 
+	else n = n - m;
+	if(negative) n = -n;
 }
 
 void CombatComp::Update()
@@ -449,17 +476,20 @@ void CombatComp::Update()
 	if (isCombat && state == COMBAT)
 	{
 		GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
-		GameObject* player = GameObjectManager::GetInstance().GetObj("player");
-		GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
-		//std::cout << "playerMoveGauge: " << player->GetComponent<PlayerComp>()->GetMovegauge() << std::endl;
-		//std::cout << "enemyMoveGauge: " << enemy->GetComponent<EnemyComp>()->GetMovegauge() << std::endl;
 		TransformComp* dtf = directionArrow->GetComponent<TransformComp>();
-		TransformComp* ptf = player->GetComponent<TransformComp>();
-		TransformComp* etf = enemy->GetComponent<TransformComp>();
+		GameObject* player = GetPlayerObject();
+		TransformComp* ptf = GetPlayerTransform();
+		GameObject* enemy = GetEnemyObject();
+		TransformComp* etf = GetEnemyTransform();
+#ifdef _DEBUG
 		if (AEInputCheckTriggered(AEVK_T))
 		{
 			std::cout << std::sqrt(std::pow(ptf->GetPos().x - etf->GetPos().x, 2) + std::pow(ptf->GetPos().y - etf->GetPos().y, 2)) << std::endl;
 		}
+#endif // DEBUG
+		//적 스프라이트 x축 방향 설정
+		enemy->GetComponent<TransformComp>()->ReverseX(ptf->GetPos().x < etf->GetPos().x ? 0 : 1);
+
 		switch (CombatComp::turn)
 		{
 			case PLAYERTURN: // player turn
@@ -538,7 +568,7 @@ void CombatComp::Update()
 						if (GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->GetCurrentAnimation() != "ArrowAttack")
 							GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->SetAnimation(false, 0.3, "ArrowAttack");
 						FireAnArrow(PLAYERTURN, *directionArrow);
-
+						
 					}
 				}
 
@@ -551,29 +581,57 @@ void CombatComp::Update()
 					Camera::GetInstance().SetPos(etf->GetPos().x, etf->GetPos().y);
 				}
 			
-				// 임시 트리거
 				if (directionArrow->GetComponent<CombatComp>()->isDrawDirection == false && ArrowCount < 1)
 				{
 					std::cout << "ENEMYTURN" << std::endl;
 					SubtitleComp::IntersectDissolveText({ {{(f32)-0.3,(f32)0.1}, 1, "ENEMY TURN", 1, 1, 1, 1}, 3, 1, 1 });
+					
 					switch (enemy->GetComponent<EnemyComp>()->enemyData->grade)
 					{
 					case Data::EnemyData::GRADE::Normal:
 						AICombatSystemApplyWind = true;
-						AICombatSystemObjectivePointCount = rand() % 7 - 3; // -3
+						AICombatSystemEnemyGrade = Data::EnemyData::GRADE::Normal;
 						angleInterval = AEDegToRad(5.f);
 						break;
 					case Data::EnemyData::GRADE::Elite:
 						AICombatSystemApplyWind = true;
-						AICombatSystemObjectivePointCount = rand() % 5 - 2; // -2
+						AICombatSystemEnemyGrade = Data::EnemyData::GRADE::Elite;
 						angleInterval = AEDegToRad(5.f);
 						break;
 					case Data::EnemyData::GRADE::Boss:
 						AICombatSystemApplyWind = true;
-						AICombatSystemObjectivePointCount = rand() % 3 - 1; // -1
+						AICombatSystemEnemyGrade = Data::EnemyData::GRADE::Boss;
 						angleInterval = AEDegToRad(5.f);
 						break;
 					}
+					
+					switch (GetPlayerEnemyDistance())
+					{
+					case DISTANCE_ARANGE_1:
+						AICombatSystemObjectivePointCount = 0;
+						break;
+					case DISTANCE_ARANGE_2:
+						AICombatSystemObjectivePointCount = 1;
+						break;
+					case DISTANCE_ARANGE_3:
+						AICombatSystemObjectivePointCount = 2;
+						break;
+					case DISTANCE_ARANGE_4:
+						AICombatSystemObjectivePointCount = 3;
+						break;
+					case DISTANCE_ARANGE_5:
+						AICombatSystemObjectivePointCount = 4;
+						break;
+					}
+					AICombatSystemObjectivePointCount = getRandomIntInRange(AICombatSystemObjectivePointCount);
+
+					if (AICombatSystemEnemyGrade == Data::EnemyData::GRADE::Normal)
+						getDecreaseRange(AICombatSystemObjectivePointCount, 0);
+					else if (AICombatSystemEnemyGrade == Data::EnemyData::GRADE::Elite)
+						getDecreaseRange(AICombatSystemObjectivePointCount, 1);
+					else if (AICombatSystemEnemyGrade == Data::EnemyData::GRADE::Boss)
+						getDecreaseRange(AICombatSystemObjectivePointCount, 2);
+
 					std::cout << "AICombatSystemObjectivePointCount : " << AICombatSystemObjectivePointCount << std::endl;
 					directionArrow->GetComponent<CombatComp>()->isDrawDirection = true;
 					directionArrow->GetComponent<CombatComp>()->isChaseDirection = true;
@@ -582,14 +640,33 @@ void CombatComp::Update()
 			 
 				if (isDrawDirection)
 				{
+					
+					directionArrow->GetComponent<SpriteComp>()->SetAlpha(1);
+
 					if (isSetLaunchAngle)
 					{
 						isSetLaunchAngle = false;
 						isChaseDirection = false;
 						isReadyLaunch = true;
 					}
+					else if (GetPlayerEnemyDistance() > DISTANCE_ARANGE_5)
+					{
+						if (enemy->GetComponent<EnemyComp>()->moveState)
+						{
+							std::cout << "Projectile : RESEARCH" << std::endl;
+							enemy->GetComponent<EnemyComp>()->isMove = true;
+						}
+						else
+						{
+							ePower = ENEMY_POWER_LIMIT;
+							eVelocity = ePower + DEFAULT_POWER;
+							eAngle = ptf->GetPos().x < etf->GetPos().x ? RAD90 + RAD10 * 3 : RAD90 - (RAD10 * 3);
+							isSetLaunchAngle = true;
+							std::cout << "Projectile : NOT FOUND" << std::endl;
+						}
+						directionArrow->GetComponent<SpriteComp>()->SetAlpha(0);
+					}
 
-					directionArrow->GetComponent<SpriteComp>()->SetAlpha(1);
 					if (isChaseDirection)
 					{
 						directionArrow->
@@ -625,10 +702,10 @@ void CombatComp::Update()
 	}
 	else if (isCombat && state == READY)
 	{
-		GameObject* player = GameObjectManager::GetInstance().GetObj("player");
-		TransformComp* ptf = player->GetComponent<TransformComp>();
-		GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
-		TransformComp* etf = enemy->GetComponent<TransformComp>();
+		GameObject* player = GetPlayerObject();
+		TransformComp* ptf = GetPlayerTransform();
+		GameObject* enemy = GetEnemyObject();
+		TransformComp* etf = GetEnemyTransform();
 		//2초간 플레이어 고정
 		if (currTime < 2)
 		{
@@ -686,10 +763,10 @@ void CombatComp::Update()
 	}
 	else if (isCombat && state == KILLENEMY)
 	{
-		GameObject* player = GameObjectManager::GetInstance().GetObj("player");
-		TransformComp* ptf = player->GetComponent<TransformComp>();
-		GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
-		TransformComp* etf = enemy->GetComponent<TransformComp>();
+		GameObject* player = GetPlayerObject();
+		TransformComp* ptf = GetPlayerTransform();
+		GameObject* enemy = GetEnemyObject();
+		TransformComp* etf = GetEnemyTransform();
 		//2초간 적 고정
 		if (currTime < 2)
 		{
@@ -712,10 +789,10 @@ void CombatComp::Update()
 	}
 	else if (isCombat && state == KILLPLAYER)
 	{
-		GameObject* player = GameObjectManager::GetInstance().GetObj("player");
-		TransformComp* ptf = player->GetComponent<TransformComp>();
-		GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
-		TransformComp* etf = enemy->GetComponent<TransformComp>();
+		GameObject* player = GetPlayerObject();
+		TransformComp* ptf = GetPlayerTransform();
+		GameObject* enemy = GetEnemyObject();
+		TransformComp* etf = GetEnemyTransform();
 		//2초간 플레이어 고정
 		if (currTime < 2)
 		{
@@ -804,6 +881,31 @@ void CombatComp::InitEnemyValue()
 	eAngle = RAD90;
 	eVelocity = DEFAULT_POWER;
 	ePower = 0;
+}
+
+GameObject* CombatComp::GetPlayerObject()
+{
+	return GameObjectManager::GetInstance().GetObj("player");
+}
+
+TransformComp* CombatComp::GetPlayerTransform()
+{
+	return GetPlayerObject()->GetComponent<TransformComp>();
+}
+
+GameObject* CombatComp::GetEnemyObject()
+{
+	return GameObjectManager::GetInstance().GetObj("enemy");
+}
+
+TransformComp* CombatComp::GetEnemyTransform()
+{
+	return GetEnemyObject()->GetComponent<TransformComp>();
+}
+
+int CombatComp::GetPlayerEnemyDistance()
+{
+	return std::sqrt(std::pow(GetPlayerTransform()->GetPos().x - GetEnemyTransform()->GetPos().x, 2) + std::pow(GetPlayerTransform()->GetPos().y - GetEnemyTransform()->GetPos().y, 2));
 }
 
 // Get&Set

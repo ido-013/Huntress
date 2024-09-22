@@ -159,7 +159,7 @@ void Projectile::Update()
         AEVec2 p = GameObjectManager::GetInstance().GetObj("player")->GetComponent<TransformComp>()->GetPos();
         AEVec2 e = GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<TransformComp>()->GetPos();
         // 투사체가 화면 끝에 닿기 전까지 반복
-        if (ptf->GetPos().y >= -windowHeightHalf + (e.y > p.y ? p.y : e.y) && colState < 1) {
+        if (ptf->GetPos().y >= MAP_BOTTOM_MAX && colState < 1) {
             if (delay > ProjectileDelay)
             {
                 // 시간 간격

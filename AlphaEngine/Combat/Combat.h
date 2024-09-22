@@ -3,6 +3,7 @@
 #pragma once
 #include "AEVec2.h"
 #include "../GameObject/GameObject.h"
+#include "../Components/TransformComp.h"
 #include "../ComponentManager/EngineComponent.h"
 #include "../Combat/Projectile.h"
 #include "../Data/Data.h"
@@ -18,15 +19,27 @@
 #define RAD10 AEDegToRad(10.f)
 #define RAD90 AEDegToRad(90.f)
 
+#define MAP_BOTTOM_MAX -2500 // 맵 가장 아래
+
 #define HIT_RADIUS 15.0f // 플레이어에 대한 적중 판정 반경
 
-//거리비례 데미지 추가, 거리비례 AI 명중률 추가 (붙어서 싸우기 방지)를 위한 상수값
-//1에서 5로 갈수록 거리비례 데미지 상승, 거리 비례 AI 명중령 감소
-#define DISTANCE_ARANGE_1 100
-#define DISTANCE_ARANGE_2 500
-#define DISTANCE_ARANGE_3 1000
-#define DISTANCE_ARANGE_4 1500
-#define DISTANCE_ARANGE_5 2000
+//붙어서 싸우기 방지를 위한 상수값
+
+	//거리비례 AI 명중률 상수 
+	//1에서 5로 갈수록 거리 비례 AI 명중률 감소
+	#define DISTANCE_ARANGE_1 100
+	#define DISTANCE_ARANGE_2 500
+	#define DISTANCE_ARANGE_3 1000
+	#define DISTANCE_ARANGE_4 1500
+	#define DISTANCE_ARANGE_5 2000
+
+	//시간비례 투사체 공격력 상수
+	//1에서 5로 갈수록 시간 비례 플레이어 투사체 공격력 계수 증가
+	#define TIME_ARANGE_1 1
+	#define TIME_ARANGE_2 2
+	#define TIME_ARANGE_3 3
+	#define TIME_ARANGE_4 4
+	#define TIME_ARANGE_5 5
 
 class CombatComp : public EngineComponent
 {
@@ -106,7 +119,12 @@ public:
 
 	bool AICombatSystemApplyWind;
 	int AICombatSystemObjectivePointCount;
-
+	Data::EnemyData::GRADE AICombatSystemEnemyGrade;
+	GameObject* GetPlayerObject();
+	TransformComp* GetPlayerTransform();
+	GameObject* GetEnemyObject();
+	TransformComp* GetEnemyTransform();
+	int GetPlayerEnemyDistance();
 	enum RESULT {
 		HIT = 0,
 		MISS = 1,

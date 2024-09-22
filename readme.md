@@ -13,10 +13,19 @@ In the combat sector, it is a game in which elements such as wind and gravity ar
 
 The following keyboard controls are used in this project:
 
++ Move
 - `A`, `D`: Move left and right
++ Projectile Power
 - `W`, `S`: Power Increase/Decrease
++ Projectile Fire
 - `Left Click`: Fix the angle (toggle : Fix free)
 - `Left Click` then `Right Click`: Launch the projectile at the set angle
++ Camera
+- You can zoom in/zoom out by lifting and lowering the `Mouse Wheel`
+- Press `Y` to change the camera to the free switch point. (When toggling, the camera is switched to the fixed point of view.)
+- When the camera is at the point of free transition, moving the mouse cursor to the corner of the screen in the direction in which the camera is to be moved will move the camera's position in that direction.
+- When the camera is at the free transition point, press the `Space Bar` to move the camera around the player.
+
 
 ## Installation and Running the Project
 
