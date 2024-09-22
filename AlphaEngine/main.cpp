@@ -76,9 +76,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 		if (GetActiveWindow() == hwnd)
 		{
-			DwmGetWindowAttribute(hwnd, DWMWA_EXTENDED_FRAME_BOUNDS, &rc, sizeof(RECT));
-			//GetWindowRect(hwnd, &rc);
-			rc.top += 31;
+			//DwmGetWindowAttribute(hwnd, DWMWA_EXTENDED_FRAME_BOUNDS, &rc, sizeof(RECT));
+			GetWindowRect(hwnd, &rc);
+			//rc.top += 31;
 			ClipCursor(&rc);
 		}
 
