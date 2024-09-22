@@ -258,12 +258,12 @@ void RigidbodyComp::Update()
 		
 			else if (type == GameObject::LeftTri)
 			{
-				if (colliderType[GameObject::Square] && c->GetPos().x < oc->GetPos().x)
+				/*if (colliderType[GameObject::Square] && c->GetPos().x < oc->GetPos().x)
 				{
 					CorrectPosByAABB(oc, c, x, y);
 					targetRot = AEDegToRad(0);
 				}	
-				else
+				else*/
 				{
 					targetRot = AEATan(-oc->GetScale().y / oc->GetScale().x);
 					y = oc->GetPos().y +

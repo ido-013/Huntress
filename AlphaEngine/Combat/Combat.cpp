@@ -751,7 +751,7 @@ void CombatComp::Update()
 				int width = AEGfxGetWindowWidth();
 				int height = AEGfxGetWindowHeight();
 			
-				Camera::GetInstance().SetHeight(max(max(1, disX / width), max(1, disY / height)));
+				Camera::GetInstance().SetHeight(max(max(1, disX * 2 / width), max(1, disY * 2 / height)));
 			}
 			
 			if (once == false)

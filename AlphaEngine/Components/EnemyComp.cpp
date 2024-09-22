@@ -7,7 +7,7 @@
 EnemyComp::EnemyComp(GameObject* _owner) : LogicComponent(_owner), enemyData(new Data::EnemyData)
 {
 	cliffChecker = new GameObject();
-	cliffChecker->type = GameObject::Enemy;
+	cliffChecker->type = GameObject::Checker;
 
 	TransformComp* t = cliffChecker->AddComponent<TransformComp>();
 

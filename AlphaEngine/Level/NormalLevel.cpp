@@ -47,10 +47,10 @@ void level::NormalLevel::Init()
 	{
 		storeUI.InitStoreUI(player);
 	}
-	else
-	{
-		Tile::ChangeTile();
-	}
+	//else
+	//{
+	//	Tile::ChangeTile();
+	//}
 }
 
 void level::NormalLevel::Update()
