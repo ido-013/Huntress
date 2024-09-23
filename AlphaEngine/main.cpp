@@ -49,8 +49,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// Initialization of your own variables go here
 
 	// Using custom window procedure
+#ifdef NDEBUG
 	AESysInit(hInstance, nCmdShow, windowWidth, windowHeight, 0, 60, true, WndProc);
 	AESysSetFullScreen(1);
+#else
+	AESysInit(hInstance, nCmdShow, windowWidth, windowHeight, 1, 60, true, WndProc);
+#endif
 
 	HWND hwnd = AESysGetWindowHandle();
 	RECT rc;

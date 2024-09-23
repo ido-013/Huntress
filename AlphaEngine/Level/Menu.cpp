@@ -63,7 +63,7 @@ void level::Menu::Init() {
         });
 
     startBtn->SetOnHoverFunction([]() {
-        std::cout << "Start Button Hovered!" << std::endl;
+        //std::cout << "Start Button Hovered!" << std::endl;
         // Hover 시의 추가 동작 구현
         });
 
