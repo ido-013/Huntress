@@ -13,6 +13,14 @@
 #define AIR_RESISTANCE_COEFFICIENT 0.01f // 공기 저항 계수
 #define WIND_MAX 3 // -n ~ n
 
+//시간비례 투사체 공격력 상수
+//1에서 5로 갈수록 시간 비례 플레이어 투사체 공격력 계수 증가
+#define TIME_ARANGE_1 0.5f
+#define TIME_ARANGE_2 1.f
+#define TIME_ARANGE_3 1.5f
+#define TIME_ARANGE_4 2.f
+#define TIME_ARANGE_5 2.5f
+
 class Projectile : public LogicComponent
 {
 
@@ -28,6 +36,7 @@ class Projectile : public LogicComponent
 	
 	~Projectile();
 public:
+	float launchTime;
 	static float windSpeed;
 	static float windAngle;
 	static AEVec2 wind;

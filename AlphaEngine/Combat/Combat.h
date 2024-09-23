@@ -33,13 +33,6 @@
 	#define DISTANCE_ARANGE_4 1500
 	#define DISTANCE_ARANGE_5 1800
 
-	//시간비례 투사체 공격력 상수
-	//1에서 5로 갈수록 시간 비례 플레이어 투사체 공격력 계수 증가
-	#define TIME_ARANGE_1 1
-	#define TIME_ARANGE_2 2
-	#define TIME_ARANGE_3 3
-	#define TIME_ARANGE_4 4
-	#define TIME_ARANGE_5 5
 
 class CombatComp : public EngineComponent
 {

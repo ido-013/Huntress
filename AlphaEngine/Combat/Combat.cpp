@@ -248,7 +248,6 @@ void CombatComp::FireAnArrow(TURN turn, GameObject& directionArrow)
 	projectile->GetComponent<Projectile>()->SetProjectileObject(*projectile);
 	projectile->GetComponent<Projectile>()->CalculateProjectileMotion();
 	projectile->GetComponent<Projectile>()->isLaunchProjectile = true;
-
 	projectile->GetComponent<ColliderComp>()->SetCollider();
 
 	isReadyLaunch = false;

@@ -19,14 +19,14 @@ bool Projectile::isLaunchProjectile = false;
 const float ProjectileDelay = 0.001f;
 float velocityX = 0, velocityY = 0;
 
-Projectile::Projectile(GameObject* _owner) : LogicComponent(_owner), velocity(0), theta(0),
+Projectile::Projectile(GameObject* _owner) : LogicComponent(_owner), launchTime(0), velocity(0), theta(0),
 mass(1), time(0), delay(0), initialVelocity({ 0,0 }), startY(0), projectile(nullptr)
 {
 
 }
 
 Projectile::Projectile(GameObject* _owner, float velocity_value, float theta_value) 
-    : LogicComponent(_owner), velocity(velocity_value), theta(theta_value),
+    : LogicComponent(_owner), launchTime(0), velocity(velocity_value), theta(theta_value),
     mass(1), time(0), delay(0), initialVelocity({ 0,0 }), startY(0), projectile(nullptr)
 {
 
@@ -88,7 +88,26 @@ void Projectile::UpdateCollision()
             float totalDmg = (pData->damage + randomDamage) - (eData->armor + randomArmor);
             dData->randomValue1 = randomDamage;
             dData->randomValue2 = randomArmor;
-     
+
+#ifdef _DEBUG
+            std::cout << "totalDmg before adding launchTime : " << totalDmg << std::endl;
+#endif
+            if (launchTime < TIME_ARANGE_1)
+                totalDmg *= 1;
+            else if (launchTime < TIME_ARANGE_2)
+                totalDmg *= 1.5;
+            else if (launchTime < TIME_ARANGE_3)
+                totalDmg *= 2;
+            else if (launchTime < TIME_ARANGE_4)
+                totalDmg *= 3;
+            else if (launchTime < TIME_ARANGE_5)
+                totalDmg *= 4;
+            else
+                totalDmg *= 5;
+
+#ifdef _DEBUG
+            std::cout << "totalDmg after adding launchTime : " << totalDmg << std::endl;
+#endif
             //eData->hp -= max(0, totalDmg);
             eComp->AddHp(-max(0, totalDmg));
 
@@ -149,7 +168,10 @@ void Projectile::Update()
         ColliderComp* pc = projectile->GetComponent<ColliderComp>();
 
         delay += static_cast<float>(AEFrameRateControllerGetFrameTime());
-
+        launchTime += static_cast<float>(AEFrameRateControllerGetFrameTime());
+#ifdef _DEBUG
+        std::cout << "launchTime : " << launchTime << std::endl;
+#endif
         AEVec2 p = GameObjectManager::GetInstance().GetObj("player")->GetComponent<TransformComp>()->GetPos();
         AEVec2 e = GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<TransformComp>()->GetPos();
         // 투사체가 화면 끝에 닿기 전까지 반복
