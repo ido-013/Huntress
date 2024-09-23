@@ -438,7 +438,7 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 			eVelocity = ePower + DEFAULT_POWER;
 			eAngle = p.x < e.x ? RAD10 * 2 + RAD90 : -(RAD10 * 2 + RAD90);
 			isSetLaunchAngle = true;
-			std::cout << "Projectile : NOT FOUND" << std::endl;
+			std::cout << "Projectile : NOT FOUND IN AICombatSystem" << std::endl;
 			return NOTFOUND;
 		}
 	}
@@ -563,7 +563,7 @@ void CombatComp::Update()
 				}
 				if (AEInputCheckTriggered(AEVK_RBUTTON))
 				{
-					if (isReadyLaunch)
+					if (isReadyLaunch && ArrowCount < 1)
 					{
 						if (GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->GetCurrentAnimation() != "ArrowAttack")
 							GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->SetAnimation(false, 0.3, "ArrowAttack");
@@ -641,7 +641,6 @@ void CombatComp::Update()
 				if (isDrawDirection)
 				{
 					
-					directionArrow->GetComponent<SpriteComp>()->SetAlpha(1);
 
 					if (isSetLaunchAngle)
 					{
@@ -649,46 +648,41 @@ void CombatComp::Update()
 						isChaseDirection = false;
 						isReadyLaunch = true;
 					}
-					else if (GetPlayerEnemyDistance() > DISTANCE_ARANGE_5)
+					else
 					{
-						if (enemy->GetComponent<EnemyComp>()->moveState)
+						directionArrow->GetComponent<SpriteComp>()->SetAlpha(1);
+						if (GetPlayerEnemyDistance() > DISTANCE_ARANGE_5)
 						{
-							std::cout << "Projectile : RESEARCH" << std::endl;
-							enemy->GetComponent<EnemyComp>()->isMove = true;
+							directionArrow->GetComponent<SpriteComp>()->SetAlpha(0);
+							while (EnemyAICombatSystem() == RESEARCH)
+							{
+								std::cout << "Research..." << std::endl;
+							}// AISystem
 						}
-						else
+
+						if (isChaseDirection)
 						{
-							ePower = ENEMY_POWER_LIMIT;
-							eVelocity = ePower + DEFAULT_POWER;
-							eAngle = ptf->GetPos().x < etf->GetPos().x ? RAD90 + RAD10 * 3 : RAD90 - (RAD10 * 3);
-							isSetLaunchAngle = true;
-							std::cout << "Projectile : NOT FOUND" << std::endl;
+							directionArrow->
+								GetComponent<CombatComp>()->
+								DrawDirectionPegline(*directionArrow,
+									ENEMYTURN, { -ANGLE_LIMIT, ANGLE_LIMIT });
 						}
-						directionArrow->GetComponent<SpriteComp>()->SetAlpha(0);
-					}
 
-					if (isChaseDirection)
-					{
-						directionArrow->
-							GetComponent<CombatComp>()->
-							DrawDirectionPegline(*directionArrow,
-								ENEMYTURN, { -ANGLE_LIMIT, ANGLE_LIMIT });
+						dtf->SetScale({ directionArrowWidth, directionArrowHeight * ePower });
+						dtf->SetPos(
+							RotatePointAround(
+								etf->GetPos(),
+								{ etf->GetPos().x , etf->GetPos().y + dtf->GetScale().y / 2 },
+								eAngle - RAD90
+							)
+						);
 					}
-
-					dtf->SetScale({ directionArrowWidth, directionArrowHeight * ePower });
-					dtf->SetPos(
-						RotatePointAround(
-							etf->GetPos(),
-							{ etf->GetPos().x , etf->GetPos().y + dtf->GetScale().y / 2 },
-							eAngle - RAD90
-						)
-					);
 				}
 				else
 				{
 					directionArrow->GetComponent<SpriteComp>()->SetAlpha(0);
 				}
-				if (isReadyLaunch)
+				if (isReadyLaunch && ArrowCount < 1)
 				{
 
 					FireAnArrow(ENEMYTURN, *directionArrow);

@@ -31,7 +31,7 @@
 	#define DISTANCE_ARANGE_2 500
 	#define DISTANCE_ARANGE_3 1000
 	#define DISTANCE_ARANGE_4 1500
-	#define DISTANCE_ARANGE_5 2000
+	#define DISTANCE_ARANGE_5 1800
 
 	//시간비례 투사체 공격력 상수
 	//1에서 5로 갈수록 시간 비례 플레이어 투사체 공격력 계수 증가
