@@ -2,12 +2,12 @@
 
 int PosToMapX(float x)
 {
-    return (x + (windowWidth / 2)) / (windowWidth / width);
+    return (int)(x + (windowWidth / 2)) / (windowWidth / width);
 }
 
 int PosToMapY(float y)
 {
-    return (y + (windowHeight / 2)) / (windowHeight / height);
+    return (int)(y + (windowHeight / 2)) / (windowHeight / height);
 }
 
 float MapToPosX(float ind)

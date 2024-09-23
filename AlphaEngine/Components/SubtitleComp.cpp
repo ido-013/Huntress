@@ -85,11 +85,11 @@ void SubtitleComp::Update()
 		{
 			if (subtitles.front().startIntersectTime >= currTime)
 			{
-				subtitles.front().subtitle.a = (f32)currTime / subtitles.front().startIntersectTime;
+				subtitles.front().subtitle.a = (f32)currTime / (f32)subtitles.front().startIntersectTime;
 			}
 			if (subtitles.front().duration - subtitles.front().endIntersectTime <= currTime)
 			{
-				subtitles.front().subtitle.a = 1 - (((f32)currTime - (subtitles.front().duration - subtitles.front().endIntersectTime)) / subtitles.front().endIntersectTime);
+				subtitles.front().subtitle.a = 1 - (((f32)currTime - (f32)(subtitles.front().duration - subtitles.front().endIntersectTime)) / (f32)subtitles.front().endIntersectTime);
 			}
 			OnSubtitle(subtitles.front().subtitle);
 			currTime += AEFrameRateControllerGetFrameTime();

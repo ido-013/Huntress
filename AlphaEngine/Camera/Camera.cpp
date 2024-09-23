@@ -20,7 +20,7 @@ void Camera::Update()
 	if (CombatComp::state == CombatComp::COMBAT 
 		&& !Projectile::isLaunchProjectile)
 	{
-		f64 dt = AEFrameRateControllerGetFrameTime();
+		float dt = (float)AEFrameRateControllerGetFrameTime();
 
 		if (AEInputCheckTriggered(AEVK_Y))
 		{

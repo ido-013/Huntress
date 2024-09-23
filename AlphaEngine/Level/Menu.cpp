@@ -91,8 +91,8 @@ void level::Menu::Init() {
 
     ButtonManager::GetInstance().RegisterButton(quitBtn);
 
-    SubtitleComp::AddSubtitle({ {-0.15,-0.27}, 1, "START", 0.2, 0, 0, 1 });
-    SubtitleComp::AddSubtitle({ {-0.11,-0.72}, 1, "EXIT", 0.2, 0, 0, 1 });
+    SubtitleComp::AddSubtitle({ {(f32)-0.15,(f32)-0.27}, (f32)1, "START", (f32)0.2, (f32)0, (f32)0, (f32)1 });
+    SubtitleComp::AddSubtitle({ {(f32)-0.11,(f32)-0.72}, (f32)1, "EXIT", (f32)0.2, (f32)0, (f32)0, (f32)1 });
 
 }
 

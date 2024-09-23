@@ -678,7 +678,7 @@ void CombatComp::Update()
 				}
 				if (isReadyLaunch && ArrowCount < 1)
 				{
-					static float timer = 0;
+					static f64 timer = 0;
 					timer += AEFrameRateControllerGetFrameTime();
 
 					if (timer > 1)
@@ -901,7 +901,7 @@ TransformComp* CombatComp::GetEnemyTransform()
 
 int CombatComp::GetPlayerEnemyDistance()
 {
-	return std::sqrt(std::pow(GetPlayerTransform()->GetPos().x - GetEnemyTransform()->GetPos().x, 2) + std::pow(GetPlayerTransform()->GetPos().y - GetEnemyTransform()->GetPos().y, 2));
+	return (int)std::sqrt(std::pow(GetPlayerTransform()->GetPos().x - GetEnemyTransform()->GetPos().x, 2) + std::pow(GetPlayerTransform()->GetPos().y - GetEnemyTransform()->GetPos().y, 2));
 }
 
 // Get&Set

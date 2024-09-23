@@ -145,7 +145,6 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="Resource\TextureResource.cpp" />
     <ClCompile Include="RTTI\Registry.cpp" />
     <ClCompile Include="Serializer\Serializer.cpp" />
-    <ClCompile Include="Shop\Shop.cpp" />
     <ClCompile Include="UIM\BtnManager.cpp" />
     <ClCompile Include="UI\CombatUI.cpp" />
     <ClCompile Include="UI\StoreUI.cpp" />
@@ -210,7 +209,6 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="RTTI\BaseRTTI.h" />
     <ClInclude Include="RTTI\Registry.h" />
     <ClInclude Include="Serializer\Serializer.h" />
-    <ClInclude Include="Shop\Shop.h" />
     <ClInclude Include="Tile\Tile.h" />
     <ClInclude Include="UIM\BtnManager.h" />
     <ClInclude Include="UI\CombatUI.h" />

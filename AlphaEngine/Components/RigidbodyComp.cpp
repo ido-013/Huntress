@@ -167,7 +167,7 @@ void RigidbodyComp::ClearAcceleration()
 
 void RigidbodyComp::Update()
 {
-	f64 dt = AEFrameRateControllerGetFrameTime();
+	float dt = (float)AEFrameRateControllerGetFrameTime();
 
 	//Get the transform
 	TransformComp* t = owner->GetComponent<TransformComp>();
