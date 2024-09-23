@@ -46,7 +46,7 @@ void PlayerComp::Update()
 
 		else if (AEInputCheckCurr(AEVK_A) && movementGauge > 0 && moveState)
 		{
-			t->SetScale({ -abs(t->GetScale().x), t->GetScale().y });
+			t->ReverseX(0);
 			r->SetVelocityX(-speed);
 			a->SetAnimation(true, 2, "walk");
 			movementGauge--;
@@ -54,7 +54,7 @@ void PlayerComp::Update()
 
 		else if (AEInputCheckCurr(AEVK_D) && movementGauge > 0 && moveState)
 		{
-			t->SetScale({ abs(t->GetScale().x), t->GetScale().y });
+			t->ReverseX(1);
 			r->SetVelocityX(speed);
 			a->SetAnimation(true, 2, "walk");
 			movementGauge--;

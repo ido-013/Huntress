@@ -18,6 +18,7 @@
 #include "../Camera/Camera.h"
 #include <random>
 #include <iostream>
+#include "../Utils/Utils.h"
 
 float delayTime = 0.2f;  // 2초 딜레이
 float elapsedTime = 0.0f;  // 경과 시간 저장
@@ -542,6 +543,8 @@ void CombatComp::Update()
 						}
 						else
 						{
+							player->GetComponent<TransformComp>()->ReverseX(ptf->GetPos().x > GetMouseCursorPositionX() + ptf->GetPos().x ? 0 : 1);
+							std::cout << ptf->GetPos().x << " | " << GetMouseCursorPositionX() + ptf->GetPos().x << std::endl;
 							player->GetComponent<PlayerComp>()->moveState = false;
 							isChaseDirection = false;
 							isReadyLaunch = true;

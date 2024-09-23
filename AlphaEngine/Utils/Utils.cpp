@@ -1,4 +1,22 @@
 #include "Utils.h"
+#include "AEEngine.h"
+
+float GetMouseCursorPositionX()
+{
+    s32 x, y;
+    AEInputGetCursorPosition(&x, &y);
+    x -= windowWidthHalf;
+    return (float)x;
+}
+
+float GetMouseCursorPositionY()
+{
+    s32 x, y;
+    AEInputGetCursorPosition(&x, &y);
+    y -= windowHeightHalf;
+    y = -y;
+    return (float)y;
+}
 
 int PosToMapX(float x)
 {
