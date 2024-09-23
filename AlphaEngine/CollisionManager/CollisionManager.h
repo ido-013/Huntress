@@ -33,6 +33,9 @@ private:
 	bool EnemyTriCheck(ColliderComp*, ColliderComp*);
 	bool EnemySquareCheck(ColliderComp*, ColliderComp*);
 
+	bool CheckerTriCheck(ColliderComp*, ColliderComp*);
+	bool CheckerSquareCheck(ColliderComp*, ColliderComp*);
+
 	bool ProjectileEnemyCheck(ColliderComp*, ColliderComp*);
 	bool ProjectilePlayerCheck(ColliderComp*, ColliderComp*);
 	bool ProjectileTriCheck(ColliderComp*, ColliderComp*);

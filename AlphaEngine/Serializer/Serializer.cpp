@@ -186,8 +186,9 @@ void Serializer::LoadLevel(const std::string& filename)
 	if (enemyObj->GetComponent<EnemyComp>()->enemyData->grade == Data::EnemyData::Boss)
 		enemyObj->GetComponent<SpriteComp>()->SetColor(130, 130, 0);
 
-	GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->SetAnimation(true, 1, "walk");
-	GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<AnimatorComp>()->SetAnimation(true, 1, "walk");
+	GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->SetAnimation(true, 1, "idle");
+	GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<AnimatorComp>()->SetAnimation(true, 1, "idle");
+
 	GameObjectManager::GetInstance().GetObj("background")->GetComponent<SpriteComp>()->SetTexture(allData.find("backgroundFileName").value());
 }
 
@@ -200,11 +201,22 @@ void Serializer::SaveLevel(const std::string& filename, const std::string& backg
 
 	for (auto go : GameObjectManager::GetInstance().GetAllObjects())
 	{
+		if (go.first->prefabName.compare("") == 0)
+			continue;
+
 		json obj;
 		obj["object"] = go.first->prefabName;
 
 		json components;
-		components.push_back(go.first->GetComponent<TransformComp>()->SaveToJson());
+
+		TransformComp* t = go.first->GetComponent<TransformComp>();
+		if (t != nullptr)
+			components.push_back(t->SaveToJson());
+
+		SpriteComp* s = go.first->GetComponent<SpriteComp>();
+		if (s != nullptr)
+			components.push_back(s->SaveToJson());
+		
 		obj["components"] = components;
 
 		if (go.first->name.size() > 0)

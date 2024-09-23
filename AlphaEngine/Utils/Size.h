@@ -4,5 +4,5 @@ const int windowHeight = 900;
 const int windowWidthHalf = 800;
 const int windowHeightHalf = 450;
 
-const int height = 100;
-const int width = 100;	
+const int height = 80;
+const int width = 80;	

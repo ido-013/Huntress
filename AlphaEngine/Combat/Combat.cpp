@@ -8,6 +8,7 @@
 #include "../Components/SpriteComp.h"
 #include "../Components/PlayerComp.h"
 #include "../Components/EnemyComp.h"
+#include "../Components/AudioComp.h"
 #include "../Combat/Projectile.h"
 #include <cmath>
 #include "AEInput.h"
@@ -44,7 +45,7 @@ void CombatComp::DataUpdate()
 }
 
 CombatComp::CombatComp(GameObject* _owner) : EngineComponent(_owner),
-pAngle(RAD90), eAngle(RAD90), pVelocity(0), eVelocity(0), pPower((int)(PLAYER_POWER_LIMIT / 2)), ePower((int)(PLAYER_POWER_LIMIT / 2)), AICombatSystemApplyWind(true), angleInterval(0), AICombatSystemObjectivePointCount(0)
+pAngle(RAD90), eAngle(RAD90), pVelocity(0), eVelocity(0), pPower((int)(PLAYER_POWER_LIMIT / 2)), ePower((int)(PLAYER_POWER_LIMIT / 2)), AICombatSystemApplyWind(true), angleInterval(0), AICombatSystemObjectivePointCount(0), AICombatSystemEnemyGrade(Data::EnemyData::GRADE::Normal)
 {
 	
 }
@@ -113,7 +114,7 @@ float AngleBetweenVectors(const AEVec2& v1, const AEVec2& v2) {
 }
 
 // 두 선분 사이의 각도를 계산하는 함수
-float AngleBetweenSegments(const AEVec2& p1, const AEVec2& p2, const AEVec2& p3, const AEVec2& p4) {
+float AngleBetweenSegments(const AEVec2 p1, const AEVec2 p2, const AEVec2 p3, const AEVec2& p4) {
 	// 선분 1과 선분 2의 벡터 계산
 	AEVec2 v1 = VectorFromPoints(p1, p2);
 	AEVec2 v2 = VectorFromPoints(p3, p4);
@@ -158,8 +159,22 @@ void CombatComp::DrawDirectionPegline(GameObject& directionArrow,
 		px -= windowWidthHalf;
 		py -= windowHeightHalf;
 		py = -py;
-		angle = AngleBetweenSegments(atf->GetPos(), dtf->GetPos(),
-			atf->GetPos(), { (float)px + cx, (float)py + cy });
+
+		{
+			AEMtx33 mtx = Camera::GetInstance().GetMatrix();
+			AEVec2 tmp1 = atf->GetPos();
+			AEVec2 tmp2 = dtf->GetPos();
+			AEVec2 tmp3 = { cx, cy };
+			AEMtx33MultVec(&tmp1, &mtx, &tmp1);
+			AEMtx33MultVec(&tmp2, &mtx, &tmp2);
+			AEMtx33MultVec(&tmp3, &mtx, &tmp3);
+
+			angle = AngleBetweenSegments(tmp1, tmp2,
+				tmp1, { (float)px + tmp3.x, (float)py + tmp3.y });
+		}
+
+		/*angle = AngleBetweenSegments(atf->GetPos(), dtf->GetPos(),
+			atf->GetPos(), { (float)px + cx, (float)py + cy });*/
 
 		/*std::cout << "px,py : " << px << "," << -(py - windowHeightHalf) << "\n"
 				  << "cx,cy : " << cx << "," << cy << "\n"
@@ -249,16 +264,6 @@ CombatComp::TURN CombatComp::TurnChange()
 	return CombatComp::turn == PLAYERTURN ? ENEMYTURN : PLAYERTURN;
 }
 
-void CombatComp::setWalkAnimation()
-{
-
-
-
-	
-
-
-}
-
 void CombatComp::checkState()
 {
 	GameObject* player = GameObjectManager::GetInstance().GetObj("player");
@@ -275,23 +280,20 @@ void CombatComp::checkState()
 		else if (player->GetComponent<PlayerComp>()->playerData->hp <= 0)
 		{
 			state = KILLPLAYER;
-			player->GetComponent<AnimatorComp>()->SetAnimation(false, 1, "Die");
 
 			std::cout << "GAMEOVER" << std::endl;
 			return;
 		}
 	}
-	f32 x, y;
-	//AEGfxGetCamPosition(&x, &y);
-	Camera::GetInstance().GetPos(&x, &y);
-	if (enemy->GetComponent<TransformComp>()->GetPos().y < -(windowHeightHalf * 10) + y)
+	//낙사 코드
+	if (enemy->GetComponent<TransformComp>()->GetPos().y < MAP_BOTTOM_MAX)
 	{
 		state = CLEAR;
 		std::cout << "CLEAR!" << std::endl;
 		return;
 	}
 
-	if (player->GetComponent<TransformComp>()->GetPos().y < -(windowHeightHalf * 10) + y)
+	if (player->GetComponent<TransformComp>()->GetPos().y < MAP_BOTTOM_MAX)
 	{
 		state = GAMEOVER;
 		std::cout << "GAMEOVER" << std::endl;
@@ -473,6 +475,8 @@ void getDecreaseRange(int& n, int m)
 
 void CombatComp::Update()
 {
+	GameObject* bg = GameObjectManager::GetInstance().GetObj("background");
+	AudioComp* bga = bg->GetComponent<AudioComp>();
 	if (isCombat && state == COMBAT)
 	{
 		GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
@@ -565,10 +569,7 @@ void CombatComp::Update()
 				{
 					if (isReadyLaunch && ArrowCount < 1)
 					{
-						if (GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->GetCurrentAnimation() != "ArrowAttack")
-							GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->SetAnimation(false, 0.3, "ArrowAttack");
 						FireAnArrow(PLAYERTURN, *directionArrow);
-						
 					}
 				}
 
@@ -604,25 +605,18 @@ void CombatComp::Update()
 						angleInterval = AEDegToRad(5.f);
 						break;
 					}
-					
-					switch (GetPlayerEnemyDistance())
-					{
-					case DISTANCE_ARANGE_1:
+					if (GetPlayerEnemyDistance() < DISTANCE_ARANGE_1)
 						AICombatSystemObjectivePointCount = 0;
-						break;
-					case DISTANCE_ARANGE_2:
+					else if (GetPlayerEnemyDistance() < DISTANCE_ARANGE_2)
 						AICombatSystemObjectivePointCount = 1;
-						break;
-					case DISTANCE_ARANGE_3:
+					else if (GetPlayerEnemyDistance() < DISTANCE_ARANGE_3)
 						AICombatSystemObjectivePointCount = 2;
-						break;
-					case DISTANCE_ARANGE_4:
+					else if (GetPlayerEnemyDistance() < DISTANCE_ARANGE_4)
 						AICombatSystemObjectivePointCount = 3;
-						break;
-					case DISTANCE_ARANGE_5:
+					else if (GetPlayerEnemyDistance() < DISTANCE_ARANGE_5)
 						AICombatSystemObjectivePointCount = 4;
-						break;
-					}
+					else
+						AICombatSystemObjectivePointCount = 4;
 					AICombatSystemObjectivePointCount = getRandomIntInRange(AICombatSystemObjectivePointCount);
 
 					if (AICombatSystemEnemyGrade == Data::EnemyData::GRADE::Normal)
@@ -684,8 +678,14 @@ void CombatComp::Update()
 				}
 				if (isReadyLaunch && ArrowCount < 1)
 				{
+					static float timer = 0;
+					timer += AEFrameRateControllerGetFrameTime();
 
-					FireAnArrow(ENEMYTURN, *directionArrow);
+					if (timer > 1)
+					{
+						timer = 0;
+						FireAnArrow(ENEMYTURN, *directionArrow);
+					}
 				}
 
 				break;
@@ -706,10 +706,14 @@ void CombatComp::Update()
 			player->GetComponent<PlayerComp>()->moveState = false;
 			//AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
 			Camera::GetInstance().SetPos(ptf->GetPos().x, ptf->GetPos().y);
+			Camera::GetInstance().SetHeight(1);
+
 			if (once == false)
 			{
 				once = true;
 				SubtitleComp::IntersectDissolveText({ {{(f32)-0.15,(f32)0.1}, 1, "READY", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+
+				bga->playAudio(0, "./Assets/Audio/soda-bottle-base-drum.mp3");
 			}
 		}
 		//2초간 적 위치 고정
@@ -717,10 +721,13 @@ void CombatComp::Update()
 		{
 			//AEGfxSetCamPosition(etf->GetPos().x, etf->GetPos().y);
 			Camera::GetInstance().SetPos(etf->GetPos().x, etf->GetPos().y);
+
 			if (once == true)
 			{
 				once = false;
 				SubtitleComp::IntersectDissolveText({ {{(f32)-0.1,(f32)0.1}, 1, "Set", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+
+				bga->playAudio(0, "./Assets/Audio/soda-bottle-base-drum.mp3");
 			}
 		}
 		else if (currTime < 6)
@@ -737,13 +744,14 @@ void CombatComp::Update()
 				int width = AEGfxGetWindowWidth();
 				int height = AEGfxGetWindowHeight();
 			
-				Camera::GetInstance().SetHeight(max(max(1, disX / width), max(1, disY / height)));
+				Camera::GetInstance().SetHeight(max(max(1, disX * 2 / width), max(1, disY * 2 / height)));
 			}
 			
 			if (once == false)
 			{
 				once = true;
 				SubtitleComp::IntersectDissolveText({ {{(f32)-0.12,(f32)0.1}, 1, "Go!!", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+				bga->playAudio(0, "./Assets/Audio/drum-hit.mp3");
 			}
 		}
 		else {
@@ -771,6 +779,7 @@ void CombatComp::Update()
 			if (once == false)
 			{
 				once = true;
+				bga->playAudio(0, "./Assets/Audio/tada-military.mp3");
 				SubtitleComp::IntersectDissolveText({ {{(f32)-0.3,(f32)0.1}, 1, "YOU WIN!", 1, 1, 1, 1}, 2, 0.7, 0.7 });
 			}
 		}
@@ -797,6 +806,7 @@ void CombatComp::Update()
 			{
 				once = true;
 				SubtitleComp::IntersectDissolveText({ {{(f32)-0.3,(f32)0.1}, 1, "YOU LOSE", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+				bga->playAudio(0, "./Assets/Audio/failfare.mp3");
 			}
 		}
 		else if (currTime < 4)
@@ -820,14 +830,6 @@ void CombatComp::Update()
 	elapsedTime += deltaTime;
 	if (elapsedTime >= delayTime)
 	{
-		if (GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<AnimatorComp>()->GetCurrentAnimation() != "walk")
-		{
-			GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<AnimatorComp>()->SetAnimation(true, 1, "Walk");
-		}
-		if (GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->GetCurrentAnimation() != "walk")
-		{
-			GameObjectManager::GetInstance().GetObj("player")->GetComponent<AnimatorComp>()->SetAnimation(true, 1, "walk");
-		}
 		elapsedTime = 0;
 	}
 }

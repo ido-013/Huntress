@@ -8,7 +8,7 @@ GameObject* background = nullptr;
 void InitBackground()
 {
 	/*Prefab b("Background");
-	background = b.NewGameObject();*/
+	background = b.NewGameObject("background");*/
 
 	background = GameObjectManager::GetInstance().GetObj("background");
 	background->GetComponent<AudioComp>()->playAudio(-1, "./Assets/Audio/BGM.mp3");

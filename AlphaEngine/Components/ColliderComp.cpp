@@ -32,6 +32,15 @@ void ColliderComp::Update()
 	{
 		vertices[i] = mat * vertices[i];
 	}
+
+	if (isCollision == 2)
+	{
+		isCollision = 0;
+	}
+	else if (isCollision == 1)
+	{
+		isCollision++;
+	}
 }
 
 void ColliderComp::OnEvent(Event* e)
@@ -53,6 +62,8 @@ void ColliderComp::OnEvent(Event* e)
 			r->oppoCollider.push(static_cast<ColliderComp*>(e->src));
 			r->colliderType[static_cast<ColliderComp*>(e->src)->GetOwner()->type] = true;
 		}
+
+		isCollision = 1;
 	}
 }
 

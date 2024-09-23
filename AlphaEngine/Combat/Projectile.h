@@ -28,6 +28,8 @@ class Projectile : public LogicComponent
 	
 	~Projectile();
 public:
+	static float windSpeed;
+	static float windAngle;
 	static AEVec2 wind;
 	Projectile(GameObject* _owner);
 	Projectile(GameObject* _owner, float velocity_value, float theta_value);

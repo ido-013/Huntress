@@ -32,15 +32,20 @@ void AnimatorComp::UpdateAnimation(double _time, std::string _spriteName, std::s
 
 void AnimatorComp::SetAnimation(bool _loop, double _speed, std::string _name)
 {
-	loop = _loop;
-	speed = _speed;
-	timer = 0;
-
-	auto it = animation.find(_name);
-	if (it != animation.end())
+	if (currentAnimationName.compare(_name) != 0 && (loop || (!loop && current == nullptr)))
 	{
-		current = it->second;
-		currentAnimationName = _name;  // 현재 애니메이션 이름을 저장
+		loop = _loop;
+		speed = _speed;
+
+		ind = 0;
+		timer = 0;
+
+		auto it = animation.find(_name);
+		if (it != animation.end())
+		{
+			current = it->second;
+			currentAnimationName = _name;  // 현재 애니메이션 이름을 저장
+		}
 	}
 }
 
