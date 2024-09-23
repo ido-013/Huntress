@@ -60,7 +60,6 @@ void ColliderComp::OnEvent(Event* e)
 		else if (r && !ce->isProjectile)
 		{
 			r->oppoCollider.push(static_cast<ColliderComp*>(e->src));
-			r->colliderType[static_cast<ColliderComp*>(e->src)->GetOwner()->type] = true;
 		}
 
 		isCollision = 1;

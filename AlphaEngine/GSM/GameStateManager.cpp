@@ -62,15 +62,16 @@ void GSM::GameStateManager::Update()
 
 void GSM::GameStateManager::Exit()
 {
-    SubtitleComp::DestroyFont();
-    EventManager::GetInstance().DeleteUndispahchEvent();
-    GameObjectManager::GetInstance().RemoveAllObject();
-    ButtonManager::GetInstance().RemoveAllButtons();
-
     if (currentLevel)
     {
         currentLevel->Exit();
     }
+
+    SubtitleComp::DestroyFont();
+    EventManager::GetInstance().DeleteUndispahchEvent();
+    GameObjectManager::GetInstance().RemoveAllObject();
+    ButtonManager::GetInstance().RemoveAllButtons();
+    ResourceManager::GetInstance().UnloadAllResource();
 }
 
 void GSM::GameStateManager::ChangeLevel(BaseLevel* newLvl)

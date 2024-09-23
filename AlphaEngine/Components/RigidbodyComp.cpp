@@ -223,8 +223,7 @@ void RigidbodyComp::Update()
 		if (AERadToDeg(targetRot) < -40)
 			velocity.x = 10;*/
 
-		if (oppoCollider.size() > 1)
-			c->SetPos({ c->GetPos().x, c->GetPos().y + 1 });
+		std::cout << oppoCollider.size() << std::endl;;
 
 		while (!oppoCollider.empty())
 		{
@@ -233,50 +232,47 @@ void RigidbodyComp::Update()
 
 			GameObject::Type type = oc->GetOwner()->type;
 
-			if (type == GameObject::Square && !colliderType[GameObject::LeftTri] && !colliderType[GameObject::RightTri])
+			float val = -5000;
+			float rotVal = 0;
+
+			if (type == GameObject::Square)
 			{
-				CorrectPosByAABB(oc, c, x, y);
-				targetRot = AEDegToRad(0);
+				val = oc->GetPos().y + oc->GetScale().y / 2 + c->GetScale().y / 2;
+				rotVal = AEDegToRad(0);
 			}
 
 			else if (type == GameObject::RightTri)
 			{
-				if (colliderType[GameObject::Square] && c->GetPos().x > oc->GetPos().x)
-				{
-					CorrectPosByAABB(oc, c, x, y);
-					targetRot = AEDegToRad(0);
-				}
-				else
-				{
-					targetRot = AEATan(oc->GetScale().y / oc->GetScale().x);
-					y = oc->GetPos().y +
-						(c->GetPos().x + (c->GetScale().x / 2 * (abs(AESin(targetRot) * 0.5f))) - oc->GetPos().x) *
-						(oc->GetScale().y / oc->GetScale().x) +
-						c->GetScale().y / 2;
-				}
+				if (oc->GetPos().x + (oc->GetScale().x / 2) < c->GetPos().x || oc->GetPos().x - (oc->GetScale().x / 2) > c->GetPos().x)
+					continue;
+
+				val = oc->GetPos().y +
+					(c->GetPos().x + (c->GetScale().x / 2 * (abs(AESin(targetRot) * 0.5f))) - oc->GetPos().x) *
+					(oc->GetScale().y / oc->GetScale().x) +
+					c->GetScale().y / 2;
+
+				rotVal = AEATan(oc->GetScale().y / oc->GetScale().x);
 			}
 		
 			else if (type == GameObject::LeftTri)
 			{
-				/*if (colliderType[GameObject::Square] && c->GetPos().x < oc->GetPos().x)
-				{
-					CorrectPosByAABB(oc, c, x, y);
-					targetRot = AEDegToRad(0);
-				}	
-				else*/
-				{
-					targetRot = AEATan(-oc->GetScale().y / oc->GetScale().x);
-					y = oc->GetPos().y +
-						(c->GetPos().x - (c->GetScale().x / 2 * (abs(AESin(targetRot) * 0.5f))) - oc->GetPos().x) *
-						(-oc->GetScale().y / oc->GetScale().x) +
-						c->GetScale().y / 2;
-				}
-			}
-		}
+				if (oc->GetPos().x + (oc->GetScale().x / 2) < c->GetPos().x || oc->GetPos().x - (oc->GetScale().x / 2) > c->GetPos().x)
+					continue;
 
-		for (int i = 0; i < 10; i++)
-		{
-			colliderType[i] = false;
+				val = oc->GetPos().y +
+					(c->GetPos().x - (c->GetScale().x / 2 * (abs(AESin(targetRot) * 0.5f))) - oc->GetPos().x) *
+					(-oc->GetScale().y / oc->GetScale().x) +
+					c->GetScale().y / 2;
+
+				rotVal = AEATan(-oc->GetScale().y / oc->GetScale().x);
+			}
+
+			if (y < val)
+			{
+				y = val;
+				targetRot = rotVal;
+				velocity.y = 0;
+			}
 		}
 
 		c->SetPos({ x, y });

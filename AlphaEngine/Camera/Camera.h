@@ -19,10 +19,8 @@ private:
 	float x = 0;
 	float y = 0;
 
-	float speed = 340;
+	float speed = 400;
 	float height = 1;
-
-	CombatComp::TURN preTurn;
 
 	bool fix = true;
 
