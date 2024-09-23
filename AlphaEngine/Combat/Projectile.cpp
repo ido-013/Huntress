@@ -170,7 +170,7 @@ void Projectile::Update()
         delay += static_cast<float>(AEFrameRateControllerGetFrameTime());
         launchTime += static_cast<float>(AEFrameRateControllerGetFrameTime());
 #ifdef _DEBUG
-        std::cout << "launchTime : " << launchTime << std::endl;
+        //std::cout << "launchTime : " << launchTime << std::endl;
 #endif
         AEVec2 p = GameObjectManager::GetInstance().GetObj("player")->GetComponent<TransformComp>()->GetPos();
         AEVec2 e = GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<TransformComp>()->GetPos();

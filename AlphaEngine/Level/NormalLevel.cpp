@@ -90,7 +90,7 @@ void level::NormalLevel::Update()
 		}
 	}
 
-	if (CombatComp::state == CombatComp::GAMEOVER)
+	if (CombatComp::state == CombatComp::RESET)
 	{
 		GSM::GameStateManager::GetInstance().ChangeLevel(new Menu);
 	}

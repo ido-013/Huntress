@@ -274,14 +274,13 @@ void CombatComp::checkState()
 		if (enemy->GetComponent<EnemyComp>()->enemyData->hp <= 0)
 		{
 			state = KILLENEMY;
-			std::cout << "CLEAR!" << std::endl;
+			std::cout << "CLEAR! <KILLENEMY>" << std::endl;
 			return;
 		}
 		else if (player->GetComponent<PlayerComp>()->playerData->hp <= 0)
 		{
 			state = KILLPLAYER;
-
-			std::cout << "GAMEOVER" << std::endl;
+			std::cout << "GAMEOVER <KILLPLAYER>" << std::endl;
 			return;
 		}
 	}
@@ -485,10 +484,18 @@ void CombatComp::Update()
 		TransformComp* ptf = GetPlayerTransform();
 		GameObject* enemy = GetEnemyObject();
 		TransformComp* etf = GetEnemyTransform();
+		if (AEInputCheckTriggered(AEVK_R))
+		{
+			state = RESET;
+		}
 #ifdef _DEBUG
 		if (AEInputCheckTriggered(AEVK_T))
 		{
 			std::cout << std::sqrt(std::pow(ptf->GetPos().x - etf->GetPos().x, 2) + std::pow(ptf->GetPos().y - etf->GetPos().y, 2)) << std::endl;
+		}
+		if (AEInputCheckTriggered(AEVK_N))
+		{
+			state = CLEAR;
 		}
 #endif // DEBUG
 		//적 스프라이트 x축 방향 설정
@@ -811,9 +818,22 @@ void CombatComp::Update()
 				bga->playAudio(0, "./Assets/Audio/failfare.mp3");
 			}
 		}
-		else if (currTime < 4)
+		else
 		{
-			//AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
+			once = false;
+			state = GAMEOVER;
+			currTime = 0;
+		}
+		currTime += AEFrameRateControllerGetFrameTime();
+	}
+	else if (isCombat && state == GAMEOVER)
+	{
+		GameObject* player = GetPlayerObject();
+		TransformComp* ptf = GetPlayerTransform();
+		GameObject* enemy = GetEnemyObject();
+		TransformComp* etf = GetEnemyTransform();
+		if (currTime < 2)
+		{
 			Camera::GetInstance().SetPos(ptf->GetPos().x, ptf->GetPos().y);
 			if (once == false)
 			{
@@ -821,9 +841,10 @@ void CombatComp::Update()
 				SubtitleComp::IntersectDissolveText({ {{(f32)-0.3,(f32)0.1}, 1, "GAME OVER", 1, 1, 1, 1}, 2, 0.7, 0.7 });
 			}
 		}
-		else {
+		else
+		{
 			once = false;
-			state = GAMEOVER;
+			state = RESET;
 			currTime = 0;
 		}
 		currTime += AEFrameRateControllerGetFrameTime();

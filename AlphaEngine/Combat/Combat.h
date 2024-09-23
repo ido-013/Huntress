@@ -86,7 +86,8 @@ public:
 		READY = 4,
 		STORE = 5,
 		KILLPLAYER = 6,
-		KILLENEMY = 7
+		KILLENEMY = 7,
+		RESET = 8
 	};
 	static STATE state;
 	void checkState();
