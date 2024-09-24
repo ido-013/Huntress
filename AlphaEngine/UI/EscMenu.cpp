@@ -111,7 +111,7 @@ void EscUI::InitEscUI()
     ButtonComp* CloseButton = CloseBtn->GetComponent<ButtonComp>();
     CloseButton->SetOnClickFunction([this]() {
         Setoff();
-        CombatComp::ResetCombat();
+        CombatComp::isCombat = true;
         });
 }
 
@@ -119,7 +119,7 @@ void EscUI::UpdateEscUI()
 {
     if (AEInputCheckTriggered(AEVK_ESCAPE)) {
         CombatComp::isCombat = false;
-        CombatComp::state = CombatComp::STATE::STORE;
+
         SetUIVisibility(true);
     }
 }

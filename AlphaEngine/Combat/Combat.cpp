@@ -173,13 +173,6 @@ void CombatComp::DrawDirectionPegline(GameObject& directionArrow,
 			angle = AngleBetweenSegments(tmp1, tmp2,
 				tmp1, { (float)px + tmp3.x, (float)py + tmp3.y });
 		}
-
-		/*angle = AngleBetweenSegments(atf->GetPos(), dtf->GetPos(),
-			atf->GetPos(), { (float)px + cx, (float)py + cy });*/
-
-		/*std::cout << "px,py : " << px << "," << -(py - windowHeightHalf) << "\n"
-				  << "cx,cy : " << cx << "," << cy << "\n"
-				  << "atf.x/y : " << (int)atf->GetPos().x << "," << (int)atf->GetPos().y << std::endl;*/
 	}
 	else
 	{
@@ -476,6 +469,16 @@ void CombatComp::Update()
 {
 	GameObject* bg = GameObjectManager::GetInstance().GetObj("background");
 	AudioComp* bga = bg->GetComponent<AudioComp>();
+#ifdef _DEBUG
+	if (AEInputCheckTriggered(AEVK_R))
+	{
+		state = GAMEOVER;
+	}
+	if (AEInputCheckTriggered(AEVK_N))
+	{
+		state = CLEAR;
+	}
+#endif // DEBUG
 	if (isCombat && state == COMBAT)
 	{
 		GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
@@ -484,18 +487,10 @@ void CombatComp::Update()
 		TransformComp* ptf = GetPlayerTransform();
 		GameObject* enemy = GetEnemyObject();
 		TransformComp* etf = GetEnemyTransform();
-		if (AEInputCheckTriggered(AEVK_R))
-		{
-			state = RESET;
-		}
 #ifdef _DEBUG
 		if (AEInputCheckTriggered(AEVK_T))
 		{
 			std::cout << std::sqrt(std::pow(ptf->GetPos().x - etf->GetPos().x, 2) + std::pow(ptf->GetPos().y - etf->GetPos().y, 2)) << std::endl;
-		}
-		if (AEInputCheckTriggered(AEVK_N))
-		{
-			state = CLEAR;
 		}
 #endif // DEBUG
 		//적 스프라이트 x축 방향 설정

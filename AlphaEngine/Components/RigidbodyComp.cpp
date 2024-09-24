@@ -168,6 +168,9 @@ void RigidbodyComp::ClearAcceleration()
 
 void RigidbodyComp::Update()
 {
+	if (!CombatComp::isCombat)
+		return;
+
 	float dt = (float)AEFrameRateControllerGetFrameTime();
 
 	//Get the transform

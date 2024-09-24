@@ -561,6 +561,7 @@ void level::CombatLevel::Update()
 	UpdateCombatUI();
 	UpdateBackground();
 
+#ifdef _DEBUG
 	if (AEInputCheckTriggered(AEVK_1))
 	{
 		Data::PrintPlayerData(*player->GetComponent<PlayerComp>()->playerData);
@@ -577,6 +578,7 @@ void level::CombatLevel::Update()
 	{
 		SubtitleComp::IntersectDissolveText({ {{0,0}, 1, "Test", 1, 1, 1, 1}, 5, 2, 2 });
 	}
+#endif
 }
 
 void level::CombatLevel::Exit()

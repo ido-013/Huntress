@@ -25,7 +25,7 @@ void level::ClearLevel::Init() {
     CreditUI->SetScale({ 1600, 900 });
     CreditUI->SetPos({ 0, 0 });
     CreditUI->SetTexture("Assets/credit.png");
-    CreditUI->SetColor(255, 255, 255);
+    CreditUI->SetColor(0, 0, 0);
     CreditUI->SetAlpha(1);
     CreditUI->SetScreenSpace(true);
 }
