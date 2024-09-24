@@ -91,8 +91,6 @@ void EnemyComp::Update()
 	AudioComp* ad = owner->GetComponent<AudioComp>();
 	if (!ad) return;
 
-	std::cout << t->GetPos().x << " " << t->GetPos().y << std::endl;
-
 	if (enemyData->hp == 0)
 	{
 		a->SetAnimation(false, 1, "die");

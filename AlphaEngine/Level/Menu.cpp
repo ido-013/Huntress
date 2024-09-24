@@ -59,7 +59,7 @@ void level::Menu::Init() {
 
         std::cout << "Start Button Clicked!" << std::endl;
         PLAY_AUDIO_CLICK;
-        GSM::GameStateManager::GetInstance().ChangeLevel(new level::NormalLevel(2));
+        GSM::GameStateManager::GetInstance().ChangeLevel(new level::NormalLevel(1));
         });
 
     startBtn->SetOnHoverFunction([]() {
