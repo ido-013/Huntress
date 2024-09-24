@@ -1,30 +1,22 @@
 #include "NormalLevel.h"
+#include <iostream>
 #include "../GSM/GameStateManager.h"
+#include "../GameObjectManager/GameObjectManager.h"
 #include "../ComponentManager/ComponentManager.h"
-#include "../GameObject/GameObject.h"
-#include "../Components/AudioComp.h"
-#include "../Components/TransformComp.h"
-#include "../Components/SpriteComp.h"
-#include "../Components/PlayerComp.h"
-#include "../Components/RigidbodyComp.h"
-#include "../Components/AnimatorComp.h"
+#include "../Level/ClearLevel.h"
+#include "../Level/OverLevel.h"
+#include "../Components.h"
+#include "../Components/SubtitleComp.h"
 #include "../EventManager/EventManager.h"
 #include "../Prefab/Prefab.h"
 #include "../Utils/Utils.h"
 #include "../Level/Menu.h"
-#include "../GameObjectManager/GameObjectManager.h"
 #include "../Background/Background.h"
 #include "../Serializer/Serializer.h"
-#include <iostream>
 #include "../UI/CombatUI.h"
 #include "../UIM/BtnManager.h"
-
 #include "../Background/Background.h"
-#include "../Utils/Utils.h"
 #include "../Tile/Tile.h"
-#include "../Level/ClearLevel.h"
-#include "../Level/OverLevel.h"
-#include "../Components/SubtitleComp.h"
 #include "../Data/Data.h"
 #include "../UI/EscMenu.h"
 EscUI Escmenu;
@@ -48,10 +40,6 @@ void level::NormalLevel::Init()
 	}
 
 	storeUI.InitStoreUI(player);
-	//else
-	//{
-	//	Tile::ChangeTile();
-	//}
 }
 
 void level::NormalLevel::Update()

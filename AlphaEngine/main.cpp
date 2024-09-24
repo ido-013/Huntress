@@ -12,6 +12,7 @@
 #include "Level/Menu.h"
 #include "Camera/Camera.h"
 #include <dwmapi.h>
+#include "ResourceManager/ResourceManager.h"
 #pragma comment(lib, "dwmapi.lib")
 
 // ---------------------------------------------------------------------------
@@ -90,9 +91,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		AESysFrameEnd();
 
 		// check if forcing the application to quit
-	//	if (AEInputCheckTriggered(AEVK_ESCAPE) || 0 == AESysDoesWindowExist())
-	//		gGameRunning = 0;
 
+		//	if (AEInputCheckTriggered(AEVK_ESCAPE) || 0 == AESysDoesWindowExist())
+		//		gGameRunning = 0;
 	}
 
 	gsm.Exit();

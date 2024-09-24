@@ -143,7 +143,7 @@
     {
       "type": "EnemyComp",
       "compData": {
-        "speed": 100.0,
+        "speed": 150.0,
         "maxMovementGauge": 10
       }
     },
