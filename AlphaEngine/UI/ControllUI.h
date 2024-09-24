@@ -13,6 +13,7 @@ public:
 	void SetUIVisibility(bool isVisible);
 	void SetControllUI();
 	void Setoff();
+	void Setmenu();
 	void InitControllUI();
 	void UpdateControllUI();
 	void ExitControllUI();

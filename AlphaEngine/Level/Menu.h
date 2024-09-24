@@ -16,5 +16,6 @@ namespace level
 		void Init() override;
 		void Update() override;
 		void Exit() override;
+		void Setoff();
 	};
 }

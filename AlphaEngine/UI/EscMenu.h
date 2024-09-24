@@ -15,6 +15,7 @@ public:
 	void SetUIVisibility(bool isVisible);
 	void SetControllUI();
 	void Setoff();
+	void Setmenu();
 	void InitEscUI();
 	void UpdateEscUI();
 	void ExitEscUI();

@@ -27,30 +27,25 @@ ButtonComp::~ButtonComp()
 
 void ButtonComp::Update()
 {
-    // pos와 scale을 UIComponent로부터 계속 동기화
     if (auto* uiComp = owner->GetComponent<UIComponent>()) {
         pos = uiComp->GetPos();
         scale = uiComp->GetScale();
     }
 
-    // 마우스 포지션 체크
     int mouseX, mouseY;
     AEInputGetCursorPosition(&mouseX, &mouseY);
 
-    // 현재 마우스가 버튼 위에 있는지 확인
     bool currentlyHovered = IsHovered(mouseX, mouseY);
 
     if (currentlyHovered && !isHovered) {
-        // 마우스가 버튼 위에 처음 올라왔을 때
         OnHover();
         isHovered = true;
     }
     else if (!currentlyHovered && isHovered) {
-        // 마우스가 버튼에서 벗어났을 때
         OnHoverOut();
         isHovered = false;
     }
-    // 만약 버튼 위에 계속 마우스가 있는 상태라면 아무 동작도 하지 않음
+
 }
 
 void ButtonComp::OnEvent(Event* e)

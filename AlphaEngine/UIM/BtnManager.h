@@ -6,9 +6,8 @@
 class ButtonManager {
 private:
     std::vector<ButtonComp*> buttons;
-
-    // 싱글톤 패턴: 생성자를 private으로 정의
     ButtonManager() {}
+   
 public:
     static ButtonManager& GetInstance() {
         static ButtonManager instance;

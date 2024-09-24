@@ -374,6 +374,7 @@ void StoreUI::UpdateStoreUI()
             GetComponent<PlayerComp>()->playerData->gold
         );
         SubtitleComp::ModifySubtitle("goldText", goldText);
+        
     }
 }
 

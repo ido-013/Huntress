@@ -45,7 +45,7 @@ void level::Menu::Init() {
     LogoUI->SetScreenSpace(true);
 
     // Start 버튼 초기화 및 등록
-    startButtonObj = new GameObject();
+    startButtonObj = new GameObject("MenuStartBtn");
     startButtonObj->AddComponent<UIComponent>();
     UIComponent* startUI = startButtonObj->GetComponent<UIComponent>();
     startUI->SetPos({ 0, -100 });
@@ -63,20 +63,20 @@ void level::Menu::Init() {
         GSM::GameStateManager::GetInstance().ChangeLevel(new level::NormalLevel(1));
         });
 
-    // Hover 시 크기를 줄여서 눌리는 듯한 효과
+
     startBtn->SetOnHoverFunction([startUI]() {
         std::cout << "Start Button Hovered!" << std::endl;
-        startUI->SetScale({ 480, 90 });  // 크기 살짝 줄이기
+        startUI->SetScale({ 480, 90 });  
         });
 
-    // Hover 해제 시 원래 크기로 복원
+
     startBtn->SetOnHoverOutFunction([startUI]() {
         std::cout << "Start Button Hover Out!" << std::endl;
-        startUI->SetScale({ 500, 100 });  // 원래 크기로 되돌리기
+        startUI->SetScale({ 500, 100 });
         });
 
-    // Control 버튼 초기화 및 등록
-    ControllButtonObj = new GameObject();
+
+    ControllButtonObj = new GameObject("MenuCtrBtn");
     ControllButtonObj->AddComponent<UIComponent>();
     UIComponent* ControllUI = ControllButtonObj->GetComponent<UIComponent>();
     ControllUI->SetPos({ 0, -200 });
@@ -86,10 +86,11 @@ void level::Menu::Init() {
     ControllUI->SetScreenSpace(true);
     ControllButtonObj->AddComponent<ButtonComp>();
     ButtonComp* ControllBtn = ControllButtonObj->GetComponent<ButtonComp>();
-    ControllBtn->SetOnClickFunction([]() {
+    ControllBtn->SetOnClickFunction([this]() {
+        Setoff();
         CtrUI.SetUIVisibility(true);
         });
-    // Hover 시 크기를 줄여서 눌리는 듯한 효과
+ 
     ControllBtn->SetOnHoverFunction([ControllUI]() {
         std::cout << "Control Button Hovered!" << std::endl;
         ControllUI->SetScale({ 480, 90 });
@@ -102,7 +103,7 @@ void level::Menu::Init() {
         });
 
     // Quit 버튼 초기화 및 등록
-    quitButtonObj = new GameObject();
+    quitButtonObj = new GameObject("MenuQuitBtn");
     quitButtonObj->AddComponent<UIComponent>();
     UIComponent* quitUI = quitButtonObj->GetComponent<UIComponent>();
     quitUI->SetPos({ 0, -300 });
@@ -116,11 +117,10 @@ void level::Menu::Init() {
     quitBtn->SetOnClickFunction([]() {
         std::cout << "Quit Button Clicked!" << std::endl;
         PLAY_AUDIO_CLICK;
-        // Quit 게임 종료 로직 추가
         GSM::GameStateManager::GetInstance().ChangeLevel(nullptr);
         });
 
-    // Hover 시 크기를 줄여서 눌리는 듯한 효과
+
     quitBtn->SetOnHoverFunction([quitUI]() {
         std::cout << "Quit Button Hovered!" << std::endl;
         quitUI->SetScale({ 480, 90 });
@@ -146,4 +146,14 @@ void level::Menu::Update() {
 void level::Menu::Exit() {
     // 리소스 정리 등의 코드
     SubtitleComp::ClearSubtitle();
+}
+
+void level::Menu::Setoff()
+{
+    UIComponent* startUI = startButtonObj->GetComponent<UIComponent>();
+    UIComponent* ControllUI = ControllButtonObj->GetComponent<UIComponent>();
+    UIComponent* quitUI = quitButtonObj->GetComponent<UIComponent>();
+    startUI->SetAlpha(0);
+    ControllUI->SetAlpha(0);
+    quitUI->SetAlpha(0);
 }

@@ -16,11 +16,11 @@ private:
     std::function<void()> onHoverFunction;
     std::function<void()> onHoverOutFunction;
 
-    bool isHovered = false;
+ 
 public:
     ButtonComp(GameObject* _owner);
     ~ButtonComp();
-
+    bool isHovered = false;
     void Update() override;
     void OnEvent(Event* e) override;
 

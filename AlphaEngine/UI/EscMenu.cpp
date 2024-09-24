@@ -5,6 +5,7 @@
 #include "../GSM/GameStateManager.h"
 #include "../Combat/Combat.h"
 #include "../Level/Menu.h"
+#include "../Components//SubtitleComp.h"
 void EscUI::SetUIVisibility(bool isVisible)
 {
 	int alphaValue = isVisible ? 1 : 0;
@@ -28,6 +29,17 @@ void EscUI::Setoff()
 {
 	isOpen = false;
 	SetUIVisibility(false);
+}
+
+void EscUI::Setmenu()
+{
+    auto MSB =GameObjectManager::GetInstance().GetObj("MenuStartBtn");
+    MSB->GetComponent<UIComponent>()->SetAlpha(1);
+    auto MCB=GameObjectManager::GetInstance().GetObj("MenuCtrBtn");
+    MCB->GetComponent<UIComponent>()->SetAlpha(1);
+    auto MQB = GameObjectManager::GetInstance().GetObj("MenuQuitBtn"); 
+    MQB->GetComponent<UIComponent>()->SetAlpha(1);
+    GameObjectManager::GetInstance().GetObj("MenuQuitBtn")->GetComponent<UIComponent>()->SetAlpha(1);
 }
 
 void EscUI::InitEscUI()
@@ -60,16 +72,15 @@ void EscUI::InitEscUI()
         GSM::GameStateManager::GetInstance().ChangeLevel(new level::Menu);
         });
 
-    // Hover 시 크기를 줄여서 눌리는 듯한 효과
     restartBtn->SetOnHoverFunction([RestartUI]() {
         std::cout << "Start Button Hovered!" << std::endl;
-        RestartUI->SetScale({ 280, 90 });  // 크기 살짝 줄이기
+        RestartUI->SetScale({ 280, 90 });  
         });
 
     // Hover 해제 시 원래 크기로 복원
     restartBtn->SetOnHoverOutFunction([RestartUI]() {
         std::cout << "Start Button Hover Out!" << std::endl;
-        RestartUI->SetScale({ 300, 100 });  // 원래 크기로 되돌리기
+        RestartUI->SetScale({ 300, 100 });  
         });
     QuitBtn = new GameObject();
     QuitBtn->AddComponent<UIComponent>();
@@ -87,16 +98,16 @@ void EscUI::InitEscUI()
         GSM::GameStateManager::GetInstance().ChangeLevel(nullptr);
         });
 
-    // Hover 시 크기를 줄여서 눌리는 듯한 효과
+
     quitBtn->SetOnHoverFunction([QuitUI]() {
         std::cout << "Start Button Hovered!" << std::endl;
-        QuitUI->SetScale({ 280, 90 });  // 크기 살짝 줄이기
+        QuitUI->SetScale({ 280, 90 }); 
         });
 
     // Hover 해제 시 원래 크기로 복원
     quitBtn->SetOnHoverOutFunction([QuitUI]() {
         std::cout << "Start Button Hover Out!" << std::endl;
-        QuitUI->SetScale({ 300, 100 });  // 원래 크기로 되돌리기
+        QuitUI->SetScale({ 300, 100 });  
         });
 
     CloseBtn = new GameObject();
@@ -110,8 +121,10 @@ void EscUI::InitEscUI()
     CloseBtn->AddComponent<ButtonComp>();
     ButtonComp* CloseButton = CloseBtn->GetComponent<ButtonComp>();
     CloseButton->SetOnClickFunction([this]() {
+        Setmenu();
         Setoff();
-        CombatComp::ResetCombat();
+        
+        CombatComp::isCombat = true;
         });
 }
 
@@ -119,7 +132,6 @@ void EscUI::UpdateEscUI()
 {
     if (AEInputCheckTriggered(AEVK_ESCAPE)) {
         CombatComp::isCombat = false;
-        CombatComp::state = CombatComp::STATE::STORE;
         SetUIVisibility(true);
     }
 }

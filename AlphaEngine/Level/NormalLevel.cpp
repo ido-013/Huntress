@@ -37,8 +37,8 @@ void level::NormalLevel::Init()
 	player = GameObjectManager::GetInstance().GetObj("player");
 	enemy = GameObjectManager::GetInstance().GetObj("enemy");
 
-	InitCombatUI();
-	Escmenu.InitEscUI();
+	
+
 	if (level == 1)
 	{
 		player->GetComponent<PlayerComp>()->playerData->InitData(12, 50, 50, 5, 1);
@@ -52,18 +52,15 @@ void level::NormalLevel::Init()
 	//{
 	//	Tile::ChangeTile();
 	//}
+	InitCombatUI();
+	Escmenu.InitEscUI();
 }
 
 void level::NormalLevel::Update()
 {
-	UpdateCombatUI();
-	UpdateBackground();
-	Escmenu.UpdateEscUI();
-	if (level == 1 || level == 6)
-	{
-		storeUI.UpdateStoreUI();
-	}
 
+	UpdateBackground();
+	
 	if (CombatComp::state == CombatComp::CLEAR)
 	{
 		if (level == 10)
@@ -91,10 +88,18 @@ void level::NormalLevel::Update()
 		}
 	}
 
+	UpdateCombatUI();
+	if (level == 1 || level == 6)
+	{
+		storeUI.UpdateStoreUI();
+	}
+	
 	if (CombatComp::state == CombatComp::RESET)
 	{
 		GSM::GameStateManager::GetInstance().ChangeLevel(new Menu);
 	}
+
+	Escmenu.UpdateEscUI();
 }
 
 void level::NormalLevel::Exit()

@@ -28,6 +28,16 @@ void ControllUI::Setoff()
 	isOpen = false;
 	SetUIVisibility(false);
 }
+void ControllUI::Setmenu()
+{
+    auto MSB = GameObjectManager::GetInstance().GetObj("MenuStartBtn");
+    MSB->GetComponent<UIComponent>()->SetAlpha(1);
+    auto MCB = GameObjectManager::GetInstance().GetObj("MenuCtrBtn");
+    MCB->GetComponent<UIComponent>()->SetAlpha(1);
+    auto MQB = GameObjectManager::GetInstance().GetObj("MenuQuitBtn");
+    MQB->GetComponent<UIComponent>()->SetAlpha(1);
+
+}
 
 void ControllUI::InitControllUI()
 {
@@ -63,6 +73,7 @@ void ControllUI::InitControllUI()
     CloseBtn->AddComponent<ButtonComp>();
     ButtonComp* CloseButton = CloseBtn->GetComponent<ButtonComp>();
     CloseButton->SetOnClickFunction([this]() {
+        Setmenu();
         Setoff(); 
         });
 
