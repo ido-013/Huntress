@@ -7,11 +7,12 @@
 #include "../Components/UIComp.h"
 
 ButtonComp::ButtonComp(GameObject* _owner)
-    : GraphicComponent(_owner), pos(), scale()
+    : GraphicComponent(_owner), pos(), scale(), isHovered(false)
 {
     ButtonManager::GetInstance().RegisterButton(this);
     EventManager::GetInstance().AddEntity(this);
-    // pos와 scale을 UIComponent로부터 가져오도록 변경
+
+    // pos와 scale을 UIComponent로부터 가져오도록 설정
     if (auto* uiComp = owner->GetComponent<UIComponent>()) {
         pos = uiComp->GetPos();
         scale = uiComp->GetScale();
@@ -31,6 +32,25 @@ void ButtonComp::Update()
         pos = uiComp->GetPos();
         scale = uiComp->GetScale();
     }
+
+    // 마우스 포지션 체크
+    int mouseX, mouseY;
+    AEInputGetCursorPosition(&mouseX, &mouseY);
+
+    // 현재 마우스가 버튼 위에 있는지 확인
+    bool currentlyHovered = IsHovered(mouseX, mouseY);
+
+    if (currentlyHovered && !isHovered) {
+        // 마우스가 버튼 위에 처음 올라왔을 때
+        OnHover();
+        isHovered = true;
+    }
+    else if (!currentlyHovered && isHovered) {
+        // 마우스가 버튼에서 벗어났을 때
+        OnHoverOut();
+        isHovered = false;
+    }
+    // 만약 버튼 위에 계속 마우스가 있는 상태라면 아무 동작도 하지 않음
 }
 
 void ButtonComp::OnEvent(Event* e)
@@ -38,7 +58,7 @@ void ButtonComp::OnEvent(Event* e)
     if (dynamic_cast<ButtonClickEvent*>(e) != nullptr)
     {
         if (onClickFunction) {
-            onClickFunction();  // 등록된 함수를 호출
+            onClickFunction();  // 등록된 클릭 함수를 호출
         }
     }
 }
@@ -72,13 +92,26 @@ void ButtonComp::OnHover()
     }
 }
 
+void ButtonComp::OnHoverOut()
+{
+    if (onHoverOutFunction) {
+        onHoverOutFunction();  // Hover 해제 시 실행할 함수 호출
+    }
+}
+
 void ButtonComp::SetOnClickFunction(std::function<void()> func)
 {
     onClickFunction = func;
 }
+
 void ButtonComp::SetOnHoverFunction(std::function<void()> func)
 {
     onHoverFunction = func;
+}
+
+void ButtonComp::SetOnHoverOutFunction(std::function<void()> func)
+{
+    onHoverOutFunction = func;
 }
 
 void ButtonComp::LoadFromJson(const json& data)

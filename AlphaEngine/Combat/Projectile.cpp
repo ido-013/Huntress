@@ -38,7 +38,7 @@ Projectile::~Projectile()
 
 // 랜덤한 바람의 세기와 방향을 생성하는 함수 (라디안)
 void Projectile::GenerateRandomWind() {
-    windSpeed = (float)(std::rand() % ((WIND_MAX * 2) + 1) - WIND_MAX);
+    windSpeed = (float)(std::rand() % ((WIND_MAX) + 1));
     windAngle = AEDegToRad((f32)(std::rand() % 180)) * (std::rand() % 2 == 0 ? -1 : 1); // 0에서 360도 사이의 방향을 라디안으로 변환
 
     GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
@@ -86,6 +86,8 @@ void Projectile::UpdateCollision()
             int randomDamage = 1 + (rand() % 6);
             int randomArmor = 1 + (rand() % 6);
             float totalDmg = (pData->damage + randomDamage) - (eData->armor + randomArmor);
+            if (totalDmg <= 0)
+                totalDmg = 1;
             dData->randomValue1 = randomDamage;
             dData->randomValue2 = randomArmor;
 

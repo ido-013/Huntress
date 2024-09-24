@@ -147,6 +147,8 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="Serializer\Serializer.cpp" />
     <ClCompile Include="UIM\BtnManager.cpp" />
     <ClCompile Include="UI\CombatUI.cpp" />
+    <ClCompile Include="UI\ControllUI.cpp" />
+    <ClCompile Include="UI\EscMenu.cpp" />
     <ClCompile Include="UI\StoreUI.cpp" />
     <ClCompile Include="Utils\Utils.cpp" />
     <ClCompile Include="Utils\Vec3.cpp" />
@@ -169,6 +171,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="Components\UIComp.h" />
     <ClInclude Include="Data\Data.h" />
     <ClInclude Include="Data\DataManager.h" />
+    <ClInclude Include="UI\EscMenu.h" />
     <ClInclude Include="Event\Button.h" />
     <ClInclude Include="Event\ButtonClickEvent.h" />
     <ClInclude Include="Event\DestroyEvent.h" />
@@ -212,6 +215,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="Tile\Tile.h" />
     <ClInclude Include="UIM\BtnManager.h" />
     <ClInclude Include="UI\CombatUI.h" />
+    <ClInclude Include="UI\ControllUI.h" />
     <ClInclude Include="UI\StoreUI.h" />
     <ClInclude Include="Utils\Direction.h" />
     <ClInclude Include="Utils\Size.h" />

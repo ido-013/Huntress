@@ -19,8 +19,6 @@ std::string StoreUI::goldText = "";
 void StoreUI::SetUIVisibility(bool isVisible)
 {
     int alphaValue = isVisible ? 1 : 0;
-
-    //UIComponent* OpenSprite = Openbtn->GetComponent<UIComponent>();
     UIComponent* storeSprite = StorePopup->GetComponent<UIComponent>();
     UIComponent* Frame1 = Frame[0]->GetComponent<UIComponent>();
     UIComponent* Frame2 = Frame[1]->GetComponent<UIComponent>();
@@ -193,7 +191,7 @@ void StoreUI::InitStoreUI(GameObject* player)
         {
             if (player->GetComponent<PlayerComp>()->playerData->hp == player->GetComponent<PlayerComp>()->playerData->maxLife)
             {
-                SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, "Already Full...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
+                SubtitleComp::IntersectDissolveText({ {{-0.3,0.7}, 1, "Already Full...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
                 PLAY_AUDIO_ERROR;
             }
             else if (player->GetComponent<PlayerComp>()->playerData->hp + player->GetComponent<PlayerComp>()->playerData->maxLife * 0.3 < player->GetComponent<PlayerComp>()->playerData->maxLife)
@@ -201,7 +199,7 @@ void StoreUI::InitStoreUI(GameObject* player)
                 player->GetComponent<PlayerComp>()->playerData->hp += player->GetComponent<PlayerComp>()->playerData->maxLife * 0.3;
                 std::string currentHP = "Current HP : ";
                 currentHP += std::to_string((int)player->GetComponent<PlayerComp>()->playerData->hp);
-                SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, currentHP, 1, 0, 0, 1}, 2, 0.7, 0.7 });
+                SubtitleComp::IntersectDissolveText({ {{-0.3,0.7}, 1, currentHP, 1, 0, 0, 1}, 2, 0.7, 0.7 });
                 player->GetComponent<PlayerComp>()->playerData->gold -= 10;
                 PLAY_AUDIO_PURCHASE;
             }
@@ -211,14 +209,14 @@ void StoreUI::InitStoreUI(GameObject* player)
                 std::string currentHP = "Current HP : ";
                 currentHP += std::to_string((int)player->GetComponent<PlayerComp>()->playerData->hp);
                 currentHP += "(MAX)";
-                SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, currentHP, 1, 0, 0, 1}, 2, 0.7, 0.7 });
+                SubtitleComp::IntersectDissolveText({ {{-0.3,0.7}, 1, currentHP, 1, 0, 0, 1}, 2, 0.7, 0.7 });
                 player->GetComponent<PlayerComp>()->playerData->gold -= 10;
                 PLAY_AUDIO_PURCHASE;
             }
         }
         else
         {
-            SubtitleComp::IntersectDissolveText({ {{-0.5,0.1}, 1, "You don't have enough money...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
+            SubtitleComp::IntersectDissolveText({ {{-0.5,0.7}, 1, "You don't have enough money...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_ERROR;
         }
     });
@@ -240,7 +238,7 @@ void StoreUI::InitStoreUI(GameObject* player)
         {
             if (player->GetComponent<PlayerComp>()->playerData->hp == player->GetComponent<PlayerComp>()->playerData->maxLife)
             {
-                SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, "Already Full...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
+                SubtitleComp::IntersectDissolveText({ {{-0.3,0.7}, 1, "Already Full...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
                 PLAY_AUDIO_ERROR;
             }
             else if (player->GetComponent<PlayerComp>()->playerData->hp + player->GetComponent<PlayerComp>()->playerData->maxLife * 0.1 < player->GetComponent<PlayerComp>()->playerData->maxLife)
@@ -248,7 +246,7 @@ void StoreUI::InitStoreUI(GameObject* player)
                 player->GetComponent<PlayerComp>()->playerData->hp += player->GetComponent<PlayerComp>()->playerData->maxLife * 0.1;
                 std::string currentHP = "Current HP : ";
                 currentHP += std::to_string((int)player->GetComponent<PlayerComp>()->playerData->hp);
-                SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, currentHP, 1, 0, 0, 1}, 2, 0.7, 0.7 });
+                SubtitleComp::IntersectDissolveText({ {{-0.3,0.7}, 1, currentHP, 1, 0, 0, 1}, 2, 0.7, 0.7 });
                 player->GetComponent<PlayerComp>()->playerData->gold -= 5;
                 PLAY_AUDIO_PURCHASE;
             }
@@ -258,14 +256,14 @@ void StoreUI::InitStoreUI(GameObject* player)
                 std::string currentHP = "Current HP : ";
                 currentHP += std::to_string((int)player->GetComponent<PlayerComp>()->playerData->hp);
                 currentHP += "(MAX)";
-                SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, currentHP, 1, 0, 0, 1}, 2, 0.7, 0.7 });
+                SubtitleComp::IntersectDissolveText({ {{-0.3,0.7}, 1, currentHP, 1, 0, 0, 1}, 2, 0.7, 0.7 });
                 player->GetComponent<PlayerComp>()->playerData->gold -= 5;
                 PLAY_AUDIO_PURCHASE;
             }
         }
         else
         {
-            SubtitleComp::IntersectDissolveText({ {{-0.5,0.1}, 1, "You don't have enough money...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
+            SubtitleComp::IntersectDissolveText({ {{-0.5,0.7}, 1, "You don't have enough money...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_ERROR;
 
         }
@@ -291,12 +289,12 @@ void StoreUI::InitStoreUI(GameObject* player)
             player->GetComponent<PlayerComp>()->playerData->hp += 5;
             std::string currentHP = "Current HP : ";
             currentHP += std::to_string((int)player->GetComponent<PlayerComp>()->playerData->hp);
-            SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, currentHP, 1, 0, 0, 1}, 2, 0.7, 0.7 });
+            SubtitleComp::IntersectDissolveText({ {{-0.3,0.7}, 1, currentHP, 1, 0, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_PURCHASE;
         }
         else
         {
-            SubtitleComp::IntersectDissolveText({ {{-0.5,0.1}, 1, "You don't have enough money...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
+            SubtitleComp::IntersectDissolveText({ {{-0.5,0.7}, 1, "You don't have enough money...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_ERROR;
         }
     });
@@ -320,12 +318,12 @@ void StoreUI::InitStoreUI(GameObject* player)
             player->GetComponent<PlayerComp>()->playerData->armor++;
             std::string currentArmor = "Current Armor : ";
             currentArmor += std::to_string((int)player->GetComponent<PlayerComp>()->playerData->armor);
-            SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, currentArmor, 1, 0, 0, 1}, 2, 0.7, 0.7 });
+            SubtitleComp::IntersectDissolveText({ {{-0.3,0.7}, 1, currentArmor, 1, 0, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_PURCHASE;
         }
         else
         {
-            SubtitleComp::IntersectDissolveText({ {{-0.5,0.1}, 1, "You don't have enough money...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
+            SubtitleComp::IntersectDissolveText({ {{-0.5,0.7}, 1, "You don't have enough money...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_ERROR;
         }
     });
@@ -349,12 +347,12 @@ void StoreUI::InitStoreUI(GameObject* player)
             player->GetComponent<PlayerComp>()->playerData->damage++;
             std::string currentDamage = "Current Damage : ";
             currentDamage += std::to_string((int)player->GetComponent<PlayerComp>()->playerData->damage);
-            SubtitleComp::IntersectDissolveText({ {{-0.3,0.1}, 1, currentDamage, 1, 0, 0, 1}, 2, 0.7, 0.7 });
+            SubtitleComp::IntersectDissolveText({ {{-0.3,0.7}, 1, currentDamage, 1, 0, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_PURCHASE;
         }
         else
         {
-            SubtitleComp::IntersectDissolveText({ {{-0.5,0.1}, 1, "You don't have enough money...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
+            SubtitleComp::IntersectDissolveText({ {{-0.5,0.7}, 1, "You don't have enough money...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_ERROR;
         }
     });

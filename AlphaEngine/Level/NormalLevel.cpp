@@ -26,7 +26,8 @@
 #include "../Level/OverLevel.h"
 #include "../Components/SubtitleComp.h"
 #include "../Data/Data.h"
-
+#include "../UI/EscMenu.h"
+EscUI Escmenu;
 void level::NormalLevel::Init()
 {
 	Serializer::GetInstance().LoadLevel("./Assets/Level/test" + std::to_string(level) + ".lvl");
@@ -37,6 +38,7 @@ void level::NormalLevel::Init()
 	enemy = GameObjectManager::GetInstance().GetObj("enemy");
 
 	InitCombatUI();
+	Escmenu.InitEscUI();
 #ifdef _DEBUG
 	std::cout << "Current Level : " << level << std::endl;
 #endif
@@ -58,6 +60,7 @@ void level::NormalLevel::Update()
 	UpdateBackground();
 
 	storeUI.UpdateStoreUI();
+	Escmenu.UpdateEscUI();
 
 	if (CombatComp::state == CombatComp::CLEAR)
 	{
