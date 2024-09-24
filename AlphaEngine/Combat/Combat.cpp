@@ -544,8 +544,10 @@ void CombatComp::Update()
 						}
 						else
 						{
-							player->GetComponent<TransformComp>()->ReverseX(ptf->GetPos().x > GetMouseCursorPositionX() + ptf->GetPos().x ? 0 : 1);
-							std::cout << ptf->GetPos().x << " | " << GetMouseCursorPositionX() + ptf->GetPos().x << std::endl;
+							
+							float mouseX = GetMouseCursorPositionX() - GetCamPositionX();
+							player->GetComponent<TransformComp>()->ReverseX(AERadToDeg(pAngle) >= 90 ? 0 : 1);
+							//std::cout << "pAngle" << AERadToDeg(pAngle) << std::endl;
 							player->GetComponent<PlayerComp>()->moveState = false;
 							isChaseDirection = false;
 							isReadyLaunch = true;
