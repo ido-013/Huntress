@@ -82,6 +82,8 @@ void Serializer::LoadLevel(const std::string& filename)
 			}
 		}
 
+		CombatComp::blocks.push_back(go->GetComponent<TransformComp>());
+
 		if (go->GetComponent<ColliderComp>() != nullptr)
 			go->GetComponent<ColliderComp>()->SetCollider();
 	}

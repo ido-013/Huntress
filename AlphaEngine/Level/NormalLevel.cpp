@@ -19,10 +19,14 @@
 #include "../Tile/Tile.h"
 #include "../Data/Data.h"
 #include "../UI/EscMenu.h"
+#include "../Camera/Camera.h"
+
 EscUI Escmenu;
 void level::NormalLevel::Init()
 {
+	CombatComp::blocks.reserve(200);
 	Serializer::GetInstance().LoadLevel("./Assets/Level/test" + std::to_string(level) + ".lvl");
+	Camera::GetInstance().fix = true;
 
 	InitBackground();
 
@@ -87,4 +91,5 @@ void level::NormalLevel::Exit()
 {
 	// 리소스 정리 등의 코드
 	storeUI.ExitStoreUI();
+	CombatComp::blocks.clear();
 }

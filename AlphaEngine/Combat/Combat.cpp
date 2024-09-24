@@ -38,6 +38,8 @@ bool CombatComp::isSetLaunchAngle = false;
 
 int CombatComp::ArrowCount = 0;
 
+std::vector<TransformComp*> CombatComp::blocks;
+
 void CombatComp::DataUpdate()
 {
 	data.angle = turn == PLAYERTURN ? pAngle : turn == ENEMYTURN ? eAngle : 0;

@@ -22,11 +22,11 @@ private:
 	float speed = 400;
 	float height = 1;
 
-	bool fix = true;
-
 	AEMtx33 world_to_ndc_xform;
 
 public:
+	bool fix = true;
+
 	static Camera& GetInstance()
 	{
 		static Camera instance;

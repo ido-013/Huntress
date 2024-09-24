@@ -107,6 +107,8 @@ public:
 
 	void InitEnemyValue();
 
+	static std::vector<TransformComp*> blocks;
+
 	bool AICombatSystemApplyWind;
 	int AICombatSystemObjectivePointCount;
 	Data::EnemyData::GRADE AICombatSystemEnemyGrade;
