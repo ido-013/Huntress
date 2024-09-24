@@ -31,7 +31,7 @@ void GSM::GameStateManager::Init()
     }
     if(CombatComp::state != CombatComp::STATE::STORE)
         CombatComp::ResetCombat();
-    SubtitleComp::InitFont("Assets/Arial-Italic.ttf", 72);
+    SubtitleComp::InitFont("Assets/DePixelKlein.ttf", 72);
 
 }
 

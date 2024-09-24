@@ -18,7 +18,7 @@ class StoreUI {
 	GameObject* UpAttack = nullptr;
 	GameObject* UpDefense = nullptr;
 	GameObject* Arrow = nullptr;
-
+	GameObject* Cost[6] = { nullptr };
 	bool isStore = true;
 
 public:
