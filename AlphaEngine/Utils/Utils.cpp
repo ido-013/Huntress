@@ -1,4 +1,32 @@
 #include "Utils.h"
+#include "AEEngine.h"
+#include <iostream>
+#include <chrono>
+#include <thread>
+
+void AESleep(long long t)
+{
+    if (t <= 0)
+        return;
+    std::this_thread::sleep_for(std::chrono::seconds(t)); // 3ÃÊ Áö¿¬
+}
+
+float GetMouseCursorPositionX()
+{
+    s32 x, y;
+    AEInputGetCursorPosition(&x, &y);
+    x -= windowWidthHalf;
+    return (float)x;
+}
+
+float GetMouseCursorPositionY()
+{
+    s32 x, y;
+    AEInputGetCursorPosition(&x, &y);
+    y -= windowHeightHalf;
+    y = -y;
+    return (float)y;
+}
 
 int PosToMapX(float x)
 {
