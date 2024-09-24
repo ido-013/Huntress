@@ -96,9 +96,6 @@
     <ClCompile Include="Level\NormalLevel.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Shop\Shop.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Components\ColliderComp.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -276,9 +273,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Level\NormalLevel.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Shop\Shop.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Utils\Direction.h">
@@ -564,6 +558,15 @@
       <Filter>리소스 파일</Filter>
     </Image>
     <Image Include="Assets\UI\windArrow.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\credit.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\DigiPen_RED.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\Team_Logo.png">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>

@@ -37,16 +37,15 @@ void level::NormalLevel::Init()
 	enemy = GameObjectManager::GetInstance().GetObj("enemy");
 
 	InitCombatUI();
-	
+#ifdef _DEBUG
+	std::cout << "Current Level : " << level << std::endl;
+#endif
 	if (level == 1)
 	{
-		player->GetComponent<PlayerComp>()->playerData->InitData(12, 50, 50, 5, 1);
+		player->GetComponent<PlayerComp>()->playerData->InitData(15, 50, 50, 5, 1);
 	}
 
-	if (level == 1 || level == 6)
-	{
-		storeUI.InitStoreUI(player);
-	}
+	storeUI.InitStoreUI(player);
 	//else
 	//{
 	//	Tile::ChangeTile();
@@ -58,10 +57,7 @@ void level::NormalLevel::Update()
 	UpdateCombatUI();
 	UpdateBackground();
 
-	if (level == 1 || level == 6)
-	{
-		storeUI.UpdateStoreUI();
-	}
+	storeUI.UpdateStoreUI();
 
 	if (CombatComp::state == CombatComp::CLEAR)
 	{
@@ -99,8 +95,5 @@ void level::NormalLevel::Update()
 void level::NormalLevel::Exit()
 {
 	// 리소스 정리 등의 코드
-	if (level == 1 || level == 6)
-	{
-		storeUI.ExitStoreUI();
-	}
+	storeUI.ExitStoreUI();
 }

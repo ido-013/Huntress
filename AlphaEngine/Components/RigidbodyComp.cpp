@@ -2,6 +2,7 @@
 #include "AEEngine.h"
 #include "TransformComp.h"
 #include "../Utils/Direction.h"
+#include "../Combat/Combat.h"
 
 bool RigidbodyComp::CheckEpsilon(float v, float EP)
 {
@@ -167,6 +168,9 @@ void RigidbodyComp::ClearAcceleration()
 
 void RigidbodyComp::Update()
 {
+	if (!CombatComp::isCombat)
+		return;
+
 	float dt = (float)AEFrameRateControllerGetFrameTime();
 
 	//Get the transform
