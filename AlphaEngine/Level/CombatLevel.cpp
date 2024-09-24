@@ -16,8 +16,9 @@
 #include "../UI/CombatUI.h"
 #include "../UIM/BtnManager.h"
 #include "../UI/StoreUI.h"
+#include "../UI/EscMenu.h"
 #include "../Components/SubtitleComp.h"
-StoreUI storeUI;
+
 
 #include "../Background/Background.h"
 #include "../Utils/Utils.h"
@@ -486,7 +487,7 @@ void level::CombatLevel::Init()
 
 	//Init UI
 	InitCombatUI();
-	storeUI.InitStoreUI(player);
+
 }
 
 void level::CombatLevel::Update()
@@ -514,5 +515,5 @@ void level::CombatLevel::Update()
 
 void level::CombatLevel::Exit()
 {
-
+	ExitCombatUI();
 }

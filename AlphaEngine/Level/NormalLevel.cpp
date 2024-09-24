@@ -26,7 +26,8 @@
 #include "../Level/OverLevel.h"
 #include "../Components/SubtitleComp.h"
 #include "../Data/Data.h"
-
+#include "../UI/EscMenu.h"
+EscUI Escmenu;
 void level::NormalLevel::Init()
 {
 	Serializer::GetInstance().LoadLevel("./Assets/Level/test" + std::to_string(level) + ".lvl");
@@ -37,7 +38,7 @@ void level::NormalLevel::Init()
 	enemy = GameObjectManager::GetInstance().GetObj("enemy");
 
 	InitCombatUI();
-	
+	Escmenu.InitEscUI();
 	if (level == 1)
 	{
 		player->GetComponent<PlayerComp>()->playerData->InitData(12, 50, 50, 5, 1);
@@ -57,7 +58,7 @@ void level::NormalLevel::Update()
 {
 	UpdateCombatUI();
 	UpdateBackground();
-
+	Escmenu.UpdateEscUI();
 	if (level == 1 || level == 6)
 	{
 		storeUI.UpdateStoreUI();
