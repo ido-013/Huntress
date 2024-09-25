@@ -579,7 +579,6 @@ void CombatComp::Update()
 				{
 					if (isReadyLaunch && ArrowCount < 1)
 					{
-
 						FireAnArrow(PLAYERTURN, *directionArrow);
 					}
 				}

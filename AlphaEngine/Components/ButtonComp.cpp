@@ -7,7 +7,7 @@
 #include "../Components/UIComp.h"
 
 ButtonComp::ButtonComp(GameObject* _owner)
-    : GraphicComponent(_owner), pos(), scale(), isHovered(false)
+    : InterfaceComponent(_owner), pos(), scale(), isHovered(false)
 {
     ButtonManager::GetInstance().RegisterButton(this);
     EventManager::GetInstance().AddEntity(this);

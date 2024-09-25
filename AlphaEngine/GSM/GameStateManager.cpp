@@ -10,6 +10,7 @@
 #include "../RTTI/Registry.h"
 #include "../UIM/BtnManager.h"
 #include "../Components/SubtitleComp.h"
+
 #include "../Camera/Camera.h"
 
 GSM::GameStateManager::GameStateManager() : previousLevel(nullptr), currentLevel(nullptr) {}
@@ -56,7 +57,9 @@ void GSM::GameStateManager::Update()
         if (currentLevel)
             currentLevel->Update();
         ComponentManager<GraphicComponent>::GetInstance().Update();
+        ComponentManager<InterfaceComponent>::GetInstance().Update();
         SubtitleComp::Update();
+    
     }
 }
 

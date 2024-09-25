@@ -20,7 +20,7 @@ void UIComponent::CalculateMatrix()
     AEMtx33Concat(&transformMatrix, &translateMtx, &transformMatrix);
 }
 
-UIComponent::UIComponent(GameObject* _owner) : GraphicComponent(_owner), color(), tex(nullptr), mesh(nullptr), textureName(), Alpha(1.0f), rot(0.0f), transformMatrix()
+UIComponent::UIComponent(GameObject* _owner) : InterfaceComponent(_owner), color(), tex(nullptr), mesh(nullptr), textureName(), Alpha(1.0f), rot(0.0f), transformMatrix()
 {
     pos.x = 0;
     pos.y = 0;

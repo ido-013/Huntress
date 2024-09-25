@@ -4,7 +4,7 @@
 #include "../Components/UIComp.h"
 #include <functional>  // std::function »ç¿ë
 
-class ButtonComp : public GraphicComponent, public Entity
+class ButtonComp : public InterfaceComponent, public Entity
 {
 private:
     AEVec2 pos;
