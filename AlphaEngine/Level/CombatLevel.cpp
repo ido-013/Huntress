@@ -369,7 +369,7 @@ void level::CombatLevel::Init()
 	// background
 	InitBackground();
 
-	int i = 9;
+	int i = level;
 
 	Tile::ChangeTile(tileNum[i]);
 
@@ -577,6 +577,10 @@ void level::CombatLevel::Update()
 	if (AEInputCheckTriggered(AEVK_4))
 	{
 		SubtitleComp::IntersectDissolveText({ {{0,0}, 1, "Test", 1, 1, 1, 1}, 5, 2, 2 });
+	}
+	if (AEInputCheckTriggered(AEVK_N))
+	{
+		GSM::GameStateManager::GetInstance().ChangeLevel(new CombatLevel(level + 1));
 	}
 #endif
 }

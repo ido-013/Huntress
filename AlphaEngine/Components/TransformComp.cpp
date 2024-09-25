@@ -13,14 +13,27 @@ void TransformComp::CalculateMatrix()
 
 	//Create a scale matrix
 	AEMtx33 scaleMtx;
-	AEMtx33Scale(&scaleMtx, scale.x, scale.y);
+	if (affectedByZoom)
+	{
+		AEMtx33Scale(&scaleMtx, scale.x, scale.y);
+	}
+	else
+	{
+		AEMtx33Scale(&scaleMtx, scale.x * 25, scale.y * 25);
+	}
 
 	//Concatenate them
 	AEMtx33Concat(&transformMatrix, &rotationMtx, &scaleMtx);
 	AEMtx33Concat(&transformMatrix, &translateMtx, &transformMatrix);
 
 	if (affectedByZoom)
+	{
 		AEMtx33Concat(&transformMatrix, &Camera::GetInstance().GetMatrix(), &transformMatrix);
+	}
+	else
+	{
+		AEMtx33Concat(&transformMatrix, &Camera::GetInstance().GetMatrix2(), &transformMatrix);
+	}
 }
 
 TransformComp::TransformComp(GameObject* _owner) : EngineComponent(_owner), pos(), scale(), rot(0), transformMatrix()

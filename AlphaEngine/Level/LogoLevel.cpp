@@ -3,6 +3,7 @@
 #include "Menu.h"
 #include "../Components.h"
 #include "../GSM/GameStateManager.h"
+#include "../Camera/Camera.h"
 
 void level::LogoLevel::Init() 
 {
