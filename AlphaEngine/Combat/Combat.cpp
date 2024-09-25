@@ -33,7 +33,7 @@ bool CombatComp::isCombat = false;
 bool CombatComp::isDrawDirection = false;
 bool CombatComp::isChaseDirection = false;
 bool CombatComp::isReadyLaunch = false;
-
+bool CombatComp::isLaunched = false;
 bool CombatComp::isSetLaunchAngle = false;
 
 int CombatComp::ArrowCount = 0;
@@ -251,6 +251,7 @@ void CombatComp::FireAnArrow(TURN turn, GameObject& directionArrow)
 	projectile->GetComponent<ColliderComp>()->SetCollider();
 
 	isReadyLaunch = false;
+	isLaunched = true;
 	CombatComp::ArrowCount++;
 }
 
@@ -578,6 +579,7 @@ void CombatComp::Update()
 				{
 					if (isReadyLaunch && ArrowCount < 1)
 					{
+
 						FireAnArrow(PLAYERTURN, *directionArrow);
 					}
 				}

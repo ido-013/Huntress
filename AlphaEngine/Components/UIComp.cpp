@@ -46,7 +46,7 @@ void UIComponent::Update()
 
     // Get camera position
     float camX, camY;
-    
+    AEGfxGetCamPosition(&camX, &camY);
 
     // 매트릭스가 변경된 경우에만 재계산
     if (isDirty)

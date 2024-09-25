@@ -96,9 +96,6 @@
     <ClCompile Include="Level\NormalLevel.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Shop\Shop.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Components\ColliderComp.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -174,7 +171,7 @@
     <ClCompile Include="Camera\Camera.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="UI\ControllUI.cpp">
+    <ClCompile Include="UI\ControlUI.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="UI\EscMenu.cpp">
@@ -284,9 +281,6 @@
     <ClInclude Include="Level\NormalLevel.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Shop\Shop.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Utils\Direction.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -392,7 +386,7 @@
     <ClInclude Include="Camera\Camera.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="UI\ControllUI.h">
+    <ClInclude Include="UI\ControlUI.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="UI\EscMenu.h">

@@ -1,14 +1,14 @@
-#include "ControllUI.h"
+#include "ControlUI.h"
 #include "../Components/UIComp.h"
 #include "../GameObjectManager/GameObjectManager.h"
 #include "../Components/ButtonComp.h"
 #include "../Components/SubtitleComp.h"
 
-void ControllUI::SetUIVisibility(bool isVisible)
+void ControlUI::SetUIVisibility(bool isVisible)
 {
     int alphaValue = isVisible ? 1 : 0;
     UIComponent* backgroundUI = BgUI->GetComponent<UIComponent>();
-    UIComponent* controlUI = ControlUI->GetComponent<UIComponent>();
+    UIComponent* controlUI = CtlUI->GetComponent<UIComponent>();
     UIComponent* CloseUI = CloseBtn->GetComponent<UIComponent>();
 
     backgroundUI->SetAlpha(alphaValue);
@@ -17,18 +17,23 @@ void ControllUI::SetUIVisibility(bool isVisible)
 
 }
 
-void ControllUI::SetControllUI()
+void ControlUI::SetControlUI()
 {
 	isOpen = true;
 	SetUIVisibility(true);
 }
 
-void ControllUI::Setoff()
+void ControlUI::Setoff()
 {
 	isOpen = false;
 	SetUIVisibility(false);
+
+        SubtitleComp::ModifySubtitle("START", 1);
+        SubtitleComp::ModifySubtitle("Control", 1);
+        SubtitleComp::ModifySubtitle("EXIT", 1);
+
 }
-void ControllUI::Setmenu()
+void ControlUI::Setmenu()
 {
     auto MSB = GameObjectManager::GetInstance().GetObj("MenuStartBtn");
     MSB->GetComponent<UIComponent>()->SetAlpha(1);
@@ -39,7 +44,7 @@ void ControllUI::Setmenu()
 
 }
 
-void ControllUI::InitControllUI()
+void ControlUI::InitControlUI()
 {
     BgUI = new GameObject();
     BgUI->AddComponent<UIComponent>();
@@ -51,9 +56,9 @@ void ControllUI::InitControllUI()
     backgroundUI->SetAlpha(0);
 
   
-    ControlUI = new GameObject();
-    ControlUI->AddComponent<UIComponent>();
-    UIComponent* controlUI = ControlUI->GetComponent<UIComponent>();
+    CtlUI = new GameObject();
+    CtlUI->AddComponent<UIComponent>();
+    UIComponent* controlUI = CtlUI->GetComponent<UIComponent>();
     controlUI->SetScale({ 800,400 });
     controlUI->SetPos({ 0, 0 });
     controlUI->SetTexture("Assets/UI/htp.png");
@@ -80,10 +85,10 @@ void ControllUI::InitControllUI()
 
 }
 
-void ControllUI::UpdateControllUI()
+void ControlUI::UpdateControlUI()
 {
 }
 
-void ControllUI::ExitControllUI()
+void ControlUI::ExitControlUI()
 {
 }

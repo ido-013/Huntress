@@ -14,8 +14,8 @@
 #include "../GameObjectManager/GameObjectManager.h"
 #include "../Components/SubtitleComp.h"
 #include "../Camera/Camera.h"
-#include "../UI/ControllUI.h"
-ControllUI CtrUI;
+#include "../UI/ControlUI.h"
+ControlUI CtrUI;
 #define PLAY_AUDIO_CLICK GameObjectManager::GetInstance().GetObj("menuBg")->GetComponent<AudioComp>()->playAudio(0, "./Assets/Audio/click_effect.mp3")
 void level::Menu::Init() {
     // 카메라 초기화
@@ -76,16 +76,16 @@ void level::Menu::Init() {
         });
 
 
-    ControllButtonObj = new GameObject("MenuCtrBtn");
-    ControllButtonObj->AddComponent<UIComponent>();
-    UIComponent* ControllUI = ControllButtonObj->GetComponent<UIComponent>();
+    CtlButtonObj = new GameObject("MenuCtrBtn");
+    CtlButtonObj->AddComponent<UIComponent>();
+    UIComponent* ControllUI = CtlButtonObj->GetComponent<UIComponent>();
     ControllUI->SetPos({ 0, -200 });
     ControllUI->SetScale({ 500, 100 });
     ControllUI->SetTexture("Assets/UI/Menu.png");
     ControllUI->SetColor(0, 0, 0);
     ControllUI->SetScreenSpace(true);
-    ControllButtonObj->AddComponent<ButtonComp>();
-    ButtonComp* ControllBtn = ControllButtonObj->GetComponent<ButtonComp>();
+    CtlButtonObj->AddComponent<ButtonComp>();
+    ButtonComp* ControllBtn = CtlButtonObj->GetComponent<ButtonComp>();
     ControllBtn->SetOnClickFunction([this]() {
         Setoff();
         CtrUI.SetUIVisibility(true);
@@ -131,10 +131,10 @@ void level::Menu::Init() {
         std::cout << "Quit Button Hover Out!" << std::endl;
         quitUI->SetScale({ 500, 100 });
         });
-    CtrUI.InitControllUI();
+    CtrUI.InitControlUI();
     // 자막 추가
     SubtitleComp::AddSubtitle({ {-0.15,-0.27}, 1, "START", 0.2, 0, 0, 1 });
-    SubtitleComp::AddSubtitle({ {-0.15,-0.495}, 1, "Controll", 0.2, 0, 0, 1 });
+    SubtitleComp::AddSubtitle({ {-0.15,-0.495}, 1, "Control", 0.2, 0, 0, 1 });
     SubtitleComp::AddSubtitle({ {-0.11,-0.72}, 1, "EXIT", 0.2, 0, 0, 1 });
 }
 
@@ -151,9 +151,12 @@ void level::Menu::Exit() {
 void level::Menu::Setoff()
 {
     UIComponent* startUI = startButtonObj->GetComponent<UIComponent>();
-    UIComponent* ControllUI = ControllButtonObj->GetComponent<UIComponent>();
+    UIComponent* ControllUI = CtlButtonObj->GetComponent<UIComponent>();
     UIComponent* quitUI = quitButtonObj->GetComponent<UIComponent>();
     startUI->SetAlpha(0);
     ControllUI->SetAlpha(0);
     quitUI->SetAlpha(0);
+    SubtitleComp::ModifySubtitle("START", 0);
+    SubtitleComp::ModifySubtitle("Control", 0);
+    SubtitleComp::ModifySubtitle("EXIT", 0);
 }

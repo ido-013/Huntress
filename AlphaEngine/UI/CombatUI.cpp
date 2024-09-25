@@ -208,11 +208,13 @@ void UpdateCombatUI()
 	{
 		float directAngle = directionArrow->GetComponent<CombatComp>()->data.angle;
 		UIComponent* directAngleComp = DirectAngle->GetComponent<UIComponent>();
-		if (directionArrow->GetComponent<CombatComp>()->isReadyLaunch == TRUE)
+		if (directionArrow->GetComponent<CombatComp>()->isLaunched == TRUE)
 		{
 			UIComponent* PredirectAngle = PreDirection->GetComponent<UIComponent>();
-			PredirectAngle->SetRot(directAngle);
-			PredirectAngle->SetAlpha(0.5);
+				PredirectAngle->SetRot(directAngle);
+				PredirectAngle->SetAlpha(0.5);
+				directionArrow->GetComponent<CombatComp>()->isLaunched = false;
+			
 		}
 		directAngleComp->SetRot(directAngle);
 	

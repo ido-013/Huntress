@@ -31,16 +31,7 @@ void EscUI::Setoff()
 	SetUIVisibility(false);
 }
 
-void EscUI::Setmenu()
-{
-    auto MSB =GameObjectManager::GetInstance().GetObj("MenuStartBtn");
-    MSB->GetComponent<UIComponent>()->SetAlpha(1);
-    auto MCB=GameObjectManager::GetInstance().GetObj("MenuCtrBtn");
-    MCB->GetComponent<UIComponent>()->SetAlpha(1);
-    auto MQB = GameObjectManager::GetInstance().GetObj("MenuQuitBtn"); 
-    MQB->GetComponent<UIComponent>()->SetAlpha(1);
-    GameObjectManager::GetInstance().GetObj("MenuQuitBtn")->GetComponent<UIComponent>()->SetAlpha(1);
-}
+
 
 void EscUI::InitEscUI()
 {
@@ -121,9 +112,9 @@ void EscUI::InitEscUI()
     CloseBtn->AddComponent<ButtonComp>();
     ButtonComp* CloseButton = CloseBtn->GetComponent<ButtonComp>();
     CloseButton->SetOnClickFunction([this]() {
-        Setmenu();
-        Setoff();
         
+        Setoff();
+        SubtitleComp::ModifySubtitle("goldText", 1);
         CombatComp::isCombat = true;
         });
 }
@@ -133,6 +124,7 @@ void EscUI::UpdateEscUI()
     if (AEInputCheckTriggered(AEVK_ESCAPE)) {
         CombatComp::isCombat = false;
         SetUIVisibility(true);
+        SubtitleComp::ModifySubtitle("goldText",0);
     }
 }
 
