@@ -19,7 +19,7 @@
 #define TIME_ARANGE_2 1.f
 #define TIME_ARANGE_3 1.5f
 #define TIME_ARANGE_4 2.f
-#define TIME_ARANGE_5 2.5f
+#define TIME_ARANGE_5 2.3f
 
 class Projectile : public LogicComponent
 {

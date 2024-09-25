@@ -15,6 +15,7 @@
 #define ANGLE_LIMIT AEDegToRad(120.f)
 
 #define POWER_INTERVER 1.f
+#define ANGLE_INTERVER AEDegToRad(2.f)
 
 #define RAD10 AEDegToRad(10.f)
 #define RAD90 AEDegToRad(90.f)
@@ -22,6 +23,7 @@
 #define MAP_BOTTOM_MAX -2500 // 맵 가장 아래
 
 #define HIT_RADIUS 15.0f // 플레이어에 대한 적중 판정 반경
+
 
 //붙어서 싸우기 방지를 위한 상수값
 
@@ -92,6 +94,8 @@ public:
 	static STATE state;
 	void checkState();
 	static void ResetCombat();
+	bool ObstacleCollisionCheck(std::vector<AEVec2>& coords);
+
 	void SetPlayerAngle(float angle);
 	float GetPlayerAngle();
 	void SetEnemyAngle(float angle);
