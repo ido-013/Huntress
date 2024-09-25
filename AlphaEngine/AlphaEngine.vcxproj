@@ -263,7 +263,10 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <Image Include="Assets\Background\BG6.png" />
     <Image Include="Assets\Background\BG7.png" />
     <Image Include="Assets\Background\BG8.png" />
+    <Image Include="Assets\credit.png" />
+    <Image Include="Assets\DigiPen_RED.png" />
     <Image Include="Assets\PlanetTexture.png" />
+    <Image Include="Assets\Team_Logo.png" />
     <Image Include="Assets\Tile\FallGrassTileLeftTri.png" />
     <Image Include="Assets\Tile\FallGrassTileRect.png" />
     <Image Include="Assets\Tile\FallGrassTileRightTri.png" />

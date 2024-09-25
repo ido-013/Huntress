@@ -1,10 +1,11 @@
 #include "Camera.h"
 #include "../Combat/Combat.h"
 #include "../Combat/Projectile.h"
+#include "../GameObjectManager/GameObjectManager.h"
 
 #define PADDING 20
 
-Camera::Camera() : world_to_ndc_xform(), preTurn(CombatComp::turn)
+Camera::Camera() : world_to_ndc_xform()
 {
 }
 
@@ -17,8 +18,7 @@ void Camera::Update()
 {
 	AEMtx33Identity(&world_to_ndc_xform);
 
-	if (CombatComp::state == CombatComp::COMBAT 
-		&& !Projectile::isLaunchProjectile)
+	if (CombatComp::state == CombatComp::COMBAT)
 	{
 		float dt = (float)AEFrameRateControllerGetFrameTime();
 
@@ -64,10 +64,11 @@ void Camera::Update()
 			y = AEClamp(y, -1865, 0);
 
 			//Press Space
-			if (AEInputCheckTriggered(AEVK_SPACE) || preTurn != CombatComp::turn)
+			if (AEInputCheckTriggered(AEVK_SPACE))
 			{
-				x = srcX;
-				y = srcY;
+				AEVec2 playerPos = GameObjectManager::GetInstance().GetObj("player")->GetComponent<TransformComp>()->GetPos();
+				x = playerPos.x;
+				y = playerPos.y;
 			}
 
 			AEMtx33TransApply(&world_to_ndc_xform, &world_to_ndc_xform, -x, -y);
@@ -77,8 +78,6 @@ void Camera::Update()
 		AEMtx33TransApply(&world_to_ndc_xform, &world_to_ndc_xform, -srcX, -srcY);
 
 	AEMtx33ScaleApply(&world_to_ndc_xform, &world_to_ndc_xform, 2 / height, 2 / height);
-
-	preTurn = CombatComp::turn;
 }
 
 void Camera::GetPos(float* px, float* py)
@@ -114,7 +113,7 @@ void Camera::SetPos(float _x, float _y)
 	srcX = _x;
 	srcY = _y;
 
-	srcX = AEClamp(srcX, 0, 3000);
-	srcY = AEClamp(srcY, -2335, 0);
+	srcX = AEClamp(srcX, 0, 2500);
+	srcY = AEClamp(srcY, -1865, 0);
 }
 

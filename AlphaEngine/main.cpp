@@ -12,6 +12,8 @@
 #include "Level/Menu.h"
 #include "Camera/Camera.h"
 #include <dwmapi.h>
+#include <windows.h>
+#include "ResourceManager/ResourceManager.h"
 #pragma comment(lib, "dwmapi.lib")
 
 // ---------------------------------------------------------------------------
@@ -46,21 +48,28 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	int gGameRunning = 1;
 
-	// Initialization of your own variables go here
-
 	// Using custom window procedure
 #ifdef NDEBUG
 	AESysInit(hInstance, nCmdShow, windowWidth, windowHeight, 0, 60, true, WndProc);
 	AESysSetFullScreen(1);
 #else
 	AESysInit(hInstance, nCmdShow, windowWidth, windowHeight, 1, 60, true, WndProc);
+	AESysSetFullScreen(0);
 #endif
 
+	// Initialization of your own variables go here
+
 	HWND hwnd = AESysGetWindowHandle();
+
+	if (hwnd == NULL) {
+		return 0;
+	}
+
 	RECT rc;
 
 	// Changing the window title
 	AESysSetWindowTitle("Huntress");
+
 
 	GSM::GameStateManager& gsm = GSM::GameStateManager::GetInstance();
 
@@ -88,11 +97,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 		// Informing the system about the loop's end
 		AESysFrameEnd();
-
-		// check if forcing the application to quit
-	//	if (AEInputCheckTriggered(AEVK_ESCAPE) || 0 == AESysDoesWindowExist())
-	//		gGameRunning = 0;
-
 	}
 
 	gsm.Exit();

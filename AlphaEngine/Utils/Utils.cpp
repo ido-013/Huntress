@@ -3,6 +3,7 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include "../Camera/Camera.h"
 
 void AESleep(long long t)
 {
@@ -26,6 +27,19 @@ float GetMouseCursorPositionY()
     y -= windowHeightHalf;
     y = -y;
     return (float)y;
+}
+float GetCamPositionX()
+{
+    float x, y;
+    Camera::GetInstance().GetPos(&x, &y);
+    return x;
+}
+
+float GetCamPositionY()
+{
+    float x, y;
+    Camera::GetInstance().GetPos(&x, &y);
+    return y;
 }
 
 int PosToMapX(float x)

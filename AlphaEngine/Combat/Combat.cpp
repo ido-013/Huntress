@@ -18,6 +18,7 @@
 #include "../Camera/Camera.h"
 #include <random>
 #include <iostream>
+#include <vector>
 #include "../Utils/Utils.h"
 
 float delayTime = 0.2f;  // 2초 딜레이
@@ -37,6 +38,8 @@ bool CombatComp::isLaunched = false;
 bool CombatComp::isSetLaunchAngle = false;
 
 int CombatComp::ArrowCount = 0;
+
+std::vector<TransformComp*> CombatComp::blocks;
 
 void CombatComp::DataUpdate()
 {
@@ -78,6 +81,16 @@ float GetCacluateSlopeAngle(const AEVec2& P1, const AEVec2& P2, const int axis =
 	//RadianToDegree(theta);
 	
 	return theta;
+}
+
+bool isPointInRectangle(const TransformComp* block, const AEVec2& coord)
+{
+	if (coord.x <= block->GetPos().x + (block->GetScale().x / 2) &&
+		coord.x >= block->GetPos().x - (block->GetScale().x / 2) &&
+		coord.y <= block->GetPos().y + (block->GetScale().x / 2) &&
+		coord.y >= block->GetPos().y - (block->GetScale().y / 2))
+		return true;
+	return false;
 }
 
 // 한 점을 중심으로 다른 점을 회전시키는 기능을 수행하는 함수
@@ -173,13 +186,6 @@ void CombatComp::DrawDirectionPegline(GameObject& directionArrow,
 			angle = AngleBetweenSegments(tmp1, tmp2,
 				tmp1, { (float)px + tmp3.x, (float)py + tmp3.y });
 		}
-
-		/*angle = AngleBetweenSegments(atf->GetPos(), dtf->GetPos(),
-			atf->GetPos(), { (float)px + cx, (float)py + cy });*/
-
-		/*std::cout << "px,py : " << px << "," << -(py - windowHeightHalf) << "\n"
-				  << "cx,cy : " << cx << "," << cy << "\n"
-				  << "atf.x/y : " << (int)atf->GetPos().x << "," << (int)atf->GetPos().y << std::endl;*/
 	}
 	else
 	{
@@ -315,6 +321,38 @@ void CombatComp::ResetCombat()
 	ArrowCount = 0;
 }
 
+bool CombatComp::ObstacleCollisionCheck(std::vector<AEVec2>& coords)
+{
+	TransformComp* ptf = GetPlayerTransform();
+	TransformComp* etf = GetEnemyTransform();
+	f32 xmin = ptf->GetPos().x < etf->GetPos().x ? ptf->GetPos().x : etf->GetPos().x;
+	f32 xmax = ptf->GetPos().x >= etf->GetPos().x ? ptf->GetPos().x : etf->GetPos().x;
+	f32 ymin = ptf->GetPos().y < etf->GetPos().y ? ptf->GetPos().y : etf->GetPos().y;
+	int blockCount = 0;
+	for (auto block : blocks)
+	{
+		//플레이어와 적 사이의 위치에 존재하는 블럭만
+		if (xmin <= block->GetPos().x + (block->GetScale().x / 2) &&
+			xmax >= block->GetPos().x - (block->GetScale().x / 2) &&
+			ymin <= block->GetPos().y + (block->GetScale().y / 2))
+		{
+			blockCount++;
+			for (auto& coord : coords)
+			{
+				block->GetOwner()->type == GameObject::LeftTri;
+
+				if (isPointInRectangle(block, coord))
+				{
+					std::cout << "blockcoord : " << block->GetPos().x << ", " << block->GetPos().y << " , dotcoord : " << coord.x << ", " << coord.y << std::endl;
+					return true;
+				}
+			}
+		}
+	}
+	std::cout << "blockCount : " << blockCount << " , coordsCount : " << coords.size() << std::endl;
+	return false;
+}
+
 
 CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 {
@@ -375,7 +413,7 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 		float initialVelocityX = eVelocity * std::cos(eAngle);
 		float initialVelocityY = eVelocity * std::sin(eAngle);
 
-
+		std::vector<AEVec2> coords = {};
 		while (true)
 		{
 			// 현재 속도 계산 (속도에 공기 저항과 바람 적용)
@@ -394,7 +432,7 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 			float y = ptf.y + velocityY * t;
 
 			ptf = { x, y };
-
+			coords.push_back(ptf);
 			//std::cout << ptf.x << " , " << ptf.y << std::endl;
 
 			t += static_cast<float>(AEFrameRateControllerGetFrameTime());
@@ -403,6 +441,13 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 			float loc = sqrt((ptf.x - op.x) * (ptf.x - op.x) + (ptf.y - op.y) * (ptf.y - op.y));
 			if (loc <= HIT_RADIUS)
 			{
+				if (ObstacleCollisionCheck(coords))
+				{
+#ifdef _DEBUG
+					std::cout << "ObstacleCollisionCheck!" << std::endl;
+#endif
+					break;
+				}
 				isSetLaunchAngle = true;
 				enemy->GetComponent<RigidbodyComp>()->SetVelocityX(0);
 				std::cout << "HIT" << std::endl;
@@ -477,6 +522,16 @@ void CombatComp::Update()
 {
 	GameObject* bg = GameObjectManager::GetInstance().GetObj("background");
 	AudioComp* bga = bg->GetComponent<AudioComp>();
+#ifdef _DEBUG
+	if (AEInputCheckTriggered(AEVK_R))
+	{
+		state = GAMEOVER;
+	}
+	if (AEInputCheckTriggered(AEVK_N))
+	{
+		state = CLEAR;
+	}
+#endif // DEBUG
 	if (isCombat && state == COMBAT)
 	{
 		GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
@@ -485,18 +540,10 @@ void CombatComp::Update()
 		TransformComp* ptf = GetPlayerTransform();
 		GameObject* enemy = GetEnemyObject();
 		TransformComp* etf = GetEnemyTransform();
-		if (AEInputCheckTriggered(AEVK_R))
-		{
-			state = RESET;
-		}
 #ifdef _DEBUG
 		if (AEInputCheckTriggered(AEVK_T))
 		{
 			std::cout << std::sqrt(std::pow(ptf->GetPos().x - etf->GetPos().x, 2) + std::pow(ptf->GetPos().y - etf->GetPos().y, 2)) << std::endl;
-		}
-		if (AEInputCheckTriggered(AEVK_N))
-		{
-			state = CLEAR;
 		}
 #endif // DEBUG
 		//적 스프라이트 x축 방향 설정
@@ -550,8 +597,10 @@ void CombatComp::Update()
 						}
 						else
 						{
-							player->GetComponent<TransformComp>()->ReverseX(ptf->GetPos().x > GetMouseCursorPositionX() + ptf->GetPos().x ? 0 : 1);
-							std::cout << ptf->GetPos().x << " | " << GetMouseCursorPositionX() + ptf->GetPos().x << std::endl;
+							
+							float mouseX = GetMouseCursorPositionX() - GetCamPositionX();
+							player->GetComponent<TransformComp>()->ReverseX(AERadToDeg(pAngle) >= 90 ? 0 : 1);
+							//std::cout << "pAngle" << AERadToDeg(pAngle) << std::endl;
 							player->GetComponent<PlayerComp>()->moveState = false;
 							isChaseDirection = false;
 							isReadyLaunch = true;
@@ -602,17 +651,17 @@ void CombatComp::Update()
 					case Data::EnemyData::GRADE::Normal:
 						AICombatSystemApplyWind = true;
 						AICombatSystemEnemyGrade = Data::EnemyData::GRADE::Normal;
-						angleInterval = AEDegToRad(5.f);
+						angleInterval = ANGLE_INTERVER;
 						break;
 					case Data::EnemyData::GRADE::Elite:
 						AICombatSystemApplyWind = true;
 						AICombatSystemEnemyGrade = Data::EnemyData::GRADE::Elite;
-						angleInterval = AEDegToRad(5.f);
+						angleInterval = ANGLE_INTERVER;
 						break;
 					case Data::EnemyData::GRADE::Boss:
 						AICombatSystemApplyWind = true;
 						AICombatSystemEnemyGrade = Data::EnemyData::GRADE::Boss;
-						angleInterval = AEDegToRad(5.f);
+						angleInterval = ANGLE_INTERVER;
 						break;
 					}
 					if (GetPlayerEnemyDistance() < DISTANCE_ARANGE_1)

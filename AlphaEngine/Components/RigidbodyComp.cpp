@@ -1,11 +1,12 @@
-#include "RigidbodyComp.h"
+ï»¿#include "RigidbodyComp.h"
 #include "AEEngine.h"
 #include "TransformComp.h"
 #include "../Utils/Direction.h"
+#include "../Combat/Combat.h"
 
 bool RigidbodyComp::CheckEpsilon(float v, float EP)
 {
-	if (v < -EP || v > EP) 
+	if (v < -EP || v > EP)
 		return true;
 
 	return false;
@@ -37,12 +38,12 @@ void RigidbodyComp::CorrectPosByAABB(ColliderComp* oc, ColliderComp* c, float& x
 	switch (minInd)
 	{
 	case 0:
-		x = oc->GetPos().x + oc->GetScale().x / 2 + c->GetScale().x / 2;
-		velocity.x = 0;
+		x = oc->GetPos().x + oc->GetScale().x / 2 + c->GetScale().x / 2 + 1;
+		//velocity.x = 0;
 		break;
 	case 1:
-		x = oc->GetPos().x - oc->GetScale().x / 2 - c->GetScale().x / 2;
-		velocity.x = 0;
+		x = oc->GetPos().x - oc->GetScale().x / 2 - c->GetScale().x / 2 - 1;
+		//velocity.x = 0;
 		break;
 	case 2:
 		y = oc->GetPos().y + oc->GetScale().y / 2 + c->GetScale().y / 2;
@@ -60,7 +61,7 @@ RigidbodyComp::RigidbodyComp(GameObject* _owner) : EngineComponent(_owner), velo
 	velocity.x = 0;
 	velocity.y = 0;
 	maxVelocity.x = 500;
-	maxVelocity.y = 500;	 
+	maxVelocity.y = 500;
 
 	acceleration.x = 0;
 	acceleration.y = 0;
@@ -167,12 +168,15 @@ void RigidbodyComp::ClearAcceleration()
 
 void RigidbodyComp::Update()
 {
+	if (!CombatComp::isCombat)
+		return;
+
 	float dt = (float)AEFrameRateControllerGetFrameTime();
 
 	//Get the transform
 	TransformComp* t = owner->GetComponent<TransformComp>();
 	if (!t)	return;
-	
+
 	float tx = t->GetPos().x;
 	float ty = t->GetPos().y;
 
@@ -180,7 +184,7 @@ void RigidbodyComp::Update()
 	float th = t->GetScale().y;
 
 	velocity.x += acceleration.x * dt;
-	velocity.y += acceleration.y * dt + (useGravity ? -500.f * dt : 0.f );
+	velocity.y += acceleration.y * dt + (useGravity ? -500.f * dt : 0.f);
 
 	velocity.x = AEClamp(velocity.x, -maxVelocity.x, maxVelocity.x);
 	velocity.y = AEClamp(velocity.y, -maxVelocity.y, maxVelocity.y);
@@ -216,10 +220,8 @@ void RigidbodyComp::Update()
 			t->SetRot(targetRot);
 		}
 
-		// ±â¿ï±â ¹Ì²ô·¯Áü
 		/*if (AERadToDeg(targetRot) > 40)
 			velocity.x = -10;
-
 		if (AERadToDeg(targetRot) < -40)
 			velocity.x = 10;*/
 
@@ -255,15 +257,15 @@ void RigidbodyComp::Update()
 						c->GetScale().y / 2;
 				}
 			}
-		
+
 			else if (type == GameObject::LeftTri)
 			{
-				/*if (colliderType[GameObject::Square] && c->GetPos().x < oc->GetPos().x)
+				if (colliderType[GameObject::Square] && c->GetPos().x < oc->GetPos().x)
 				{
 					CorrectPosByAABB(oc, c, x, y);
 					targetRot = AEDegToRad(0);
-				}	
-				else*/
+				}
+				else
 				{
 					targetRot = AEATan(-oc->GetScale().y / oc->GetScale().x);
 					y = oc->GetPos().y +
@@ -274,10 +276,8 @@ void RigidbodyComp::Update()
 			}
 		}
 
-		for (int i = 0; i < 10; i++)
-		{
-			colliderType[i] = false;
-		}
+		for (auto& i : colliderType)
+			i = false;
 
 		c->SetPos({ x, y });
 	}

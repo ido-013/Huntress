@@ -1,58 +1,49 @@
 #include "NormalLevel.h"
+#include <iostream>
 #include "../GSM/GameStateManager.h"
+#include "../GameObjectManager/GameObjectManager.h"
 #include "../ComponentManager/ComponentManager.h"
-#include "../GameObject/GameObject.h"
-#include "../Components/AudioComp.h"
-#include "../Components/TransformComp.h"
-#include "../Components/SpriteComp.h"
-#include "../Components/PlayerComp.h"
-#include "../Components/RigidbodyComp.h"
-#include "../Components/AnimatorComp.h"
+#include "../Level/ClearLevel.h"
+#include "../Level/OverLevel.h"
+#include "../Components.h"
+#include "../Components/SubtitleComp.h"
 #include "../EventManager/EventManager.h"
 #include "../Prefab/Prefab.h"
 #include "../Utils/Utils.h"
 #include "../Level/Menu.h"
-#include "../GameObjectManager/GameObjectManager.h"
 #include "../Background/Background.h"
 #include "../Serializer/Serializer.h"
-#include <iostream>
 #include "../UI/CombatUI.h"
 #include "../UIM/BtnManager.h"
-
 #include "../Background/Background.h"
-#include "../Utils/Utils.h"
 #include "../Tile/Tile.h"
-#include "../Level/ClearLevel.h"
-#include "../Level/OverLevel.h"
-#include "../Components/SubtitleComp.h"
 #include "../Data/Data.h"
 #include "../UI/EscMenu.h"
+#include "../Camera/Camera.h"
+
 EscUI Escmenu;
 void level::NormalLevel::Init()
 {
+	CombatComp::blocks.reserve(200);
 	Serializer::GetInstance().LoadLevel("./Assets/Level/test" + std::to_string(level) + ".lvl");
+	Camera::GetInstance().fix = true;
 
 	InitBackground();
 
 	player = GameObjectManager::GetInstance().GetObj("player");
 	enemy = GameObjectManager::GetInstance().GetObj("enemy");
 
-	
+	InitCombatUI();
 
+#ifdef _DEBUG
+	std::cout << "Current Level : " << level << std::endl;
+#endif
 	if (level == 1)
 	{
-		player->GetComponent<PlayerComp>()->playerData->InitData(12, 50, 50, 5, 1);
+		player->GetComponent<PlayerComp>()->playerData->InitData(15, 50, 50, 5, 1);
 	}
 
-	if (level == 1 || level == 6)
-	{
-		storeUI.InitStoreUI(player);
-	}
-	//else
-	//{
-	//	Tile::ChangeTile();
-	//}
-	InitCombatUI();
+	storeUI.InitStoreUI(player);
 	Escmenu.InitEscUI();
 }
 
@@ -60,7 +51,10 @@ void level::NormalLevel::Update()
 {
 
 	UpdateBackground();
-	
+
+	storeUI.UpdateStoreUI();
+
+
 	if (CombatComp::state == CombatComp::CLEAR)
 	{
 		if (level == 10)
@@ -88,25 +82,17 @@ void level::NormalLevel::Update()
 		}
 	}
 
-	UpdateCombatUI();
-	if (level == 1 || level == 6)
-	{
-		storeUI.UpdateStoreUI();
-	}
-	
 	if (CombatComp::state == CombatComp::RESET)
 	{
 		GSM::GameStateManager::GetInstance().ChangeLevel(new Menu);
 	}
-
+	UpdateCombatUI();
 	Escmenu.UpdateEscUI();
 }
 
 void level::NormalLevel::Exit()
 {
-	// 리소스 정리 등의 코드
-	if (level == 1 || level == 6)
-	{
-		storeUI.ExitStoreUI();
-	}
+	
+	storeUI.ExitStoreUI();
+	CombatComp::blocks.clear();
 }

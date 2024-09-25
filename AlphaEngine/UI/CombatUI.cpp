@@ -237,7 +237,6 @@ void UpdateCombatUI()
 
 	if (SubtitleComp::FindSubtitle("WindPower"))
 	{
-	
 		SubtitleComp::ModifySubtitle("WindPower",std::to_string((int)directionArrow->GetComponent<CombatComp>()->data.windPower));
 	}
 	

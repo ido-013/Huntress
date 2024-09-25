@@ -112,7 +112,6 @@ void EscUI::InitEscUI()
     CloseBtn->AddComponent<ButtonComp>();
     ButtonComp* CloseButton = CloseBtn->GetComponent<ButtonComp>();
     CloseButton->SetOnClickFunction([this]() {
-        
         Setoff();
         SubtitleComp::ModifySubtitle("goldText", 1);
         CombatComp::isCombat = true;
@@ -124,6 +123,7 @@ void EscUI::UpdateEscUI()
     if (AEInputCheckTriggered(AEVK_ESCAPE)) {
         CombatComp::isCombat = false;
         SetUIVisibility(true);
+
         SubtitleComp::ModifySubtitle("goldText",0);
     }
 }

@@ -22,7 +22,7 @@ public:
 	bool useGravity = false;
 
 	std::queue<ColliderComp*> oppoCollider;
-	bool colliderType[13] = { false };
+	bool colliderType[20] = { 0 };
 
 	RigidbodyComp(GameObject* _owner);
 	~RigidbodyComp();

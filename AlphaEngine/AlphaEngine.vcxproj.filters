@@ -578,6 +578,15 @@
     <Image Include="Assets\UI\windArrow.png">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Assets\credit.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\DigiPen_RED.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\Team_Logo.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Assets\Arial-Italic.ttf" />

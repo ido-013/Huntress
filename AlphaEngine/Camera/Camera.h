@@ -19,16 +19,14 @@ private:
 	float x = 0;
 	float y = 0;
 
-	float speed = 340;
+	float speed = 400;
 	float height = 1;
-
-	CombatComp::TURN preTurn;
-
-	bool fix = true;
 
 	AEMtx33 world_to_ndc_xform;
 
 public:
+	bool fix = true;
+
 	static Camera& GetInstance()
 	{
 		static Camera instance;
