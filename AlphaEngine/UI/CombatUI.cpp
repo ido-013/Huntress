@@ -221,11 +221,11 @@ void UpdateCombatUI()
 	}
 	UIComponent* moveComp = Move->GetComponent<UIComponent>();
 	moveComp->SetScale({ 720 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f), 80 });
-	moveComp->SetPos({ 120.f - (750 - 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f)) / 2 , -380 });
+	moveComp->SetPos({ 120.f - (720 - 720 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f)) / 2 , -380 });
 
 	UIComponent* powerComp = Power->GetComponent<UIComponent>();
 	powerComp->SetScale({ 720 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (PLAYER_POWER_LIMIT + DEFAULT_POWER))), 80 });
-	powerComp->SetPos({ 120.f - (750 - 750 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (PLAYER_POWER_LIMIT + DEFAULT_POWER)))) / 2 , -280 });
+	powerComp->SetPos({ 120.f - (720 - 720 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (PLAYER_POWER_LIMIT + DEFAULT_POWER)))) / 2 , -280 });
 
 	UIComponent* hpComp = HP->GetComponent<UIComponent>();
 	hpComp->SetScale({ 80, 200 * (float(player->GetComponent<PlayerComp>()->playerData->hp) / player->GetComponent<PlayerComp>()->playerData->maxLife) });
