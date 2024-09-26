@@ -54,7 +54,7 @@ void level::NormalLevel::Init()
 void level::NormalLevel::Update()
 {
 	Escmenu.UpdateEscUI(&storeUI);
-
+	storeUI.UpdateStoreUI();
 	UpdateBackground();
 
 

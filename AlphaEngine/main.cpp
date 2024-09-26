@@ -77,7 +77,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// reset the system modules
 	AESysReset();
 	
-	auto level = new level::NormalLevel(1);
+	auto level = new level::Menu();
 	GSM::GameStateManager::GetInstance().ChangeLevel(level);
 
 	// Game Loop

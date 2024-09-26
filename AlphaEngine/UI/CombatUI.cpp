@@ -202,7 +202,10 @@ void UpdateCombatUI()
 	float angle = directionArrow->GetComponent<CombatComp>()->data.windAngle;
 	UIComponent* windDirComp = WindDirection->GetComponent<UIComponent>();
 	windDirComp->SetRot(angle);  // Set rotation for wind direction arrow
-
+	if ((int)directionArrow->GetComponent<CombatComp>()->data.windPower == 0)
+		windDirComp->SetAlpha(0);
+	else
+		windDirComp->SetAlpha(1);
 	float playerslopeAngle = player->GetComponent<TransformComp>()->GetRot();
 	UIComponent* playerAngleComp = playerAngle->GetComponent<UIComponent>();
 	playerAngleComp->SetRot(playerslopeAngle);
@@ -240,6 +243,7 @@ void UpdateCombatUI()
 	if (SubtitleComp::FindSubtitle("WindPower"))
 	{
 		SubtitleComp::ModifySubtitle("WindPower",std::to_string((int)directionArrow->GetComponent<CombatComp>()->data.windPower));
+		
 	}
 	
 }
