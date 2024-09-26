@@ -7,5 +7,5 @@ private:
 	InterfaceComponent() = delete;
 public:
 	InterfaceComponent(GameObject* _owner);
-	~InterfaceComponent();
+	virtual ~InterfaceComponent();
 };

@@ -180,6 +180,9 @@
     <ClCompile Include="ComponentManager\InterfaceComponent.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="UI\ItemInfo.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GSM\GameStateManager.h">
@@ -396,6 +399,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="ComponentManager\InterfaceComponent.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\ItemInfo.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

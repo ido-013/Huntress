@@ -6,6 +6,12 @@
 #include "../Combat/Combat.h"
 #include "../Level/Menu.h"
 #include "../Components//SubtitleComp.h"
+
+bool EscUI::getOpen()
+{
+    return isOpen;
+}
+
 void EscUI::SetUIVisibility(bool isVisible)
 {
 	int alphaValue = isVisible ? 1 : 0;
@@ -19,7 +25,7 @@ void EscUI::SetUIVisibility(bool isVisible)
     CloseUI->SetAlpha(alphaValue);
 }
 
-void EscUI::SetControllUI()
+void EscUI::SetEscUI()
 {
 	isOpen = true;
 	SetUIVisibility(true);
@@ -35,8 +41,6 @@ void EscUI::Setoff()
 
 void EscUI::InitEscUI()
 {
- 
-
     BgUI = new GameObject();
     BgUI->AddComponent<UIComponent>();
     UIComponent* backgroundUI = BgUI->GetComponent<UIComponent>();
@@ -73,34 +77,7 @@ void EscUI::InitEscUI()
         std::cout << "Start Button Hover Out!" << std::endl;
         RestartUI->SetScale({ 300, 100 });  
         });
-    QuitBtn = new GameObject();
-    QuitBtn->AddComponent<UIComponent>();
-    UIComponent* QuitUI = QuitBtn->GetComponent<UIComponent>();
-    QuitUI->SetPos({ 0, -300 });
-    QuitUI->SetScale({ 300, 100 });
-    QuitUI->SetTexture("Assets/UI/Menu.png");
-    QuitUI->SetColor(0, 0, 0);
-    QuitUI->SetAlpha(0);
-    QuitUI->SetScreenSpace(true);
-    QuitBtn->AddComponent<ButtonComp>();
-    ButtonComp* quitBtn = QuitBtn->GetComponent<ButtonComp>();
-    quitBtn->SetOnClickFunction([]() {
-        std::cout << "Start Button Clicked!" << std::endl;
-        GSM::GameStateManager::GetInstance().ChangeLevel(nullptr);
-        });
-
-
-    quitBtn->SetOnHoverFunction([QuitUI]() {
-        std::cout << "Start Button Hovered!" << std::endl;
-        QuitUI->SetScale({ 280, 90 }); 
-        });
-
-    // Hover 해제 시 원래 크기로 복원
-    quitBtn->SetOnHoverOutFunction([QuitUI]() {
-        std::cout << "Start Button Hover Out!" << std::endl;
-        QuitUI->SetScale({ 300, 100 });  
-        });
-
+   
     CloseBtn = new GameObject();
     CloseBtn->AddComponent<UIComponent>();
     UIComponent* CloseUI = CloseBtn->GetComponent<UIComponent>();
@@ -116,15 +93,44 @@ void EscUI::InitEscUI()
         SubtitleComp::ModifySubtitle("goldText", 1);
         CombatComp::isCombat = true;
         });
+
+    QuitBtn = new GameObject();
+    QuitBtn->AddComponent<UIComponent>();
+    UIComponent* QuitUI = QuitBtn->GetComponent<UIComponent>();
+    QuitUI->SetPos({ 0, -300 });
+    QuitUI->SetScale({ 300, 100 });
+    QuitUI->SetTexture("Assets/UI/Menu.png");
+    QuitUI->SetColor(0, 0, 0);
+    QuitUI->SetAlpha(0);
+    QuitUI->SetScreenSpace(true);
+    QuitBtn->AddComponent<ButtonComp>();
+    ButtonComp* quitBtn = QuitBtn->GetComponent<ButtonComp>();
+    quitBtn->SetOnClickFunction([this]() {
+        GSM::GameStateManager::GetInstance().ChangeLevel(nullptr);
+        });
+
+
+    quitBtn->SetOnHoverFunction([QuitUI]() {
+        QuitUI->SetScale({ 280, 90 });
+        });
+
+    // Hover 해제 시 원래 크기로 복원
+    quitBtn->SetOnHoverOutFunction([QuitUI]() {
+        QuitUI->SetScale({ 300, 100 });
+        });
+
 }
 
-void EscUI::UpdateEscUI()
+void EscUI::UpdateEscUI(StoreUI * storeUI)
 {
     if (AEInputCheckTriggered(AEVK_ESCAPE)) {
-        CombatComp::isCombat = false;
-        SetUIVisibility(true);
-
-        SubtitleComp::ModifySubtitle("goldText",0);
+       CombatComp::isCombat = false;
+       SetUIVisibility(true);
+       if (storeUI)
+       {
+           if (storeUI->getOpen())
+               storeUI->StoreOnEsc();
+       }
     }
 }
 

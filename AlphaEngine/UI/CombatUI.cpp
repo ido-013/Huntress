@@ -28,6 +28,8 @@ GameObject* WindDirection = nullptr;
 GameObject* PreDirection = nullptr;
 GameObject* Wind = nullptr;
 GameObject* WindFrame = nullptr;
+
+
 void InitCombatUI()
 {
 	GameObject* player = GameObjectManager::GetInstance().GetObj("player");
@@ -246,3 +248,4 @@ void ExitCombatUI()
 {
 	SubtitleComp::ClearSubtitle();
 }
+

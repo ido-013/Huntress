@@ -8,6 +8,7 @@ namespace GSM
 		//Others will inherit from me, I am just an Interface
 		
 	public:
+		virtual ~BaseLevel() = default;
 		//Init
 		virtual void Init() = 0;
 		//Update

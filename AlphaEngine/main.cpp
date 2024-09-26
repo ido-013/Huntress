@@ -8,6 +8,7 @@
 #include "Level/PrefabLevel.h"
 #include "Level/CombatLevel.h"
 #include "Level/LogoLevel.h"
+#include "Level/ClearLevel.h"
 #include "Utils/Utils.h"
 #include "Level/Menu.h"
 #include "Camera/Camera.h"
@@ -75,8 +76,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	// reset the system modules
 	AESysReset();
-
-	GSM::GameStateManager::GetInstance().ChangeLevel(new level::Menu);
+	
+	auto level = new level::NormalLevel(1);
+	GSM::GameStateManager::GetInstance().ChangeLevel(level);
 
 	// Game Loop
 	while (gsm.ShouldExit() == false && gGameRunning)
@@ -97,10 +99,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 		// Informing the system about the loop's end
 		AESysFrameEnd();
+		if (!AESysDoesWindowExist)
+			gGameRunning = 0;
 	}
-
 	gsm.Exit();
 
+	//ComponentManager<CombatComp>::GetInstance().Update();
 	// free the system
 	AESysExit();
 }

@@ -2,6 +2,7 @@
 #pragma once
 #include "../UIM/BtnManager.h"
 #include "../GameObject/GameObject.h"
+#include"../UI/StoreUI.h"
 #include <string>
 class EscUI {
 	GameObject* BgUI = nullptr;
@@ -9,14 +10,14 @@ class EscUI {
 	GameObject* QuitBtn = nullptr;
 	GameObject* CloseBtn = nullptr;
 
-	bool isOpen = true;
+	bool isOpen = false;
 
 public:
+	bool getOpen();
 	void SetUIVisibility(bool isVisible);
-	void SetControllUI();
+	void SetEscUI();
 	void Setoff();
-	void Setmenu();
 	void InitEscUI();
-	void UpdateEscUI();
+	void UpdateEscUI(StoreUI *);
 	void ExitEscUI();
 };
