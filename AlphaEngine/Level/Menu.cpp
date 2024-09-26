@@ -14,8 +14,8 @@
 #include "../GameObjectManager/GameObjectManager.h"
 #include "../Components/SubtitleComp.h"
 #include "../Camera/Camera.h"
-#include "../UI/ControllUI.h"
-ControllUI CtrUI;
+#include "../UI/ControlUI.h"
+ControlUI CtrUI;
 #define PLAY_AUDIO_CLICK GameObjectManager::GetInstance().GetObj("menuBg")->GetComponent<AudioComp>()->playAudio(0, "./Assets/Audio/click_effect.mp3")
 void level::Menu::Init() {
     // 카메라 초기화
@@ -45,7 +45,7 @@ void level::Menu::Init() {
     LogoUI->SetScreenSpace(true);
 
     // Start 버튼 초기화 및 등록
-    startButtonObj = new GameObject();
+    startButtonObj = new GameObject("MenuStartBtn");
     startButtonObj->AddComponent<UIComponent>();
     UIComponent* startUI = startButtonObj->GetComponent<UIComponent>();
     startUI->SetPos({ 0, -100 });
@@ -63,33 +63,34 @@ void level::Menu::Init() {
         GSM::GameStateManager::GetInstance().ChangeLevel(new level::NormalLevel(1));
         });
 
-    // Hover 시 크기를 줄여서 눌리는 듯한 효과
+
     startBtn->SetOnHoverFunction([startUI]() {
         std::cout << "Start Button Hovered!" << std::endl;
-        startUI->SetScale({ 480, 90 });  // 크기 살짝 줄이기
+        startUI->SetScale({ 480, 90 });  
         });
 
-    // Hover 해제 시 원래 크기로 복원
+
     startBtn->SetOnHoverOutFunction([startUI]() {
         std::cout << "Start Button Hover Out!" << std::endl;
-        startUI->SetScale({ 500, 100 });  // 원래 크기로 되돌리기
+        startUI->SetScale({ 500, 100 });
         });
 
-    // Control 버튼 초기화 및 등록
-    ControllButtonObj = new GameObject();
-    ControllButtonObj->AddComponent<UIComponent>();
-    UIComponent* ControllUI = ControllButtonObj->GetComponent<UIComponent>();
+
+    CtlButtonObj = new GameObject("MenuCtrBtn");
+    CtlButtonObj->AddComponent<UIComponent>();
+    UIComponent* ControllUI = CtlButtonObj->GetComponent<UIComponent>();
     ControllUI->SetPos({ 0, -200 });
     ControllUI->SetScale({ 500, 100 });
     ControllUI->SetTexture("Assets/UI/Menu.png");
     ControllUI->SetColor(0, 0, 0);
     ControllUI->SetScreenSpace(true);
-    ControllButtonObj->AddComponent<ButtonComp>();
-    ButtonComp* ControllBtn = ControllButtonObj->GetComponent<ButtonComp>();
-    ControllBtn->SetOnClickFunction([]() {
+    CtlButtonObj->AddComponent<ButtonComp>();
+    ButtonComp* ControllBtn = CtlButtonObj->GetComponent<ButtonComp>();
+    ControllBtn->SetOnClickFunction([this]() {
+        Setoff();
         CtrUI.SetUIVisibility(true);
         });
-    // Hover 시 크기를 줄여서 눌리는 듯한 효과
+ 
     ControllBtn->SetOnHoverFunction([ControllUI]() {
         std::cout << "Control Button Hovered!" << std::endl;
         ControllUI->SetScale({ 480, 90 });
@@ -102,7 +103,7 @@ void level::Menu::Init() {
         });
 
     // Quit 버튼 초기화 및 등록
-    quitButtonObj = new GameObject();
+    quitButtonObj = new GameObject("MenuQuitBtn");
     quitButtonObj->AddComponent<UIComponent>();
     UIComponent* quitUI = quitButtonObj->GetComponent<UIComponent>();
     quitUI->SetPos({ 0, -300 });
@@ -116,11 +117,10 @@ void level::Menu::Init() {
     quitBtn->SetOnClickFunction([]() {
         std::cout << "Quit Button Clicked!" << std::endl;
         PLAY_AUDIO_CLICK;
-        // Quit 게임 종료 로직 추가
         GSM::GameStateManager::GetInstance().ChangeLevel(nullptr);
         });
 
-    // Hover 시 크기를 줄여서 눌리는 듯한 효과
+
     quitBtn->SetOnHoverFunction([quitUI]() {
         std::cout << "Quit Button Hovered!" << std::endl;
         quitUI->SetScale({ 480, 90 });
@@ -131,10 +131,10 @@ void level::Menu::Init() {
         std::cout << "Quit Button Hover Out!" << std::endl;
         quitUI->SetScale({ 500, 100 });
         });
-    CtrUI.InitControllUI();
+    CtrUI.InitControlUI();
     // 자막 추가
     SubtitleComp::AddSubtitle({ {-0.15,-0.27}, 1, "START", 0.2, 0, 0, 1 });
-    SubtitleComp::AddSubtitle({ {-0.15,-0.495}, 1, "Controll", 0.2, 0, 0, 1 });
+    SubtitleComp::AddSubtitle({ {-0.15,-0.495}, 1, "Control", 0.2, 0, 0, 1 });
     SubtitleComp::AddSubtitle({ {-0.11,-0.72}, 1, "EXIT", 0.2, 0, 0, 1 });
 }
 
@@ -146,4 +146,17 @@ void level::Menu::Update() {
 void level::Menu::Exit() {
     // 리소스 정리 등의 코드
     SubtitleComp::ClearSubtitle();
+}
+
+void level::Menu::Setoff()
+{
+    UIComponent* startUI = startButtonObj->GetComponent<UIComponent>();
+    UIComponent* ControllUI = CtlButtonObj->GetComponent<UIComponent>();
+    UIComponent* quitUI = quitButtonObj->GetComponent<UIComponent>();
+    startUI->SetAlpha(0);
+    ControllUI->SetAlpha(0);
+    quitUI->SetAlpha(0);
+    SubtitleComp::ModifySubtitle("START", 0);
+    SubtitleComp::ModifySubtitle("Control", 0);
+    SubtitleComp::ModifySubtitle("EXIT", 0);
 }

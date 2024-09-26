@@ -231,7 +231,6 @@ void Projectile::Update()
             directionArrow->GetComponent<SpriteComp>()->SetAlpha(0);
             CombatComp::turn = CombatComp::TurnChange();
 
-       
             for (int i = 0; i < CombatComp::ArrowCount; i++)
             {
                 GameObjectManager::GetInstance().RemoveObject(GameObjectManager::GetInstance().GetObj("projectile"));

@@ -106,6 +106,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="CollisionManager\CollisionManager.cpp" />
     <ClCompile Include="Combat\Combat.cpp" />
     <ClCompile Include="ComponentManager\EngineComponent.cpp" />
+    <ClCompile Include="ComponentManager\InterfaceComponent.cpp" />
     <ClCompile Include="Components\AnimatorComp.cpp" />
     <ClCompile Include="Components\EnemyComp.cpp" />
     <ClCompile Include="Components\LifetimeComp.cpp" />
@@ -147,7 +148,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="Serializer\Serializer.cpp" />
     <ClCompile Include="UIM\BtnManager.cpp" />
     <ClCompile Include="UI\CombatUI.cpp" />
-    <ClCompile Include="UI\ControllUI.cpp" />
+    <ClCompile Include="UI\ControlUI.cpp" />
     <ClCompile Include="UI\EscMenu.cpp" />
     <ClCompile Include="UI\StoreUI.cpp" />
     <ClCompile Include="Utils\Utils.cpp" />
@@ -162,6 +163,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="ComponentManager\BaseComponent.h" />
     <ClInclude Include="ComponentManager\ComponentManager.h" />
     <ClInclude Include="ComponentManager\EngineComponent.h" />
+    <ClInclude Include="ComponentManager\InterfaceComponent.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="Components\AnimatorComp.h" />
     <ClInclude Include="Components\EnemyComp.h" />
@@ -215,7 +217,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="Tile\Tile.h" />
     <ClInclude Include="UIM\BtnManager.h" />
     <ClInclude Include="UI\CombatUI.h" />
-    <ClInclude Include="UI\ControllUI.h" />
+    <ClInclude Include="UI\ControlUI.h" />
     <ClInclude Include="UI\StoreUI.h" />
     <ClInclude Include="Utils\Direction.h" />
     <ClInclude Include="Utils\Size.h" />

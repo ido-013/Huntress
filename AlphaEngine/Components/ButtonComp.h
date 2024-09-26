@@ -4,7 +4,7 @@
 #include "../Components/UIComp.h"
 #include <functional>  // std::function »ç¿ë
 
-class ButtonComp : public GraphicComponent, public Entity
+class ButtonComp : public InterfaceComponent, public Entity
 {
 private:
     AEVec2 pos;
@@ -16,11 +16,11 @@ private:
     std::function<void()> onHoverFunction;
     std::function<void()> onHoverOutFunction;
 
-    bool isHovered = false;
+ 
 public:
     ButtonComp(GameObject* _owner);
     ~ButtonComp();
-
+    bool isHovered = false;
     void Update() override;
     void OnEvent(Event* e) override;
 

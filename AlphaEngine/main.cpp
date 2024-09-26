@@ -12,6 +12,7 @@
 #include "Level/Menu.h"
 #include "Camera/Camera.h"
 #include <dwmapi.h>
+#include <windows.h>
 #include "ResourceManager/ResourceManager.h"
 #pragma comment(lib, "dwmapi.lib")
 
@@ -47,23 +48,30 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	int gGameRunning = 1;
 
-	// Initialization of your own variables go here
-
 	// Using custom window procedure
 #ifdef NDEBUG
 	AESysInit(hInstance, nCmdShow, windowWidth, windowHeight, 0, 60, true, WndProc);
 #else
 	AESysInit(hInstance, nCmdShow, windowWidth, windowHeight, 1, 60, true, WndProc);
+	AESysSetFullScreen(0);
 #endif
 	bool fullscreen = true;
 	AESysSetFullScreen(fullscreen);
 
+	// Initialization of your own variables go here
+
 	HWND hwnd = AESysGetWindowHandle();
+
+	if (hwnd == NULL) {
+		return 0;
+	}
+
 	RECT rc;
 	GetWindowRect(hwnd, &rc);
 
 	// Changing the window title
 	AESysSetWindowTitle("Huntress");
+
 
 	GSM::GameStateManager& gsm = GSM::GameStateManager::GetInstance();
 

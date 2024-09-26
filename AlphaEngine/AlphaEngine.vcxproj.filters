@@ -171,10 +171,13 @@
     <ClCompile Include="Camera\Camera.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="UI\ControllUI.cpp">
+    <ClCompile Include="UI\ControlUI.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="UI\EscMenu.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentManager\InterfaceComponent.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -386,10 +389,13 @@
     <ClInclude Include="Camera\Camera.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="UI\ControllUI.h">
+    <ClInclude Include="UI\ControlUI.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="UI\EscMenu.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentManager\InterfaceComponent.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

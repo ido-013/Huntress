@@ -34,7 +34,7 @@ void level::NormalLevel::Init()
 	enemy = GameObjectManager::GetInstance().GetObj("enemy");
 
 	InitCombatUI();
-	Escmenu.InitEscUI();
+
 #ifdef _DEBUG
 	std::cout << "Current Level : " << level << std::endl;
 #endif
@@ -44,15 +44,16 @@ void level::NormalLevel::Init()
 	}
 
 	storeUI.InitStoreUI(player);
+	Escmenu.InitEscUI();
 }
 
 void level::NormalLevel::Update()
 {
-	UpdateCombatUI();
+
 	UpdateBackground();
 
 	storeUI.UpdateStoreUI();
-	Escmenu.UpdateEscUI();
+
 
 	if (CombatComp::state == CombatComp::CLEAR)
 	{
@@ -85,11 +86,13 @@ void level::NormalLevel::Update()
 	{
 		GSM::GameStateManager::GetInstance().ChangeLevel(new Menu);
 	}
+	UpdateCombatUI();
+	Escmenu.UpdateEscUI();
 }
 
 void level::NormalLevel::Exit()
 {
-	// 리소스 정리 등의 코드
+	
 	storeUI.ExitStoreUI();
 	CombatComp::blocks.clear();
 }
