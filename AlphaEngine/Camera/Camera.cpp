@@ -16,7 +16,8 @@ Camera::~Camera()
 
 void Camera::Update()
 {
-	AEMtx33Identity(&world_to_ndc_xform);
+	AEMtx33Identity(&world_to_ndc_xform[0]);
+	AEMtx33Identity(&world_to_ndc_xform[1]);
 
 	if (CombatComp::state == CombatComp::COMBAT)
 	{
@@ -31,7 +32,8 @@ void Camera::Update()
 		{
 			x = srcX;
 			y = srcY;
-			AEMtx33TransApply(&world_to_ndc_xform, &world_to_ndc_xform, -srcX, -srcY);
+			AEMtx33TransApply(&world_to_ndc_xform[0], &world_to_ndc_xform[0], -srcX, -srcY);
+			AEMtx33TransApply(&world_to_ndc_xform[1], &world_to_ndc_xform[1], -srcX, -srcY);
 		}
 
 		else
@@ -60,8 +62,8 @@ void Camera::Update()
 				y += speed * dt;
 			}
 
-			x = AEClamp(x, 0, 2500);
-			y = AEClamp(y, -1865, 0);
+			x = AEClamp(x, minX, maxX);
+			y = AEClamp(y, minY, maxY);
 
 			//Press Space
 			if (AEInputCheckTriggered(AEVK_SPACE))
@@ -71,13 +73,18 @@ void Camera::Update()
 				y = playerPos.y;
 			}
 
-			AEMtx33TransApply(&world_to_ndc_xform, &world_to_ndc_xform, -x, -y);
+			AEMtx33TransApply(&world_to_ndc_xform[0], &world_to_ndc_xform[0], -x, -y);
+			AEMtx33TransApply(&world_to_ndc_xform[1], &world_to_ndc_xform[1], -x, -y);
 		}
 	}
 	else
-		AEMtx33TransApply(&world_to_ndc_xform, &world_to_ndc_xform, -srcX, -srcY);
+	{
+		AEMtx33TransApply(&world_to_ndc_xform[0], &world_to_ndc_xform[0], -srcX, -srcY);
+		AEMtx33TransApply(&world_to_ndc_xform[1], &world_to_ndc_xform[1], -srcX, -srcY);
+	}
 
-	AEMtx33ScaleApply(&world_to_ndc_xform, &world_to_ndc_xform, 2 / height, 2 / height);
+	AEMtx33ScaleApply(&world_to_ndc_xform[0], &world_to_ndc_xform[0], 2 / height, 2 / height);
+	AEMtx33ScaleApply(&world_to_ndc_xform[1], &world_to_ndc_xform[1], 0.1 / height, 0.1 / height);
 }
 
 void Camera::GetPos(float* px, float* py)
@@ -113,7 +120,7 @@ void Camera::SetPos(float _x, float _y)
 	srcX = _x;
 	srcY = _y;
 
-	srcX = AEClamp(srcX, 0, 2500);
-	srcY = AEClamp(srcY, -1865, 0);
+	srcX = AEClamp(srcX, minX, maxX);
+	srcY = AEClamp(srcY, minY, maxY);
 }
 

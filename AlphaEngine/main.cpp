@@ -51,11 +51,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// Using custom window procedure
 #ifdef NDEBUG
 	AESysInit(hInstance, nCmdShow, windowWidth, windowHeight, 0, 60, true, WndProc);
-	AESysSetFullScreen(1);
 #else
 	AESysInit(hInstance, nCmdShow, windowWidth, windowHeight, 1, 60, true, WndProc);
 	AESysSetFullScreen(0);
 #endif
+	bool fullscreen = true;
+	AESysSetFullScreen(fullscreen);
 
 	// Initialization of your own variables go here
 
@@ -66,6 +67,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	}
 
 	RECT rc;
+	GetWindowRect(hwnd, &rc);
 
 	// Changing the window title
 	AESysSetWindowTitle("Huntress");
@@ -77,10 +79,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	AESysReset();
 
 	GSM::GameStateManager::GetInstance().ChangeLevel(new level::Menu);
+	//GSM::GameStateManager::GetInstance().ChangeLevel(new level::CombatLevel(0));
 
 	// Game Loop
 	while (gsm.ShouldExit() == false && gGameRunning)
 	{
+		AEFrameRateControllerReset();
+
 		// Informing the system about the loop's start
 		AESysFrameStart();
 
@@ -89,14 +94,31 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 		if (GetActiveWindow() == hwnd)
 		{
-			//DwmGetWindowAttribute(hwnd, DWMWA_EXTENDED_FRAME_BOUNDS, &rc, sizeof(RECT));
-			GetWindowRect(hwnd, &rc);
-			//rc.top += 31;
+			if (fullscreen)
+			{
+				GetWindowRect(hwnd, &rc);
+			}
+			else
+			{
+				DwmGetWindowAttribute(hwnd, DWMWA_EXTENDED_FRAME_BOUNDS, &rc, sizeof(RECT));
+			}
+
 			ClipCursor(&rc);
 		}
 
 		// Informing the system about the loop's end
 		AESysFrameEnd();
+
+		if (AEInputCheckTriggered(AEVK_F11))
+		{
+			fullscreen = !fullscreen;
+			AESysSetFullScreen(fullscreen);
+		}
+
+		// check if forcing the application to quit
+
+		//	if (AEInputCheckTriggered(AEVK_ESCAPE) || 0 == AESysDoesWindowExist())
+		//		gGameRunning = 0;
 	}
 
 	gsm.Exit();
