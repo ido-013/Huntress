@@ -46,14 +46,14 @@ void EscUI::InitEscUI()
     UIComponent* backgroundUI = BgUI->GetComponent<UIComponent>();
     backgroundUI->SetScale({ 1400,750 });
     backgroundUI->SetPos({ 0, 0 });
-    backgroundUI->SetTexture("");
-    backgroundUI->SetColor(120, 120, 120);
+    backgroundUI->SetTexture("Assets/UI/Option.png");
+    backgroundUI->SetColor(0, 0, 0);
     backgroundUI->SetAlpha(0);
 
     RestartBtn = new GameObject();
     RestartBtn->AddComponent<UIComponent>();
     UIComponent* RestartUI = RestartBtn->GetComponent<UIComponent>();
-    RestartUI->SetPos({ 0, -100 });
+    RestartUI->SetPos({ -370, -100 });
     RestartUI->SetScale({ 300, 100 });
     RestartUI->SetTexture("Assets/UI/Menu.png");
     RestartUI->SetColor(0, 0, 0);
@@ -63,18 +63,18 @@ void EscUI::InitEscUI()
     ButtonComp* restartBtn = RestartBtn->GetComponent<ButtonComp>();
 
     restartBtn->SetOnClickFunction([]() {
-        std::cout << "Start Button Clicked!" << std::endl;
+
         GSM::GameStateManager::GetInstance().ChangeLevel(new level::Menu);
         });
 
     restartBtn->SetOnHoverFunction([RestartUI]() {
-        std::cout << "Start Button Hovered!" << std::endl;
+
         RestartUI->SetScale({ 280, 90 });  
         });
 
     // Hover 해제 시 원래 크기로 복원
     restartBtn->SetOnHoverOutFunction([RestartUI]() {
-        std::cout << "Start Button Hover Out!" << std::endl;
+
         RestartUI->SetScale({ 300, 100 });  
         });
    
@@ -90,6 +90,7 @@ void EscUI::InitEscUI()
     ButtonComp* CloseButton = CloseBtn->GetComponent<ButtonComp>();
     CloseButton->SetOnClickFunction([this]() {
         Setoff();
+
         SubtitleComp::ModifySubtitle("goldText", 1);
         CombatComp::isCombat = true;
         });
@@ -97,7 +98,7 @@ void EscUI::InitEscUI()
     QuitBtn = new GameObject();
     QuitBtn->AddComponent<UIComponent>();
     UIComponent* QuitUI = QuitBtn->GetComponent<UIComponent>();
-    QuitUI->SetPos({ 0, -300 });
+    QuitUI->SetPos({ -370, -200 });
     QuitUI->SetScale({ 300, 100 });
     QuitUI->SetTexture("Assets/UI/Menu.png");
     QuitUI->SetColor(0, 0, 0);
@@ -108,7 +109,6 @@ void EscUI::InitEscUI()
     quitBtn->SetOnClickFunction([this]() {
         GSM::GameStateManager::GetInstance().ChangeLevel(nullptr);
         });
-
 
     quitBtn->SetOnHoverFunction([QuitUI]() {
         QuitUI->SetScale({ 280, 90 });
@@ -129,7 +129,10 @@ void EscUI::UpdateEscUI(StoreUI * storeUI)
        if (storeUI)
        {
            if (storeUI->getOpen())
+           {
                storeUI->StoreOnEsc();
+           }
+      
        }
     }
 }

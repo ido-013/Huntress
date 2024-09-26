@@ -7,9 +7,10 @@
 //class ButtonComp;
 //class PlayerComp;
 class GameObject;
-
+class ItemInfo;
 struct StoreItem {
-    GameObject* itemObj;
+    GameObject* itemObj = nullptr;
+    ItemInfo* info = nullptr;
     std::function<void()> onClick;
 
 };
@@ -24,7 +25,7 @@ class StoreUI {
     bool isStoreOpen = false;
     bool isEsc = false;
 
-    void CreateStoreItem(const std::string& name, const std::string& texturePath, const AEVec2& pos, int cost,
+    void CreateStoreItem(const std::string& name, const std::string& texturePath, const std::string& InfoPath, const AEVec2& pos, int cost,
         std::function<void()> onClick,
         std::function<void(UIComponent *)> onHover,
         std::function<void(UIComponent *)> outHover 

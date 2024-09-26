@@ -94,7 +94,6 @@ void level::NormalLevel::Update()
 
 void level::NormalLevel::Exit()
 {
-	
 	storeUI.ExitStoreUI();
 	CombatComp::blocks.clear();
 }

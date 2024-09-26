@@ -18,10 +18,8 @@
 ControlUI CtrUI;
 #define PLAY_AUDIO_CLICK GameObjectManager::GetInstance().GetObj("menuBg")->GetComponent<AudioComp>()->playAudio(0, "./Assets/Audio/click_effect.mp3")
 void level::Menu::Init() {
-    // 카메라 초기화
     Camera::GetInstance().SetPos(0, 0);
 
-    // 메뉴 배경 초기화
     menuBg = new GameObject("menuBg");
     menuBg->AddComponent<UIComponent>();
     menuBg->AddComponent<AudioComp>()->SetAudio("./Assets/Audio/click_effect.mp3");
@@ -58,20 +56,17 @@ void level::Menu::Init() {
     ButtonComp* startBtn = startButtonObj->GetComponent<ButtonComp>();
 
     startBtn->SetOnClickFunction([]() {
-        std::cout << "Start Button Clicked!" << std::endl;
         PLAY_AUDIO_CLICK;
         GSM::GameStateManager::GetInstance().ChangeLevel(new level::NormalLevel(1));
         });
 
 
     startBtn->SetOnHoverFunction([startUI]() {
-        std::cout << "Start Button Hovered!" << std::endl;
         startUI->SetScale({ 480, 90 });  
         });
 
 
     startBtn->SetOnHoverOutFunction([startUI]() {
-        std::cout << "Start Button Hover Out!" << std::endl;
         startUI->SetScale({ 500, 100 });
         });
 
@@ -92,13 +87,12 @@ void level::Menu::Init() {
         });
  
     ControllBtn->SetOnHoverFunction([ControllUI]() {
-        std::cout << "Control Button Hovered!" << std::endl;
+
         ControllUI->SetScale({ 480, 90 });
         });
 
     // Hover 해제 시 원래 크기로 복원
     ControllBtn->SetOnHoverOutFunction([ControllUI]() {
-        std::cout << "Control Button Hover Out!" << std::endl;
         ControllUI->SetScale({ 500, 100 });
         });
 
@@ -115,20 +109,18 @@ void level::Menu::Init() {
     ButtonComp* quitBtn = quitButtonObj->GetComponent<ButtonComp>();
 
     quitBtn->SetOnClickFunction([]() {
-        std::cout << "Quit Button Clicked!" << std::endl;
         PLAY_AUDIO_CLICK;
         GSM::GameStateManager::GetInstance().ChangeLevel(nullptr);
         });
 
 
     quitBtn->SetOnHoverFunction([quitUI]() {
-        std::cout << "Quit Button Hovered!" << std::endl;
+  
         quitUI->SetScale({ 480, 90 });
         });
 
     // Hover 해제 시 원래 크기로 복원
     quitBtn->SetOnHoverOutFunction([quitUI]() {
-        std::cout << "Quit Button Hover Out!" << std::endl;
         quitUI->SetScale({ 500, 100 });
         });
     CtrUI.InitControlUI();
