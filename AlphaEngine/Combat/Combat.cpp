@@ -41,6 +41,8 @@ int CombatComp::ArrowCount = 0;
 
 std::vector<TransformComp*> CombatComp::blocks;
 
+std::vector<GameObject*> CombatComp::orbitDots;
+
 void CombatComp::DataUpdate()
 {
 	data.angle = turn == PLAYERTURN ? pAngle : turn == ENEMYTURN ? eAngle : 0;
@@ -338,8 +340,7 @@ bool CombatComp::ObstacleCollisionCheck(std::vector<AEVec2>& coords)
 			blockCount++;
 			for (auto& coord : coords)
 			{
-				block->GetOwner()->type == GameObject::LeftTri;
-
+				//추가적인 블럭 구별이 필요함 (현재 네모블럭으로 밖에 연산하지 않음.
 				if (isPointInRectangle(block, coord))
 				{
 					std::cout << "blockcoord : " << block->GetPos().x << ", " << block->GetPos().y << " , dotcoord : " << coord.x << ", " << coord.y << std::endl;
@@ -352,6 +353,101 @@ bool CombatComp::ObstacleCollisionCheck(std::vector<AEVec2>& coords)
 	return false;
 }
 
+void CombatComp::InitOrbit()
+{
+	for (int i = 0; i < ORBIT_CIRCLE_COUNT; i++)
+	{
+		std::string dotName = "dot" + std::to_string(i);
+		GameObject* dot = new GameObject(dotName);
+		dot->AddComponent<TransformComp>();
+		dot->AddComponent<SpriteComp>();
+
+		dot->GetComponent<TransformComp>()->SetScale({ 2, 2 });
+
+		dot->GetComponent<SpriteComp>()->SetTexture("./Assets/circle.jpg");
+		dot->GetComponent<SpriteComp>()->SetAlpha(0);
+
+		orbitDots.push_back(dot);
+	}
+}
+
+void CombatComp::SetOrbitAlpha(bool isView)
+{
+	for (auto dot : orbitDots)
+	{
+		dot->GetComponent<SpriteComp>()->SetAlpha(isView);
+	}
+}
+
+void CombatComp::ShowOrbit()
+{
+	if (orbitDots.empty())
+		return;
+	int dotCount = 0;
+	float time = 0;
+
+	float x = 0;
+	float y = 0;
+
+	if (turn == TURN::PLAYERTURN)
+	{
+		x = GameObjectManager::GetInstance().GetObj("player")->GetComponent<TransformComp>()->GetPos().x;
+		y = GameObjectManager::GetInstance().GetObj("player")->GetComponent<TransformComp>()->GetPos().y;
+	}
+	else if (turn == TURN::ENEMYTURN)
+	{
+		x = GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<TransformComp>()->GetPos().x;
+		y = GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<TransformComp>()->GetPos().y;
+	}
+
+	for (auto dot : orbitDots)
+	{
+		// 시간 간격
+		float timeStep = static_cast<float>(AEFrameRateControllerGetFrameTime());
+		
+		float initialVelocityX = 0;
+		float initialVelocityY = 0;
+		
+		if (turn == TURN::PLAYERTURN)
+		{
+			initialVelocityX = (pPower + DEFAULT_POWER) * std::cos(pAngle);
+			initialVelocityY = (pPower + DEFAULT_POWER) * std::sin(pAngle);
+		}
+		else if (turn == TURN::ENEMYTURN)
+		{
+			initialVelocityX = (ePower + DEFAULT_POWER) * std::cos(eAngle);
+			initialVelocityY = (ePower + DEFAULT_POWER) * std::sin(eAngle);
+		}
+
+		//// 현재 속도 계산 (속도에 공기 저항과 바람 적용)
+		float velocityX = initialVelocityX + Projectile::wind.x;
+		float velocityY = initialVelocityY + Projectile::wind.y;
+		//std::cout << "velocityX " << velocityX << std::endl;
+		//std::cout << "velocityY " << velocityY << std::endl;
+		float airResistanceX = -AIR_RESISTANCE_COEFFICIENT
+			* velocityX * std::abs(velocityX);// / mass;
+		float airResistanceY = -AIR_RESISTANCE_COEFFICIENT
+			* velocityY * std::abs(velocityY);// / mass;
+
+		// 속도에 공기 저항 적용
+		velocityX += airResistanceX * time;
+		velocityY += airResistanceY * time - GRAVITY * time;
+
+		dot->GetComponent<TransformComp>()->SetPos({ x + velocityX * time, y + velocityY * time });
+
+		// 위치 업데이트
+		x = x + velocityX * time;
+		y = y + velocityY * time;
+
+		// 시간 증가
+		time += timeStep;
+	}
+}
+
+void CombatComp::ExitOrbit()
+{
+	orbitDots.clear();
+}
 
 CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 {
@@ -547,7 +643,7 @@ void CombatComp::Update()
 #endif // DEBUG
 		//적 스프라이트 x축 방향 설정
 		enemy->GetComponent<TransformComp>()->ReverseX(ptf->GetPos().x < etf->GetPos().x ? 0 : 1);
-
+		ShowOrbit();
 		switch (CombatComp::turn)
 		{
 			case PLAYERTURN: // player turn
@@ -565,6 +661,7 @@ void CombatComp::Update()
 					directionArrow->GetComponent<CombatComp>()->isDrawDirection = true;
 					directionArrow->GetComponent<CombatComp>()->isChaseDirection = true;
 					directionArrow->GetComponent<SpriteComp>()->SetAlpha(1);
+					SetOrbitAlpha(1);
 					Projectile::GenerateRandomWind();
 				}
 				if (AEInputCheckTriggered(AEVK_W))
@@ -606,6 +703,7 @@ void CombatComp::Update()
 						}
 					}				
 					directionArrow->GetComponent<SpriteComp>()->SetAlpha(1);
+					SetOrbitAlpha(1);
 					if (isChaseDirection)
 					{
 						directionArrow->
@@ -703,9 +801,11 @@ void CombatComp::Update()
 					else
 					{
 						directionArrow->GetComponent<SpriteComp>()->SetAlpha(1);
+						SetOrbitAlpha(1);
 						if (GetPlayerEnemyDistance() > DISTANCE_ARANGE_5)
 						{
 							directionArrow->GetComponent<SpriteComp>()->SetAlpha(0);
+							SetOrbitAlpha(0);
 							while (EnemyAICombatSystem() == RESEARCH)
 							{
 								std::cout << "Research..." << std::endl;
@@ -733,6 +833,7 @@ void CombatComp::Update()
 				else
 				{
 					directionArrow->GetComponent<SpriteComp>()->SetAlpha(0);
+					SetOrbitAlpha(0);
 				}
 				if (isReadyLaunch && ArrowCount < 1)
 				{

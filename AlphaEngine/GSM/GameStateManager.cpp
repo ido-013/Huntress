@@ -29,8 +29,10 @@ void GSM::GameStateManager::Init()
     {
         currentLevel->Init();
     }
-    if(CombatComp::state != CombatComp::STATE::STORE)
+    if (CombatComp::state != CombatComp::STATE::STORE)
+    {
         CombatComp::ResetCombat();
+    }
     SubtitleComp::InitFont("Assets/DePixelKlein.ttf", 72);
 
 }
@@ -66,7 +68,6 @@ void GSM::GameStateManager::Exit()
     {
         currentLevel->Exit();
     }
-
     SubtitleComp::DestroyFont();
     EventManager::GetInstance().DeleteUndispahchEvent();
     GameObjectManager::GetInstance().RemoveAllObject();

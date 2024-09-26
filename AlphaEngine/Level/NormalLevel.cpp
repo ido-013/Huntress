@@ -29,7 +29,7 @@ void level::NormalLevel::Init()
 	Camera::GetInstance().fix = true;
 
 	InitBackground();
-
+	CombatComp::InitOrbit();
 	player = GameObjectManager::GetInstance().GetObj("player");
 	enemy = GameObjectManager::GetInstance().GetObj("enemy");
 
@@ -91,5 +91,6 @@ void level::NormalLevel::Exit()
 {
 	// 리소스 정리 등의 코드
 	storeUI.ExitStoreUI();
+	CombatComp::ExitOrbit();
 	CombatComp::blocks.clear();
 }

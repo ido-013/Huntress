@@ -6,6 +6,7 @@ using json = nlohmann::ordered_json;
 class Data
 {
 public:
+	
 	class PlayerData
 	{
 	public:
