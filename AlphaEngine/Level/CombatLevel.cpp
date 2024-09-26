@@ -378,6 +378,7 @@ void level::CombatLevel::Init()
 	TransformComp* t = nullptr;
 	ColliderComp* c = nullptr;
 
+	Prefab gs("GhostSquare");
 	Prefab s("Square");
 	Prefab l("LeftTri");
 	Prefab r("RightTri");
@@ -409,9 +410,8 @@ void level::CombatLevel::Init()
 
 			else if (map[i][j][k] == '@')
 			{
-				go = s.NewGameObject();
+				go = gs.NewGameObject();
 				go->GetComponent<SpriteComp>()->SetTexture("./Assets/Tile/FallGrassTileRect3.png");
-				go->RemoveComponent("ColliderComp");
 			}
 
 			else if (map[i][j][k] == 'r')
