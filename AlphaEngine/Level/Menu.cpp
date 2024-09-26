@@ -60,7 +60,7 @@ void level::Menu::Init() {
     startBtn->SetOnClickFunction([]() {
         std::cout << "Start Button Clicked!" << std::endl;
         PLAY_AUDIO_CLICK;
-        GSM::GameStateManager::GetInstance().ChangeLevel(new level::NormalLevel(7));
+        GSM::GameStateManager::GetInstance().ChangeLevel(new level::NormalLevel(1));
         });
 
     // Hover 시 크기를 줄여서 눌리는 듯한 효과

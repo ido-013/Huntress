@@ -740,15 +740,15 @@ void CombatComp::Update()
 		{
 			{
 				//AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
-				Camera::GetInstance().SetPos((ptf->GetPos().x + etf->GetPos().x) / 2, 
-											 (ptf->GetPos().y + etf->GetPos().y) / 2);
+				Camera::GetInstance().SetPos((ptf->GetPos().x + etf->GetPos().x) / 2,
+											(ptf->GetPos().y + etf->GetPos().y) / 2 - 250);
 
 				float pad = 600;
 				float disX = abs(ptf->GetPos().x - etf->GetPos().x) + pad;
 				float disY = abs(ptf->GetPos().y - etf->GetPos().y) + pad;
 
 				int width = AEGfxGetWindowWidth();
-				int height = AEGfxGetWindowHeight();
+				int height = AEGfxGetWindowHeight() - 250;
 			
 				Camera::GetInstance().SetHeight(max(max(1, disX * 2 / width), max(1, disY * 2 / height)));
 			}

@@ -19,7 +19,7 @@ void TransformComp::CalculateMatrix()
 	}
 	else
 	{
-		AEMtx33Scale(&scaleMtx, scale.x * 25, scale.y * 25);
+		AEMtx33Scale(&scaleMtx, scale.x * 40, scale.y * 40);
 	}
 
 	//Concatenate them

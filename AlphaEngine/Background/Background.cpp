@@ -21,7 +21,10 @@ void InitBackground()
 	}
 
 	background->GetComponent<AudioComp>()->playAudio(-1, "./Assets/Audio/BGM.mp3", 0.3f);
-	background->GetComponent<TransformComp>()->affectedByZoom = false;
+
+	TransformComp* t = background->GetComponent<TransformComp>();
+	t->affectedByZoom = false;
+	t->SetScale({ 3072, 1024 });
 
 	Camera& c = Camera::GetInstance();
 	background->GetComponent<TransformComp>()->SetPos({ (c.maxX + c.minX) / 2, (c.maxY + c.minY) / 2 });
