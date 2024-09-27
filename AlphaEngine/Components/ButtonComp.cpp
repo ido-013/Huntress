@@ -12,7 +12,6 @@ ButtonComp::ButtonComp(GameObject* _owner)
     ButtonManager::GetInstance().RegisterButton(this);
     EventManager::GetInstance().AddEntity(this);
 
-    // pos와 scale을 UIComponent로부터 가져오도록 설정
     if (auto* uiComp = owner->GetComponent<UIComponent>()) {
         pos = uiComp->GetPos();
         scale = uiComp->GetScale();

@@ -189,7 +189,7 @@ void InitCombatUI()
 	transWindDirect->SetPos({ -725, 400 });
 	transWindDirect->SetTexture("./Assets/UI/windArrow.png");
 	transWindDirect->SetColor(1, 1, 1);
-	SubtitleComp::AddSubtitle({ {-0.85,0.82}, 1, "WindPower", 0.2, 0, 0, 1});
+	SubtitleComp::AddSubtitle({ {(f32) - 0.85,(f32)0.82}, 1, "WindPower", (f32)0.2, 0, 0, 1});
 
 }
 
@@ -200,7 +200,7 @@ void UpdateCombatUI()
 	GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
 
 
-	if (CombatComp::state == CombatComp::STATE::COMBAT)
+	if (CombatComp::state==CombatComp::STATE::COMBAT|| CombatComp::state == CombatComp::STATE::RESET|| CombatComp::state == CombatComp::STATE::READY|| CombatComp::state == CombatComp::STATE::KILLENEMY)
 	{
 		if (directionArrow) {
 			float angle = directionArrow->GetComponent<CombatComp>()->data.windAngle;

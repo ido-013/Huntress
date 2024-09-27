@@ -246,7 +246,7 @@ void StoreUI::InitStoreUI(GameObject* player) {
             PLAY_AUDIO_ERROR;
         }
         });
-    CreateStoreItem("smallpotion", "Assets/UI/smallpotion.png","", { 0, 100 }, 5, [player]() {
+    CreateStoreItem("smallpotion", "Assets/UI/smallpotion.png","Assets/UI/SmallpotionInfo.png", { 0, 100 }, 5, [player]() {
         PlayerComp* playerComp = player->GetComponent<PlayerComp>();
         if (playerComp->playerData->gold >= 5) {
             if (playerComp->playerData->hp == playerComp->playerData->maxLife) {
