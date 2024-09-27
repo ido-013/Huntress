@@ -1,7 +1,22 @@
 #pragma once
 #include <map>
+#include <list>
+#include <string>
 
 #define ITEM_LIMIT 3
+
+static std::string subtitleOfItem[10] {
+	"Uses Bigger and Bigger",
+	"Uses Stun Arrow",
+	"Uses Straight Arrow",
+	"Uses Show orbit",
+	"This item is not enough",
+	"Purchases Bigger and Bigger",
+	"Purchases Stun Arrow",
+	"Purchases Straight Arrow",
+	"Purchases Show orbit",
+	"The number of items has reached its limit"
+};
 
 struct Inventory
 {
