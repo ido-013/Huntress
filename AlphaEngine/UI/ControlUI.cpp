@@ -51,8 +51,8 @@ void ControlUI::InitControlUI()
     UIComponent* backgroundUI = BgUI->GetComponent<UIComponent>();
     backgroundUI->SetScale({ 1400,750 });
     backgroundUI->SetPos({ 0, 0 });
-    backgroundUI->SetTexture("");
-    backgroundUI->SetColor(120, 120, 120);
+    backgroundUI->SetTexture("Assets/UI/Option.png");
+    backgroundUI->SetColor(0, 0, 0);
     backgroundUI->SetAlpha(0);
 
   
@@ -71,7 +71,7 @@ void ControlUI::InitControlUI()
     CloseBtn->AddComponent<UIComponent>();
     UIComponent* CloseUI = CloseBtn->GetComponent<UIComponent>();
     CloseUI->SetScale({ 50,50 });
-    CloseUI->SetPos({ 650, 300 });
+    CloseUI->SetPos({ 600, 300 });
     CloseUI->SetTexture("Assets/UI/Arrow.png");
     CloseUI->SetColor(250, 0, 0);
     CloseUI->SetAlpha(0);

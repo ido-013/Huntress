@@ -28,6 +28,8 @@ GameObject* WindDirection = nullptr;
 GameObject* PreDirection = nullptr;
 GameObject* Wind = nullptr;
 GameObject* WindFrame = nullptr;
+
+
 void InitCombatUI()
 {
 	GameObject* player = GameObjectManager::GetInstance().GetObj("player");
@@ -200,7 +202,10 @@ void UpdateCombatUI()
 	float angle = directionArrow->GetComponent<CombatComp>()->data.windAngle;
 	UIComponent* windDirComp = WindDirection->GetComponent<UIComponent>();
 	windDirComp->SetRot(angle);  // Set rotation for wind direction arrow
-
+	if ((int)directionArrow->GetComponent<CombatComp>()->data.windPower == 0)
+		windDirComp->SetAlpha(0);
+	else
+		windDirComp->SetAlpha(1);
 	float playerslopeAngle = player->GetComponent<TransformComp>()->GetRot();
 	UIComponent* playerAngleComp = playerAngle->GetComponent<UIComponent>();
 	playerAngleComp->SetRot(playerslopeAngle);
@@ -221,11 +226,11 @@ void UpdateCombatUI()
 	}
 	UIComponent* moveComp = Move->GetComponent<UIComponent>();
 	moveComp->SetScale({ 720 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f), 80 });
-	moveComp->SetPos({ 120.f - (750 - 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f)) / 2 , -380 });
+	moveComp->SetPos({ 120.f - (720 - 720 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f)) / 2 , -380 });
 
 	UIComponent* powerComp = Power->GetComponent<UIComponent>();
 	powerComp->SetScale({ 720 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (PLAYER_POWER_LIMIT + DEFAULT_POWER))), 80 });
-	powerComp->SetPos({ 120.f - (750 - 750 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (PLAYER_POWER_LIMIT + DEFAULT_POWER)))) / 2 , -280 });
+	powerComp->SetPos({ 120.f - (720 - 720 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (PLAYER_POWER_LIMIT + DEFAULT_POWER)))) / 2 , -280 });
 
 	UIComponent* hpComp = HP->GetComponent<UIComponent>();
 	hpComp->SetScale({ 80, 200 * (float(player->GetComponent<PlayerComp>()->playerData->hp) / player->GetComponent<PlayerComp>()->playerData->maxLife) });
@@ -238,6 +243,7 @@ void UpdateCombatUI()
 	if (SubtitleComp::FindSubtitle("WindPower"))
 	{
 		SubtitleComp::ModifySubtitle("WindPower",std::to_string((int)directionArrow->GetComponent<CombatComp>()->data.windPower));
+		
 	}
 	
 }
@@ -246,3 +252,4 @@ void ExitCombatUI()
 {
 	SubtitleComp::ClearSubtitle();
 }
+

@@ -8,6 +8,7 @@
 #include "Level/PrefabLevel.h"
 #include "Level/CombatLevel.h"
 #include "Level/LogoLevel.h"
+#include "Level/ClearLevel.h"
 #include "Utils/Utils.h"
 #include "Level/Menu.h"
 #include "Camera/Camera.h"

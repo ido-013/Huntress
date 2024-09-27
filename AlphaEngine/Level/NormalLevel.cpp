@@ -21,15 +21,19 @@
 #include "../UI/EscMenu.h"
 #include "../Camera/Camera.h"
 
-EscUI Escmenu;
+
+level::NormalLevel::~NormalLevel()
+{
+}
+
 void level::NormalLevel::Init()
 {
 	CombatComp::blocks.reserve(200);
 	Serializer::GetInstance().LoadLevel("./Assets/Level/test" + std::to_string(level) + ".lvl");
 	Camera::GetInstance().fix = true;
-
+	
 	InitBackground();
-
+	
 	player = GameObjectManager::GetInstance().GetObj("player");
 	enemy = GameObjectManager::GetInstance().GetObj("enemy");
 
@@ -49,10 +53,9 @@ void level::NormalLevel::Init()
 
 void level::NormalLevel::Update()
 {
-
-	UpdateBackground();
-
+	Escmenu.UpdateEscUI(&storeUI);
 	storeUI.UpdateStoreUI();
+	UpdateBackground();
 
 
 	if (CombatComp::state == CombatComp::CLEAR)
@@ -87,12 +90,10 @@ void level::NormalLevel::Update()
 		GSM::GameStateManager::GetInstance().ChangeLevel(new Menu);
 	}
 	UpdateCombatUI();
-	Escmenu.UpdateEscUI();
 }
 
 void level::NormalLevel::Exit()
 {
-	
 	storeUI.ExitStoreUI();
 	CombatComp::blocks.clear();
 }
