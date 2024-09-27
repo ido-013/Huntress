@@ -59,8 +59,6 @@ void Projectile::CalculateProjectileMotion()
 
 void Projectile::UpdateCollision()
 {
-    Particle p(5, 2, 5, { 255, 0, 0 });
-
     GameObject* player = GameObjectManager::GetInstance().GetObj("player");
     PlayerComp* pComp = player->GetComponent<PlayerComp>();
     Data::PlayerData* pData = pComp->playerData;
@@ -114,6 +112,7 @@ void Projectile::UpdateCollision()
             eComp->AddHp(-max(0, totalDmg));
 
             // particle
+            Particle p(5, 2, (int)totalDmg, { 255, 0, 0 });
             p.PlayParticle(etf->GetPos().x, etf->GetPos().y);
          
             break;
@@ -135,6 +134,7 @@ void Projectile::UpdateCollision()
             pComp->AddHp(-max(0, totalDmg));
 
             // particle
+            Particle p(5, 2, (int)totalDmg, { 255, 0, 0 });
             p.PlayParticle(ptf->GetPos().x, ptf->GetPos().y);
  
             break;
@@ -231,7 +231,6 @@ void Projectile::Update()
             directionArrow->GetComponent<SpriteComp>()->SetAlpha(0);
             CombatComp::turn = CombatComp::TurnChange();
 
-       
             for (int i = 0; i < CombatComp::ArrowCount; i++)
             {
                 GameObjectManager::GetInstance().RemoveObject(GameObjectManager::GetInstance().GetObj("projectile"));

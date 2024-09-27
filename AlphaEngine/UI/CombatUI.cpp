@@ -28,6 +28,8 @@ GameObject* WindDirection = nullptr;
 GameObject* PreDirection = nullptr;
 GameObject* Wind = nullptr;
 GameObject* WindFrame = nullptr;
+
+
 void InitCombatUI()
 {
 	GameObject* player = GameObjectManager::GetInstance().GetObj("player");
@@ -197,51 +199,69 @@ void UpdateCombatUI()
 	GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
 	GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
 
-	float angle = directionArrow->GetComponent<CombatComp>()->data.windAngle;
-	UIComponent* windDirComp = WindDirection->GetComponent<UIComponent>();
-	windDirComp->SetRot(angle);  // Set rotation for wind direction arrow
 
-	float playerslopeAngle = player->GetComponent<TransformComp>()->GetRot();
-	UIComponent* playerAngleComp = playerAngle->GetComponent<UIComponent>();
-	playerAngleComp->SetRot(playerslopeAngle);
-	if (directionArrow->GetComponent<CombatComp>()->turn == CombatComp::PLAYERTURN)
+	if (CombatComp::state == CombatComp::STATE::COMBAT)
 	{
-		float directAngle = directionArrow->GetComponent<CombatComp>()->data.angle;
-		UIComponent* directAngleComp = DirectAngle->GetComponent<UIComponent>();
-		if (directionArrow->GetComponent<CombatComp>()->isReadyLaunch == TRUE)
-		{
-			UIComponent* PredirectAngle = PreDirection->GetComponent<UIComponent>();
-			PredirectAngle->SetRot(directAngle);
-			PredirectAngle->SetAlpha(0.5);
+		if (directionArrow) {
+			float angle = directionArrow->GetComponent<CombatComp>()->data.windAngle;
+			UIComponent* windDirComp = WindDirection->GetComponent<UIComponent>();
+			windDirComp->SetRot(angle);  // Set rotation for wind direction arrow
+
+			if ((int)directionArrow->GetComponent<CombatComp>()->data.windPower == 0)
+				windDirComp->SetAlpha(0);
+			else
+				windDirComp->SetAlpha(1);
 		}
-		directAngleComp->SetRot(directAngle);
-	
+		if (player)
+		{
+			float playerslopeAngle = player->GetComponent<TransformComp>()->GetRot();
+			UIComponent* playerAngleComp = playerAngle->GetComponent<UIComponent>();
+			playerAngleComp->SetRot(playerslopeAngle);
+			if (directionArrow->GetComponent<CombatComp>()->turn == CombatComp::PLAYERTURN)
+			{
+				float directAngle = directionArrow->GetComponent<CombatComp>()->data.angle;
+				UIComponent* directAngleComp = DirectAngle->GetComponent<UIComponent>();
+				if (directionArrow->GetComponent<CombatComp>()->isLaunched == TRUE)
+				{
+					UIComponent* PredirectAngle = PreDirection->GetComponent<UIComponent>();
+					PredirectAngle->SetRot(directAngle);
+					PredirectAngle->SetAlpha(0.5);
+					directionArrow->GetComponent<CombatComp>()->isLaunched = false;
+
+				}
+				directAngleComp->SetRot(directAngle);
+
+			}
+		}
+
+		UIComponent* moveComp = Move->GetComponent<UIComponent>();
+		moveComp->SetScale({ 720 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f), 80 });
+		moveComp->SetPos({ 120.f - (720 - 720 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f)) / 2 , -380 });
+
+		UIComponent* powerComp = Power->GetComponent<UIComponent>();
+		powerComp->SetScale({ 720 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (PLAYER_POWER_LIMIT + DEFAULT_POWER))), 80 });
+		powerComp->SetPos({ 120.f - (720 - 720 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (PLAYER_POWER_LIMIT + DEFAULT_POWER)))) / 2 , -280 });
+
+		UIComponent* hpComp = HP->GetComponent<UIComponent>();
+		hpComp->SetScale({ 80, 200 * (float(player->GetComponent<PlayerComp>()->playerData->hp) / player->GetComponent<PlayerComp>()->playerData->maxLife) });
+		hpComp->SetPos({ -720 , (-330 - (200 - 200 * (float(player->GetComponent<PlayerComp>()->playerData->hp) / player->GetComponent<PlayerComp>()->playerData->maxLife)) / 2.f) });
+
+		UIComponent* enemyHpComp = enemyHP->GetComponent<UIComponent>();
+		enemyHpComp->SetScale({ 80, 200 * (float(enemy->GetComponent<EnemyComp>()->enemyData->hp) / enemy->GetComponent<EnemyComp>()->enemyData->maxLife) });
+		enemyHpComp->SetPos({ 720 , (-330 - (200 - 200 * (float(enemy->GetComponent<EnemyComp>()->enemyData->hp) / enemy->GetComponent<EnemyComp>()->enemyData->maxLife)) / 2.f) });
+
 	}
-	UIComponent* moveComp = Move->GetComponent<UIComponent>();
-	moveComp->SetScale({ 720 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f), 80 });
-	moveComp->SetPos({ 120 - (750 - 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f)) / 2 , -380 });
-
-	UIComponent* powerComp = Power->GetComponent<UIComponent>();
-	powerComp->SetScale({ 720 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (PLAYER_POWER_LIMIT + DEFAULT_POWER))), 80 });
-	powerComp->SetPos({ 120 - (750 - 750 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (PLAYER_POWER_LIMIT + DEFAULT_POWER)))) / 2 , -280 });
-
-	UIComponent* hpComp = HP->GetComponent<UIComponent>();
-	hpComp->SetScale({ 80, 200 * (float(player->GetComponent<PlayerComp>()->playerData->hp) / player->GetComponent<PlayerComp>()->playerData->maxLife) });
-	hpComp->SetPos({ -720 , (-330 - (200 - 200 * (float(player->GetComponent<PlayerComp>()->playerData->hp) / player->GetComponent<PlayerComp>()->playerData->maxLife)) / 2.f) });
-
-	UIComponent* enemyHpComp = enemyHP->GetComponent<UIComponent>();
-	enemyHpComp->SetScale({ 80, 200 * (float(enemy->GetComponent<EnemyComp>()->enemyData->hp) / enemy->GetComponent<EnemyComp>()->enemyData->maxLife) });
-	enemyHpComp->SetPos({ 720 , (-330 - (200 - 200 * (float(enemy->GetComponent<EnemyComp>()->enemyData->hp) / enemy->GetComponent<EnemyComp>()->enemyData->maxLife)) / 2.f) });
-
 	if (SubtitleComp::FindSubtitle("WindPower"))
 	{
-	
 		SubtitleComp::ModifySubtitle("WindPower",std::to_string((int)directionArrow->GetComponent<CombatComp>()->data.windPower));
+
+		
 	}
-	
+
 }
 
 void ExitCombatUI()
 {
 	SubtitleComp::ClearSubtitle();
 }
+

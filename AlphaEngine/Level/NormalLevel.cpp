@@ -21,20 +21,24 @@
 #include "../UI/EscMenu.h"
 #include "../Camera/Camera.h"
 
-EscUI Escmenu;
+
+level::NormalLevel::~NormalLevel()
+{
+}
+
 void level::NormalLevel::Init()
 {
 	CombatComp::blocks.reserve(200);
 	Serializer::GetInstance().LoadLevel("./Assets/Level/test" + std::to_string(level) + ".lvl");
 	Camera::GetInstance().fix = true;
-
+	
 	InitBackground();
 	CombatComp::InitOrbit();
 	player = GameObjectManager::GetInstance().GetObj("player");
 	enemy = GameObjectManager::GetInstance().GetObj("enemy");
 
 	InitCombatUI();
-	Escmenu.InitEscUI();
+
 #ifdef _DEBUG
 	std::cout << "Current Level : " << level << std::endl;
 #endif
@@ -44,15 +48,15 @@ void level::NormalLevel::Init()
 	}
 
 	storeUI.InitStoreUI(player);
+	Escmenu.InitEscUI();
 }
 
 void level::NormalLevel::Update()
 {
-	UpdateCombatUI();
+	Escmenu.UpdateEscUI(&storeUI);
+	storeUI.UpdateStoreUI();
 	UpdateBackground();
 
-	storeUI.UpdateStoreUI();
-	Escmenu.UpdateEscUI();
 
 	if (CombatComp::state == CombatComp::CLEAR)
 	{
@@ -88,11 +92,11 @@ void level::NormalLevel::Update()
 	{
 		GSM::GameStateManager::GetInstance().ChangeLevel(new Menu);
 	}
+	UpdateCombatUI();
 }
 
 void level::NormalLevel::Exit()
 {
-	// 리소스 정리 등의 코드
 	storeUI.ExitStoreUI();
 	CombatComp::ExitOrbit();
 	CombatComp::blocks.clear();

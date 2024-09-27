@@ -50,6 +50,14 @@ void SubtitleComp::ModifySubtitle(std::string str1, std::string str2)
 	contexts.find(str1)->second.content = str2;
 }
 
+void SubtitleComp::ModifySubtitle(std::string str1, bool Alpha)
+{
+	if (contexts.find(str1) == contexts.end())
+		return;
+	contexts.find(str1)->second.a = Alpha;
+}
+
+
 void SubtitleComp::RemoveSubtitle(std::string str)
 {
 	contexts.erase(str);

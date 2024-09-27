@@ -2,18 +2,19 @@
 #include "../UIM/BtnManager.h"
 #include "../GameObject/GameObject.h"
 #include <string>
-class ControllUI {
+class ControlUI {
 	GameObject* BgUI = nullptr;
-	GameObject* ControlUI = nullptr;
+	GameObject* CtlUI = nullptr;
 	GameObject* CloseBtn = nullptr;
 	GameObject* controlFrame = nullptr;
 	bool isOpen = true;
 
 public:
 	void SetUIVisibility(bool isVisible);
-	void SetControllUI();
+	void SetControlUI();
 	void Setoff();
-	void InitControllUI();
-	void UpdateControllUI();
-	void ExitControllUI();
+	void Setmenu();
+	void InitControlUI();
+	void UpdateControlUI();
+	void ExitControlUI();
 };

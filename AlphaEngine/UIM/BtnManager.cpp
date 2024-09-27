@@ -1,6 +1,7 @@
 #include "BtnManager.h"
-#include <algorithm>  // std::remove_if
+#include <algorithm>  
 #include "AEEngine.h"
+
 void ButtonManager::RegisterButton(ButtonComp* button) {
     buttons.push_back(button);
 }
@@ -10,33 +11,41 @@ void ButtonManager::RemoveButton(ButtonComp* button) {
 }
 
 void ButtonManager::RemoveAllButtons() {
-    buttons.clear();  // 모든 버튼을 제거
+    buttons.clear();  
 }
 
 void ButtonManager::HandleClickEvent(int mouseX, int mouseY) {
     for (auto& button : buttons) {
         if (button->IsClicked(mouseX, mouseY)) {
-            button->OnClick();  // 클릭 시 버튼의 OnClick 호출
+            button->OnClick();  
         }
     }
 }
+
 void ButtonManager::HandleHoverEvent(int mouseX, int mouseY) {
     for (auto& button : buttons) {
-        if (button->IsHovered(mouseX, mouseY)) {
-            button->OnHover();  // 커서가 겹칠 때 OnHover 호출
+        bool currentlyHovered = button->IsHovered(mouseX, mouseY); 
+
+        if (currentlyHovered && !button->isHovered) {
+            button->OnHover(); 
+            button->isHovered = true;  
         }
-        else {
-            button->OnHoverOut();
+        else if (!currentlyHovered && button->isHovered) {
+            button->OnHoverOut(); 
+            button->isHovered = false;  
         }
     }
 }
+
 void ButtonManager::Update() {
     s32 mouseX, mouseY;
     AEInputGetCursorPosition(&mouseX, &mouseY);
-    mouseY = -mouseY + 450;  // 필요한 좌표 변환
-    mouseX = mouseX - 800;   // 필요한 좌표 변환
-   // HandleHoverEvent(mouseX, mouseY);
+    mouseY = -mouseY + 450;  
+    mouseX = mouseX - 800;  
+
+    HandleHoverEvent(mouseX, mouseY);  
+
     if (AEInputCheckTriggered(AEVK_LBUTTON)) {
-        HandleClickEvent(mouseX, mouseY);
+        HandleClickEvent(mouseX, mouseY);  
     }
 }

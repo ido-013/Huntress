@@ -1,9 +1,9 @@
 #pragma once
 #include <string>
 #include "AEEngine.h"
-#include "../ComponentManager/GraphicComponent.h"
+#include "../ComponentManager/InterfaceComponent.h"
 
-class UIComponent : public GraphicComponent
+class UIComponent : public InterfaceComponent
 {
 private:
     void SetMesh();

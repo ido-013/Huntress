@@ -20,6 +20,7 @@
 #include <iostream>
 #include <vector>
 #include "../Utils/Utils.h"
+#include "../CollisionManager/CollisionManager.h"
 
 #ifdef _DEBUG
 int CombatComp::ORBIT_CIRCLE_COUNT = 100;
@@ -41,7 +42,7 @@ bool CombatComp::isCombat = false;
 bool CombatComp::isDrawDirection = false;
 bool CombatComp::isChaseDirection = false;
 bool CombatComp::isReadyLaunch = false;
-
+bool CombatComp::isLaunched = false;
 bool CombatComp::isSetLaunchAngle = false;
 
 int CombatComp::ArrowCount = 0;
@@ -266,6 +267,7 @@ void CombatComp::FireAnArrow(TURN turn, GameObject& directionArrow)
 	projectile->GetComponent<ColliderComp>()->SetCollider();
 
 	isReadyLaunch = false;
+	isLaunched = true;
 	CombatComp::ArrowCount++;
 }
 
@@ -339,16 +341,18 @@ bool CombatComp::ObstacleCollisionCheck(std::vector<AEVec2>& coords)
 	int blockCount = 0;
 	for (auto block : blocks)
 	{
+		AEVec2 blockPos = block->GetPos();
+		AEVec2 blockScale = block->GetScale();
+
 		//플레이어와 적 사이의 위치에 존재하는 블럭만
-		if (xmin <= block->GetPos().x + (block->GetScale().x / 2) &&
-			xmax >= block->GetPos().x - (block->GetScale().x / 2) &&
-			ymin <= block->GetPos().y + (block->GetScale().y / 2))
+		if (xmin <= blockPos.x + (blockScale.x / 2) &&
+			xmax >= blockPos.x - (blockScale.x / 2) &&
+			ymin <= blockPos.y + (blockScale.y / 2))
 		{
 			blockCount++;
 			for (auto& coord : coords)
 			{
-				//추가적인 블럭 구별이 필요함 (현재 네모블럭으로 밖에 연산하지 않음.
-				if (isPointInRectangle(block, coord))
+				if (CollisionManager::isCollision(GameObject::Square, coord, { 28, 10 }, block->GetOwner()->type, blockPos, blockScale))
 				{
 					std::cout << "blockcoord : " << block->GetPos().x << ", " << block->GetPos().y << " , dotcoord : " << coord.x << ", " << coord.y << std::endl;
 					return true;
@@ -910,15 +914,15 @@ void CombatComp::Update()
 		{
 			{
 				//AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
-				Camera::GetInstance().SetPos((ptf->GetPos().x + etf->GetPos().x) / 2, 
-											 (ptf->GetPos().y + etf->GetPos().y) / 2);
+				Camera::GetInstance().SetPos((ptf->GetPos().x + etf->GetPos().x) / 2,
+											(ptf->GetPos().y + etf->GetPos().y) / 2 - 250);
 
 				float pad = 600;
 				float disX = abs(ptf->GetPos().x - etf->GetPos().x) + pad;
 				float disY = abs(ptf->GetPos().y - etf->GetPos().y) + pad;
 
 				int width = AEGfxGetWindowWidth();
-				int height = AEGfxGetWindowHeight();
+				int height = AEGfxGetWindowHeight() - 250;
 			
 				Camera::GetInstance().SetHeight(max(max(1, disX * 2 / width), max(1, disY * 2 / height)));
 			}

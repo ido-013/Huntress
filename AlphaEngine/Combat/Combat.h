@@ -67,7 +67,7 @@ public:
 	static TURN TurnChange();
 
 	static bool isCombat; // 전투 상태
-
+	static bool isLaunched;
 	static bool isDrawDirection; // 조준 상태
 	static bool isChaseDirection; // 조준선 고정 상태
 	static bool isReadyLaunch; // 발사 준비 상태
