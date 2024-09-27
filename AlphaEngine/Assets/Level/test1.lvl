@@ -6,12 +6,12 @@
         "type": "TransformComp",
         "compData": {
           "position": [
-            0.0,
-            0.0
+            1250.0,
+            -932.5
           ],
           "scale": [
-            1800.0,
-            1000.0
+            3072.0,
+            1024.0
           ],
           "rotation": 0.0
         }
@@ -32,75 +32,13 @@
   },
   "objects": [
     {
-      "object": "Square",
+      "object": "RightTri",
       "components": [
         {
           "type": "TransformComp",
           "compData": {
             "position": [
-              800.0,
-              -1920.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              400.0,
-              -1920.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              800.0,
+              720.0,
               -1840.0
             ],
             "scale": [
@@ -118,7 +56,7 @@
               0,
               0
             ],
-            "textureName": "./Assets/Tile/FallGrassTileRect.png",
+            "textureName": "./Assets/Tile/FallGrassTileRightTri.png",
             "alpha": 1.0
           }
         }
@@ -132,161 +70,6 @@
           "compData": {
             "position": [
               80.0,
-              -1920.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              480.0,
-              -1920.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              560.0,
-              -1920.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              720.0,
-              -1920.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              640.0,
-              -1920.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              240.0,
               -1920.0
             ],
             "scale": [
@@ -319,37 +102,6 @@
             "position": [
               1520.0,
               -1840.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              160.0,
-              -1920.0
             ],
             "scale": [
               80.0,
@@ -410,6 +162,316 @@
           "type": "TransformComp",
           "compData": {
             "position": [
+              160.0,
+              -1920.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              800.0,
+              -1840.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "GhostSquare",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              720.0,
+              -1920.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              480.0,
+              -2000.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1760.0,
+              -1920.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              2000.0,
+              -1920.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              560.0,
+              -1920.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              2240.0,
+              -1920.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              240.0,
+              -1920.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              480.0,
+              -1920.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
               320.0,
               -1920.0
             ],
@@ -435,14 +497,14 @@
       ]
     },
     {
-      "object": "RightTri",
+      "object": "Square",
       "components": [
         {
           "type": "TransformComp",
           "compData": {
             "position": [
-              720.0,
-              -1840.0
+              400.0,
+              -1920.0
             ],
             "scale": [
               80.0,
@@ -459,7 +521,7 @@
               0,
               0
             ],
-            "textureName": "./Assets/Tile/FallGrassTileRightTri.png",
+            "textureName": "./Assets/Tile/FallGrassTileRect.png",
             "alpha": 1.0
           }
         }
@@ -472,8 +534,318 @@
           "type": "TransformComp",
           "compData": {
             "position": [
-              480.0,
+              1920.0,
+              -1920.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              2080.0,
+              -1920.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              2160.0,
+              -1920.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1680.0,
+              -1920.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              320.0,
               -2000.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              800.0,
+              -1920.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              400.0,
+              -2000.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              240.0,
+              -2000.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1520.0,
+              -1920.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              640.0,
+              -1920.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "GhostSquare",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1600.0,
+              -1920.0
             ],
             "scale": [
               80.0,
@@ -534,347 +906,6 @@
           "type": "TransformComp",
           "compData": {
             "position": [
-              1680.0,
-              -2000.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              1760.0,
-              -2000.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              1920.0,
-              -2000.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              240.0,
-              -2000.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              320.0,
-              -2000.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              1600.0,
-              -2000.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              1760.0,
-              -1920.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              1920.0,
-              -1920.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              2080.0,
-              -1920.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              2160.0,
-              -1920.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              1520.0,
-              -1920.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
               1840.0,
               -1920.0
             ],
@@ -906,8 +937,8 @@
           "type": "TransformComp",
           "compData": {
             "position": [
-              2000.0,
-              -1920.0
+              480.0,
+              -2080.0
             ],
             "scale": [
               80.0,
@@ -924,7 +955,69 @@
               0,
               0
             ],
-            "textureName": "./Assets/Tile/FallGrassTileRect.png",
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1680.0,
+              -2080.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1760.0,
+              -2080.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
             "alpha": 1.0
           }
         }
@@ -938,7 +1031,7 @@
           "compData": {
             "position": [
               560.0,
-              -2000.0
+              -2080.0
             ],
             "scale": [
               80.0,
@@ -969,7 +1062,7 @@
           "compData": {
             "position": [
               640.0,
-              -2000.0
+              -2080.0
             ],
             "scale": [
               80.0,
@@ -1030,6 +1123,285 @@
           "type": "TransformComp",
           "compData": {
             "position": [
+              320.0,
+              -2080.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1840.0,
+              -2080.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1920.0,
+              -2080.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              240.0,
+              -2080.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              2000.0,
+              -2080.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              2000.0,
+              -2000.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1920.0,
+              -2000.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              2080.0,
+              -2000.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              2080.0,
+              -2080.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
               1840.0,
               -2000.0
             ],
@@ -1061,8 +1433,8 @@
           "type": "TransformComp",
           "compData": {
             "position": [
-              1680.0,
-              -1920.0
+              1760.0,
+              -2000.0
             ],
             "scale": [
               80.0,
@@ -1079,7 +1451,7 @@
               0,
               0
             ],
-            "textureName": "./Assets/Tile/FallGrassTileRect.png",
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
             "alpha": 1.0
           }
         }
@@ -1093,317 +1465,7 @@
           "compData": {
             "position": [
               1600.0,
-              -1920.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              2240.0,
-              -1920.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              400.0,
               -2000.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              480.0,
-              -2080.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              320.0,
-              -2080.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              2160.0,
-              -2000.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              240.0,
-              -2160.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              320.0,
-              -2160.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              400.0,
-              -2160.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              480.0,
-              -2160.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              240.0,
-              -2080.0
             ],
             "scale": [
               80.0,
@@ -1434,7 +1496,7 @@
           "compData": {
             "position": [
               640.0,
-              -2080.0
+              -2000.0
             ],
             "scale": [
               80.0,
@@ -1465,254 +1527,6 @@
           "compData": {
             "position": [
               560.0,
-              -2160.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              400.0,
-              -2080.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              2080.0,
-              -2080.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              1760.0,
-              -2080.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              2160.0,
-              -2080.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              640.0,
-              -2160.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              2000.0,
-              -2080.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              1760.0,
-              -2160.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              2000.0,
               -2000.0
             ],
             "scale": [
@@ -1744,68 +1558,6 @@
           "compData": {
             "position": [
               1680.0,
-              -2080.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              1840.0,
-              -2080.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              2080.0,
               -2000.0
             ],
             "scale": [
@@ -1836,194 +1588,8 @@
           "type": "TransformComp",
           "compData": {
             "position": [
-              560.0,
-              -2080.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              1920.0,
-              -2080.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              1920.0,
-              -2160.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              2000.0,
-              -2160.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              320.0,
-              -2240.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              480.0,
-              -2240.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              2000.0,
-              -2240.0
+              2160.0,
+              -2000.0
             ],
             "scale": [
               80.0,
@@ -2054,193 +1620,7 @@
           "compData": {
             "position": [
               400.0,
-              -2320.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              240.0,
-              -2240.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              1920.0,
-              -2240.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              2080.0,
-              -2240.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              1840.0,
-              -2240.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              320.0,
-              -2320.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              2080.0,
-              -2160.0
+              -2080.0
             ],
             "scale": [
               80.0,
@@ -2272,37 +1652,6 @@
             "position": [
               1760.0,
               -2240.0
-            ],
-            "scale": [
-              80.0,
-              80.0
-            ],
-            "rotation": 0.0
-          }
-        },
-        {
-          "type": "SpriteComp",
-          "compData": {
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
-            "alpha": 1.0
-          }
-        }
-      ]
-    },
-    {
-      "object": "Square",
-      "components": [
-        {
-          "type": "TransformComp",
-          "compData": {
-            "position": [
-              1760.0,
-              -2320.0
             ],
             "scale": [
               80.0,
@@ -2363,8 +1712,8 @@
           "type": "TransformComp",
           "compData": {
             "position": [
-              1920.0,
-              -2320.0
+              480.0,
+              -2160.0
             ],
             "scale": [
               80.0,
@@ -2394,7 +1743,38 @@
           "type": "TransformComp",
           "compData": {
             "position": [
-              560.0,
+              2080.0,
+              -2160.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              240.0,
               -2240.0
             ],
             "scale": [
@@ -2425,8 +1805,8 @@
           "type": "TransformComp",
           "compData": {
             "position": [
-              480.0,
-              -2320.0
+              320.0,
+              -2240.0
             ],
             "scale": [
               80.0,
@@ -2456,8 +1836,39 @@
           "type": "TransformComp",
           "compData": {
             "position": [
-              2000.0,
-              -2320.0
+              400.0,
+              -2240.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              640.0,
+              -2160.0
             ],
             "scale": [
               80.0,
@@ -2519,7 +1930,317 @@
           "compData": {
             "position": [
               560.0,
-              -2320.0
+              -2160.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              560.0,
+              -2240.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1840.0,
+              -2240.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1920.0,
+              -2240.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              2000.0,
+              -2240.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              2160.0,
+              -2080.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1920.0,
+              -2160.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1760.0,
+              -2160.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              2000.0,
+              -2160.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              480.0,
+              -2240.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              240.0,
+              -2160.0
             ],
             "scale": [
               80.0,
@@ -2550,7 +2271,69 @@
           "compData": {
             "position": [
               400.0,
-              -2240.0
+              -2160.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              320.0,
+              -2160.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              2000.0,
+              -2320.0
             ],
             "scale": [
               80.0,
@@ -2611,8 +2394,225 @@
           "type": "TransformComp",
           "compData": {
             "position": [
+              560.0,
+              -2320.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              400.0,
+              -2320.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1920.0,
+              -2320.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              1760.0,
+              -2320.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              480.0,
+              -2320.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
               2080.0,
               -2320.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              320.0,
+              -2320.0
+            ],
+            "scale": [
+              80.0,
+              80.0
+            ],
+            "rotation": 0.0
+          }
+        },
+        {
+          "type": "SpriteComp",
+          "compData": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "textureName": "./Assets/Tile/FallGrassTileRect3.png",
+            "alpha": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "object": "Square",
+      "components": [
+        {
+          "type": "TransformComp",
+          "compData": {
+            "position": [
+              2080.0,
+              -2240.0
             ],
             "scale": [
               80.0,
@@ -2636,6 +2636,37 @@
       ]
     }
   ],
+  "enemy": {
+    "object": "Enemy",
+    "components": [
+      {
+        "type": "TransformComp",
+        "compData": {
+          "position": [
+            2160.0,
+            -1840.0
+          ],
+          "scale": [
+            50.0,
+            50.0
+          ],
+          "rotation": 0.0
+        }
+      },
+      {
+        "type": "SpriteComp",
+        "compData": {
+          "color": [
+            130,
+            0,
+            0
+          ],
+          "textureName": "./Assets/Character/ArrowAttack/sprite/ScoutAttackArrow.png",
+          "alpha": 1.0
+        }
+      }
+    ]
+  },
   "player": {
     "object": "Player",
     "components": [
@@ -2694,37 +2725,6 @@
           ],
           "textureName": "./Assets/Character/DirectionArrow.png",
           "alpha": 0.0
-        }
-      }
-    ]
-  },
-  "enemy": {
-    "object": "Enemy",
-    "components": [
-      {
-        "type": "TransformComp",
-        "compData": {
-          "position": [
-            2160.0,
-            -1840.0
-          ],
-          "scale": [
-            50.0,
-            50.0
-          ],
-          "rotation": 0.0
-        }
-      },
-      {
-        "type": "SpriteComp",
-        "compData": {
-          "color": [
-            130,
-            0,
-            0
-          ],
-          "textureName": "./Assets/Character/ArrowAttack/sprite/ScoutAttackArrow.png",
-          "alpha": 1.0
         }
       }
     ]

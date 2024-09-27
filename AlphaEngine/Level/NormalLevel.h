@@ -14,6 +14,7 @@ namespace level
 		StoreUI storeUI;
 		EscUI Escmenu;
 		int level;
+
 	public:
 		NormalLevel(int _level) : level(_level) {}
 		~NormalLevel() override;

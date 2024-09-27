@@ -20,9 +20,9 @@ private:
 	float y = 0;
 
 	float speed = 400;
-	float height = 1;
+	float height = 2;
 
-	AEMtx33 world_to_ndc_xform;
+	AEMtx33 world_to_ndc_xform[2];
 
 public:
 	bool fix = true;
@@ -33,9 +33,16 @@ public:
 		return instance;
 	}
 
+	float minX = 0;
+	float maxX = 2500;
+
+	float minY = -1865;
+	float maxY = 0;
+
 	void Update();
 
-	AEMtx33& GetMatrix() { return world_to_ndc_xform; }
+	AEMtx33& GetMatrix() { return world_to_ndc_xform[0]; }
+	AEMtx33& GetMatrix2() { return world_to_ndc_xform[1]; }
 	void GetPos(float* px, float* py);
 
 	void AddHeight(float value);
