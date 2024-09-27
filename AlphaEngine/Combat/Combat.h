@@ -24,8 +24,6 @@
 
 #define HIT_RADIUS 15.0f // 플레이어에 대한 적중 판정 반경
 
-#define ORBIT_CIRCLE_COUNT 100
-
 //붙어서 싸우기 방지를 위한 상수값
 
 	//거리비례 AI 명중률 상수 
@@ -97,11 +95,12 @@ public:
 	static void ResetCombat();
 	bool ObstacleCollisionCheck(std::vector<AEVec2>& coords);
 
+	static int ORBIT_CIRCLE_COUNT;
 	static std::vector<GameObject*> orbitDots;
 	static void InitOrbit();
 	static void SetOrbitAlpha(bool isView);
 	void ShowOrbit();
-	static void ExitOrbit();
+	static void ExitOrbit();	
 
 	void SetPlayerAngle(float angle);
 	float GetPlayerAngle();

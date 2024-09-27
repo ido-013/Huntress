@@ -21,6 +21,13 @@
 #include <vector>
 #include "../Utils/Utils.h"
 
+#ifdef _DEBUG
+int CombatComp::ORBIT_CIRCLE_COUNT = 100;
+#endif
+#ifdef NDEBUG
+int CombatComp::ORBIT_CIRCLE_COUNT = 40;
+#endif
+
 float delayTime = 0.2f;  // 2초 딜레이
 float elapsedTime = 0.0f;  // 경과 시간 저장
 f64 CombatComp::currTime = 0;
@@ -355,7 +362,7 @@ bool CombatComp::ObstacleCollisionCheck(std::vector<AEVec2>& coords)
 
 void CombatComp::InitOrbit()
 {
-	for (int i = 0; i < ORBIT_CIRCLE_COUNT; i++)
+	for (int i = 0; i < CombatComp::ORBIT_CIRCLE_COUNT; i++)
 	{
 		std::string dotName = "dot" + std::to_string(i);
 		GameObject* dot = new GameObject(dotName);
@@ -463,34 +470,44 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 	AEVec2 op = p;
 	AEVec2 e = enemy->GetComponent<TransformComp>()->GetPos();
 
+	float add_y = 0;
+	for (auto block : blocks)
+	{
+		if (isPointInRectangle(block, p))
+		{
+			add_y = 30;
+			break;
+		}
+	}
+
 	switch (AICombatSystemObjectivePointCount)
 	{
 	case -4:
-		op = { p.x + -120, p.y };
+		op = { p.x + -120, p.y + add_y * 4 };
 		break;
 	case -3:
-		op = { p.x + -90, p.y };
+		op = { p.x + -90, p.y + add_y * 3 };
 		break;
 	case -2:
-		op = { p.x + -60, p.y };
+		op = { p.x + -60, p.y + add_y * 2 };
 		break;
 	case -1:
-		op = { p.x + -30, p.y };
+		op = { p.x + -30, p.y + add_y };
 		break;
 	case 0:
 		op = { p.x + 0, p.y };
 		break;
 	case 1:
-		op = { p.x + 30, p.y };
+		op = { p.x + 30, p.y + add_y };
 		break;
 	case 2:
-		op = { p.x + 60, p.y };
+		op = { p.x + 60, p.y + add_y * 2 };
 		break;
 	case 3:
-		op = { p.x + 90, p.y };
+		op = { p.x + 90, p.y + add_y * 3 };
 		break;
 	case 4:
-		op = { p.x + 120, p.y };
+		op = { p.x + 120, p.y + add_y * 4 };
 		break;
 	}
 

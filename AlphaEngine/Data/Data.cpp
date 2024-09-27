@@ -7,6 +7,7 @@ float Data::PlayerData::maxLife = 50;
 float Data::PlayerData::hp = 50;
 float Data::PlayerData::damage = 5;
 float Data::PlayerData::armor = 1;
+Inventory Data::PlayerData::inventory = { false, {} };
 
 void Data::PrintPlayerData(Data::PlayerData data)
 {

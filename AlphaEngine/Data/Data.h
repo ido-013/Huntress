@@ -1,5 +1,6 @@
 #pragma once
 #include "json.hpp"
+#include "Inventory.h"
 
 using json = nlohmann::ordered_json;
 
@@ -18,11 +19,16 @@ public:
 		static float hp;
 		static float damage;
 		static float armor;
-
+		static Inventory inventory;
 		// 아이템이나 업그레이드 상황 추가
 		void InitData(int goldV, float maxLifeV, float hpV, float damageV, float armorV)
 		{
 			gold = goldV, maxLife = maxLifeV, hp = hpV, damage = damageV, armor = armorV;
+			inventory.InitInventory();
+		};
+		void RemoveData()
+		{
+			inventory.RemoveInventory();
 		};
 	};
 	class EnemyData

@@ -57,7 +57,10 @@ void level::NormalLevel::Update()
 	if (CombatComp::state == CombatComp::CLEAR)
 	{
 		if (level == 10)
+		{
+			player->GetComponent<PlayerComp>()->playerData->RemoveData();
 			GSM::GameStateManager::GetInstance().ChangeLevel(new ClearLevel);
+		}
 		else
 		{
 			GSM::GameStateManager::GetInstance().ChangeLevel(new NormalLevel(level + 1));
