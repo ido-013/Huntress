@@ -20,6 +20,7 @@
 #include <iostream>
 #include <vector>
 #include "../Utils/Utils.h"
+#include "../CollisionManager/CollisionManager.h"
 
 float delayTime = 0.2f;  // 2초 딜레이
 float elapsedTime = 0.0f;  // 경과 시간 저장
@@ -331,17 +332,18 @@ bool CombatComp::ObstacleCollisionCheck(std::vector<AEVec2>& coords)
 	int blockCount = 0;
 	for (auto block : blocks)
 	{
+		AEVec2 blockPos = block->GetPos();
+		AEVec2 blockScale = block->GetScale();
+
 		//플레이어와 적 사이의 위치에 존재하는 블럭만
-		if (xmin <= block->GetPos().x + (block->GetScale().x / 2) &&
-			xmax >= block->GetPos().x - (block->GetScale().x / 2) &&
-			ymin <= block->GetPos().y + (block->GetScale().y / 2))
+		if (xmin <= blockPos.x + (blockScale.x / 2) &&
+			xmax >= blockPos.x - (blockScale.x / 2) &&
+			ymin <= blockPos.y + (blockScale.y / 2))
 		{
 			blockCount++;
 			for (auto& coord : coords)
 			{
-				block->GetOwner()->type == GameObject::LeftTri;
-
-				if (isPointInRectangle(block, coord))
+				if (CollisionManager::isCollision(GameObject::Square, coord, { 28, 10 }, block->GetOwner()->type, blockPos, blockScale))
 				{
 					std::cout << "blockcoord : " << block->GetPos().x << ", " << block->GetPos().y << " , dotcoord : " << coord.x << ", " << coord.y << std::endl;
 					return true;

@@ -162,6 +162,56 @@ bool CollisionManager::isCollisionCircleCircle(ColliderComp* a, ColliderComp* b)
 	return ((aR + bR) * (aR + bR)) >= GetSqDistance(aX, aY, bX, bY);
 }
 
+bool gIsCollisionAABB(AEVec2 aPos, AEVec2 aScale, AEVec2 bPos, AEVec2 bScale)
+{
+	float aX = aPos.x;
+	float aY = aPos.y;
+	float aW = aScale.x / 2;
+	float aH = aScale.y / 2;
+
+	float bX = bPos.x;
+	float bY = bPos.y;
+	float bW = bScale.x / 2;
+	float bH = bScale.y / 2;
+
+	if (aX - aW > bX + bW) return false;
+	if (bX - bW > aX + aW) return false;
+	if (aY - aH > bY + bH) return false;
+	if (bY - bH > aY + aH) return false;
+
+	return true;
+}
+
+bool gIsCollisionSquareTri(AEVec2 aPos, AEVec2 aScale, GameObject::Type bType, AEVec2 bPos, AEVec2 bScale)
+{
+	if (!gIsCollisionAABB(aPos, aScale, bPos, bScale)) return false;
+
+	float aX = aPos.x;
+	float aY = aPos.y;
+	float aW = aScale.x / 2;
+	float aH = aScale.y / 2;
+
+	float bX = bPos.x;
+	float bY = bPos.y;
+	float bW = bScale.x / 2;
+	float bH = bScale.y / 2;
+
+	float grad;
+
+	if (bType == GameObject::RightTri)
+	{
+		grad = bH / bW;
+		if ((grad * (aX + aW)) + bY - (grad * bX) < (aY - aH)) return false;
+	}
+	else
+	{
+		grad = -bH / bW;
+		if ((grad * (aX - aW)) + bY - (grad * bX) < (aY - aH)) return false;
+	}
+
+	return true;
+}
+
 bool CollisionManager::PointTriCheck(ColliderComp* a, ColliderComp* b)
 {
 	EventManager& em = EventManager::GetInstance();
@@ -505,6 +555,33 @@ bool CollisionManager::ProjectileSquareCheck(ColliderComp* a, ColliderComp* b)
 		}
 
 		return true;
+	}
+
+	return false;
+}
+
+bool CollisionManager::isCollision(GameObject::Type aType, AEVec2 aPos, AEVec2 aScale, GameObject::Type bType, AEVec2 bPos, AEVec2 bScale)
+{
+	switch (aType)
+	{
+	case GameObject::Square:
+		if (bType == GameObject::Square)
+		{
+			return gIsCollisionAABB(aPos, aScale, bPos, bScale);
+		}
+		else if (bType == GameObject::LeftTri || bType == GameObject::RightTri)
+		{
+			return gIsCollisionSquareTri(aPos, aScale, bType, bPos, bScale);
+		}
+		break;
+
+	case GameObject::LeftTri:
+	case GameObject::RightTri:
+		if (bType == GameObject::Square)
+		{
+			return gIsCollisionSquareTri(bPos, bScale, aType, aPos, aScale);
+		}
+		break;
 	}
 
 	return false;

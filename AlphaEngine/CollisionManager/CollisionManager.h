@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "../Components/ColliderComp.h"
+#include "../Components/TransformComp.h"
 #include "../EventManager/EventManager.h"
 #include "../Event/CollisionEvent.h"
 
@@ -42,6 +43,8 @@ private:
 	bool ProjectileSquareCheck(ColliderComp*, ColliderComp*);
 
 public:
+	static bool isCollision(GameObject::Type, AEVec2, AEVec2, GameObject::Type, AEVec2, AEVec2);
+
 	static CollisionManager& GetInstance()
 	{
 		static CollisionManager instance;

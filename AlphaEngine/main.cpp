@@ -19,6 +19,8 @@
 // ---------------------------------------------------------------------------
 // main
 
+int gGameRunning = 1;
+
 LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	if (message == WM_MOUSEWHEEL)
@@ -33,6 +35,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 		}
 	}
 
+	if (message == WM_CLOSE)
+	{
+		gGameRunning = 0;
+	}
+
 	return DefWindowProc(hwnd, message, wParam, lParam);
 }
 
@@ -45,8 +52,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
-
-	int gGameRunning = 1;
 
 	// Using custom window procedure
 #ifdef NDEBUG
@@ -72,12 +77,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// Changing the window title
 	AESysSetWindowTitle("Huntress");
 
-
 	GSM::GameStateManager& gsm = GSM::GameStateManager::GetInstance();
 
 	// reset the system modules
 	AESysReset();
 
+	//GSM::GameStateManager::GetInstance().ChangeLevel(new level::LogoLevel);
 	GSM::GameStateManager::GetInstance().ChangeLevel(new level::Menu);
 	//GSM::GameStateManager::GetInstance().ChangeLevel(new level::CombatLevel(0));
 
@@ -114,14 +119,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 			fullscreen = !fullscreen;
 			AESysSetFullScreen(fullscreen);
 		}
-
-		// check if forcing the application to quit
-
-		//	if (AEInputCheckTriggered(AEVK_ESCAPE) || 0 == AESysDoesWindowExist())
-		//		gGameRunning = 0;
 	}
 
 	gsm.Exit();
+
+	//MEM LEAK CHECKS
 
 	// free the system
 	AESysExit();
