@@ -56,7 +56,7 @@ void InitCombatUI()
 	Power->AddComponent<UIComponent>();
 	UIComponent* powerComp = Power->GetComponent<UIComponent>();
 	powerComp->SetScale({ 720 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (PLAYER_POWER_LIMIT + DEFAULT_POWER))), 80 });
-	powerComp->SetPos({ 120 - (750 - 750 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (PLAYER_POWER_LIMIT + DEFAULT_POWER)))) / 2 , -280 });
+	powerComp->SetPos({ 120 - (720 - 720 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (PLAYER_POWER_LIMIT + DEFAULT_POWER)))) / 2 , -280 });
 	powerComp->SetTexture("Assets/UI/MOVE_GAUGE.png");
 	powerComp->SetColor(255, 0, 0);
 
@@ -72,7 +72,7 @@ void InitCombatUI()
 	Move->AddComponent<UIComponent>();
 	UIComponent* moveComp = Move->GetComponent<UIComponent>();
 	moveComp->SetScale({ 720 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f), 80 });
-	moveComp->SetPos({ 120 - (750 - 750 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f)) / 2 , -380 });
+	moveComp->SetPos({ 120 - (720 - 720 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f)) / 2 , -380 });
 	moveComp->SetTexture("Assets/UI/MOVE_GAUGE.png");
 	moveComp->SetColor(0, 255, 0);
 
@@ -242,10 +242,9 @@ void UpdateCombatUI()
 	}
 	if (SubtitleComp::FindSubtitle("WindPower"))
 	{
-		SubtitleComp::ModifySubtitle("WindPower",std::to_string((int)directionArrow->GetComponent<CombatComp>()->data.windPower));
-		
+		SubtitleComp::ModifySubtitle("WindPower", std::to_string((int)directionArrow->GetComponent<CombatComp>()->data.windPower));
+
 	}
-	
 }
 
 void ExitCombatUI()

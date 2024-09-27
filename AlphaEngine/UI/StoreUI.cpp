@@ -8,7 +8,8 @@
 #include "../Components/SubtitleComp.h"
 #include "../UI/ItemInfo.h"
 #include <string>
-
+#define SUBTITLE {f32(-0.5), f32(0.7)}
+#define SUB_GOLD {f32(0.3), f32( 0.455)}
 std::string StoreUI::goldText = "";
  #define PLAY_AUDIO_PURCHASE GameObjectManager::GetInstance().GetObj("background")->GetComponent<AudioComp>()->playAudio(0, "./Assets/Audio/coin-donation.mp3")
  #define PLAY_AUDIO_ERROR GameObjectManager::GetInstance().GetObj("background")->GetComponent<AudioComp>()->playAudio(0, "./Assets/Audio/error.mp3")
@@ -100,7 +101,7 @@ bool StoreUI::getisEsc()
     return isEsc;
 }
 void StoreUI::SetUIVisibility(bool isVisible) {
-    int alphaValue = isVisible ? 1 : 0;
+    bool alphaValue = isVisible ? true : false;
     storePopup->GetComponent<UIComponent>()->SetAlpha(alphaValue);
     for (auto& frame : itemFrames) {
         frame->GetComponent<UIComponent>()->SetAlpha(alphaValue);
@@ -125,7 +126,7 @@ void StoreUI::CloseStore() {
 void StoreUI::InitStoreUI(GameObject* player) {
     CombatComp::isCombat = false;
     CombatComp::state = CombatComp::STATE::STORE;
-    SubtitleComp::AddSubtitle({ {0.3, 0.455}, 0.6, "goldText", 0.9, 0.9, 0, 1 });
+    SubtitleComp::AddSubtitle({ SUB_GOLD, float(0.6), "goldText", f32(0.9), f32(0.9), f32(0), 1 });
     // Initialize Store Popup
     storePopup = new GameObject();
     storePopup->AddComponent<UIComponent>();
@@ -167,11 +168,11 @@ void StoreUI::InitStoreUI(GameObject* player) {
         if (playerComp->playerData->gold >= 15) {
             playerComp->playerData->armor += 1;
             playerComp->playerData->gold -= 15;
-            SubtitleComp::IntersectDissolveText({ {{-0.3,0.7}, 1, "Defense Increased!", 0, 1, 0, 1}, 2, 0.7, 0.7 });
+            SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Defense Increased!", 0, 1, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_PURCHASE;
         }
         else {
-            SubtitleComp::IntersectDissolveText({ {{-0.5,0.7}, 1, "Not Enough Gold...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
+            SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Not Enough Gold...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_ERROR;
         }
         });
@@ -180,11 +181,11 @@ void StoreUI::InitStoreUI(GameObject* player) {
         if (playerComp->playerData->gold >= 75) {
             playerComp->playerData->damage += 1;
             playerComp->playerData->gold -= 75;
-            SubtitleComp::IntersectDissolveText({ {{-0.3,0.7}, 1, "Gods Gods Gos!", 0, 1, 0, 1}, 2, 0.7, 0.7 });
+            SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Gods Gods Gos!", 0, 1, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_PURCHASE;
         }
         else {
-            SubtitleComp::IntersectDissolveText({ {{-0.5,0.7}, 1, "Not Enough Gold...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
+            SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Not Enough Gold...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_ERROR;
         }
         
@@ -204,11 +205,11 @@ void StoreUI::InitStoreUI(GameObject* player) {
         if (playerComp->playerData->gold >= 15) {
             playerComp->playerData->damage += 1;
             playerComp->playerData->gold -= 15;
-            SubtitleComp::IntersectDissolveText({ {{-0.3,0.7}, 1, "Attack Increased!", 0, 1, 0, 1}, 2, 0.7, 0.7 });
+            SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Attack Increased!", 0, 1, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_PURCHASE;
         }
         else {
-            SubtitleComp::IntersectDissolveText({ {{-0.5,0.7}, 1, "Not Enough Gold...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
+            SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Not Enough Gold...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_ERROR;
         }
         });
@@ -216,18 +217,18 @@ void StoreUI::InitStoreUI(GameObject* player) {
         PlayerComp* playerComp = player->GetComponent<PlayerComp>();
         if (playerComp->playerData->gold >= 15) {
             if (playerComp->playerData->hp == playerComp->playerData->maxLife) {
-                SubtitleComp::IntersectDissolveText({ {{-0.3,0.7}, 1, "Already Full...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
+                SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Already Full...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
                 PLAY_AUDIO_ERROR;
             }
             else {
                 playerComp->playerData->hp = playerComp->playerData->maxLife;
                 playerComp->playerData->gold -= 15;
-                SubtitleComp::IntersectDissolveText({ {{-0.3,0.7}, 1, "Fully Healed!", 0, 1, 0, 1}, 2, 0.7, 0.7 });
+                SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Fully Healed!", 0, 1, 0, 1}, 2, 0.7, 0.7 });
                 PLAY_AUDIO_PURCHASE;
             }
         }
         else {
-            SubtitleComp::IntersectDissolveText({ {{-0.5,0.7}, 1, "Not Enough Gold...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
+            SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Not Enough Gold...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_ERROR;
         }
         });
@@ -237,11 +238,11 @@ void StoreUI::InitStoreUI(GameObject* player) {
             playerComp->playerData->maxLife += 5;
             playerComp->playerData->hp += 5;
             playerComp->playerData->gold -= 15;
-            SubtitleComp::IntersectDissolveText({ {{-0.3,0.7}, 1, "Max HP Increased!", 0, 1, 0, 1}, 2, 0.7, 0.7 });
+            SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Max HP Increased!", 0, 1, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_PURCHASE;
         }
         else {
-            SubtitleComp::IntersectDissolveText({ {{-0.5,0.7}, 1, "Not Enough Gold...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
+            SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Not Enough Gold...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_ERROR;
         }
         });
@@ -249,18 +250,18 @@ void StoreUI::InitStoreUI(GameObject* player) {
         PlayerComp* playerComp = player->GetComponent<PlayerComp>();
         if (playerComp->playerData->gold >= 5) {
             if (playerComp->playerData->hp == playerComp->playerData->maxLife) {
-                SubtitleComp::IntersectDissolveText({ {{-0.3,0.7}, 1, "Already Full...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
+                SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Already Full...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
                 PLAY_AUDIO_ERROR;
             }
             else {
-                playerComp->playerData->hp =(((playerComp->playerData->hp + playerComp->playerData->maxLife * 0.1) < (playerComp->playerData->maxLife)) ? (playerComp->playerData->hp + playerComp->playerData->maxLife * 0.1) : (playerComp->playerData->maxLife));
+                playerComp->playerData->hp =(((playerComp->playerData->hp + playerComp->playerData->maxLife * 0.1) < (playerComp->playerData->maxLife)) ? float((playerComp->playerData->hp + playerComp->playerData->maxLife * 0.1)) : (playerComp->playerData->maxLife));
                 playerComp->playerData->gold -= 5;
-                SubtitleComp::IntersectDissolveText({ {{-0.3,0.7}, 1, "Small Heal!", 0, 1, 0, 1}, 2, 0.7, 0.7 });
+                SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Small Heal!", 0, 1, 0, 1}, 2, 0.7, 0.7 });
                 PLAY_AUDIO_PURCHASE;
             }
         }
         else {
-            SubtitleComp::IntersectDissolveText({ {{-0.5,0.7}, 1, "Not Enough Gold...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
+            SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Not Enough Gold...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_ERROR;
         }
         });
@@ -269,11 +270,11 @@ void StoreUI::InitStoreUI(GameObject* player) {
         if (playerComp->playerData->gold >= 15) {
             playerComp->playerData->armor += 1;
             playerComp->playerData->gold -= 15;
-            SubtitleComp::IntersectDissolveText({ {{-0.3,0.7}, 1, "Purcharse!", 0, 1, 0, 1}, 2, 0.7, 0.7 });
+            SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Purcharse!", 0, 1, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_PURCHASE;
         }
         else {
-            SubtitleComp::IntersectDissolveText({ {{-0.5,0.7}, 1, "Not Enough Gold...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
+            SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Not Enough Gold...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_ERROR;
         }
         });
@@ -286,11 +287,11 @@ void StoreUI::InitStoreUI(GameObject* player) {
         if (playerComp->playerData->gold >= 15) {
             playerComp->playerData->armor += 1;
             playerComp->playerData->gold -= 15;
-            SubtitleComp::IntersectDissolveText({ {{-0.3,0.7}, 1, "Purcharse", 0, 1, 0, 1}, 2, 0.7, 0.7 });
+            SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Purcharse", 0, 1, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_PURCHASE;
         }
         else {
-            SubtitleComp::IntersectDissolveText({ {{-0.5,0.7}, 1, "Not Enough Gold...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
+            SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Not Enough Gold...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_ERROR;
         }
         });
@@ -300,11 +301,11 @@ void StoreUI::InitStoreUI(GameObject* player) {
         if (playerComp->playerData->gold >= 15) {
             playerComp->playerData->armor += 1;
             playerComp->playerData->gold -= 15;
-            SubtitleComp::IntersectDissolveText({ {{-0.3,0.7}, 1, "Purcharse", 0, 1, 0, 1}, 2, 0.7, 0.7 });
+            SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Purcharse", 0, 1, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_PURCHASE;
         }
         else {
-            SubtitleComp::IntersectDissolveText({ {{-0.5,0.7}, 1, "Not Enough Gold...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
+            SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Not Enough Gold...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_ERROR;
         }
         });
@@ -313,11 +314,11 @@ void StoreUI::InitStoreUI(GameObject* player) {
         if (playerComp->playerData->gold >= 15) {
             playerComp->playerData->armor += 1;
             playerComp->playerData->gold -= 15;
-            SubtitleComp::IntersectDissolveText({ {{-0.3,0.7}, 1, "Purcharse", 0, 1, 0, 1}, 2, 0.7, 0.7 });
+            SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Purcharse", 0, 1, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_PURCHASE;
         }
         else {
-            SubtitleComp::IntersectDissolveText({ {{-0.5,0.7}, 1, "Not Enough Gold...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
+            SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Not Enough Gold...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_ERROR;
         }
         });
