@@ -105,6 +105,11 @@ int PlayerComp::GetMovegauge()
 	return movementGauge;
 }
 
+float PlayerComp::GetHp()
+{
+	return playerData->hp;
+}
+
 void PlayerComp::AddHp(float value)
 {
 	playerData->hp += value;

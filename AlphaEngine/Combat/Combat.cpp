@@ -1003,22 +1003,39 @@ void CombatComp::Update()
 		TransformComp* ptf = GetPlayerTransform();
 		GameObject* enemy = GetEnemyObject();
 		TransformComp* etf = GetEnemyTransform();
-		if (currTime < 2)
+		PlayerComp* pComp = player->GetComponent<PlayerComp>();
+
+		if (pComp->GetHp() <= 0)
 		{
-			Camera::GetInstance().SetPos(ptf->GetPos().x, ptf->GetPos().y);
-			if (once == false)
+			if (pComp->playerData->inventory.isGBY)
 			{
-				once = true;
-				SubtitleComp::IntersectDissolveText({ {{(f32)-0.3,(f32)0.1}, 1, "GAME OVER", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+				//부활 연출 필요
+				pComp->playerData->hp = pComp->playerData->maxLife;
+				pComp->playerData->inventory.isGBY = false;
+				state = COMBAT;
+				turn = TURN::PLAYERTURN;
+
 			}
 		}
 		else
 		{
-			once = false;
-			state = RESET;
-			currTime = 0;
+			if (currTime < 2)
+			{
+				Camera::GetInstance().SetPos(ptf->GetPos().x, ptf->GetPos().y);
+				if (once == false)
+				{
+					once = true;
+					SubtitleComp::IntersectDissolveText({ {{(f32)-0.3,(f32)0.1}, 1, "GAME OVER", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+				}
+			}
+			else
+			{
+				once = false;
+				state = RESET;
+				currTime = 0;
+			}
+			currTime += AEFrameRateControllerGetFrameTime();
 		}
-		currTime += AEFrameRateControllerGetFrameTime();
 	}
 	float deltaTime = (float) AEFrameRateControllerGetFrameTime();  // 프레임 경과 시간 가져오기
 	elapsedTime += deltaTime;

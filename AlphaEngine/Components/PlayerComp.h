@@ -18,6 +18,7 @@ public:
 
 	int GetMovegauge();
 
+	float GetHp();
 	void AddHp(float value);
 
 	PlayerComp(GameObject* _owner);
