@@ -13,6 +13,7 @@ class EscUI {
 	bool isOpen = false;
 
 public:
+	
 	bool getOpen();
 	void SetUIVisibility(bool isVisible);
 	void SetEscUI();

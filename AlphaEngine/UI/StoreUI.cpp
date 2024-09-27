@@ -19,9 +19,6 @@ std::string StoreUI::goldText = "";
      std::function<void(UIComponent*)> outHover = nullptr) {
      StoreItem item;
  
-    
-
-
     item.itemObj = new GameObject();
     item.itemObj->AddComponent<UIComponent>();
     UIComponent* ui = item.itemObj->GetComponent<UIComponent>();
@@ -29,6 +26,7 @@ std::string StoreUI::goldText = "";
     ui->SetPos(pos);
     ui->SetTexture(texturePath);
     ui->SetAlpha(0);
+
     item.info = new ItemInfo();
     item.info->CreateItemInfo(name, InfoPath);
     item.itemObj->AddComponent<ButtonComp>();
@@ -38,9 +36,7 @@ std::string StoreUI::goldText = "";
         ui->SetColor(120, 120, 120);
         ui->SetScale({ 130, 130 });
 
-        if (onHover) {
-            onHover(ui);
-        }
+        if (onHover) {onHover(ui);}
         s32 mouseX, mouseY;
         AEInputGetCursorPosition(&mouseX, &mouseY);
         mouseY = -mouseY + 450;
@@ -53,9 +49,7 @@ std::string StoreUI::goldText = "";
         ui->SetColor(0, 0, 0);
         ui->SetScale({ 120, 120 });
         item.info->SetoffInfo(name);
-        if (outHover) {
-            outHover(ui);
-        }
+        if (outHover) {outHover(ui);}
         });
     storeItems.push_back(item);
 }
@@ -80,16 +74,10 @@ StoreUI::StoreUI()
 
 StoreUI::~StoreUI()
 {
-    std::cout << __FUNCTION__ << std::endl;
-    //for (auto& it : storeItems) {
-    //    delete it.itemObj;
-    //}
-    //storeItems.clear();
-    //for (auto& it : itemFrames)
-    //    delete it;
-    //itemFrames.clear();
-    //delete storePopup;
-    //delete closeBtn;
+    for (auto& it : storeItems)
+    {
+        delete it.info;
+    }
 }
 
 void StoreUI::StoreOnEsc()

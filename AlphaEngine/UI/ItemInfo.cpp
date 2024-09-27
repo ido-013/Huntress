@@ -2,6 +2,9 @@
 #include "../GameObject/GameObject.h"
 #include "../Components/UIComp.h"
 #include "../GameObjectManager/GameObjectManager.h"
+ItemInfo::~ItemInfo()
+{
+}
 void ItemInfo::CreateItemInfo(const std::string& name, const std::string& texturePath)
 {
 	GameObject* Infoitem = new GameObject(name);

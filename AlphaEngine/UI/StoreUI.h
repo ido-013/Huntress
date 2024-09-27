@@ -8,19 +8,19 @@
 //class PlayerComp;
 class GameObject;
 class ItemInfo;
-struct StoreItem {
-    GameObject* itemObj = nullptr;
-    ItemInfo* info = nullptr;
-    std::function<void()> onClick;
-
-};
 
 class StoreUI {
+    struct StoreItem {
+        GameObject* itemObj = nullptr;
+        ItemInfo* info = nullptr;
+        std::function<void()> onClick;
+
+    };
     std::vector<StoreItem> storeItems;
     std::vector<GameObject*> itemFrames;
     GameObject* storePopup = nullptr;
     GameObject* closeBtn = nullptr;
-
+ 
 
     bool isStoreOpen = false;
     bool isEsc = false;
