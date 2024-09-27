@@ -63,13 +63,13 @@ void PlayerComp::Update()
 		else if (CombatComp::turn == CombatComp::PLAYERTURN && Projectile::isLaunchProjectile)
 		{
 			a->SetAnimation(false, 1, "arrowShot");
-			ad->playAudio(0, "./Assets/Audio/bow-release.mp3");
+			ad->playAudio(0, "./Assets/Audio/bow-release.mp3", 1.f);
 		}
 
 		else if (CombatComp::turn == CombatComp::PLAYERTURN && !CombatComp::isChaseDirection)
 		{
 			a->SetAnimation(false, 1, "arrowReady");
-			ad->playAudio(0, "./Assets/Audio/bow-loading.mp3");
+			ad->playAudio(0, "./Assets/Audio/bow-loading.mp3", 1.f);
 		}
 
 		else
