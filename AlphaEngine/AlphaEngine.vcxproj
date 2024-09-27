@@ -242,6 +242,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <None Include="Assets\Prefab\Background.prefab" />
     <None Include="Assets\Prefab\DirectionArrow.prefab" />
     <None Include="Assets\Prefab\Enemy.prefab" />
+    <None Include="Assets\Prefab\GhostSquare.prefab" />
     <None Include="Assets\Prefab\LeftTri.prefab" />
     <None Include="Assets\Prefab\LeftTri_R_DECO.prefab" />
     <None Include="Assets\Prefab\Player.prefab" />

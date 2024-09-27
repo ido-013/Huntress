@@ -447,6 +447,7 @@
     <None Include="Assets\Prefab\Square_DECO.prefab" />
     <None Include="Assets\UI\huntress.webp" />
     <None Include="Assets\UI\Storebg.webp" />
+    <None Include="Assets\Prefab\GhostSquare.prefab" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\BGM.mp3" />

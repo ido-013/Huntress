@@ -5,6 +5,7 @@
 #include "../GSM/GameStateManager.h"
 #include "../Level/CombatLevel.h"
 #include "../Camera/Camera.h"
+#include "../Particle/Particle.h"
 
 GameObject* background = nullptr;
 
@@ -33,8 +34,7 @@ void InitBackground()
 void UpdateBackground()
 {
 	/*float camX, camY;
-	Camera::GetInstance().GetPos(&camX, &camY);
-	background->GetComponent<TransformComp>()->SetPos({ camX, camY });*/
+	Camera::GetInstance().GetPos(&camX, &camY);*/
 }
 
 void ExitBackground()

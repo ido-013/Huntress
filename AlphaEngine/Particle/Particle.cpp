@@ -1,7 +1,7 @@
 #include "Particle.h"
 
-Particle::Particle(float _size, float _duration, int _count, SpriteComp::Color _color) :
-					size(_size), duration(_duration), count(_count), color(_color)
+Particle::Particle(float _size, float _duration, int _count, SpriteComp::Color _color, ParticleType _type) :
+					size(_size), duration(_duration), count(_count), color(_color), type(_type)
 {
 	
 }
@@ -24,14 +24,20 @@ void Particle::PlayParticle(float x, float y)
 		r = obj->AddComponent<RigidbodyComp>();
 		l = obj->AddComponent<LifetimeComp>();
 
-		t->SetPos({ x, y });
-		t->SetScale({ size, size });
-
 		s->SetColor(color.r, color.g, color.b);
 		s->SetAlpha(0.3f);
 
-		r->AddVelocity({ AERandFloat() * 100.f - 50.f, 200.f + AERandFloat() * 100.f });
-		r->useGravity = true;
+		switch (type)
+		{
+		case Explosion:
+			t->SetPos({ x, y });
+			t->SetScale({ size, size });
+
+			r->AddVelocity({ AERandFloat() * 100.f - 50.f, 200.f + AERandFloat() * 100.f });
+			r->useGravity = true;
+
+			break;
+		}
 
 		l->SetLifetime(duration);
 	}

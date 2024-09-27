@@ -986,7 +986,7 @@ void CombatComp::Update()
 			{
 				once = true;
 				SubtitleComp::IntersectDissolveText({ {{(f32)-0.3,(f32)0.1}, 1, "YOU LOSE", 1, 1, 1, 1}, 2, 0.7, 0.7 });
-				bga->playAudio(0, "./Assets/Audio/failfare.mp3");
+				
 			}
 		}
 		else
@@ -1010,6 +1010,7 @@ void CombatComp::Update()
 			{
 				once = true;
 				SubtitleComp::IntersectDissolveText({ {{(f32)-0.3,(f32)0.1}, 1, "GAME OVER", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+				bga->playAudio(0, "./Assets/Audio/failfare.mp3");
 			}
 		}
 		else

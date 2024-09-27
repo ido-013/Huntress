@@ -77,7 +77,7 @@ void Projectile::UpdateCollision()
     {
         if (CombatComp::turn == CombatComp::PLAYERTURN && oppoTypeQueue.front() == GameObject::Enemy)
         {
-            colState = 1;
+            colState = Character;
 
             // enemy hp update
             // dice
@@ -112,7 +112,7 @@ void Projectile::UpdateCollision()
             eComp->AddHp(-max(0, totalDmg));
 
             // particle
-            Particle p(5, 2, (int)totalDmg, { 255, 0, 0 });
+            Particle p(5, 2, (int)totalDmg, { 255, 0, 0 }, Particle::Explosion);
             p.PlayParticle(etf->GetPos().x, etf->GetPos().y);
          
             break;
@@ -120,7 +120,7 @@ void Projectile::UpdateCollision()
 
         else if (CombatComp::turn == CombatComp::ENEMYTURN && oppoTypeQueue.front() == GameObject::Player)
         {
-            colState = 1;
+            colState = Character;
 
             // player hp update
             // dice
@@ -134,28 +134,28 @@ void Projectile::UpdateCollision()
             pComp->AddHp(-max(0, totalDmg));
 
             // particle
-            Particle p(5, 2, (int)totalDmg, { 255, 0, 0 });
+            Particle p(5, 2, (int)totalDmg, { 255, 0, 0 }, Particle::Explosion);
             p.PlayParticle(ptf->GetPos().x, ptf->GetPos().y);
  
             break;
         }
 
-        else if (colState == 0 &&
+        else if (colState == Air &&
             (oppoTypeQueue.front() == GameObject::Square || oppoTypeQueue.front() == GameObject::LeftTri || oppoTypeQueue.front() == GameObject::RightTri))
         {
-            colState = 2;
+            colState = Ground;
         }
 
-        else if (colState == -1 &&
+        else if (colState == None &&
             CombatComp::turn == CombatComp::PLAYERTURN && oppoTypeQueue.front() == GameObject::Player)
         {
-            colState = 0;
+            colState = Air;
         }
 
-        else if (colState == -1 &&
+        else if (colState == None &&
             CombatComp::turn == CombatComp::ENEMYTURN && oppoTypeQueue.front() == GameObject::Enemy)
         {
-            colState = 0;
+            colState = Air;
         }
 
         oppoTypeQueue.pop();
@@ -177,7 +177,7 @@ void Projectile::Update()
         AEVec2 p = GameObjectManager::GetInstance().GetObj("player")->GetComponent<TransformComp>()->GetPos();
         AEVec2 e = GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<TransformComp>()->GetPos();
         // 투사체가 화면 끝에 닿기 전까지 반복
-        if (ptf->GetPos().y >= MAP_BOTTOM_MAX && colState < 1) {
+        if (ptf->GetPos().y >= MAP_BOTTOM_MAX && (colState == Air || colState == None)) {
             if (delay > ProjectileDelay)
             {
                 // 시간 간격
@@ -222,7 +222,17 @@ void Projectile::Update()
         }
         else
         {
+            AudioComp* bga = GameObjectManager::GetInstance().GetObj("background")->GetComponent<AudioComp>();
 
+            if (colState == Ground)
+            {
+                bga->playAudio(0, "./Assets/Audio/foot-step-snow.mp3", 0.7f, 0.6f);
+            }
+            else if (colState == Character)
+            {
+                bga->playAudio(0, "./Assets/Audio/weapon-arrow-shot.mp3", 0.7f);
+            }
+            
             isLaunchProjectile = false;
             projectile->GetComponent<SpriteComp>()->SetAlpha(0);
             GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
