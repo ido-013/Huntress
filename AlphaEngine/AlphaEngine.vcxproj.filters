@@ -183,7 +183,10 @@
     <ClCompile Include="UI\ItemInfo.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Components\InventoryComp.cpp">
+    <ClCompile Include="Data\Inventory.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Weather\Weather.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -401,13 +404,16 @@
     <ClInclude Include="UI\EscMenu.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Components\InventoryComp.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="ComponentManager\InterfaceComponent.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="UI\ItemInfo.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Inventory.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Weather\Weather.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

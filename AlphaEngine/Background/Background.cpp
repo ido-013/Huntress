@@ -5,7 +5,6 @@
 #include "../GSM/GameStateManager.h"
 #include "../Level/CombatLevel.h"
 #include "../Camera/Camera.h"
-#include "../Particle/Particle.h"
 
 GameObject* background = nullptr;
 

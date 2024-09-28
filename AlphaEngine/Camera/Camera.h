@@ -37,7 +37,7 @@ public:
 	float maxX = 2500;
 
 	float minY = -1865;
-	float maxY = 0;
+	float maxY = -800;
 
 	void Update();
 

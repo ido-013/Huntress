@@ -2,6 +2,7 @@
 #include "BaseLevel.h"
 #include "../UI/StoreUI.h"
 #include "../UI/EscMenu.h"
+#include "../Weather/Weather.h"
 class GameObject;
 
 namespace level
@@ -13,10 +14,11 @@ namespace level
 		GameObject* enemy = nullptr;
 		StoreUI storeUI;
 		EscUI Escmenu;
+
 		int level;
 
 	public:
-		NormalLevel(int _level) : level(_level) {}
+		NormalLevel(int _level);
 		~NormalLevel() override;
 		void Init() override;
 		void Update() override;

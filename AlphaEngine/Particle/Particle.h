@@ -5,21 +5,15 @@
 
 class Particle
 {
-public:
-	enum ParticleType
-	{
-		Explosion,
-		Flutter
-	};
-
 private:
 	float size;
 	float duration;
 	int count;
 	SpriteComp::Color color;
-	ParticleType type;
 
 public:
-	Particle(float _size, float _duration, int _count, SpriteComp::Color _color, ParticleType _type);
-	void PlayParticle(float x, float y);
+	Particle(float _size, float _duration, int _count, SpriteComp::Color _color);
+	void MakeGameObject(AEVec2 pos, AEVec2 vel);
+	void Explosion(AEVec2 pos, AEVec2 minVel, AEVec2 maxVel);
+	void Flutter(AEVec2 pos, AEVec2 vel);
 };
