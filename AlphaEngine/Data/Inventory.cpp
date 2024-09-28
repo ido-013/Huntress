@@ -4,10 +4,10 @@
 
 void Inventory::InitInventory()
 {
-	items.insert({ Item::Big, 0 });
-	items.insert({ Item::Stun, 0 });
-	items.insert({ Item::Straight, 0 });
-	items.insert({ Item::Orbit, 0 }); 
+	items.insert({ Item::Big,		0 });
+	items.insert({ Item::Stun,		0 });
+	items.insert({ Item::Straight,	0 });
+	items.insert({ Item::Orbit,		0 }); 
 }
 int Inventory::GetItemCount(Item item)
 {
@@ -34,7 +34,7 @@ bool Inventory::UseItem(Item item)
 	}
 	//Item 없다는 자막
 	std::cout << subtitleOfItem[4] << std::endl;
-	return true;
+	return false;
 }
 
 bool Inventory::AddItem(Item item)

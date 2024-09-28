@@ -5,7 +5,7 @@
 
 #define ITEM_LIMIT 3
 
-static std::string subtitleOfItem[10] {
+static std::string subtitleOfItem[12] {
 	"Uses Bigger and Bigger",
 	"Uses Stun Arrow",
 	"Uses Straight Arrow",
@@ -15,7 +15,9 @@ static std::string subtitleOfItem[10] {
 	"Purchases Stun Arrow",
 	"Purchases Straight Arrow",
 	"Purchases Show orbit",
-	"The number of items has reached its limit"
+	"The number of items has reached its limit",
+	"This item is already used",
+	"You've already used items in this round"
 };
 
 struct Inventory

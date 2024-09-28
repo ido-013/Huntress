@@ -21,13 +21,9 @@
 #include <vector>
 #include "../Utils/Utils.h"
 #include "../CollisionManager/CollisionManager.h"
+#include "../UI/StoreUI.h"
 
-#ifdef _DEBUG
-int CombatComp::ORBIT_CIRCLE_COUNT = 100;
-#endif
-#ifdef NDEBUG
-int CombatComp::ORBIT_CIRCLE_COUNT = 40;
-#endif
+int CombatComp::orbitCircleCount = DEFAULT_ORBIT_CIRCLE_COUNT;
 
 float delayTime = 0.2f;  // 2초 딜레이
 float elapsedTime = 0.0f;  // 경과 시간 저장
@@ -44,6 +40,15 @@ bool CombatComp::isChaseDirection = false;
 bool CombatComp::isReadyLaunch = false;
 bool CombatComp::isLaunched = false;
 bool CombatComp::isSetLaunchAngle = false;
+
+std::map<Inventory::Item, bool> CombatComp::itemState =
+{
+	{ Inventory::Item::Big,			false },
+	{ Inventory::Item::Stun,		false },
+	{ Inventory::Item::Straight,	false },
+	{ Inventory::Item::Orbit,		false }
+};
+bool CombatComp::isItemUsed = false;
 
 int CombatComp::ArrowCount = 0;
 
@@ -271,13 +276,75 @@ void CombatComp::FireAnArrow(TURN turn, GameObject& directionArrow)
 	CombatComp::ArrowCount++;
 }
 
+void CombatComp::ItemCheck()
+{
+	GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
+	if (itemState.find(Inventory::Item::Big)->second)
+	{
+		enemy->GetComponent<TransformComp>()->SetScale({ 90, 90 });
+		enemy->GetComponent<TransformComp>()->SetPos({
+			enemy->GetComponent<TransformComp>()->GetPos().x,
+			enemy->GetComponent<TransformComp>()->GetPos().y + 30 });
+		enemy->GetComponent<ColliderComp>()->SetScale({ 90, 90 });
+		enemy->GetComponent<ColliderComp>()->SetPos({
+			enemy->GetComponent<ColliderComp>()->GetPos().x,
+			enemy->GetComponent<ColliderComp>()->GetPos().y + 30 });
+	}
+	else
+	{
+		enemy->GetComponent<TransformComp>()->SetScale({ 30, 30 });
+		enemy->GetComponent<ColliderComp>()->SetScale({ 30, 30 });
+	}
+	if (itemState.find(Inventory::Item::Stun)->second)
+	{
+
+	}
+	else
+	{
+
+	}
+	if (itemState.find(Inventory::Item::Straight)->second)
+	{
+
+	}
+	else
+	{
+
+	}
+	if (itemState.find(Inventory::Item::Orbit)->second)
+	{
+		CombatComp::orbitCircleCount = 100;
+		ResetOrbit();
+	}
+	else
+	{
+		CombatComp::orbitCircleCount = 40;
+		ResetOrbit();
+	}
+}
+
 CombatComp::TURN CombatComp::TurnChange()
 {
 	if (!isCombat)
 	{
 		return NOBODYTURN;
 	}
-
+	if (CombatComp::turn == PLAYERTURN)
+	{
+		isItemUsed = false;
+		itemState.find(Inventory::Item::Big)->second = false;
+		itemState.find(Inventory::Item::Straight)->second = false;
+		itemState.find(Inventory::Item::Orbit)->second = false;
+	}
+	else if (CombatComp::turn == ENEMYTURN)
+	{
+		itemState.find(Inventory::Item::Stun)->second = false;
+	}
+	if (isItemUsed)
+	{
+		ItemCheck();
+		isItemUsed = false;
+	}
 	return CombatComp::turn == PLAYERTURN ? ENEMYTURN : PLAYERTURN;
 }
 
@@ -366,7 +433,7 @@ bool CombatComp::ObstacleCollisionCheck(std::vector<AEVec2>& coords)
 
 void CombatComp::InitOrbit()
 {
-	for (int i = 0; i < CombatComp::ORBIT_CIRCLE_COUNT; i++)
+	for (int i = 0; i < CombatComp::orbitCircleCount; i++)
 	{
 		std::string dotName = "dot" + std::to_string(i);
 		GameObject* dot = new GameObject(dotName);
@@ -455,8 +522,18 @@ void CombatComp::ShowOrbit()
 	}
 }
 
+void CombatComp::ResetOrbit()
+{
+	ExitOrbit();
+	InitOrbit();
+}
+
 void CombatComp::ExitOrbit()
 {
+	for (GameObject* dot : orbitDots)
+	{
+		delete dot;
+	}
 	orbitDots.clear();
 }
 
@@ -656,18 +733,108 @@ void CombatComp::Update()
 		TransformComp* ptf = GetPlayerTransform();
 		GameObject* enemy = GetEnemyObject();
 		TransformComp* etf = GetEnemyTransform();
-#ifdef _DEBUG
-		if (AEInputCheckTriggered(AEVK_T))
-		{
-			std::cout << std::sqrt(std::pow(ptf->GetPos().x - etf->GetPos().x, 2) + std::pow(ptf->GetPos().y - etf->GetPos().y, 2)) << std::endl;
-		}
-#endif // DEBUG
 		//적 스프라이트 x축 방향 설정
 		enemy->GetComponent<TransformComp>()->ReverseX(ptf->GetPos().x < etf->GetPos().x ? 0 : 1);
 		ShowOrbit();
 		switch (CombatComp::turn)
 		{
 			case PLAYERTURN: // player turn
+#ifdef _DEBUG
+				if (AEInputCheckTriggered(AEVK_5)) // big
+				{
+					if (!isItemUsed)
+					{
+						if (!itemState.find(Inventory::Item::Big)->second)
+						{
+							if (Data::PlayerData::inventory.UseItem(Inventory::Item::Big))
+							{
+								SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[Data::PlayerData::inventory.Big], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+								itemState.find(Inventory::Item::Big)->second = true;
+								isItemUsed = true;
+								ItemCheck();
+							}
+							else
+								SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[4], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+						}
+						else
+							SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[10], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+					}
+					else
+						SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[11], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+				}
+				if (AEInputCheckTriggered(AEVK_6)) // stun
+				{
+					if (!isItemUsed)
+					{
+						if (!itemState.find(Inventory::Item::Stun)->second)
+						{
+							if (Data::PlayerData::inventory.UseItem(Inventory::Item::Stun))
+							{
+								SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[Data::PlayerData::inventory.Stun], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+								itemState.find(Inventory::Item::Stun)->second = true;
+								isItemUsed = true;
+								ItemCheck();
+							}
+							else
+							{
+								SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[4], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+							}
+						}
+						else
+						{
+							SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[10], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+						}
+					}
+					else
+					{
+						SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[11], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+					}
+				}
+				if (AEInputCheckTriggered(AEVK_7)) // straight
+				{
+					if (!isItemUsed)
+					{
+						if (!itemState.find(Inventory::Item::Straight)->second)
+						{
+							if (Data::PlayerData::inventory.UseItem(Inventory::Item::Straight))
+							{
+								SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[Data::PlayerData::inventory.Straight], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+								itemState.find(Inventory::Item::Straight)->second = true;
+								isItemUsed = true;
+								ItemCheck();
+							}
+							else
+								SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[4], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+						}
+						else
+							SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[10], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+					}
+					else
+						SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[11], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+				}
+				if (AEInputCheckTriggered(AEVK_8)) // orbit
+				{
+					if (!isItemUsed)
+					{
+						if (!itemState.find(Inventory::Item::Orbit)->second)
+						{
+							if (Data::PlayerData::inventory.UseItem(Inventory::Item::Orbit))
+							{
+								SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[Data::PlayerData::inventory.Orbit], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+								itemState.find(Inventory::Item::Orbit)->second = true;
+								isItemUsed = true;
+								ItemCheck();
+							}
+							else
+								SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[4], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+						}
+						else
+							SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[10], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+					}
+					else
+						SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[11], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+				}
+#endif // DEBUG
 
 				if (!Projectile::isLaunchProjectile)
 				{
@@ -759,26 +926,31 @@ void CombatComp::Update()
 					Camera::GetInstance().SetPos(etf->GetPos().x, etf->GetPos().y);
 				}
 			
-				if (directionArrow->GetComponent<CombatComp>()->isDrawDirection == false && ArrowCount < 1)
+				if (directionArrow->GetComponent<CombatComp>()->
+					isDrawDirection == false && ArrowCount < 1)
 				{
 					std::cout << "ENEMYTURN" << std::endl;
 					SubtitleComp::IntersectDissolveText({ {{(f32)-0.3,(f32)0.1}, 1, "ENEMY TURN", 1, 1, 1, 1}, 3, 1, 1 });
 					
-					switch (enemy->GetComponent<EnemyComp>()->enemyData->grade)
+					switch (enemy->GetComponent<EnemyComp>()->
+						enemyData->grade)
 					{
 					case Data::EnemyData::GRADE::Normal:
 						AICombatSystemApplyWind = true;
-						AICombatSystemEnemyGrade = Data::EnemyData::GRADE::Normal;
+						AICombatSystemEnemyGrade = 
+							Data::EnemyData::GRADE::Normal;
 						angleInterval = ANGLE_INTERVER;
 						break;
 					case Data::EnemyData::GRADE::Elite:
 						AICombatSystemApplyWind = true;
-						AICombatSystemEnemyGrade = Data::EnemyData::GRADE::Elite;
+						AICombatSystemEnemyGrade = 
+							Data::EnemyData::GRADE::Elite;
 						angleInterval = ANGLE_INTERVER;
 						break;
 					case Data::EnemyData::GRADE::Boss:
 						AICombatSystemApplyWind = true;
-						AICombatSystemEnemyGrade = Data::EnemyData::GRADE::Boss;
+						AICombatSystemEnemyGrade = 
+							Data::EnemyData::GRADE::Boss;
 						angleInterval = ANGLE_INTERVER;
 						break;
 					}
@@ -811,8 +983,6 @@ void CombatComp::Update()
 			 
 				if (isDrawDirection)
 				{
-					
-
 					if (isSetLaunchAngle)
 					{
 						isSetLaunchAngle = false;
@@ -821,8 +991,8 @@ void CombatComp::Update()
 					}
 					else
 					{
-						directionArrow->GetComponent<SpriteComp>()->SetAlpha(1);
-						SetOrbitAlpha(1);
+						directionArrow->GetComponent<SpriteComp>()->SetAlpha(SHOW_ENEMY_DIRECTION_ARROW);
+						SetOrbitAlpha(SHOW_ENEMY_ORBIT);
 						if (GetPlayerEnemyDistance() > DISTANCE_ARANGE_5)
 						{
 							directionArrow->GetComponent<SpriteComp>()->SetAlpha(0);
@@ -867,10 +1037,8 @@ void CombatComp::Update()
 						FireAnArrow(ENEMYTURN, *directionArrow);
 					}
 				}
-
 				break;
 		}
-		
 		DataUpdate();
 		checkState();
 	}
@@ -887,7 +1055,6 @@ void CombatComp::Update()
 			//AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
 			Camera::GetInstance().SetPos(ptf->GetPos().x, ptf->GetPos().y);
 			Camera::GetInstance().SetHeight(1);
-
 			if (once == false)
 			{
 				once = true;

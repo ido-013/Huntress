@@ -222,7 +222,6 @@ void Projectile::Update()
         }
         else
         {
-
             isLaunchProjectile = false;
             projectile->GetComponent<SpriteComp>()->SetAlpha(0);
             GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");

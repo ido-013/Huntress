@@ -8,18 +8,13 @@
 #include "../Components/SubtitleComp.h"
 #include "../UI/ItemInfo.h"
 #include <string>
-#define SUBTITLE {f32(-0.5), f32(0.7)}
-#define SUB_GOLD {f32(0.3), f32( 0.455)}
 std::string StoreUI::goldText = "";
- #define PLAY_AUDIO_PURCHASE GameObjectManager::GetInstance().GetObj("background")->GetComponent<AudioComp>()->playAudio(0, "./Assets/Audio/coin-donation.mp3")
- #define PLAY_AUDIO_ERROR GameObjectManager::GetInstance().GetObj("background")->GetComponent<AudioComp>()->playAudio(0, "./Assets/Audio/error.mp3")
- //#define PLAY_AUDIO_HOVER GameObjectManager::GetInstance().GetObj("background")->GetComponent<AudioComp>()->playAudio(0, "./Assets/Audio/Push3.wav") 
- void StoreUI::CreateStoreItem(const std::string& name, const std::string& texturePath, const std::string& InfoPath, const AEVec2& pos, int cost,
-     std::function<void()> onClick,
-     std::function<void(UIComponent*)> onHover = nullptr,
-     std::function<void(UIComponent*)> outHover = nullptr) {
-     StoreItem item;
- 
+void StoreUI::CreateStoreItem(const std::string& name, const std::string& texturePath, const std::string& InfoPath, const AEVec2& pos, int cost,
+    std::function<void()> onClick,
+    std::function<void(UIComponent*)> onHover = nullptr,
+    std::function<void(UIComponent*)> outHover = nullptr) {
+    StoreItem item;
+
     item.itemObj = new GameObject();
     item.itemObj->AddComponent<UIComponent>();
     UIComponent* ui = item.itemObj->GetComponent<UIComponent>();
@@ -278,7 +273,7 @@ void StoreUI::InitStoreUI(GameObject* player) {
         if (playerComp->playerData->gold >= 7) {
             if (playerComp->playerData->inventory.AddItem(Data::PlayerData::inventory.Orbit))
             {
-                SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[Data::PlayerData::inventory.Orbit], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+                SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[Data::PlayerData::inventory.Orbit + 5], 1, 0, 0, 1}, 2, 0.7, 0.7 });
                 playerComp->playerData->gold -= 7;
                 PLAY_AUDIO_PURCHASE;
             }
@@ -300,7 +295,7 @@ void StoreUI::InitStoreUI(GameObject* player) {
         if (playerComp->playerData->gold >= 7) {
             if (playerComp->playerData->inventory.AddItem(Data::PlayerData::inventory.Stun))
             {
-                SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[Data::PlayerData::inventory.Stun], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+                SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[Data::PlayerData::inventory.Stun + 5], 1, 0, 0, 1}, 2, 0.7, 0.7 });
                 playerComp->playerData->gold -= 7;
                 PLAY_AUDIO_PURCHASE;
             }
@@ -321,7 +316,7 @@ void StoreUI::InitStoreUI(GameObject* player) {
         if (playerComp->playerData->gold >= 7) {
             if (playerComp->playerData->inventory.AddItem(Data::PlayerData::inventory.Straight))
             {
-                SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[Data::PlayerData::inventory.Straight], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+                SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[Data::PlayerData::inventory.Straight + 5], 1, 0, 0, 1}, 2, 0.7, 0.7 });
                 playerComp->playerData->gold -= 7;
                 PLAY_AUDIO_PURCHASE;
             }
@@ -343,7 +338,7 @@ void StoreUI::InitStoreUI(GameObject* player) {
             if (playerComp->playerData->inventory.AddItem(Data::PlayerData::inventory.Big))
             {
                 playerComp->playerData->gold -= 7;
-                SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[Data::PlayerData::inventory.Big], 1, 0, 0, 1}, 2, 0.7, 0.7});
+                SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[Data::PlayerData::inventory.Big + 5], 1, 0, 0, 1}, 2, 0.7, 0.7});
                 PLAY_AUDIO_PURCHASE;
             }
             else
