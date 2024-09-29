@@ -708,7 +708,7 @@ void CombatComp::Update()
 #ifdef _DEBUG
 	if (AEInputCheckTriggered(AEVK_R))
 	{
-		state = GAMEOVER;
+		GetPlayerObject()->GetComponent<PlayerComp>()->playerData->hp = 0;
 	}
 	if (AEInputCheckTriggered(AEVK_N))
 	{
@@ -1196,16 +1196,13 @@ void CombatComp::Update()
 		TransformComp* etf = GetEnemyTransform();
 		PlayerComp* pComp = player->GetComponent<PlayerComp>();
 
-		if (pComp->GetHp() <= 0)
+		if (pComp->playerData->inventory.isGBY)
 		{
-			if (pComp->playerData->inventory.isGBY)
-			{
-				//부활 연출 필요
-				pComp->playerData->hp = pComp->playerData->maxLife;
-				pComp->playerData->inventory.isGBY = false;
-				state = COMBAT;
-				turn = TURN::PLAYERTURN;
-			}
+			//부활 연출 필요
+			pComp->playerData->hp = pComp->playerData->maxLife;
+			pComp->playerData->inventory.isGBY = false;
+			state = COMBAT;
+			turn = TURN::PLAYERTURN;
 		}
 		else
 		{
