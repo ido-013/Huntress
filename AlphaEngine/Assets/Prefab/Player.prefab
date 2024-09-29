@@ -6,7 +6,8 @@
       "compData": {
         "audio": [
           "./Assets/Audio/bow-loading.mp3",
-          "./Assets/Audio/bow-release.mp3"
+          "./Assets/Audio/bow-release.mp3",
+          "./Assets/Audio/short-choir.mp3"
         ],
         "volume": 0.5,
         "pitch": 1.0
