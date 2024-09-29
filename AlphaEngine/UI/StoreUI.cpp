@@ -9,8 +9,14 @@
 #include "../UI/ItemInfo.h"
 #include <string>
 #define SUBTITLE {f32(-0.5), f32(0.7)}
-#define SUB_GOLD {f32(0.3), f32( 0.455)}
+#define SUB_GOLD {f32(0.3), f32( 0.465)}
+#define SUB_DEF {f32(0.5),f32(- 0.46)}
+#define SUB_ATK {f32(0.25),f32(- 0.46)}
+#define SUB_HPU {f32(-0.02),f32(- 0.46)}
 std::string StoreUI::goldText = "";
+std::string StoreUI::atkText = "";
+std::string StoreUI::defText = "";
+std::string StoreUI::hpuText = "";
  #define PLAY_AUDIO_PURCHASE GameObjectManager::GetInstance().GetObj("background")->GetComponent<AudioComp>()->playAudio(0, "./Assets/Audio/coin-donation.mp3")
  #define PLAY_AUDIO_ERROR GameObjectManager::GetInstance().GetObj("background")->GetComponent<AudioComp>()->playAudio(0, "./Assets/Audio/error.mp3")
  //#define PLAY_AUDIO_HOVER GameObjectManager::GetInstance().GetObj("background")->GetComponent<AudioComp>()->playAudio(0, "./Assets/Audio/Push3.wav") 
@@ -118,18 +124,27 @@ void StoreUI::OpenStore() {
     isStoreOpen = true;
     SetUIVisibility(true);
     SubtitleComp::ModifySubtitle("goldText", 1);
+    SubtitleComp::ModifySubtitle("atkText", 1);
+    SubtitleComp::ModifySubtitle("defText", 1);
+    SubtitleComp::ModifySubtitle("hpuText", 1);
 }
 
 void StoreUI::CloseStore() {
     isStoreOpen = false;
     SetUIVisibility(false);
     SubtitleComp::ModifySubtitle("goldText",0);
+    SubtitleComp::ModifySubtitle("atkText", 0);
+    SubtitleComp::ModifySubtitle("defText", 0);
+    SubtitleComp::ModifySubtitle("hpuText", 0);
 }
 
 void StoreUI::InitStoreUI(GameObject* player) {
     CombatComp::isCombat = false;
  
     SubtitleComp::AddSubtitle({ SUB_GOLD, float(0.6), "goldText", f32(0.9), f32(0.9), f32(0), 1 });
+    SubtitleComp::AddSubtitle({ SUB_DEF, float(0.6), "defText", f32(0.9), f32(0), f32(0), 1 });
+    SubtitleComp::AddSubtitle({ SUB_ATK, float(0.6), "atkText", f32(0.9), f32(0), f32(0), 1 });
+    SubtitleComp::AddSubtitle({ SUB_HPU, float(0.6), "hpuText", f32(0.9), f32(0), f32(0), 1 });
     // Initialize Store Popup
     storePopup = new GameObject();
     storePopup->AddComponent<UIComponent>();
@@ -367,6 +382,19 @@ void StoreUI::UpdateStoreUI() {
     if (SubtitleComp::FindSubtitle("goldText")) {
         goldText = "GOLD : " + std::to_string(GameObjectManager::GetInstance().GetObj("player")->GetComponent<PlayerComp>()->playerData->gold);
         SubtitleComp::ModifySubtitle("goldText", goldText);
+    }
+    if (SubtitleComp::FindSubtitle("atkText")) {
+        atkText = std::to_string((int)GameObjectManager::GetInstance().GetObj("player")->GetComponent<PlayerComp>()->playerData->damage);
+        SubtitleComp::ModifySubtitle("atkText", atkText);
+
+    }
+    if (SubtitleComp::FindSubtitle("defText")) {
+        defText = std::to_string((int)GameObjectManager::GetInstance().GetObj("player")->GetComponent<PlayerComp>()->playerData->armor);
+        SubtitleComp::ModifySubtitle("defText", defText);
+    }
+    if (SubtitleComp::FindSubtitle("hpuText")) {
+        hpuText = std::to_string((int)GameObjectManager::GetInstance().GetObj("player")->GetComponent<PlayerComp>()->playerData->maxLife);
+        SubtitleComp::ModifySubtitle("hpuText", hpuText);
     }
 }
 

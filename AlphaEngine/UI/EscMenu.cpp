@@ -13,7 +13,7 @@ bool EscUI::getOpen()
 }
 void EscUI::ToggleUI() {
     isOpen = !isOpen;
-    SubtitleComp::ModifySubtitle("goldText", (float)!isOpen);
+
     SubtitleComp::ModifySubtitle("Bigger", (float)!isOpen);
     SubtitleComp::ModifySubtitle("stun", (float)!isOpen);
     SubtitleComp::ModifySubtitle("StraightArrow", (float)!isOpen);
