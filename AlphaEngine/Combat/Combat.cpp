@@ -54,8 +54,6 @@ int CombatComp::ArrowCount = 0;
 
 std::vector<TransformComp*> CombatComp::blocks;
 
-std::vector<GameObject*> CombatComp::orbitDots;
-
 void CombatComp::DataUpdate()
 {
 	data.angle = turn == PLAYERTURN ? pAngle : turn == ENEMYTURN ? eAngle : 0;
@@ -285,6 +283,7 @@ void CombatComp::ItemCheck()
 		enemy->GetComponent<TransformComp>()->SetPos({
 			enemy->GetComponent<TransformComp>()->GetPos().x,
 			enemy->GetComponent<TransformComp>()->GetPos().y + 30 });
+
 		enemy->GetComponent<ColliderComp>()->SetScale({ 90, 90 });
 		enemy->GetComponent<ColliderComp>()->SetPos({
 			enemy->GetComponent<ColliderComp>()->GetPos().x,
@@ -292,8 +291,8 @@ void CombatComp::ItemCheck()
 	}
 	else
 	{
-		enemy->GetComponent<TransformComp>()->SetScale({ 30, 30 });
-		enemy->GetComponent<ColliderComp>()->SetScale({ 30, 30 });
+		enemy->GetComponent<TransformComp>()->SetScale({ 50, 50 });
+		enemy->GetComponent<ColliderComp>()->SetScale({ 50, 50 });
 	}
 	if (itemState.find(Inventory::Item::Stun)->second)
 	{
@@ -311,16 +310,6 @@ void CombatComp::ItemCheck()
 	{
 
 	}
-	if (itemState.find(Inventory::Item::Orbit)->second)
-	{
-		CombatComp::orbitCircleCount = 100;
-		ResetOrbit();
-	}
-	else
-	{
-		CombatComp::orbitCircleCount = 40;
-		ResetOrbit();
-	}
 }
 
 CombatComp::TURN CombatComp::TurnChange()
@@ -329,19 +318,18 @@ CombatComp::TURN CombatComp::TurnChange()
 	{
 		return NOBODYTURN;
 	}
-	if (CombatComp::turn == PLAYERTURN)
-	{
-		isItemUsed = false;
-		itemState.find(Inventory::Item::Big)->second = false;
-		itemState.find(Inventory::Item::Straight)->second = false;
-		itemState.find(Inventory::Item::Orbit)->second = false;
-	}
-	else if (CombatComp::turn == ENEMYTURN)
-	{
-		itemState.find(Inventory::Item::Stun)->second = false;
-	}
 	if (isItemUsed)
 	{
+		if (CombatComp::turn == PLAYERTURN)
+		{
+			itemState.find(Inventory::Item::Big)->second = false;
+			itemState.find(Inventory::Item::Straight)->second = false;
+			itemState.find(Inventory::Item::Orbit)->second = false;
+		}
+		else if (CombatComp::turn == ENEMYTURN)
+		{
+			itemState.find(Inventory::Item::Stun)->second = false;
+		}
 		ItemCheck();
 		isItemUsed = false;
 	}
@@ -431,6 +419,27 @@ bool CombatComp::ObstacleCollisionCheck(std::vector<AEVec2>& coords)
 	return false;
 }
 
+void CombatComp::SetOrbitAlpha(bool isView)
+{
+	for (int i = 0; i < CombatComp::orbitCircleCount; i++)
+	{
+		if (i < 40)
+		{
+			GameObjectManager::GetInstance().GetObj("directionArrow")->GetComponent<CombatComp>()->orbitDots[i]->GetComponent<SpriteComp>()->SetAlpha(isView);
+		}
+		else
+		{
+			GameObjectManager::GetInstance().GetObj("directionArrow")->GetComponent<CombatComp>()->orbitDots[i]->GetComponent<SpriteComp>()->SetAlpha(itemState.find(Inventory::Item::Orbit)->second);
+		}
+	}
+
+	/*
+	for (auto dot : GameObjectManager::GetInstance().GetObj("directionArrow")->GetComponent<CombatComp>()->orbitDots)
+	{
+		dot->GetComponent<SpriteComp>()->SetAlpha(isView);
+	}
+	*/
+}
 void CombatComp::InitOrbit()
 {
 	for (int i = 0; i < CombatComp::orbitCircleCount; i++)
@@ -445,21 +454,14 @@ void CombatComp::InitOrbit()
 		dot->GetComponent<SpriteComp>()->SetTexture("./Assets/circle.jpg");
 		dot->GetComponent<SpriteComp>()->SetAlpha(0);
 
-		orbitDots.push_back(dot);
+		GameObjectManager::GetInstance().GetObj("directionArrow")->GetComponent<CombatComp>()->orbitDots.push_back(dot);
 	}
 }
 
-void CombatComp::SetOrbitAlpha(bool isView)
-{
-	for (auto dot : orbitDots)
-	{
-		dot->GetComponent<SpriteComp>()->SetAlpha(isView);
-	}
-}
 
 void CombatComp::ShowOrbit()
 {
-	if (orbitDots.empty())
+	if (GameObjectManager::GetInstance().GetObj("directionArrow")->GetComponent<CombatComp>()->orbitDots.empty())
 		return;
 	int dotCount = 0;
 	float time = 0;
@@ -478,7 +480,7 @@ void CombatComp::ShowOrbit()
 		y = GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<TransformComp>()->GetPos().y;
 	}
 
-	for (auto dot : orbitDots)
+	for (auto dot : GameObjectManager::GetInstance().GetObj("directionArrow")->GetComponent<CombatComp>()->orbitDots)
 	{
 		// 시간 간격
 		float timeStep = static_cast<float>(AEFrameRateControllerGetFrameTime());
@@ -521,22 +523,6 @@ void CombatComp::ShowOrbit()
 		time += timeStep;
 	}
 }
-
-void CombatComp::ResetOrbit()
-{
-	ExitOrbit();
-	InitOrbit();
-}
-
-void CombatComp::ExitOrbit()
-{
-	for (GameObject* dot : orbitDots)
-	{
-		delete dot;
-	}
-	orbitDots.clear();
-}
-
 CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 {
 	GameObject* player = GameObjectManager::GetInstance().GetObj("player");

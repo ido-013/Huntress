@@ -33,7 +33,7 @@ void level::NormalLevel::Init()
 	Camera::GetInstance().fix = true;
 	
 	InitBackground();
-	CombatComp::InitOrbit();
+	GameObjectManager::GetInstance().GetObj("directionArrow")->GetComponent<CombatComp>()->InitOrbit();
 	player = GameObjectManager::GetInstance().GetObj("player");
 	enemy = GameObjectManager::GetInstance().GetObj("enemy");
 
@@ -98,6 +98,5 @@ void level::NormalLevel::Update()
 void level::NormalLevel::Exit()
 {
 	storeUI.ExitStoreUI();
-	CombatComp::ExitOrbit();
 	CombatComp::blocks.clear();
 }

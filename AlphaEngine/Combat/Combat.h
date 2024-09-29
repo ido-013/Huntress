@@ -37,7 +37,7 @@
 	#define DISTANCE_ARANGE_4 1500
 	#define DISTANCE_ARANGE_5 1800
 
-#define DEFAULT_ORBIT_CIRCLE_COUNT 40
+#define DEFAULT_ORBIT_CIRCLE_COUNT 120
 #define DEBUG_ORBIT_CIRCLE_COUNT 200
 #define USE_ITEM_ORBIT_CIRCLE_COUNT 120
 
@@ -107,12 +107,10 @@ public:
 	static void ItemCheck();
 
 	static int orbitCircleCount;
-	static std::vector<GameObject*> orbitDots;
-	static void InitOrbit();
-	static void SetOrbitAlpha(bool isView);
+	std::vector<GameObject*> orbitDots;
+	void InitOrbit();
+	void SetOrbitAlpha(bool isView);
 	void ShowOrbit();
-	static void ResetOrbit();
-	static void ExitOrbit();
 
 	void SetPlayerAngle(float angle);
 	float GetPlayerAngle();
