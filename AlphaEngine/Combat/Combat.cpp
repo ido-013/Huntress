@@ -298,14 +298,6 @@ void CombatComp::ItemCheck()
 		enemy->GetComponent<TransformComp>()->SetScale({ 50, 50 });
 		enemy->GetComponent<ColliderComp>()->SetScale({ 50, 50 });
 	}
-	if (itemState.find(Inventory::Item::Straight)->second)
-	{
-
-	}
-	else
-	{
-
-	}
 }
 
 void CombatComp::SetItemState(bool isUsed)
@@ -502,20 +494,23 @@ void CombatComp::ShowOrbit()
 			initialVelocityX = (ePower + DEFAULT_POWER) * std::cos(eAngle);
 			initialVelocityY = (ePower + DEFAULT_POWER) * std::sin(eAngle);
 		}
+		float velocityX = initialVelocityX;
+		float velocityY = initialVelocityY;
+		if (!CombatComp::itemState.find(Inventory::Item::Straight)->second)
+		{
+			// 현재 속도 계산 (속도에 공기 저항과 바람 적용)
+			velocityX = initialVelocityX + Projectile::wind.x;
+			velocityY = initialVelocityY + Projectile::wind.y;
 
-		//// 현재 속도 계산 (속도에 공기 저항과 바람 적용)
-		float velocityX = initialVelocityX + Projectile::wind.x;
-		float velocityY = initialVelocityY + Projectile::wind.y;
-		//std::cout << "velocityX " << velocityX << std::endl;
-		//std::cout << "velocityY " << velocityY << std::endl;
-		float airResistanceX = -AIR_RESISTANCE_COEFFICIENT
-			* velocityX * std::abs(velocityX);// / mass;
-		float airResistanceY = -AIR_RESISTANCE_COEFFICIENT
-			* velocityY * std::abs(velocityY);// / mass;
+			float airResistanceX = -AIR_RESISTANCE_COEFFICIENT
+				* velocityX * std::abs(velocityX);// / mass;
+			float airResistanceY = -AIR_RESISTANCE_COEFFICIENT
+				* velocityY * std::abs(velocityY);// / mass;
 
-		// 속도에 공기 저항 적용
-		velocityX += airResistanceX * time;
-		velocityY += airResistanceY * time - GRAVITY * time;
+			// 속도에 공기 저항 적용
+			velocityX += airResistanceX * time;
+			velocityY += airResistanceY * time - GRAVITY * time;
+		}
 
 		dot->GetComponent<TransformComp>()->SetPos({ x + velocityX * time, y + velocityY * time });
 

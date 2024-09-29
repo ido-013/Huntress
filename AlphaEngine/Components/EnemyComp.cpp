@@ -120,35 +120,36 @@ void EnemyComp::BigEffect()
 		
 		if (timer < 0.1f)
 		{
-			t->SetScale({ 90, 90 });
+			
+			t->SetScale({ 90.f * (t->GetScale().x > 0 ? 1 : -1), 90});
 			t->SetPos({ t->GetPos().x, t->GetPos().y + 30 });
 			c->SetCollider();
 		}
 
 		else if (timer < 0.2f)
 		{
-			t->SetScale({ 50, 50 });
+			t->SetScale({ 50.f * (t->GetScale().x > 0 ? 1 : -1), 50 });
 			t->SetPos({ t->GetPos().x, t->GetPos().y - 30 });
 			c->SetCollider();
 		}
 
 		else if (timer < 0.3f)
 		{
-			t->SetScale({ 90, 90 });
+			t->SetScale({ 90.f * (t->GetScale().x > 0 ? 1 : -1), 90 });
 			t->SetPos({ t->GetPos().x, t->GetPos().y + 30 });
 			c->SetCollider();
 		}
 
 		else if (timer < 0.4f)
 		{
-			t->SetScale({ 50, 50 });
+			t->SetScale({ 50.f * (t->GetScale().x > 0 ? 1 : -1), 50 });
 			t->SetPos({ t->GetPos().x, t->GetPos().y - 30 });
 			c->SetCollider();
 		}
 
 		else
 		{
-			t->SetScale({ 90, 90 });
+			t->SetScale({ 90.f * (t->GetScale().x > 0 ? 1 : -1), 90 });
 			t->SetPos({ t->GetPos().x, t->GetPos().y + 30 });
 			c->SetCollider();
 			big = false;

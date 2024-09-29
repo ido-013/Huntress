@@ -181,26 +181,37 @@ void Projectile::Update()
         AEVec2 p = GameObjectManager::GetInstance().GetObj("player")->GetComponent<TransformComp>()->GetPos();
         AEVec2 e = GameObjectManager::GetInstance().GetObj("enemy")->GetComponent<TransformComp>()->GetPos();
         // 투사체가 화면 끝에 닿기 전까지 반복
-        if (ptf->GetPos().y >= MAP_BOTTOM_MAX && (colState == Air || colState == None)) {
+        if ((ptf->GetPos().y >= MAP_BOTTOM_MAX && (colState == Air || colState == None)) &&
+            (ptf->GetPos().y <= MAP_TOP_MAX && (colState == Air || colState == None)) &&
+            (ptf->GetPos().x >= MAP_LEFT_MAX && (colState == Air || colState == None)) &&
+            (ptf->GetPos().x <= MAP_RIGHT_MAX && (colState == Air || colState == None))
+            ) {
             if (delay > ProjectileDelay)
             {
                 // 시간 간격
                 float timeStep = static_cast<float>(AEFrameRateControllerGetFrameTime());
-                // 현재 속도 계산 (속도에 공기 저항과 바람 적용)
-                velocityX = initialVelocity.x + wind.x;
-                velocityY = initialVelocity.y + wind.y;
+                if (CombatComp::itemState.find(Inventory::Item::Straight)->second)
+                {
+                    velocityX = initialVelocity.x;
+                    velocityY = initialVelocity.y;
+                }
+                else
+                {
+                    // 현재 속도 계산 (속도에 공기 저항과 바람 적용)
+                    velocityX = initialVelocity.x + wind.x;
+                    velocityY = initialVelocity.y + wind.y;
 
-                //std::cout << " Wind x,y :"  << wind.x << ", " << wind.y << std::endl;
+                    //std::cout << " Wind x,y :"  << wind.x << ", " << wind.y << std::endl;
 
-                float airResistanceX = -AIR_RESISTANCE_COEFFICIENT
-                    * velocityX * std::abs(velocityX);// / mass;
-                float airResistanceY = -AIR_RESISTANCE_COEFFICIENT
-                    * velocityY * std::abs(velocityY);// / mass;
+                    float airResistanceX = -AIR_RESISTANCE_COEFFICIENT
+                        * velocityX * std::abs(velocityX);// / mass;
+                    float airResistanceY = -AIR_RESISTANCE_COEFFICIENT
+                        * velocityY * std::abs(velocityY);// / mass;
 
-                // 속도에 공기 저항 적용
-                velocityX += airResistanceX * time;
-                velocityY += airResistanceY * time - GRAVITY * time;
-
+                    // 속도에 공기 저항 적용
+                    velocityX += airResistanceX * time;
+                    velocityY += airResistanceY * time - GRAVITY * time;
+                }
                 //std::cout << "Velocity x,y : " << velocityX << " , " << velocityY << std::endl;
 
                 // 위치 업데이트
@@ -214,8 +225,16 @@ void Projectile::Update()
                 //AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
                 Camera::GetInstance().SetPos(ptf->GetPos().x, ptf->GetPos().y);
 
-                Particle p(5, 2, 1, { 255, 255, 0 });
-                p.Explosion(ptf->GetPos(), {-velocityX, 50.f}, {-velocityX * 10, 200.f});
+                if (CombatComp::itemState.find(Inventory::Item::Stun)->second)
+                {
+                    Particle p(5, 0.5f, 1, { 255, 255, 0 });
+                    p.Explosion(ptf->GetPos(), { -velocityX, 50.f }, { -velocityX * 10, 200.f });
+                }
+                else if (CombatComp::itemState.find(Inventory::Item::Straight)->second)
+                {
+                    Particle p(5, 0.5f, 1, { 255, 0, 255 });
+                    p.Explosion(ptf->GetPos(), { -velocityX, 50.f }, { -velocityX * 10, 200.f });
+                }
 
                 // 시간 증가
                 time += timeStep;
