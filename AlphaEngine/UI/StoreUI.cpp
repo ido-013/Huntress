@@ -128,7 +128,7 @@ void StoreUI::CloseStore() {
 
 void StoreUI::InitStoreUI(GameObject* player) {
     CombatComp::isCombat = false;
-    CombatComp::state = CombatComp::STATE::STORE;
+ 
     SubtitleComp::AddSubtitle({ SUB_GOLD, float(0.6), "goldText", f32(0.9), f32(0.9), f32(0), 1 });
     // Initialize Store Popup
     storePopup = new GameObject();
@@ -358,8 +358,9 @@ void StoreUI::InitStoreUI(GameObject* player) {
             PLAY_AUDIO_ERROR;
         }
     });
-
+    
     OpenStore();
+    CombatComp::state = CombatComp::STATE::STORE;
 }
 
 void StoreUI::UpdateStoreUI() {

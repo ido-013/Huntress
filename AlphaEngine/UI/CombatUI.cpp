@@ -240,8 +240,8 @@ void CombatUI::InitCombatUI()
 	enemyHP->AddComponent<UIComponent>();
 
 	UIComponent* enemyHpComp = enemyHP->GetComponent<UIComponent>();
-	enemyHpComp->SetScale({ 80, 200 * (float(enemy->GetComponent<EnemyComp>()->enemyData->hp) / player->GetComponent<PlayerComp>()->playerData->maxLife) });
-	enemyHpComp->SetPos({ 720 , (-330 - (200 - 200 * (float(enemy->GetComponent<EnemyComp>()->enemyData->hp) / player->GetComponent<PlayerComp>()->playerData->maxLife)) / 2.f) });
+	enemyHpComp->SetScale({ 80, 200 * (float(enemy->GetComponent<EnemyComp>()->enemyData->hp) / enemy->GetComponent<EnemyComp>()->enemyData->maxLife) });
+	enemyHpComp->SetPos({ 720 , (-330 - (200 - 200 * (float(enemy->GetComponent<EnemyComp>()->enemyData->hp) / enemy->GetComponent<EnemyComp>()->enemyData->maxLife)) / 2.f) });
 	enemyHpComp->SetTexture("Assets/UI/HP_GAUGE.png");
 	enemyHpComp->SetColor(200, 200, 0);
 
