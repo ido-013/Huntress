@@ -11,7 +11,9 @@
           "./Assets/Audio/tada-military.mp3",
           "./Assets/Audio/failfare.mp3",
           "./Assets/Audio/error.mp3",
-          "./Assets/Audio/coin-donation.mp3"
+          "./Assets/Audio/coin-donation.mp3",
+          "./Assets/Audio/weapon-arrow-shot.mp3",
+          "./Assets/Audio/foot-step-snow.mp3"
         ],
         "volume": 0.5,
         "pitch": 1.0

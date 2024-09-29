@@ -36,7 +36,7 @@ void EnemyComp::AddHp(float value)
 	}
 
 	owner->GetComponent<AnimatorComp>()->SetAnimation(false, 1, "takeDamage");
-	owner->GetComponent<AudioComp>()->playAudio(0, "./Assets/Audio/weapon-arrow-shot.mp3", 0.3f);
+	//owner->GetComponent<AudioComp>()->playAudio(0, "./Assets/Audio/weapon-arrow-shot.mp3", 0.3f);
 }
 
 bool EnemyComp::isCliff()
