@@ -28,10 +28,11 @@ void level::ClearLevel::Init() {
     CreditUI->SetColor(0, 0, 0);
     CreditUI->SetAlpha(1);
     CreditUI->SetScreenSpace(true);
+    Escmenu.InitEscUI();
 }
 
 void level::ClearLevel::Update() {
-
+    Escmenu.UpdateEscUI(nullptr);
 }
 
 void level::ClearLevel::Exit() {

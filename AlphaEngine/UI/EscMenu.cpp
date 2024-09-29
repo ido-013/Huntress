@@ -11,15 +11,22 @@ bool EscUI::getOpen()
 {
     return isOpen;
 }
+void EscUI::ToggleUI() {
+    isOpen = !isOpen;
+    SetUIVisibility(isOpen);
+    CombatComp::isCombat = !isOpen; 
+}
 
 void EscUI::SetUIVisibility(bool isVisible)
 {
-	int alphaValue = isVisible ? 1 : 0;
+	float alphaValue = isVisible ? 1.f : 0.f;
     UIComponent* backgroundUI = BgUI->GetComponent<UIComponent>();
+    UIComponent* htpUI = htp->GetComponent<UIComponent>();
     UIComponent* RestartUI = RestartBtn->GetComponent<UIComponent>();
     UIComponent* QuitUI = QuitBtn->GetComponent<UIComponent>();
     UIComponent* CloseUI = CloseBtn->GetComponent<UIComponent>();
     backgroundUI->SetAlpha(alphaValue);
+    htpUI->SetAlpha(alphaValue);
     RestartUI->SetAlpha(alphaValue);
     QuitUI->SetAlpha(alphaValue);
     CloseUI->SetAlpha(alphaValue);
@@ -50,12 +57,21 @@ void EscUI::InitEscUI()
     backgroundUI->SetColor(0, 0, 0);
     backgroundUI->SetAlpha(0);
 
+    htp = new GameObject();
+    htp->AddComponent<UIComponent>();
+    UIComponent* htpUI = htp->GetComponent<UIComponent>();
+    htpUI->SetScale({ 800,300 });
+    htpUI->SetPos({ 0, 100 });
+    htpUI->SetTexture("Assets/UI/htp.png");
+    htpUI->SetColor(0, 0, 0);
+    htpUI->SetAlpha(0);
+
     RestartBtn = new GameObject();
     RestartBtn->AddComponent<UIComponent>();
     UIComponent* RestartUI = RestartBtn->GetComponent<UIComponent>();
     RestartUI->SetPos({ -370, -100 });
-    RestartUI->SetScale({ 300, 100 });
-    RestartUI->SetTexture("Assets/UI/Menu.png");
+    RestartUI->SetScale({ 350, 100 });
+    RestartUI->SetTexture("Assets/UI/EscMenu.png");
     RestartUI->SetColor(0, 0, 0);
     RestartUI->SetAlpha(0);
     RestartUI->SetScreenSpace(true);
@@ -69,13 +85,13 @@ void EscUI::InitEscUI()
 
     restartBtn->SetOnHoverFunction([RestartUI]() {
 
-        RestartUI->SetScale({ 280, 90 });  
+        RestartUI->SetScale({ 330, 90 });  
         });
 
     // Hover 해제 시 원래 크기로 복원
     restartBtn->SetOnHoverOutFunction([RestartUI]() {
 
-        RestartUI->SetScale({ 300, 100 });  
+        RestartUI->SetScale({ 350, 100 });  
         });
    
     CloseBtn = new GameObject();
@@ -99,8 +115,8 @@ void EscUI::InitEscUI()
     QuitBtn->AddComponent<UIComponent>();
     UIComponent* QuitUI = QuitBtn->GetComponent<UIComponent>();
     QuitUI->SetPos({ -370, -200 });
-    QuitUI->SetScale({ 300, 100 });
-    QuitUI->SetTexture("Assets/UI/Menu.png");
+    QuitUI->SetScale({ 350, 100 });
+    QuitUI->SetTexture("Assets/UI/GameQuit.png");
     QuitUI->SetColor(0, 0, 0);
     QuitUI->SetAlpha(0);
     QuitUI->SetScreenSpace(true);
@@ -111,29 +127,27 @@ void EscUI::InitEscUI()
         });
 
     quitBtn->SetOnHoverFunction([QuitUI]() {
-        QuitUI->SetScale({ 280, 90 });
+        QuitUI->SetScale({ 330, 90 });
         });
 
     // Hover 해제 시 원래 크기로 복원
     quitBtn->SetOnHoverOutFunction([QuitUI]() {
-        QuitUI->SetScale({ 300, 100 });
+        QuitUI->SetScale({ 350, 100 });
         });
 
 }
 
-void EscUI::UpdateEscUI(StoreUI * storeUI)
-{
+void EscUI::UpdateEscUI(StoreUI* storeUI) {
+
     if (AEInputCheckTriggered(AEVK_ESCAPE)) {
-       CombatComp::isCombat = false;
-       SetUIVisibility(true);
-       if (storeUI)
-       {
-           if (storeUI->getOpen())
-           {
-               storeUI->StoreOnEsc();
-           }
-      
-       }
+        ToggleUI(); 
+
+        if (storeUI && storeUI->getOpen()) {
+            storeUI->StoreOnEsc();
+        }
+        else if (storeUI && storeUI->getisEsc()) {
+            storeUI->StoreOffEsc();
+        }
     }
 }
 

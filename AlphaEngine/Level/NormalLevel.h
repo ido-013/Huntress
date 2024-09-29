@@ -2,6 +2,7 @@
 #include "BaseLevel.h"
 #include "../UI/StoreUI.h"
 #include "../UI/EscMenu.h"
+#include "../UI/CombatUI.h"
 #include "../Weather/Weather.h"
 class GameObject;
 
@@ -14,6 +15,7 @@ namespace level
 		GameObject* enemy = nullptr;
 		StoreUI storeUI;
 		EscUI Escmenu;
+		CombatUI CombatHUD;
 
 		int level;
 

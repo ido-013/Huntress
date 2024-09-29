@@ -10,7 +10,7 @@ void ItemInfo::CreateItemInfo(const std::string& name, const std::string& textur
 	GameObject* Infoitem = new GameObject(name);
 	Infoitem->AddComponent<UIComponent>();
 	UIComponent* InfoUI = Infoitem->GetComponent<UIComponent>();
-	InfoUI->SetScale({300,350});
+	InfoUI->SetScale({250,250});
 	InfoUI->SetPos({ 0,0 });
 	InfoUI->SetTexture(texturePath);
 	InfoUI->SetColor(0,0,0);

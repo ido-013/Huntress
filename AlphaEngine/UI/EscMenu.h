@@ -6,6 +6,7 @@
 #include <string>
 class EscUI {
 	GameObject* BgUI = nullptr;
+	GameObject* htp = nullptr;
 	GameObject* RestartBtn = nullptr;
 	GameObject* QuitBtn = nullptr;
 	GameObject* CloseBtn = nullptr;
@@ -21,4 +22,5 @@ public:
 	void InitEscUI();
 	void UpdateEscUI(StoreUI *);
 	void ExitEscUI();
+	void ToggleUI();
 };
