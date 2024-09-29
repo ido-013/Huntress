@@ -113,7 +113,6 @@ void level::Menu::Init() {
         GSM::GameStateManager::GetInstance().ChangeLevel(nullptr);
         });
 
-
     quitBtn->SetOnHoverFunction([quitUI]() {
   
         quitUI->SetScale({ 500, 100 });
