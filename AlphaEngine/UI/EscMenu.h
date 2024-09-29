@@ -9,7 +9,7 @@ class EscUI {
 	GameObject* htp = nullptr;
 	GameObject* RestartBtn = nullptr;
 	GameObject* QuitBtn = nullptr;
-	GameObject* CloseBtn = nullptr;
+
 
 	bool isOpen = false;
 

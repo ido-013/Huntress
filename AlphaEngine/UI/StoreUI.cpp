@@ -89,6 +89,7 @@ void StoreUI::StoreOnEsc()
 
 void StoreUI::StoreOffEsc()
 {
+
     isEsc = false;
     OpenStore();
 }
@@ -113,6 +114,7 @@ void StoreUI::SetUIVisibility(bool isVisible) {
 }
 
 void StoreUI::OpenStore() {
+
     isStoreOpen = true;
     SetUIVisibility(true);
 }

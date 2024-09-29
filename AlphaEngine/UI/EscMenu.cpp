@@ -24,12 +24,12 @@ void EscUI::SetUIVisibility(bool isVisible)
     UIComponent* htpUI = htp->GetComponent<UIComponent>();
     UIComponent* RestartUI = RestartBtn->GetComponent<UIComponent>();
     UIComponent* QuitUI = QuitBtn->GetComponent<UIComponent>();
-    UIComponent* CloseUI = CloseBtn->GetComponent<UIComponent>();
+
     backgroundUI->SetAlpha(alphaValue);
     htpUI->SetAlpha(alphaValue);
     RestartUI->SetAlpha(alphaValue);
     QuitUI->SetAlpha(alphaValue);
-    CloseUI->SetAlpha(alphaValue);
+
 }
 
 void EscUI::SetEscUI()
@@ -94,23 +94,6 @@ void EscUI::InitEscUI()
         RestartUI->SetScale({ 350, 100 });  
         });
    
-    CloseBtn = new GameObject();
-    CloseBtn->AddComponent<UIComponent>();
-    UIComponent* CloseUI = CloseBtn->GetComponent<UIComponent>();
-    CloseUI->SetScale({ 50,50 });
-    CloseUI->SetPos({ 650, 300 });
-    CloseUI->SetTexture("Assets/UI/Arrow.png");
-    CloseUI->SetColor(250, 0, 0);
-    CloseUI->SetAlpha(0);
-    CloseBtn->AddComponent<ButtonComp>();
-    ButtonComp* CloseButton = CloseBtn->GetComponent<ButtonComp>();
-    CloseButton->SetOnClickFunction([this]() {
-        Setoff();
-
-        SubtitleComp::ModifySubtitle("goldText", 1);
-        CombatComp::isCombat = true;
-        });
-
     QuitBtn = new GameObject();
     QuitBtn->AddComponent<UIComponent>();
     UIComponent* QuitUI = QuitBtn->GetComponent<UIComponent>();
@@ -143,9 +126,15 @@ void EscUI::UpdateEscUI(StoreUI* storeUI) {
         ToggleUI(); 
 
         if (storeUI && storeUI->getOpen()) {
+            SubtitleComp::ModifySubtitle("goldText", 0);
+            SubtitleComp::ModifySubtitle("Bigger", 0);
+            SubtitleComp::ModifySubtitle("stun", 0);
             storeUI->StoreOnEsc();
         }
         else if (storeUI && storeUI->getisEsc()) {
+            SubtitleComp::ModifySubtitle("goldText", 1);
+            SubtitleComp::ModifySubtitle("Bigger", 1);
+            SubtitleComp::ModifySubtitle("stun", 1);
             storeUI->StoreOffEsc();
         }
     }
