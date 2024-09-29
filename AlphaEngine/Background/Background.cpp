@@ -33,8 +33,7 @@ void InitBackground()
 void UpdateBackground()
 {
 	/*float camX, camY;
-	Camera::GetInstance().GetPos(&camX, &camY);
-	background->GetComponent<TransformComp>()->SetPos({ camX, camY });*/
+	Camera::GetInstance().GetPos(&camX, &camY);*/
 }
 
 void ExitBackground()

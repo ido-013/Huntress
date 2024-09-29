@@ -155,6 +155,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="UI\StoreUI.cpp" />
     <ClCompile Include="Utils\Utils.cpp" />
     <ClCompile Include="Utils\Vec3.cpp" />
+    <ClCompile Include="Weather\Weather.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation\Animation.h" />
@@ -227,6 +228,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="Utils\Size.h" />
     <ClInclude Include="Utils\Utils.h" />
     <ClInclude Include="Utils\Vec3.h" />
+    <ClInclude Include="Weather\Weather.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Level\test1.lvl" />
@@ -242,6 +244,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <None Include="Assets\Prefab\Background.prefab" />
     <None Include="Assets\Prefab\DirectionArrow.prefab" />
     <None Include="Assets\Prefab\Enemy.prefab" />
+    <None Include="Assets\Prefab\GhostSquare.prefab" />
     <None Include="Assets\Prefab\LeftTri.prefab" />
     <None Include="Assets\Prefab\LeftTri_R_DECO.prefab" />
     <None Include="Assets\Prefab\Player.prefab" />

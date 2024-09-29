@@ -23,6 +23,13 @@
 
 class Projectile : public LogicComponent
 {
+	enum ColState
+	{
+		None,
+		Air,
+		Ground,
+		Character
+	};
 
 	// Variables
 	float velocity;
@@ -44,7 +51,7 @@ public:
 	Projectile(GameObject* _owner, float velocity_value, float theta_value);
 
 	std::queue<GameObject::Type> oppoTypeQueue;
-	int colState = -1;
+	ColState colState = None;
 
 	// 트리거 변수
 	static bool isLaunchProjectile;

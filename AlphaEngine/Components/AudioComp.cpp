@@ -17,8 +17,8 @@ AudioComp::~AudioComp()
 		ResourceManager::GetInstance().UnloadResource(it.first);
 	}
 	
-	//AEAudioStopGroup(group);
-	//AEAudioUnloadAudioGroup(group);
+	AEAudioStopGroup(group);
+	AEAudioUnloadAudioGroup(group);
 	ComponentManager<AudioComp>::GetInstance().DelComp(this);
 }
 
@@ -60,6 +60,23 @@ void AudioComp::playAudio(s32 loops, std::string name, float _volume)
 		auto it = audio.find(name);
 		if (it != audio.end())
 			AEAudioPlay(it->second, group, _volume, pitch, loops);
+
+		flag = 1;
+		current = name;
+	}
+	else
+	{
+		flag = 3 - flag;
+	}
+}
+
+void AudioComp::playAudio(s32 loops, std::string name, float _volume, float _pitch)
+{
+	if (flag == 0 || current.compare(name) != 0)
+	{
+		auto it = audio.find(name);
+		if (it != audio.end())
+			AEAudioPlay(it->second, group, _volume, _pitch, loops);
 
 		flag = 1;
 		current = name;

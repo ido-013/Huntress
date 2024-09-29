@@ -10,8 +10,8 @@
 #include "../RTTI/Registry.h"
 #include "../UIM/BtnManager.h"
 #include "../Components/SubtitleComp.h"
-
 #include "../Camera/Camera.h"
+#include "../Weather/Weather.h"
 
 GSM::GameStateManager::GameStateManager() : previousLevel(nullptr), currentLevel(nullptr) {}
 
@@ -77,6 +77,7 @@ void GSM::GameStateManager::Exit()
     GameObjectManager::GetInstance().RemoveAllObject();
     ButtonManager::GetInstance().RemoveAllButtons();
     ResourceManager::GetInstance().UnloadAllResource();
+    Weather::GetInstance().ClearWeather();
 }
 
 void GSM::GameStateManager::ChangeLevel(BaseLevel* newLvl)

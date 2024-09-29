@@ -31,6 +31,7 @@ public:
 
 	void playAudio(s32 loops, std::string name);
 	void playAudio(s32 loops, std::string name, float _volume);
+	void playAudio(s32 loops, std::string name, float _volume, float _pitch);
 
 	void LoadFromJson(const json&) override;
 	json SaveToJson() override;
