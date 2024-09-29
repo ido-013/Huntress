@@ -43,6 +43,9 @@ public:
     StoreUI();
     ~StoreUI();
     static std::string goldText;
+    static std::string atkText;
+    static std::string defText;
+    static std::string hpuText;
     void StoreOnEsc();
     void StoreOffEsc();
     bool getOpen();

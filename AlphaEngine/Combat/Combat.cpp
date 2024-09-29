@@ -856,43 +856,46 @@ void CombatComp::Update()
 
 				if (isDrawDirection)
 				{
-					if (AEInputCheckTriggered(AEVK_LBUTTON))
+					if (GetMouseCursorPositionY()  > -250)
 					{
-						if (isChaseDirection == false)
+						if (AEInputCheckTriggered(AEVK_LBUTTON))
 						{
-							player->GetComponent<PlayerComp>()->moveState = true;
-							isChaseDirection = true;
-							isReadyLaunch = false;
-						}
-						else
-						{
-							
-							float mouseX = GetMouseCursorPositionX() - GetCamPositionX();
-							player->GetComponent<TransformComp>()->ReverseX(AERadToDeg(pAngle) >= 90 ? 0 : 1);
-							//std::cout << "pAngle" << AERadToDeg(pAngle) << std::endl;
-							player->GetComponent<PlayerComp>()->moveState = false;
-							isChaseDirection = false;
-							isReadyLaunch = true;
-						}
-					}				
-					directionArrow->GetComponent<SpriteComp>()->SetAlpha(1);
-					SetOrbitAlpha(1);
-					if (isChaseDirection)
-					{
-						directionArrow->
-							GetComponent<CombatComp>()->
-							DrawDirectionPegline(*directionArrow,
-								PLAYERTURN, { -ANGLE_LIMIT, ANGLE_LIMIT });
-					}
+							if (isChaseDirection == false)
+							{
+								player->GetComponent<PlayerComp>()->moveState = true;
+								isChaseDirection = true;
+								isReadyLaunch = false;
+							}
+							else
+							{
 
-					dtf->SetScale({ directionArrowWidth, directionArrowHeight * pPower });
-					dtf->SetPos(
-						RotatePointAround(
-							ptf->GetPos(),
-							{ ptf->GetPos().x , ptf->GetPos().y + dtf->GetScale().y / 2 },
-							pAngle - RAD90
-						)
-					);
+								float mouseX = GetMouseCursorPositionX() - GetCamPositionX();
+								player->GetComponent<TransformComp>()->ReverseX(AERadToDeg(pAngle) >= 90 ? 0 : 1);
+								//std::cout << "pAngle" << AERadToDeg(pAngle) << std::endl;
+								player->GetComponent<PlayerComp>()->moveState = false;
+								isChaseDirection = false;
+								isReadyLaunch = true;
+							}
+						}
+						directionArrow->GetComponent<SpriteComp>()->SetAlpha(1);
+						SetOrbitAlpha(1);
+						if (isChaseDirection)
+						{
+							directionArrow->
+								GetComponent<CombatComp>()->
+								DrawDirectionPegline(*directionArrow,
+									PLAYERTURN, { -ANGLE_LIMIT, ANGLE_LIMIT });
+						}
+
+						dtf->SetScale({ directionArrowWidth, directionArrowHeight * pPower });
+						dtf->SetPos(
+							RotatePointAround(
+								ptf->GetPos(),
+								{ ptf->GetPos().x , ptf->GetPos().y + dtf->GetScale().y / 2 },
+								pAngle - RAD90
+							)
+						);
+					}
 				}
 				if (AEInputCheckTriggered(AEVK_RBUTTON))
 				{
