@@ -163,7 +163,7 @@ void CombatUI::InitCombatUI()
 		itemIconComp0->SetAlpha(1);
 
 	});
-	SubtitleComp::AddSubtitle({ {-(f32)(0.65),-(f32)(0.72)}, f32(0.5), "Bigger", (f32)0.2, 0, 0, 1});
+	SubtitleComp::AddSubtitle({ {-(f32)(0.65),-(f32)(0.73)}, f32(0.4), "Bigger", (f32)0.2, 0, 0, 1});
 
 	itemIcon[1] = new GameObject();
 	itemIcon[1]->AddComponent<UIComponent>();
@@ -186,7 +186,7 @@ void CombatUI::InitCombatUI()
 		itemIconComp1->SetAlpha(1);
 
 	});
-	SubtitleComp::AddSubtitle({ {-(f32)(0.65),-(f32)(0.95)}, f32(0.5), "StraightArrow", (f32)0.2, 0, 0, 1 });
+	SubtitleComp::AddSubtitle({ {-(f32)(0.65),-(f32)(0.95)}, f32(0.4), "StraightArrow", (f32)0.2, 0, 0, 1 });
 	itemIcon[2] = new GameObject();
 	itemIcon[2]->AddComponent<UIComponent>();
 	itemIcon[2]->AddComponent<ButtonComp>();
@@ -204,7 +204,7 @@ void CombatUI::InitCombatUI()
 	item2btn->SetOnHoverOutFunction([itemIconComp2]() {
 		itemIconComp2->SetAlpha(1);
 	});
-	SubtitleComp::AddSubtitle({ {-(f32)(0.485),-(f32)(0.72)}, f32(0.5), "stun", (f32)0.2, 0, 0, 1 });
+	SubtitleComp::AddSubtitle({ {-(f32)(0.485),-(f32)(0.73)}, f32(0.4), "stun", (f32)0.2, 0, 0, 1 });
 	itemIcon[3] = new GameObject();
 	itemIcon[3]->AddComponent<UIComponent>();
 	itemIcon[3]->AddComponent<ButtonComp>();
@@ -222,7 +222,7 @@ void CombatUI::InitCombatUI()
 	item3btn->SetOnHoverOutFunction([itemIconComp3]() {
 		itemIconComp3->SetAlpha(1);
 	});
-	SubtitleComp::AddSubtitle({ {-(f32)(0.485),-(f32)(0.95)}, f32(0.5), "Orbit", (f32)0.2, 0, 0, 1 });
+	SubtitleComp::AddSubtitle({ {-(f32)(0.485),-(f32)(0.95)}, f32(0.4), "Orbit", (f32)0.2, 0, 0, 1 });
 
 	enemyHPFrame = new GameObject();
 	enemyHPFrame->AddComponent<UIComponent>();
