@@ -57,8 +57,9 @@ void GameObject::RemoveComponent(std::string name)
 
 void GameObject::clear()
 {
-	for (auto iter : component)
+	for (auto& it : component)
 	{
-		RemoveComponent(iter.first);
+		if (it.second)
+			delete it.second;
 	}
 }

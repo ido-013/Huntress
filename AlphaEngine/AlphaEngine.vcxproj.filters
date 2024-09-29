@@ -183,6 +183,12 @@
     <ClCompile Include="UI\ItemInfo.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Data\Inventory.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Weather\Weather.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GSM\GameStateManager.h">
@@ -404,6 +410,12 @@
     <ClInclude Include="UI\ItemInfo.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Data\Inventory.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Weather\Weather.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ComponentManager\ComponentManager.inl">
@@ -441,6 +453,7 @@
     <None Include="Assets\Prefab\Square_DECO.prefab" />
     <None Include="Assets\UI\huntress.webp" />
     <None Include="Assets\UI\Storebg.webp" />
+    <None Include="Assets\Prefab\GhostSquare.prefab" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\BGM.mp3" />

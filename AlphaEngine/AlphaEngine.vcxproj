@@ -109,6 +109,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="ComponentManager\InterfaceComponent.cpp" />
     <ClCompile Include="Components\AnimatorComp.cpp" />
     <ClCompile Include="Components\EnemyComp.cpp" />
+    <ClCompile Include="Data\Inventory.cpp" />
     <ClCompile Include="Components\LifetimeComp.cpp" />
     <ClCompile Include="Components\ButtonComp.cpp" />
     <ClCompile Include="Components\SubtitleComp.cpp" />
@@ -154,6 +155,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="UI\StoreUI.cpp" />
     <ClCompile Include="Utils\Utils.cpp" />
     <ClCompile Include="Utils\Vec3.cpp" />
+    <ClCompile Include="Weather\Weather.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation\Animation.h" />
@@ -168,6 +170,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="Components.h" />
     <ClInclude Include="Components\AnimatorComp.h" />
     <ClInclude Include="Components\EnemyComp.h" />
+    <ClInclude Include="Data\Inventory.h" />
     <ClInclude Include="Components\LifetimeComp.h" />
     <ClInclude Include="Components\ButtonComp.h" />
     <ClInclude Include="Components\SubtitleComp.h" />
@@ -225,6 +228,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="Utils\Size.h" />
     <ClInclude Include="Utils\Utils.h" />
     <ClInclude Include="Utils\Vec3.h" />
+    <ClInclude Include="Weather\Weather.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Level\test1.lvl" />
@@ -240,6 +244,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <None Include="Assets\Prefab\Background.prefab" />
     <None Include="Assets\Prefab\DirectionArrow.prefab" />
     <None Include="Assets\Prefab\Enemy.prefab" />
+    <None Include="Assets\Prefab\GhostSquare.prefab" />
     <None Include="Assets\Prefab\LeftTri.prefab" />
     <None Include="Assets\Prefab\LeftTri_R_DECO.prefab" />
     <None Include="Assets\Prefab\Player.prefab" />

@@ -7,6 +7,10 @@
 #include "../ComponentManager/EngineComponent.h"
 #include "../Combat/Projectile.h"
 #include "../Data/Data.h"
+#include "../Data/Inventory.h"
+
+#define SHOW_ENEMY_DIRECTION_ARROW false
+#define SHOW_ENEMY_ORBIT false
 
 #define DEFAULT_POWER 1.f
 #define PLAYER_POWER_LIMIT 24.f // 25
@@ -24,9 +28,7 @@
 
 #define HIT_RADIUS 15.0f // 플레이어에 대한 적중 판정 반경
 
-
 //붙어서 싸우기 방지를 위한 상수값
-
 	//거리비례 AI 명중률 상수 
 	//1에서 5로 갈수록 거리 비례 AI 명중률 감소
 	#define DISTANCE_ARANGE_1 100
@@ -35,6 +37,9 @@
 	#define DISTANCE_ARANGE_4 1500
 	#define DISTANCE_ARANGE_5 1800
 
+#define DEFAULT_ORBIT_CIRCLE_COUNT 120
+#define DEBUG_ORBIT_CIRCLE_COUNT 200
+#define USE_ITEM_ORBIT_CIRCLE_COUNT 120
 
 class CombatComp : public EngineComponent
 {
@@ -95,6 +100,17 @@ public:
 	void checkState();
 	static void ResetCombat();
 	bool ObstacleCollisionCheck(std::vector<AEVec2>& coords);
+
+	//item
+	static std::map<Inventory::Item, bool> itemState;
+	static bool isItemUsed;
+	static void ItemCheck();
+
+	static int orbitCircleCount;
+	std::vector<GameObject*> orbitDots;
+	void InitOrbit();
+	void SetOrbitAlpha(bool isView);
+	void ShowOrbit();
 
 	void SetPlayerAngle(float angle);
 	float GetPlayerAngle();

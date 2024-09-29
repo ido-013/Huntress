@@ -10,8 +10,8 @@
 #include "../RTTI/Registry.h"
 #include "../UIM/BtnManager.h"
 #include "../Components/SubtitleComp.h"
-
 #include "../Camera/Camera.h"
+#include "../Weather/Weather.h"
 
 GSM::GameStateManager::GameStateManager() : previousLevel(nullptr), currentLevel(nullptr) {}
 
@@ -30,8 +30,10 @@ void GSM::GameStateManager::Init()
     {
         currentLevel->Init();
     }
-    if(CombatComp::state != CombatComp::STATE::STORE)
+    if (CombatComp::state != CombatComp::STATE::STORE)
+    {
         CombatComp::ResetCombat();
+    }
     SubtitleComp::InitFont("Assets/DePixelKlein.ttf", 72);
 
 }
@@ -70,12 +72,12 @@ void GSM::GameStateManager::Exit()
     {
         currentLevel->Exit();
     }
-
     SubtitleComp::DestroyFont();
     EventManager::GetInstance().DeleteUndispahchEvent();
     GameObjectManager::GetInstance().RemoveAllObject();
     ButtonManager::GetInstance().RemoveAllButtons();
     ResourceManager::GetInstance().UnloadAllResource();
+    Weather::GetInstance().ClearWeather();
 }
 
 void GSM::GameStateManager::ChangeLevel(BaseLevel* newLvl)

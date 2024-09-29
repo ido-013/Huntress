@@ -178,10 +178,15 @@ void StoreUI::InitStoreUI(GameObject* player) {
         });
     CreateStoreItem("Gods", "Assets/UI/nomalize.png", "Assets/UI/GodInfo.png", { 400, 100 }, 75, [player]() {
         PlayerComp* playerComp = player->GetComponent<PlayerComp>();
-        if (playerComp->playerData->gold >= 75) {
-            playerComp->playerData->damage += 1;
+        if (playerComp->playerData->inventory.isGBY)
+        {
+            SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "You Already Have This!", 0, 1, 0, 1}, 2, 0.7, 0.7 });
+            PLAY_AUDIO_ERROR;
+        }
+        else if (playerComp->playerData->gold >= 75) {
+            playerComp->playerData->inventory.isGBY = true;
             playerComp->playerData->gold -= 75;
-            SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Gods Gods Gos!", 0, 1, 0, 1}, 2, 0.7, 0.7 });
+            SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Gods Bless You...", 0, 1, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_PURCHASE;
         }
         else {
@@ -202,9 +207,9 @@ void StoreUI::InitStoreUI(GameObject* player) {
     );
     CreateStoreItem("Attack Upgrade", "Assets/UI/AttackUp.png","Assets/UI/DamageupInfo.png", { 200, -100 }, 15, [player]() {
         PlayerComp* playerComp = player->GetComponent<PlayerComp>();
-        if (playerComp->playerData->gold >= 15) {
+        if (playerComp->playerData->gold >= 10) {
             playerComp->playerData->damage += 1;
-            playerComp->playerData->gold -= 15;
+            playerComp->playerData->gold -= 10;
             SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Attack Increased!", 0, 1, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_PURCHASE;
         }
@@ -215,15 +220,15 @@ void StoreUI::InitStoreUI(GameObject* player) {
         });
     CreateStoreItem("Full Potion", "Assets/UI/fullpotion.png", "Assets/UI/LargepotionInfo.png", { 200, 100 }, 15, [player]() {
         PlayerComp* playerComp = player->GetComponent<PlayerComp>();
-        if (playerComp->playerData->gold >= 15) {
+        if (playerComp->playerData->gold >= 10) {
             if (playerComp->playerData->hp == playerComp->playerData->maxLife) {
                 SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Already Full...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
                 PLAY_AUDIO_ERROR;
             }
             else {
                 playerComp->playerData->hp = playerComp->playerData->maxLife;
-                playerComp->playerData->gold -= 15;
-                SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "HP Healed!", 0, 1, 0, 1}, 2, 0.7, 0.7 });
+                playerComp->playerData->gold -= 10;
+                SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Fully Healed!", 0, 1, 0, 1}, 2, 0.7, 0.7 });
                 PLAY_AUDIO_PURCHASE;
             }
         }
@@ -234,10 +239,10 @@ void StoreUI::InitStoreUI(GameObject* player) {
         });
     CreateStoreItem("Health Upgrade", "Assets/UI/HearthUp.png","Assets/UI/HealthupInfo.png", { 0, -100 }, 15, [player]() {
         PlayerComp* playerComp = player->GetComponent<PlayerComp>();
-        if (playerComp->playerData->gold >= 15) {
+        if (playerComp->playerData->gold >= 10) {
             playerComp->playerData->maxLife += 5;
             playerComp->playerData->hp += 5;
-            playerComp->playerData->gold -= 15;
+            playerComp->playerData->gold -= 10;
             SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Max HP Increased!", 0, 1, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_PURCHASE;
         }
@@ -267,28 +272,42 @@ void StoreUI::InitStoreUI(GameObject* player) {
         });
     CreateStoreItem("Stunarrow", "Assets/UI/StunarrowInfo.png","Assets/UI/StunarrowInfo.png", { -200, -100 }, 15, [player]() {
         PlayerComp* playerComp = player->GetComponent<PlayerComp>();
-        if (playerComp->playerData->gold >= 15) {
-            playerComp->playerData->armor += 1;
-            playerComp->playerData->gold -= 15;
-            SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Purcharse!", 0, 1, 0, 1}, 2, 0.7, 0.7 });
-            PLAY_AUDIO_PURCHASE;
+        if (playerComp->playerData->gold >= 7) {
+            if (playerComp->playerData->inventory.AddItem(Data::PlayerData::inventory.Orbit))
+            {
+                SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[Data::PlayerData::inventory.Orbit + 5], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+                playerComp->playerData->gold -= 7;
+                PLAY_AUDIO_PURCHASE;
+            }
+            else
+            {
+                SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[9], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+                PLAY_AUDIO_ERROR;
+            }
         }
         else {
             SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Not Enough Gold...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_ERROR;
         }
-        });
+    });
    
 
    
 
     CreateStoreItem("Straightarrow", "Assets/UI/StraightarrowInfo.png","Assets/UI/StraightarrowInfo.png", { -200, 100 }, 15, [player]() {
         PlayerComp* playerComp = player->GetComponent<PlayerComp>();
-        if (playerComp->playerData->gold >= 15) {
-            playerComp->playerData->armor += 1;
-            playerComp->playerData->gold -= 15;
-            SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Purcharse", 0, 1, 0, 1}, 2, 0.7, 0.7 });
-            PLAY_AUDIO_PURCHASE;
+        if (playerComp->playerData->gold >= 7) {
+            if (playerComp->playerData->inventory.AddItem(Data::PlayerData::inventory.Stun))
+            {
+                SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[Data::PlayerData::inventory.Stun + 5], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+                playerComp->playerData->gold -= 7;
+                PLAY_AUDIO_PURCHASE;
+            }
+            else
+            {
+                SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[9], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+                PLAY_AUDIO_ERROR;
+            }
         }
         else {
             SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Not Enough Gold...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
@@ -298,11 +317,18 @@ void StoreUI::InitStoreUI(GameObject* player) {
    
     CreateStoreItem("BiggerInfo", "Assets/UI/BiggerInfo.png","Assets/UI/BiggerInfo.png", { -400, -100 }, 15, [player]() {
         PlayerComp* playerComp = player->GetComponent<PlayerComp>();
-        if (playerComp->playerData->gold >= 15) {
-            playerComp->playerData->armor += 1;
-            playerComp->playerData->gold -= 15;
-            SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Purcharse", 0, 1, 0, 1}, 2, 0.7, 0.7 });
-            PLAY_AUDIO_PURCHASE;
+        if (playerComp->playerData->gold >= 7) {
+            if (playerComp->playerData->inventory.AddItem(Data::PlayerData::inventory.Straight))
+            {
+                SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[Data::PlayerData::inventory.Straight + 5], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+                playerComp->playerData->gold -= 7;
+                PLAY_AUDIO_PURCHASE;
+            }
+            else
+            {
+                SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[9], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+                PLAY_AUDIO_ERROR;
+            }
         }
         else {
             SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Not Enough Gold...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
@@ -311,19 +337,24 @@ void StoreUI::InitStoreUI(GameObject* player) {
         });
     CreateStoreItem("OrbitInfo", "Assets/UI/OrbitInfo.png","Assets/UI/OrbitInfo.png", { -400, 100 }, 15, [player]() {
         PlayerComp* playerComp = player->GetComponent<PlayerComp>();
-        if (playerComp->playerData->gold >= 15) {
-            playerComp->playerData->armor += 1;
-            playerComp->playerData->gold -= 15;
-            SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Purcharse", 0, 1, 0, 1}, 2, 0.7, 0.7 });
-            PLAY_AUDIO_PURCHASE;
+        if (playerComp->playerData->gold >= 7) {
+            if (playerComp->playerData->inventory.AddItem(Data::PlayerData::inventory.Big))
+            {
+                playerComp->playerData->gold -= 7;
+                SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[Data::PlayerData::inventory.Big + 5], 1, 0, 0, 1}, 2, 0.7, 0.7});
+                PLAY_AUDIO_PURCHASE;
+            }
+            else
+            {
+                SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[9], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+                PLAY_AUDIO_ERROR;
+            }
         }
         else {
             SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Not Enough Gold...", 1, 0, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_ERROR;
         }
-        });
-
-
+    });
 
     OpenStore();
 }

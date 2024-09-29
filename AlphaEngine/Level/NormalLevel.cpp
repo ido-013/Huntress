@@ -21,9 +21,52 @@
 #include "../UI/EscMenu.h"
 #include "../Camera/Camera.h"
 
+level::NormalLevel::NormalLevel(int _level) : level(_level)
+{
+	float r = 255;
+	float g = 255;
+	float b = 255;
+	float maxTimer = 0.3f;
+
+	switch (level)
+	{
+	case 1:
+		maxTimer = 0.2f;
+	case 3:
+		r = 224;
+		g = 202;
+		b = 141;
+		break;
+	case 8:
+	case 10:
+		maxTimer = 0.05f;
+	case 2:
+	case 4:
+		r = 255;
+		g = 255;
+		b = 255;
+		break;
+	case 5:
+	case 6:
+		r = 118;
+		g = 248;
+		b = 64;
+		break;
+	case 7:
+	case 9:
+		maxTimer = 0.002f;
+		r = 0;
+		g = 0;
+		b = 180;
+		break;
+	}
+
+	Weather::GetInstance().ChangeWeather({ -4000, -2500 }, { 4000, -300 }, { 10, 10 }, r, g, b, 0.3f, maxTimer);
+}
 
 level::NormalLevel::~NormalLevel()
 {
+
 }
 
 void level::NormalLevel::Init()
@@ -33,7 +76,7 @@ void level::NormalLevel::Init()
 	Camera::GetInstance().fix = true;
 	
 	InitBackground();
-	
+	GameObjectManager::GetInstance().GetObj("directionArrow")->GetComponent<CombatComp>()->InitOrbit();
 	player = GameObjectManager::GetInstance().GetObj("player");
 	enemy = GameObjectManager::GetInstance().GetObj("enemy");
 
@@ -56,12 +99,15 @@ void level::NormalLevel::Update()
 	Escmenu.UpdateEscUI(&storeUI);
 	storeUI.UpdateStoreUI();
 	UpdateBackground();
-
+	Weather::GetInstance().Update();
 
 	if (CombatComp::state == CombatComp::CLEAR)
 	{
 		if (level == 10)
+		{
+			player->GetComponent<PlayerComp>()->playerData->RemoveData();
 			GSM::GameStateManager::GetInstance().ChangeLevel(new ClearLevel);
+		}
 		else
 		{
 			GSM::GameStateManager::GetInstance().ChangeLevel(new NormalLevel(level + 1));
