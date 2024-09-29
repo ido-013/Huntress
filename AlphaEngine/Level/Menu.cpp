@@ -125,9 +125,9 @@ void level::Menu::Init() {
         });
     CtrUI.InitControlUI();
     // 자막 추가
-    SubtitleComp::AddSubtitle({ {-0.15,-0.27}, 1, "START", 0.2, 0, 0, 1 });
-    SubtitleComp::AddSubtitle({ {-0.15,-0.495}, 1, "Control", 0.2, 0, 0, 1 });
-    SubtitleComp::AddSubtitle({ {-0.11,-0.72}, 1, "EXIT", 0.2, 0, 0, 1 });
+    SubtitleComp::AddSubtitle({ {-0.15f,-0.27f}, 1, "START", 0.2f, 0, 0, 1 });
+    SubtitleComp::AddSubtitle({ {-0.15f,-0.495f}, 1, "Control", 0.2f, 0, 0, 1 });
+    SubtitleComp::AddSubtitle({ {-0.11f,-0.72f}, 1, "EXIT", 0.2f, 0, 0, 1 });
 }
 
 

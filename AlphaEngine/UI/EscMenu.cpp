@@ -19,10 +19,10 @@ void EscUI::SetUIVisibility(bool isVisible)
     UIComponent* RestartUI = RestartBtn->GetComponent<UIComponent>();
     UIComponent* QuitUI = QuitBtn->GetComponent<UIComponent>();
     UIComponent* CloseUI = CloseBtn->GetComponent<UIComponent>();
-    backgroundUI->SetAlpha(alphaValue);
-    RestartUI->SetAlpha(alphaValue);
-    QuitUI->SetAlpha(alphaValue);
-    CloseUI->SetAlpha(alphaValue);
+    backgroundUI->SetAlpha((float)alphaValue);
+    RestartUI->SetAlpha((float)alphaValue);
+    QuitUI->SetAlpha((float)alphaValue);
+    CloseUI->SetAlpha((float)alphaValue);
 }
 
 void EscUI::SetEscUI()
