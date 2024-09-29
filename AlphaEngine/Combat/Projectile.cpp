@@ -80,6 +80,7 @@ void Projectile::UpdateCollision()
     {
         if (CombatComp::turn == CombatComp::PLAYERTURN && oppoTypeQueue.front() == GameObject::Enemy)
         {
+            CombatComp::isHit = true;
             colState = Character;
 
             // enemy hp update

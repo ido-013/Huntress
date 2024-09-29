@@ -29,7 +29,7 @@ float delayTime = 0.2f;  // 2초 딜레이
 float elapsedTime = 0.0f;  // 경과 시간 저장
 f64 CombatComp::currTime = 0;
 bool CombatComp::once = false;
-
+bool CombatComp::isHit = false;
 CombatComp::TURN CombatComp::turn = NOBODYTURN;
 CombatComp::STATE CombatComp::state = NONE;
 
@@ -298,8 +298,7 @@ void CombatComp::ItemCheck()
 		enemy->GetComponent<TransformComp>()->SetScale({ 50, 50 });
 		enemy->GetComponent<ColliderComp>()->SetScale({ 50, 50 });
 	}
-
-	if (itemState.find(Inventory::Item::Stun)->second)
+	if (itemState.find(Inventory::Item::Straight)->second)
 	{
 		//enemy->GetComponent<EnemyComp>()->stun = true;
 	}
@@ -308,14 +307,15 @@ void CombatComp::ItemCheck()
 		//enemy->GetComponent<EnemyComp>()->stun = false;
 	}
 
-	if (itemState.find(Inventory::Item::Straight)->second)
-	{
-
 	}
-	else
-	{
+}
 
-	}
+void CombatComp::SetItemState(bool isUsed)
+{
+	itemState.find(Inventory::Item::Big)->second = isUsed;
+	itemState.find(Inventory::Item::Straight)->second = isUsed;
+	itemState.find(Inventory::Item::Orbit)->second = isUsed;
+	itemState.find(Inventory::Item::Stun)->second = isUsed;
 }
 
 CombatComp::TURN CombatComp::TurnChange()
@@ -328,14 +328,13 @@ CombatComp::TURN CombatComp::TurnChange()
 	{
 		if (CombatComp::turn == PLAYERTURN)
 		{
-			itemState.find(Inventory::Item::Big)->second = false;
-			itemState.find(Inventory::Item::Straight)->second = false;
-			itemState.find(Inventory::Item::Orbit)->second = false;
+			if (itemState.find(Inventory::Item::Stun)->second && CombatComp::isHit)
+			{
+				state = STUN;
+			}
+			SetItemState(false);
 		}
-		else if (CombatComp::turn == ENEMYTURN)
-		{
-			itemState.find(Inventory::Item::Stun)->second = false;
-		}
+
 		ItemCheck();
 		isItemUsed = false;
 	}
@@ -1040,6 +1039,8 @@ void CombatComp::Update()
 		TransformComp* ptf = GetPlayerTransform();
 		GameObject* enemy = GetEnemyObject();
 		TransformComp* etf = GetEnemyTransform();
+
+		enemy->GetComponent<TransformComp>()->ReverseX(ptf->GetPos().x < etf->GetPos().x ? 0 : 1);
 		//2초간 플레이어 고정
 		if (currTime < 2)
 		{
@@ -1152,6 +1153,34 @@ void CombatComp::Update()
 		{
 			once = false;
 			state = GAMEOVER;
+			currTime = 0;
+		}
+		currTime += AEFrameRateControllerGetFrameTime();
+	}
+	else if (isCombat && state == STUN)
+	{
+		//STUN 효과 구현
+
+		GameObject* enemy = GetEnemyObject();
+		TransformComp* etf = GetEnemyTransform();
+		std::cout << "STUN!!" << std::endl;
+
+		if (currTime < 3)
+		{
+			Camera::GetInstance().SetPos(etf->GetPos().x, etf->GetPos().y);
+			if (once == false)
+			{
+				once = true;
+				SubtitleComp::IntersectDissolveText({ {{(f32)-0.3,(f32)0.1}, 1, "STUN!!", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+				//bga->playAudio(0, "./Assets/Audio/failfare.mp3");
+			}
+		}
+		else
+		{
+			once = false; 
+			state = COMBAT;
+			turn = PLAYERTURN;
+			CombatComp::isHit = false;
 			currTime = 0;
 		}
 		currTime += AEFrameRateControllerGetFrameTime();
