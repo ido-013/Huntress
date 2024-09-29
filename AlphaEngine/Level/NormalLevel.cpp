@@ -23,9 +23,9 @@
 
 level::NormalLevel::NormalLevel(int _level) : level(_level)
 {
-	float r = 255;
-	float g = 255;
-	float b = 255;
+	unsigned char r = 255;
+	unsigned char g = 255;
+	unsigned char b = 255;
 	float maxTimer = 0.3f;
 
 	switch (level)
