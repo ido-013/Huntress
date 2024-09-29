@@ -25,6 +25,9 @@
 #define RAD90 AEDegToRad(90.f)
 
 #define MAP_BOTTOM_MAX -2500 // 맵 가장 아래
+#define MAP_TOP_MAX 0 // 맵 가장 위
+#define MAP_LEFT_MAX -1500 // 맵 가장 왼쪽
+#define MAP_RIGHT_MAX 4000 // 맵 가장 오른쪽
 
 #define HIT_RADIUS 15.0f // 플레이어에 대한 적중 판정 반경
 
