@@ -149,6 +149,7 @@ void PlayerComp::GBYEffect()
 		else
 		{
 			owner->GetComponent<AudioComp>()->playAudio(0, "./Assets/Audio/short-choir.mp3", 0.3f);
+			owner->GetComponent<SpriteComp>()->SetAlpha(0.8f);
 			GBYobj->GetComponent<SpriteComp>()->SetAlpha(0.5f);
 		}
 
@@ -162,11 +163,29 @@ void PlayerComp::GBYEffect()
 		SpriteComp* s = owner->GetComponent<SpriteComp>();
 		TransformComp* t = owner->GetComponent<TransformComp>();
 
-		if (timer < 1.f)
+		if (timer < 0.15f)
 		{
-			s->SetAlpha(0.1f);
 			s->SetColor(255, 255, 255);
-			GBYobj->GetComponent<TransformComp>()->SetPos({ t->GetPos().x, t->GetPos().y });
+		}
+
+		else if (timer < 0.3f)
+		{
+			s->SetColor(0, 0, 0);
+		}
+
+		else if (timer < 0.45f)
+		{
+			s->SetColor(255, 255, 255);
+		}
+
+		else if (timer < 0.6f)
+		{
+			s->SetColor(0, 0, 0);
+		}
+
+		else if (timer < 0.75f)
+		{
+			s->SetColor(255, 255, 255);
 		}
 
 		else
@@ -175,6 +194,8 @@ void PlayerComp::GBYEffect()
 			s->SetColor(0, 0, 0);
 			GBY = false;
 		}
+
+		GBYobj->GetComponent<TransformComp>()->SetPos({ t->GetPos().x, t->GetPos().y + 80 });
 	}
 }
 
