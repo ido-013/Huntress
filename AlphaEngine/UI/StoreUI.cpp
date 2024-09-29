@@ -163,7 +163,7 @@ void StoreUI::InitStoreUI(GameObject* player) {
     CreateFrame({ -400, -100 });
     CreateFrame({ -200, -100 });
     // Store Items (Full Potion, Small Potion, Health, Attack, Defense)
-    CreateStoreItem("Defense Upgrade", "Assets/UI/DefenseUp.png","", {400, -100}, 15, [player]() {
+    CreateStoreItem("Defense Upgrade", "Assets/UI/DefenseUp.png","Assets/UI/ArmorupInfo.png", {400, -100}, 15, [player]() {
         PlayerComp* playerComp = player->GetComponent<PlayerComp>();
         if (playerComp->playerData->gold >= 15) {
             playerComp->playerData->armor += 1;
@@ -176,7 +176,7 @@ void StoreUI::InitStoreUI(GameObject* player) {
             PLAY_AUDIO_ERROR;
         }
         });
-    CreateStoreItem("Gods", "Assets/UI/nomalize.png", "", { 400, 100 }, 75, [player]() {
+    CreateStoreItem("Gods", "Assets/UI/nomalize.png", "Assets/UI/GodInfo.png", { 400, 100 }, 75, [player]() {
         PlayerComp* playerComp = player->GetComponent<PlayerComp>();
         if (playerComp->playerData->gold >= 75) {
             playerComp->playerData->damage += 1;
@@ -200,7 +200,7 @@ void StoreUI::InitStoreUI(GameObject* player) {
             
         }
     );
-    CreateStoreItem("Attack Upgrade", "Assets/UI/AttackUp.png","", { 200, -100 }, 15, [player]() {
+    CreateStoreItem("Attack Upgrade", "Assets/UI/AttackUp.png","Assets/UI/DamageupInfo.png", { 200, -100 }, 15, [player]() {
         PlayerComp* playerComp = player->GetComponent<PlayerComp>();
         if (playerComp->playerData->gold >= 15) {
             playerComp->playerData->damage += 1;
@@ -213,7 +213,7 @@ void StoreUI::InitStoreUI(GameObject* player) {
             PLAY_AUDIO_ERROR;
         }
         });
-    CreateStoreItem("Full Potion", "Assets/UI/fullpotion.png", "", { 200, 100 }, 15, [player]() {
+    CreateStoreItem("Full Potion", "Assets/UI/fullpotion.png", "Assets/UI/LargepotionInfo.png", { 200, 100 }, 15, [player]() {
         PlayerComp* playerComp = player->GetComponent<PlayerComp>();
         if (playerComp->playerData->gold >= 15) {
             if (playerComp->playerData->hp == playerComp->playerData->maxLife) {
@@ -223,7 +223,7 @@ void StoreUI::InitStoreUI(GameObject* player) {
             else {
                 playerComp->playerData->hp = playerComp->playerData->maxLife;
                 playerComp->playerData->gold -= 15;
-                SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Fully Healed!", 0, 1, 0, 1}, 2, 0.7, 0.7 });
+                SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "HP Healed!", 0, 1, 0, 1}, 2, 0.7, 0.7 });
                 PLAY_AUDIO_PURCHASE;
             }
         }
@@ -232,7 +232,7 @@ void StoreUI::InitStoreUI(GameObject* player) {
             PLAY_AUDIO_ERROR;
         }
         });
-    CreateStoreItem("Health Upgrade", "Assets/UI/HearthUp.png","", { 0, -100 }, 15, [player]() {
+    CreateStoreItem("Health Upgrade", "Assets/UI/HearthUp.png","Assets/UI/HealthupInfo.png", { 0, -100 }, 15, [player]() {
         PlayerComp* playerComp = player->GetComponent<PlayerComp>();
         if (playerComp->playerData->gold >= 15) {
             playerComp->playerData->maxLife += 5;
@@ -265,7 +265,7 @@ void StoreUI::InitStoreUI(GameObject* player) {
             PLAY_AUDIO_ERROR;
         }
         });
-    CreateStoreItem("thunder", "Assets/UI/thunder.png","", { -200, -100 }, 15, [player]() {
+    CreateStoreItem("Stunarrow", "Assets/UI/StunarrowInfo.png","Assets/UI/StunarrowInfo.png", { -200, -100 }, 15, [player]() {
         PlayerComp* playerComp = player->GetComponent<PlayerComp>();
         if (playerComp->playerData->gold >= 15) {
             playerComp->playerData->armor += 1;
@@ -282,7 +282,7 @@ void StoreUI::InitStoreUI(GameObject* player) {
 
    
 
-    CreateStoreItem("fire", "Assets/UI/fire.png","", { -200, 100 }, 15, [player]() {
+    CreateStoreItem("Straightarrow", "Assets/UI/StraightarrowInfo.png","Assets/UI/StraightarrowInfo.png", { -200, 100 }, 15, [player]() {
         PlayerComp* playerComp = player->GetComponent<PlayerComp>();
         if (playerComp->playerData->gold >= 15) {
             playerComp->playerData->armor += 1;
@@ -296,7 +296,7 @@ void StoreUI::InitStoreUI(GameObject* player) {
         }
         });
    
-    CreateStoreItem("poison", "Assets/UI/poison.png","", { -400, -100 }, 15, [player]() {
+    CreateStoreItem("BiggerInfo", "Assets/UI/BiggerInfo.png","Assets/UI/BiggerInfo.png", { -400, -100 }, 15, [player]() {
         PlayerComp* playerComp = player->GetComponent<PlayerComp>();
         if (playerComp->playerData->gold >= 15) {
             playerComp->playerData->armor += 1;
@@ -309,7 +309,7 @@ void StoreUI::InitStoreUI(GameObject* player) {
             PLAY_AUDIO_ERROR;
         }
         });
-    CreateStoreItem("move", "Assets/UI/move.png","", { -400, 100 }, 15, [player]() {
+    CreateStoreItem("OrbitInfo", "Assets/UI/OrbitInfo.png","Assets/UI/OrbitInfo.png", { -400, 100 }, 15, [player]() {
         PlayerComp* playerComp = player->GetComponent<PlayerComp>();
         if (playerComp->playerData->gold >= 15) {
             playerComp->playerData->armor += 1;
