@@ -13,6 +13,11 @@
 #include "../Data/Inventory.h"
 
 
+CombatUI::~CombatUI()
+{
+	
+}
+
 void CombatUI::InitCombatUI()
 {
 	GameObject* player = GameObjectManager::GetInstance().GetObj("player");
@@ -152,8 +157,7 @@ void CombatUI::InitCombatUI()
 	itemIconComp0->SetColor(0, 0, 0);
 	ButtonComp* item0btn = itemIcon[0]->GetComponent<ButtonComp>();
 	item0btn->SetOnClickFunction([pComp]() {pComp->playerData->inventory.UseItem(Inventory::Item::Big);
-	std::cout << "1234";
-
+	std::cout << "1234"<<std::endl;
 	});
 	item0btn->SetOnHoverFunction([itemIconComp0]() {
 		itemIconComp0->SetAlpha(float(0.7));
@@ -163,7 +167,7 @@ void CombatUI::InitCombatUI()
 		itemIconComp0->SetAlpha(1);
 
 	});
-	SubtitleComp::AddSubtitle({ {-(f32)(0.65),-(f32)(0.72)}, f32(0.5), "Bigger", (f32)0.2, 0, 0, 1});
+	SubtitleComp::AddSubtitle({ {-(f32)(0.65),-(f32)(0.73)}, f32(0.4), "Bigger", (f32)0.2, 0, 0, 1});
 
 	itemIcon[1] = new GameObject();
 	itemIcon[1]->AddComponent<UIComponent>();
@@ -175,8 +179,7 @@ void CombatUI::InitCombatUI()
 	itemIconComp1->SetColor(0, 0, 0);
 	ButtonComp* item1btn = itemIcon[1]->GetComponent<ButtonComp>();
 	item1btn->SetOnClickFunction([pComp]() {pComp->playerData->inventory.UseItem(Inventory::Item::Stun);
-
-
+	std::cout << "1234" << std::endl;
 	});
 	item1btn->SetOnHoverFunction([itemIconComp1]() {
 		itemIconComp1->SetAlpha(float(0.7));
@@ -186,7 +189,7 @@ void CombatUI::InitCombatUI()
 		itemIconComp1->SetAlpha(1);
 
 	});
-	SubtitleComp::AddSubtitle({ {-(f32)(0.65),-(f32)(0.95)}, f32(0.5), "StraightArrow", (f32)0.2, 0, 0, 1 });
+	SubtitleComp::AddSubtitle({ {-(f32)(0.65),-(f32)(0.95)}, f32(0.4), "StraightArrow", (f32)0.2, 0, 0, 1 });
 	itemIcon[2] = new GameObject();
 	itemIcon[2]->AddComponent<UIComponent>();
 	itemIcon[2]->AddComponent<ButtonComp>();
@@ -197,6 +200,7 @@ void CombatUI::InitCombatUI()
 	itemIconComp2->SetColor(0, 0, 0);
 	ButtonComp* item2btn = itemIcon[2]->GetComponent<ButtonComp>();
 	item2btn->SetOnClickFunction([pComp]() {pComp->playerData->inventory.UseItem(Inventory::Item::Straight);
+	std::cout << "1234" << std::endl;
 	});
 	item2btn->SetOnHoverFunction([itemIconComp2]() {
 		itemIconComp2->SetAlpha(float(0.7));
@@ -204,7 +208,7 @@ void CombatUI::InitCombatUI()
 	item2btn->SetOnHoverOutFunction([itemIconComp2]() {
 		itemIconComp2->SetAlpha(1);
 	});
-	SubtitleComp::AddSubtitle({ {-(f32)(0.485),-(f32)(0.72)}, f32(0.5), "stun", (f32)0.2, 0, 0, 1 });
+	SubtitleComp::AddSubtitle({ {-(f32)(0.485),-(f32)(0.73)}, f32(0.4), "stun", (f32)0.2, 0, 0, 1 });
 	itemIcon[3] = new GameObject();
 	itemIcon[3]->AddComponent<UIComponent>();
 	itemIcon[3]->AddComponent<ButtonComp>();
@@ -214,7 +218,8 @@ void CombatUI::InitCombatUI()
 	itemIconComp3->SetTexture("Assets/UI/Orbit.png");
 	itemIconComp3->SetColor(0, 0, 0);
 	ButtonComp* item3btn = itemIcon[3]->GetComponent<ButtonComp>();
-	item3btn->SetOnClickFunction([pComp]() {pComp->playerData->inventory.UseItem(Inventory::Item::Orbit);
+	item3btn->SetOnClickFunction([]() {
+	std::cout << "1234" << std::endl;
 	});
 	item3btn->SetOnHoverFunction([itemIconComp3]() {
 		itemIconComp3->SetAlpha(float(0.7));
@@ -222,7 +227,7 @@ void CombatUI::InitCombatUI()
 	item3btn->SetOnHoverOutFunction([itemIconComp3]() {
 		itemIconComp3->SetAlpha(1);
 	});
-	SubtitleComp::AddSubtitle({ {-(f32)(0.485),-(f32)(0.95)}, f32(0.5), "Orbit", (f32)0.2, 0, 0, 1 });
+	SubtitleComp::AddSubtitle({ {-(f32)(0.485),-(f32)(0.95)}, f32(0.4), "Orbit", (f32)0.2, 0, 0, 1 });
 
 	enemyHPFrame = new GameObject();
 	enemyHPFrame->AddComponent<UIComponent>();
@@ -235,8 +240,8 @@ void CombatUI::InitCombatUI()
 	enemyHP->AddComponent<UIComponent>();
 
 	UIComponent* enemyHpComp = enemyHP->GetComponent<UIComponent>();
-	enemyHpComp->SetScale({ 80, 200 * (float(enemy->GetComponent<EnemyComp>()->enemyData->hp) / player->GetComponent<PlayerComp>()->playerData->maxLife) });
-	enemyHpComp->SetPos({ 720 , (-330 - (200 - 200 * (float(enemy->GetComponent<EnemyComp>()->enemyData->hp) / player->GetComponent<PlayerComp>()->playerData->maxLife)) / 2.f) });
+	enemyHpComp->SetScale({ 80, 200 * (float(enemy->GetComponent<EnemyComp>()->enemyData->hp) / enemy->GetComponent<EnemyComp>()->enemyData->maxLife) });
+	enemyHpComp->SetPos({ 720 , (-330 - (200 - 200 * (float(enemy->GetComponent<EnemyComp>()->enemyData->hp) / enemy->GetComponent<EnemyComp>()->enemyData->maxLife)) / 2.f) });
 	enemyHpComp->SetTexture("Assets/UI/HP_GAUGE.png");
 	enemyHpComp->SetColor(200, 200, 0);
 
@@ -272,8 +277,7 @@ void CombatUI::UpdateCombatUI()
 	GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
 	GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
 
-	if (CombatComp::state == CombatComp::STATE::COMBAT || CombatComp::state == CombatComp::STATE::RESET || CombatComp::state == CombatComp::STATE::READY || CombatComp::state == CombatComp::STATE::KILLENEMY || CombatComp::state == CombatComp::STATE::CLEAR)
-	{
+	if (CombatComp::state != CombatComp::STATE::STORE){
 		if (directionArrow) {
 			float angle = directionArrow->GetComponent<CombatComp>()->data.windAngle;
 			UIComponent* windDirComp = WindDirection->GetComponent<UIComponent>();
@@ -303,22 +307,26 @@ void CombatUI::UpdateCombatUI()
 				directAngleComp->SetRot(directAngle);
 
 			}
+			if(CombatComp::state != CombatComp::GAMEOVER)
+				if (Move) {
+					UIComponent* moveComp = Move->GetComponent<UIComponent>();
+					moveComp->SetScale({ 700 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f), 80 });
+					moveComp->SetPos({ 250.f - (700 - 700 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f)) / 2 , -380 });
+
+					UIComponent* powerComp = Power->GetComponent<UIComponent>();
+					powerComp->SetScale({ 700 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (PLAYER_POWER_LIMIT + DEFAULT_POWER))), 80 });
+					powerComp->SetPos({ 250.f - (700 - 700 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (PLAYER_POWER_LIMIT + DEFAULT_POWER)))) / 2 , -280 });
+
+					UIComponent* hpComp = HP->GetComponent<UIComponent>();
+					hpComp->SetScale({ 80, 200 * (float(player->GetComponent<PlayerComp>()->playerData->hp) / player->GetComponent<PlayerComp>()->playerData->maxLife) });
+					hpComp->SetPos({ -700 , (-330 - (200 - 200 * (float(player->GetComponent<PlayerComp>()->playerData->hp) / player->GetComponent<PlayerComp>()->playerData->maxLife)) / 2.f) });
+
+					UIComponent* enemyHpComp = enemyHP->GetComponent<UIComponent>();
+					enemyHpComp->SetScale({ 80, 200 * (float(enemy->GetComponent<EnemyComp>()->enemyData->hp) / enemy->GetComponent<EnemyComp>()->enemyData->maxLife) });
+					enemyHpComp->SetPos({ 720 , (-330 - (200 - 200 * (float(enemy->GetComponent<EnemyComp>()->enemyData->hp) / enemy->GetComponent<EnemyComp>()->enemyData->maxLife)) / 2.f) });
+				}
 		}
-		UIComponent* moveComp = Move->GetComponent<UIComponent>();
-		moveComp->SetScale({ 700 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f), 80 });
-		moveComp->SetPos({ 250.f - (700 - 700 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f)) / 2 , -380 });
-
-		UIComponent* powerComp = Power->GetComponent<UIComponent>();
-		powerComp->SetScale({ 700 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (PLAYER_POWER_LIMIT + DEFAULT_POWER))), 80 });
-		powerComp->SetPos({ 250.f - (700 - 700 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (PLAYER_POWER_LIMIT + DEFAULT_POWER)))) / 2 , -280 });
-
-		UIComponent* hpComp = HP->GetComponent<UIComponent>();
-		hpComp->SetScale({ 80, 200 * (float(player->GetComponent<PlayerComp>()->playerData->hp) / player->GetComponent<PlayerComp>()->playerData->maxLife) });
-		hpComp->SetPos({ -700 , (-330 - (200 - 200 * (float(player->GetComponent<PlayerComp>()->playerData->hp) / player->GetComponent<PlayerComp>()->playerData->maxLife)) / 2.f) });
-
-		UIComponent* enemyHpComp = enemyHP->GetComponent<UIComponent>();
-		enemyHpComp->SetScale({ 80, 200 * (float(enemy->GetComponent<EnemyComp>()->enemyData->hp) / enemy->GetComponent<EnemyComp>()->enemyData->maxLife) });
-		enemyHpComp->SetPos({ 720 , (-330 - (200 - 200 * (float(enemy->GetComponent<EnemyComp>()->enemyData->hp) / enemy->GetComponent<EnemyComp>()->enemyData->maxLife)) / 2.f) });
+	
 	}
 	if (SubtitleComp::FindSubtitle("WindPower"))
 	{

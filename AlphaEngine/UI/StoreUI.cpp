@@ -102,7 +102,7 @@ bool StoreUI::getisEsc()
     return isEsc;
 }
 void StoreUI::SetUIVisibility(bool isVisible) {
-    bool alphaValue = isVisible ? true : false;
+    float alphaValue = isVisible ? true : false;
     storePopup->GetComponent<UIComponent>()->SetAlpha(alphaValue);
     for (auto& frame : itemFrames) {
         frame->GetComponent<UIComponent>()->SetAlpha(alphaValue);
@@ -117,17 +117,18 @@ void StoreUI::OpenStore() {
 
     isStoreOpen = true;
     SetUIVisibility(true);
+    SubtitleComp::ModifySubtitle("goldText", 1);
 }
 
 void StoreUI::CloseStore() {
     isStoreOpen = false;
     SetUIVisibility(false);
-    SubtitleComp::RemoveSubtitle("goldText");
+    SubtitleComp::ModifySubtitle("goldText",0);
 }
 
 void StoreUI::InitStoreUI(GameObject* player) {
     CombatComp::isCombat = false;
-    CombatComp::state = CombatComp::STATE::STORE;
+ 
     SubtitleComp::AddSubtitle({ SUB_GOLD, float(0.6), "goldText", f32(0.9), f32(0.9), f32(0), 1 });
     // Initialize Store Popup
     storePopup = new GameObject();
@@ -357,8 +358,9 @@ void StoreUI::InitStoreUI(GameObject* player) {
             PLAY_AUDIO_ERROR;
         }
     });
-
+    
     OpenStore();
+    CombatComp::state = CombatComp::STATE::STORE;
 }
 
 void StoreUI::UpdateStoreUI() {

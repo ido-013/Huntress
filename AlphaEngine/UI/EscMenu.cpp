@@ -13,6 +13,11 @@ bool EscUI::getOpen()
 }
 void EscUI::ToggleUI() {
     isOpen = !isOpen;
+    SubtitleComp::ModifySubtitle("goldText", (float)!isOpen);
+    SubtitleComp::ModifySubtitle("Bigger", (float)!isOpen);
+    SubtitleComp::ModifySubtitle("stun", (float)!isOpen);
+    SubtitleComp::ModifySubtitle("StraightArrow", (float)!isOpen);
+    SubtitleComp::ModifySubtitle("Orbit", (float)!isOpen);
     SetUIVisibility(isOpen);
     CombatComp::isCombat = !isOpen; 
 }
@@ -70,7 +75,7 @@ void EscUI::InitEscUI()
     RestartBtn->AddComponent<UIComponent>();
     UIComponent* RestartUI = RestartBtn->GetComponent<UIComponent>();
     RestartUI->SetPos({ -370, -100 });
-    RestartUI->SetScale({ 350, 100 });
+    RestartUI->SetScale({ 330, 90 });
     RestartUI->SetTexture("Assets/UI/EscMenu.png");
     RestartUI->SetColor(0, 0, 0);
     RestartUI->SetAlpha(0);
@@ -85,20 +90,20 @@ void EscUI::InitEscUI()
 
     restartBtn->SetOnHoverFunction([RestartUI]() {
 
-        RestartUI->SetScale({ 330, 90 });  
+        RestartUI->SetScale({ 350, 100 });
         });
 
     // Hover 해제 시 원래 크기로 복원
     restartBtn->SetOnHoverOutFunction([RestartUI]() {
 
-        RestartUI->SetScale({ 350, 100 });  
+        RestartUI->SetScale({ 330, 90 });
         });
    
     QuitBtn = new GameObject();
     QuitBtn->AddComponent<UIComponent>();
     UIComponent* QuitUI = QuitBtn->GetComponent<UIComponent>();
     QuitUI->SetPos({ -370, -200 });
-    QuitUI->SetScale({ 350, 100 });
+    QuitUI->SetScale({ 330, 90 });
     QuitUI->SetTexture("Assets/UI/GameQuit.png");
     QuitUI->SetColor(0, 0, 0);
     QuitUI->SetAlpha(0);
@@ -110,12 +115,12 @@ void EscUI::InitEscUI()
         });
 
     quitBtn->SetOnHoverFunction([QuitUI]() {
-        QuitUI->SetScale({ 330, 90 });
+        QuitUI->SetScale({ 350, 100 });
         });
 
     // Hover 해제 시 원래 크기로 복원
     quitBtn->SetOnHoverOutFunction([QuitUI]() {
-        QuitUI->SetScale({ 350, 100 });
+        QuitUI->SetScale({ 330, 90 });
         });
 
 }
@@ -127,14 +132,12 @@ void EscUI::UpdateEscUI(StoreUI* storeUI) {
 
         if (storeUI && storeUI->getOpen()) {
             SubtitleComp::ModifySubtitle("goldText", 0);
-            SubtitleComp::ModifySubtitle("Bigger", 0);
-            SubtitleComp::ModifySubtitle("stun", 0);
+   
             storeUI->StoreOnEsc();
         }
         else if (storeUI && storeUI->getisEsc()) {
             SubtitleComp::ModifySubtitle("goldText", 1);
-            SubtitleComp::ModifySubtitle("Bigger", 1);
-            SubtitleComp::ModifySubtitle("stun", 1);
+ 
             storeUI->StoreOffEsc();
         }
     }
