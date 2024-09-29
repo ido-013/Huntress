@@ -80,7 +80,7 @@ public:
 
 	// AICombatSystem에서만 사용
 	static bool isSetLaunchAngle;
-
+	static bool isHit;
 	static bool once;
 	static f64 currTime;
 
@@ -94,7 +94,8 @@ public:
 		STORE = 5,
 		KILLPLAYER = 6,
 		KILLENEMY = 7,
-		RESET = 8
+		RESET = 8,
+		STUN = 9
 	};
 	static STATE state;
 	void checkState();
@@ -105,7 +106,9 @@ public:
 	static std::map<Inventory::Item, bool> itemState;
 	static bool isItemUsed;
 	static void ItemCheck();
+	static void SetItemState(bool isUsed);
 
+	//orbit
 	static int orbitCircleCount;
 	std::vector<GameObject*> orbitDots;
 	void InitOrbit();

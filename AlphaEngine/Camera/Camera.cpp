@@ -84,7 +84,7 @@ void Camera::Update()
 	}
 
 	AEMtx33ScaleApply(&world_to_ndc_xform[0], &world_to_ndc_xform[0], 2 / height, 2 / height);
-	AEMtx33ScaleApply(&world_to_ndc_xform[1], &world_to_ndc_xform[1], f32(0.1) / height, f32(0.1) / height);
+	AEMtx33ScaleApply(&world_to_ndc_xform[1], &world_to_ndc_xform[1], 0.1f / height, 0.1f / height);
 }
 
 void Camera::GetPos(float* px, float* py)

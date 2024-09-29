@@ -14,11 +14,13 @@ bool RigidbodyComp::CheckEpsilon(float v, float EP)
 
 void RigidbodyComp::CorrectPosByAABB(ColliderComp* oc, ColliderComp* c, float& x, float& y)
 {
-	float dis[4];
-	dis[0] = abs(oc->GetPos().x + oc->GetScale().x / 2 - (c->GetPos().x - c->GetScale().x / 2));
-	dis[1] = abs(oc->GetPos().x - oc->GetScale().x / 2 - (c->GetPos().x + c->GetScale().x / 2));
-	dis[2] = abs(oc->GetPos().y + oc->GetScale().y / 2 - (c->GetPos().y - c->GetScale().y / 2));
-	dis[3] = abs(oc->GetPos().y - oc->GetScale().y / 2 - (c->GetPos().y + c->GetScale().y / 2));
+	float dis[4] =
+	{
+		abs(oc->GetPos().x + oc->GetScale().x / 2 - (c->GetPos().x - c->GetScale().x / 2)),
+		abs(oc->GetPos().x - oc->GetScale().x / 2 - (c->GetPos().x + c->GetScale().x / 2)),
+		abs(oc->GetPos().y + oc->GetScale().y / 2 - (c->GetPos().y - c->GetScale().y / 2)),
+		abs(oc->GetPos().y - oc->GetScale().y / 2 - (c->GetPos().y + c->GetScale().y / 2))
+	};
 
 	float minDis = dis[0];
 	int minInd = 0;
@@ -168,9 +170,6 @@ void RigidbodyComp::ClearAcceleration()
 
 void RigidbodyComp::Update()
 {
-	if (!CombatComp::isCombat)
-		return;
-
 	float dt = (float)AEFrameRateControllerGetFrameTime();
 
 	//Get the transform

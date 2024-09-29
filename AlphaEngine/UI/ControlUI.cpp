@@ -11,9 +11,9 @@ void ControlUI::SetUIVisibility(bool isVisible)
     UIComponent* controlUI = CtlUI->GetComponent<UIComponent>();
     UIComponent* CloseUI = CloseBtn->GetComponent<UIComponent>();
 
-    backgroundUI->SetAlpha(alphaValue);
-    controlUI->SetAlpha(alphaValue);
-    CloseUI->SetAlpha(alphaValue);
+    backgroundUI->SetAlpha((float)alphaValue);
+    controlUI->SetAlpha((float)alphaValue);
+    CloseUI->SetAlpha((float)alphaValue);
 
 }
 

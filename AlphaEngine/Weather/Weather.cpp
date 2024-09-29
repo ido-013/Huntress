@@ -1,7 +1,7 @@
 #include "Weather.h"
 #include "../Components.h"
 
-void Weather::ChangeWeather(AEVec2 _minPos, AEVec2 _maxPos, AEVec2 _scale, float _r, float _g, float _b, float _a, float _maxTimer)
+void Weather::ChangeWeather(AEVec2 _minPos, AEVec2 _maxPos, AEVec2 _scale, unsigned char _r, unsigned char _g, unsigned char _b, float _a, float _maxTimer)
 {
 	minPos = _minPos;
 	maxPos = _maxPos;
@@ -22,7 +22,7 @@ void Weather::Update()
 	RigidbodyComp* rb = nullptr;
 
 	static float timer = 0;
-	timer += AEFrameRateControllerGetFrameTime();
+	timer += (float)AEFrameRateControllerGetFrameTime();
 
 	if (go[index] == nullptr)
 	{

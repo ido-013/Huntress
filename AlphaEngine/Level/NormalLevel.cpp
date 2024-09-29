@@ -23,9 +23,9 @@
 
 level::NormalLevel::NormalLevel(int _level) : level(_level)
 {
-	float r = 255;
-	float g = 255;
-	float b = 255;
+	unsigned char r = 255;
+	unsigned char g = 255;
+	unsigned char b = 255;
 	float maxTimer = 0.3f;
 
 	switch (level)
@@ -74,7 +74,9 @@ void level::NormalLevel::Init()
 	CombatComp::blocks.reserve(200);
 	Serializer::GetInstance().LoadLevel("./Assets/Level/test" + std::to_string(level) + ".lvl");
 	Camera::GetInstance().fix = true;
-	
+	CombatComp::isHit = false;
+	CombatComp::isItemUsed = false;
+	CombatComp::SetItemState(false);
 	InitBackground();
 	GameObjectManager::GetInstance().GetObj("directionArrow")->GetComponent<CombatComp>()->InitOrbit();
 	player = GameObjectManager::GetInstance().GetObj("player");
@@ -100,6 +102,23 @@ void level::NormalLevel::Update()
 	storeUI.UpdateStoreUI();
 	UpdateBackground();
 	Weather::GetInstance().Update();
+
+#ifdef _DEBUG
+	if (AEInputCheckTriggered(AEVK_F1))
+	{
+		enemy->GetComponent<EnemyComp>()->big = true;
+	}
+
+	if (AEInputCheckTriggered(AEVK_F2))
+	{
+		enemy->GetComponent<EnemyComp>()->stun = true;
+	}
+
+	if (AEInputCheckTriggered(AEVK_F3))
+	{
+		player->GetComponent<PlayerComp>()->GBY = true;
+	}
+#endif
 
 	if (CombatComp::state == CombatComp::CLEAR)
 	{

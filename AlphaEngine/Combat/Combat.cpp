@@ -29,7 +29,7 @@ float delayTime = 0.2f;  // 2초 딜레이
 float elapsedTime = 0.0f;  // 경과 시간 저장
 f64 CombatComp::currTime = 0;
 bool CombatComp::once = false;
-
+bool CombatComp::isHit = false;
 CombatComp::TURN CombatComp::turn = NOBODYTURN;
 CombatComp::STATE CombatComp::state = NONE;
 
@@ -277,9 +277,10 @@ void CombatComp::FireAnArrow(TURN turn, GameObject& directionArrow)
 void CombatComp::ItemCheck()
 {
 	GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
+
 	if (itemState.find(Inventory::Item::Big)->second)
 	{
-		enemy->GetComponent<TransformComp>()->SetScale({ 90, 90 });
+		/*enemy->GetComponent<TransformComp>()->SetScale({ 90, 90 });
 		enemy->GetComponent<TransformComp>()->SetPos({
 			enemy->GetComponent<TransformComp>()->GetPos().x,
 			enemy->GetComponent<TransformComp>()->GetPos().y + 30 });
@@ -287,20 +288,15 @@ void CombatComp::ItemCheck()
 		enemy->GetComponent<ColliderComp>()->SetScale({ 90, 90 });
 		enemy->GetComponent<ColliderComp>()->SetPos({
 			enemy->GetComponent<ColliderComp>()->GetPos().x,
-			enemy->GetComponent<ColliderComp>()->GetPos().y + 30 });
+			enemy->GetComponent<ColliderComp>()->GetPos().y + 30 });*/
+
+		enemy->GetComponent<EnemyComp>()->big = true;
 	}
 	else
 	{
+		enemy->GetComponent<EnemyComp>()->big = false;
 		enemy->GetComponent<TransformComp>()->SetScale({ 50, 50 });
 		enemy->GetComponent<ColliderComp>()->SetScale({ 50, 50 });
-	}
-	if (itemState.find(Inventory::Item::Stun)->second)
-	{
-
-	}
-	else
-	{
-
 	}
 	if (itemState.find(Inventory::Item::Straight)->second)
 	{
@@ -310,6 +306,14 @@ void CombatComp::ItemCheck()
 	{
 
 	}
+}
+
+void CombatComp::SetItemState(bool isUsed)
+{
+	itemState.find(Inventory::Item::Big)->second = isUsed;
+	itemState.find(Inventory::Item::Straight)->second = isUsed;
+	itemState.find(Inventory::Item::Orbit)->second = isUsed;
+	itemState.find(Inventory::Item::Stun)->second = isUsed;
 }
 
 CombatComp::TURN CombatComp::TurnChange()
@@ -322,14 +326,14 @@ CombatComp::TURN CombatComp::TurnChange()
 	{
 		if (CombatComp::turn == PLAYERTURN)
 		{
-			itemState.find(Inventory::Item::Big)->second = false;
-			itemState.find(Inventory::Item::Straight)->second = false;
-			itemState.find(Inventory::Item::Orbit)->second = false;
+			if (itemState.find(Inventory::Item::Stun)->second && CombatComp::isHit)
+			{
+				state = STUN;
+
+			}
+			SetItemState(false);
 		}
-		else if (CombatComp::turn == ENEMYTURN)
-		{
-			itemState.find(Inventory::Item::Stun)->second = false;
-		}
+
 		ItemCheck();
 		isItemUsed = false;
 	}
@@ -1034,6 +1038,8 @@ void CombatComp::Update()
 		TransformComp* ptf = GetPlayerTransform();
 		GameObject* enemy = GetEnemyObject();
 		TransformComp* etf = GetEnemyTransform();
+
+		enemy->GetComponent<TransformComp>()->ReverseX(ptf->GetPos().x < etf->GetPos().x ? 0 : 1);
 		//2초간 플레이어 고정
 		if (currTime < 2)
 		{
@@ -1150,6 +1156,38 @@ void CombatComp::Update()
 		}
 		currTime += AEFrameRateControllerGetFrameTime();
 	}
+	else if (isCombat && state == STUN)
+	{
+		//STUN 효과 구현
+		
+		GameObject* enemy = GetEnemyObject();
+		TransformComp* ptf = GetPlayerTransform();
+		TransformComp* etf = GetEnemyTransform();
+		std::cout << "STUN!!" << std::endl;
+
+		if (currTime < 3)
+		{
+			enemy->GetComponent<TransformComp>()->ReverseX(ptf->GetPos().x < etf->GetPos().x ? 0 : 1);
+			Camera::GetInstance().SetPos(etf->GetPos().x, etf->GetPos().y);
+			if (once == false)
+			{
+				once = true;
+				SubtitleComp::IntersectDissolveText({ {{(f32)-0.3,(f32)0.1}, 1, "STUN!!", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+				enemy->GetComponent<EnemyComp>()->stun = true;
+				//bga->playAudio(0, "./Assets/Audio/failfare.mp3");
+			}
+		}
+		else
+		{
+			once = false; 
+			state = COMBAT;
+			turn = PLAYERTURN;
+			CombatComp::isHit = false;
+			enemy->GetComponent<EnemyComp>()->stun = false;
+			currTime = 0;
+		}
+		currTime += AEFrameRateControllerGetFrameTime();
+	}
 	else if (isCombat && state == GAMEOVER)
 	{
 		GameObject* player = GetPlayerObject();
@@ -1167,7 +1205,6 @@ void CombatComp::Update()
 				pComp->playerData->inventory.isGBY = false;
 				state = COMBAT;
 				turn = TURN::PLAYERTURN;
-
 			}
 		}
 		else

@@ -11,15 +11,21 @@ private:
 	int movementGauge = 1000;
 	int maxMovementGauge = 1000;
 
+	GameObject* GBYobj;
+
 public:
 	Data::PlayerData* playerData;
 	bool moveState = true;
 	bool turnTemp = true;
 
+	bool GBY = false;
+
 	int GetMovegauge();
 
 	float GetHp();
 	void AddHp(float value);
+
+	void GBYEffect();
 
 	PlayerComp(GameObject* _owner);
 	~PlayerComp();
