@@ -23,6 +23,7 @@ class CombatUI
 	GameObject* Wind = nullptr;
 	GameObject* WindFrame = nullptr;
 public:
+	~CombatUI();
 	void InitCombatUI();
 	void UpdateCombatUI();
 	void ExitCombatUI();

@@ -13,6 +13,11 @@ bool EscUI::getOpen()
 }
 void EscUI::ToggleUI() {
     isOpen = !isOpen;
+    SubtitleComp::ModifySubtitle("goldText", (float)!isOpen);
+    SubtitleComp::ModifySubtitle("Bigger", (float)!isOpen);
+    SubtitleComp::ModifySubtitle("stun", (float)!isOpen);
+    SubtitleComp::ModifySubtitle("StraightArrow", (float)!isOpen);
+    SubtitleComp::ModifySubtitle("Orbit", (float)!isOpen);
     SetUIVisibility(isOpen);
     CombatComp::isCombat = !isOpen; 
 }
@@ -127,14 +132,12 @@ void EscUI::UpdateEscUI(StoreUI* storeUI) {
 
         if (storeUI && storeUI->getOpen()) {
             SubtitleComp::ModifySubtitle("goldText", 0);
-            SubtitleComp::ModifySubtitle("Bigger", 0);
-            SubtitleComp::ModifySubtitle("stun", 0);
+   
             storeUI->StoreOnEsc();
         }
         else if (storeUI && storeUI->getisEsc()) {
             SubtitleComp::ModifySubtitle("goldText", 1);
-            SubtitleComp::ModifySubtitle("Bigger", 1);
-            SubtitleComp::ModifySubtitle("stun", 1);
+ 
             storeUI->StoreOffEsc();
         }
     }
