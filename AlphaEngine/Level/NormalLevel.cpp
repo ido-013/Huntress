@@ -33,6 +33,7 @@ level::NormalLevel::NormalLevel(int _level) : level(_level)
 	case 1:
 		maxTimer = 0.2f;
 	case 3:
+	case 7:
 		r = 224;
 		g = 202;
 		b = 141;
@@ -48,16 +49,10 @@ level::NormalLevel::NormalLevel(int _level) : level(_level)
 		break;
 	case 5:
 	case 6:
+	case 9:
 		r = 118;
 		g = 248;
 		b = 64;
-		break;
-	case 7:
-	case 9:
-		maxTimer = 0.002f;
-		r = 0;
-		g = 0;
-		b = 180;
 		break;
 	}
 
