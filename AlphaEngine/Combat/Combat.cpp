@@ -300,12 +300,10 @@ void CombatComp::ItemCheck()
 	}
 	if (itemState.find(Inventory::Item::Straight)->second)
 	{
-		//enemy->GetComponent<EnemyComp>()->stun = true;
+
 	}
 	else
 	{
-		//enemy->GetComponent<EnemyComp>()->stun = false;
-	}
 
 	}
 }
@@ -331,6 +329,7 @@ CombatComp::TURN CombatComp::TurnChange()
 			if (itemState.find(Inventory::Item::Stun)->second && CombatComp::isHit)
 			{
 				state = STUN;
+
 			}
 			SetItemState(false);
 		}
@@ -1160,18 +1159,21 @@ void CombatComp::Update()
 	else if (isCombat && state == STUN)
 	{
 		//STUN 효과 구현
-
+		
 		GameObject* enemy = GetEnemyObject();
+		TransformComp* ptf = GetPlayerTransform();
 		TransformComp* etf = GetEnemyTransform();
 		std::cout << "STUN!!" << std::endl;
 
 		if (currTime < 3)
 		{
+			enemy->GetComponent<TransformComp>()->ReverseX(ptf->GetPos().x < etf->GetPos().x ? 0 : 1);
 			Camera::GetInstance().SetPos(etf->GetPos().x, etf->GetPos().y);
 			if (once == false)
 			{
 				once = true;
 				SubtitleComp::IntersectDissolveText({ {{(f32)-0.3,(f32)0.1}, 1, "STUN!!", 1, 1, 1, 1}, 2, 0.7, 0.7 });
+				enemy->GetComponent<EnemyComp>()->stun = true;
 				//bga->playAudio(0, "./Assets/Audio/failfare.mp3");
 			}
 		}
@@ -1181,6 +1183,7 @@ void CombatComp::Update()
 			state = COMBAT;
 			turn = PLAYERTURN;
 			CombatComp::isHit = false;
+			enemy->GetComponent<EnemyComp>()->stun = false;
 			currTime = 0;
 		}
 		currTime += AEFrameRateControllerGetFrameTime();
