@@ -66,6 +66,7 @@ void SubtitleComp::RemoveSubtitle(std::string str)
 void SubtitleComp::ClearSubtitle()
 {
 	contexts.clear();
+	subtitles.clear();
 }
 
 void SubtitleComp::IntersectDissolveText(DissolveSubtitle dissolveSubtitle)

@@ -85,6 +85,7 @@ void level::NormalLevel::Init()
 	if (level == 1)
 	{
 		player->GetComponent<PlayerComp>()->playerData->InitData(15, 50, 50, 5, 1);
+		player->GetComponent<PlayerComp>()->playerData->inventory.InitInventory();
 	}
 
 	storeUI.InitStoreUI(player);

@@ -4,6 +4,7 @@
 
 void Inventory::InitInventory()
 {
+	items.clear();
 	items.insert({ Item::Big,		0 });
 	items.insert({ Item::Stun,		0 });
 	items.insert({ Item::Straight,	0 });
