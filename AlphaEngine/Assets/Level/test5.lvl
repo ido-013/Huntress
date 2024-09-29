@@ -3257,10 +3257,10 @@
     ]
   },
   "enemyData": {
-    "maxLife": 120.0,
-    "hp": 120.0,
-    "damage": 9.0,
-    "armor": 5.0,
+    "maxLife": 80.0,
+    "hp": 80.0,
+    "damage": 10.0,
+    "armor": 0.0,
     "grade": 2
   },
   "backgroundFileName": "./Assets/Background/BG5.png"

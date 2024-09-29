@@ -229,7 +229,7 @@ void StoreUI::InitStoreUI(GameObject* player) {
                 PLAY_AUDIO_ERROR;
             }
             else {
-                playerComp->playerData->hp = playerComp->playerData->maxLife;
+                playerComp->playerData->hp = (((playerComp->playerData->hp + playerComp->playerData->maxLife * 0.3) < (playerComp->playerData->maxLife)) ? float((playerComp->playerData->hp + playerComp->playerData->maxLife * 0.3)) : (playerComp->playerData->maxLife));
                 playerComp->playerData->gold -= 10;
                 SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Fully Healed!", 0, 1, 0, 1}, 2, 0.7, 0.7 });
                 PLAY_AUDIO_PURCHASE;
