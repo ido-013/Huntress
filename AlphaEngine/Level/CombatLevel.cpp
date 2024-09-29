@@ -545,13 +545,13 @@ void level::CombatLevel::Init()
 	Serializer::GetInstance().SaveLevel("./Assets/Level/test" + std::to_string(i + 1) + ".lvl", "./Assets/Background/BG" + std::to_string(bgNum[i]) + ".png");
 
 	//Init UI
-	InitCombatUI();
+	//InitCombatUI();
 
 }
 
 void level::CombatLevel::Update()
 {
-	UpdateCombatUI();
+//	UpdateCombatUI();
 	UpdateBackground();
 
 #ifdef _DEBUG
@@ -580,5 +580,5 @@ void level::CombatLevel::Update()
 
 void level::CombatLevel::Exit()
 {
-	ExitCombatUI();
+	//ExitCombatUI();
 }

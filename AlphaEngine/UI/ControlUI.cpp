@@ -6,7 +6,7 @@
 
 void ControlUI::SetUIVisibility(bool isVisible)
 {
-    int alphaValue = isVisible ? 1 : 0;
+    float alphaValue = isVisible ? 1.f : 0.f;
     UIComponent* backgroundUI = BgUI->GetComponent<UIComponent>();
     UIComponent* controlUI = CtlUI->GetComponent<UIComponent>();
     UIComponent* CloseUI = CloseBtn->GetComponent<UIComponent>();

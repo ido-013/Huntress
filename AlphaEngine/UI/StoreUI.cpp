@@ -42,7 +42,7 @@ std::string StoreUI::goldText = "";
         AEInputGetCursorPosition(&mouseX, &mouseY);
         mouseY = -mouseY + 450;
         mouseX = mouseX - 800;
-        AEVec2 mousePos = { static_cast<float>(mouseX)+125, static_cast<float>(mouseY)-200 };
+        AEVec2 mousePos = { static_cast<float>(mouseX)+125, static_cast<float>(mouseY)-125 };
         item.info->SetPosition(name, mousePos);
         item.info->SetonInfo(name);
         });
@@ -89,6 +89,7 @@ void StoreUI::StoreOnEsc()
 
 void StoreUI::StoreOffEsc()
 {
+
     isEsc = false;
     OpenStore();
 }
@@ -113,6 +114,7 @@ void StoreUI::SetUIVisibility(bool isVisible) {
 }
 
 void StoreUI::OpenStore() {
+
     isStoreOpen = true;
     SetUIVisibility(true);
 }
@@ -270,7 +272,7 @@ void StoreUI::InitStoreUI(GameObject* player) {
             PLAY_AUDIO_ERROR;
         }
         });
-    CreateStoreItem("Stunarrow", "Assets/UI/StunarrowInfo.png","Assets/UI/StunarrowInfo.png", { -200, -100 }, 15, [player]() {
+    CreateStoreItem("Orbit", "Assets/UI/Orbit.png","Assets/UI/OrbitInfo.png", { -200, -100 }, 15, [player]() {
         PlayerComp* playerComp = player->GetComponent<PlayerComp>();
         if (playerComp->playerData->gold >= 7) {
             if (playerComp->playerData->inventory.AddItem(Data::PlayerData::inventory.Orbit))
@@ -294,7 +296,7 @@ void StoreUI::InitStoreUI(GameObject* player) {
 
    
 
-    CreateStoreItem("Straightarrow", "Assets/UI/StraightarrowInfo.png","Assets/UI/StraightarrowInfo.png", { -200, 100 }, 15, [player]() {
+    CreateStoreItem("Stun", "Assets/UI/stun.png","Assets/UI/StunarrowInfo.png", { -200, 100 }, 15, [player]() {
         PlayerComp* playerComp = player->GetComponent<PlayerComp>();
         if (playerComp->playerData->gold >= 7) {
             if (playerComp->playerData->inventory.AddItem(Data::PlayerData::inventory.Stun))
@@ -315,7 +317,7 @@ void StoreUI::InitStoreUI(GameObject* player) {
         }
         });
    
-    CreateStoreItem("BiggerInfo", "Assets/UI/BiggerInfo.png","Assets/UI/BiggerInfo.png", { -400, -100 }, 15, [player]() {
+    CreateStoreItem("Straight", "Assets/UI/StraightArrow.png","Assets/UI/StraightarrowInfo.png", { -400, -100 }, 15, [player]() {
         PlayerComp* playerComp = player->GetComponent<PlayerComp>();
         if (playerComp->playerData->gold >= 7) {
             if (playerComp->playerData->inventory.AddItem(Data::PlayerData::inventory.Straight))
@@ -335,7 +337,7 @@ void StoreUI::InitStoreUI(GameObject* player) {
             PLAY_AUDIO_ERROR;
         }
         });
-    CreateStoreItem("OrbitInfo", "Assets/UI/OrbitInfo.png","Assets/UI/OrbitInfo.png", { -400, 100 }, 15, [player]() {
+    CreateStoreItem("Bigger", "Assets/UI/Bigger.png","Assets/UI/BiggerInfo.png", { -400, 100 }, 15, [player]() {
         PlayerComp* playerComp = player->GetComponent<PlayerComp>();
         if (playerComp->playerData->gold >= 7) {
             if (playerComp->playerData->inventory.AddItem(Data::PlayerData::inventory.Big))

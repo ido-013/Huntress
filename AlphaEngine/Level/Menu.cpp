@@ -47,7 +47,7 @@ void level::Menu::Init() {
     startButtonObj->AddComponent<UIComponent>();
     UIComponent* startUI = startButtonObj->GetComponent<UIComponent>();
     startUI->SetPos({ 0, -100 });
-    startUI->SetScale({ 500, 100 });
+    startUI->SetScale({ 480, 90 });
     startUI->SetTexture("Assets/UI/Menu.png");
     startUI->SetColor(0, 0, 0);
     startUI->SetScreenSpace(true);
@@ -62,12 +62,12 @@ void level::Menu::Init() {
 
 
     startBtn->SetOnHoverFunction([startUI]() {
-        startUI->SetScale({ 480, 90 });  
+        startUI->SetScale({ 500, 100 });
         });
 
 
     startBtn->SetOnHoverOutFunction([startUI]() {
-        startUI->SetScale({ 500, 100 });
+        startUI->SetScale({ 480, 90 });
         });
 
 
@@ -75,7 +75,7 @@ void level::Menu::Init() {
     CtlButtonObj->AddComponent<UIComponent>();
     UIComponent* ControllUI = CtlButtonObj->GetComponent<UIComponent>();
     ControllUI->SetPos({ 0, -200 });
-    ControllUI->SetScale({ 500, 100 });
+    ControllUI->SetScale({ 480, 90 });
     ControllUI->SetTexture("Assets/UI/Menu.png");
     ControllUI->SetColor(0, 0, 0);
     ControllUI->SetScreenSpace(true);
@@ -88,12 +88,12 @@ void level::Menu::Init() {
  
     ControllBtn->SetOnHoverFunction([ControllUI]() {
 
-        ControllUI->SetScale({ 480, 90 });
+        ControllUI->SetScale({ 500, 100 });
         });
 
     // Hover 해제 시 원래 크기로 복원
     ControllBtn->SetOnHoverOutFunction([ControllUI]() {
-        ControllUI->SetScale({ 500, 100 });
+        ControllUI->SetScale({ 480, 90 });
         });
 
     // Quit 버튼 초기화 및 등록
@@ -101,7 +101,7 @@ void level::Menu::Init() {
     quitButtonObj->AddComponent<UIComponent>();
     UIComponent* quitUI = quitButtonObj->GetComponent<UIComponent>();
     quitUI->SetPos({ 0, -300 });
-    quitUI->SetScale({ 500, 100 });
+    quitUI->SetScale({ 480, 90 });
     quitUI->SetTexture("Assets/UI/Menu.png");
     quitUI->SetColor(0, 0, 0);
     quitUI->SetScreenSpace(true);
@@ -116,12 +116,12 @@ void level::Menu::Init() {
 
     quitBtn->SetOnHoverFunction([quitUI]() {
   
-        quitUI->SetScale({ 480, 90 });
+        quitUI->SetScale({ 500, 100 });
         });
 
     // Hover 해제 시 원래 크기로 복원
     quitBtn->SetOnHoverOutFunction([quitUI]() {
-        quitUI->SetScale({ 500, 100 });
+        quitUI->SetScale({ 480, 90 });
         });
     CtrUI.InitControlUI();
     // 자막 추가

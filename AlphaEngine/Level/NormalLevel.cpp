@@ -82,7 +82,7 @@ void level::NormalLevel::Init()
 	player = GameObjectManager::GetInstance().GetObj("player");
 	enemy = GameObjectManager::GetInstance().GetObj("enemy");
 
-	InitCombatUI();
+	CombatHUD.InitCombatUI();
 
 #ifdef _DEBUG
 	std::cout << "Current Level : " << level << std::endl;
@@ -154,11 +154,12 @@ void level::NormalLevel::Update()
 	{
 		GSM::GameStateManager::GetInstance().ChangeLevel(new Menu);
 	}
-	UpdateCombatUI();
+	CombatHUD.UpdateCombatUI();
 }
 
 void level::NormalLevel::Exit()
 {
+	CombatHUD.ExitCombatUI();
 	storeUI.ExitStoreUI();
 	CombatComp::blocks.clear();
 }

@@ -4,33 +4,16 @@
 #include "../Components/UIComp.h"
 #include "../Components/PlayerComp.h"
 #include "../Components/EnemyComp.h"
+#include "../Components/ButtonComp.h"
 #include "../Combat/Combat.h"
 #include "../Components/TransformComp.h"
 #include "../GameObjectManager/GameObjectManager.h"
 #include "../Data/Data.h"
 #include "../Components/SubtitleComp.h"
-GameObject* UIBAR = nullptr;
-GameObject* PowerFrame = nullptr;
-GameObject* Power = nullptr;
-GameObject* MoveFrame = nullptr;
-GameObject* Move = nullptr;
-GameObject* Angle = nullptr;
-GameObject* playerAngle = nullptr;
-GameObject* DirectAngle = nullptr;
-GameObject* FrameUiBar = nullptr;
-GameObject* HPFrame = nullptr;
-GameObject* HP = nullptr;
-GameObject* enemyHPFrame = nullptr;
-GameObject* enemyHP = nullptr;
-GameObject* item[4] = { nullptr };
-GameObject* itemIcon[4] = { nullptr };
-GameObject* WindDirection = nullptr;
-GameObject* PreDirection = nullptr;
-GameObject* Wind = nullptr;
-GameObject* WindFrame = nullptr;
+#include "../Data/Inventory.h"
 
 
-void InitCombatUI()
+void CombatUI::InitCombatUI()
 {
 	GameObject* player = GameObjectManager::GetInstance().GetObj("player");
 	GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
@@ -131,65 +114,116 @@ void InitCombatUI()
 	item[0]->AddComponent<UIComponent>();
 	UIComponent* itemComp0 = item[0]->GetComponent<UIComponent>();
 	itemComp0->SetScale({ 130, 100 });
-	itemComp0->SetPos({ -580, -280 });
+	itemComp0->SetPos({ -550, -280 });
 	itemComp0->SetTexture("Assets/UI/HP_FRAME.png");
 	itemComp0->SetColor(0, 0, 0);
+
 	item[1] = new GameObject();
 	item[1]->AddComponent<UIComponent>();
 	UIComponent* itemComp1 = item[1]->GetComponent<UIComponent>();
 	itemComp1->SetScale({ 130, 100 });
-	itemComp1->SetPos({ -580, -380 });
+	itemComp1->SetPos({ -550, -380 });
 	itemComp1->SetTexture("Assets/UI/HP_FRAME.png");
 	itemComp1->SetColor(0, 0, 0);
 	item[2] = new GameObject();
 	item[2]->AddComponent<UIComponent>();
 	UIComponent* itemComp2 = item[2]->GetComponent<UIComponent>();
 	itemComp2->SetScale({ 130, 100 });
-	itemComp2->SetPos({ -450, -280 });
+	itemComp2->SetPos({ -420, -280 });
 	itemComp2->SetTexture("Assets/UI/HP_FRAME.png");
 	itemComp2->SetColor(0, 0, 0);
 	item[3] = new GameObject();
 	item[3]->AddComponent<UIComponent>();
 	UIComponent* itemComp3 = item[3]->GetComponent<UIComponent>();
 	itemComp3->SetScale({ 130, 100 });
-	itemComp3->SetPos({ -450, -380 });
+	itemComp3->SetPos({ -420, -380 });
 	itemComp3->SetTexture("Assets/UI/HP_FRAME.png");
 	itemComp3->SetColor(0, 0, 0);
 
 
-
+	PlayerComp* pComp = player->GetComponent<PlayerComp>();
 	itemIcon[0] = new GameObject();
 	itemIcon[0]->AddComponent<UIComponent>();
+	itemIcon[0]->AddComponent<ButtonComp>();
 	UIComponent* itemIconComp0 = itemIcon[0]->GetComponent<UIComponent>();
 	itemIconComp0->SetScale({ 130, 100 });
-	itemIconComp0->SetPos({ -580, -280 });
-	itemIconComp0->SetTexture("Assets/UI/fire.png");
+	itemIconComp0->SetPos({ -550, -280 });
+	itemIconComp0->SetTexture("Assets/UI/Bigger.png");
 	itemIconComp0->SetColor(0, 0, 0);
+	ButtonComp* item0btn = itemIcon[0]->GetComponent<ButtonComp>();
+	item0btn->SetOnClickFunction([pComp]() {pComp->playerData->inventory.UseItem(Inventory::Item::Big);
+	std::cout << "1234";
+
+	});
+	item0btn->SetOnHoverFunction([itemIconComp0]() {
+		itemIconComp0->SetAlpha(float(0.7));
+
+	});
+	item0btn->SetOnHoverOutFunction([itemIconComp0]() {
+		itemIconComp0->SetAlpha(1);
+
+	});
+	SubtitleComp::AddSubtitle({ {-(f32)(0.65),-(f32)(0.72)}, f32(0.5), "Bigger", (f32)0.2, 0, 0, 1});
+
 	itemIcon[1] = new GameObject();
 	itemIcon[1]->AddComponent<UIComponent>();
+	itemIcon[1]->AddComponent<ButtonComp>();
 	UIComponent* itemIconComp1 = itemIcon[1]->GetComponent<UIComponent>();
 	itemIconComp1->SetScale({ 130, 100 });
-	itemIconComp1->SetPos({ -580, -380 });
-	itemIconComp1->SetTexture("Assets/UI/fire.png");
+	itemIconComp1->SetPos({ -550, -380 });
+	itemIconComp1->SetTexture("Assets/UI/StraightArrow.png");
 	itemIconComp1->SetColor(0, 0, 0);
+	ButtonComp* item1btn = itemIcon[1]->GetComponent<ButtonComp>();
+	item1btn->SetOnClickFunction([pComp]() {pComp->playerData->inventory.UseItem(Inventory::Item::Stun);
+
+
+	});
+	item1btn->SetOnHoverFunction([itemIconComp1]() {
+		itemIconComp1->SetAlpha(float(0.7));
+
+	});
+	item1btn->SetOnHoverOutFunction([itemIconComp1]() {
+		itemIconComp1->SetAlpha(1);
+
+	});
+	SubtitleComp::AddSubtitle({ {-(f32)(0.65),-(f32)(0.95)}, f32(0.5), "StraightArrow", (f32)0.2, 0, 0, 1 });
 	itemIcon[2] = new GameObject();
 	itemIcon[2]->AddComponent<UIComponent>();
+	itemIcon[2]->AddComponent<ButtonComp>();
 	UIComponent* itemIconComp2 = itemIcon[2]->GetComponent<UIComponent>();
 	itemIconComp2->SetScale({ 130, 100 });
-	itemIconComp2->SetPos({ -450, -280 });
-	itemIconComp2->SetTexture("Assets/UI/fire.png");
+	itemIconComp2->SetPos({ -420, -280 });
+	itemIconComp2->SetTexture("Assets/UI/stun.png");
 	itemIconComp2->SetColor(0, 0, 0);
+	ButtonComp* item2btn = itemIcon[2]->GetComponent<ButtonComp>();
+	item2btn->SetOnClickFunction([pComp]() {pComp->playerData->inventory.UseItem(Inventory::Item::Straight);
+	});
+	item2btn->SetOnHoverFunction([itemIconComp2]() {
+		itemIconComp2->SetAlpha(float(0.7));
+	});
+	item2btn->SetOnHoverOutFunction([itemIconComp2]() {
+		itemIconComp2->SetAlpha(1);
+	});
+	SubtitleComp::AddSubtitle({ {-(f32)(0.485),-(f32)(0.72)}, f32(0.5), "stun", (f32)0.2, 0, 0, 1 });
 	itemIcon[3] = new GameObject();
 	itemIcon[3]->AddComponent<UIComponent>();
+	itemIcon[3]->AddComponent<ButtonComp>();
 	UIComponent* itemIconComp3 = itemIcon[3]->GetComponent<UIComponent>();
 	itemIconComp3->SetScale({ 130, 100 });
-	itemIconComp3->SetPos({ -450, -380 });
-	itemIconComp3->SetTexture("Assets/UI/fire.png");
+	itemIconComp3->SetPos({ -420, -380 });
+	itemIconComp3->SetTexture("Assets/UI/Orbit.png");
 	itemIconComp3->SetColor(0, 0, 0);
+	ButtonComp* item3btn = itemIcon[3]->GetComponent<ButtonComp>();
+	item3btn->SetOnClickFunction([pComp]() {pComp->playerData->inventory.UseItem(Inventory::Item::Orbit);
+	});
+	item3btn->SetOnHoverFunction([itemIconComp3]() {
+		itemIconComp3->SetAlpha(float(0.7));
+	});
+	item3btn->SetOnHoverOutFunction([itemIconComp3]() {
+		itemIconComp3->SetAlpha(1);
+	});
+	SubtitleComp::AddSubtitle({ {-(f32)(0.485),-(f32)(0.95)}, f32(0.5), "Orbit", (f32)0.2, 0, 0, 1 });
 
-
-	//SubtitleComp::AddSubtitle({ {0.75, -0.77}, 0.6, "randomVal2", 0, 0, 0, 1 });
-	// Enemy HP Bar
 	enemyHPFrame = new GameObject();
 	enemyHPFrame->AddComponent<UIComponent>();
 	UIComponent* enemyhpFrameComp = enemyHPFrame->GetComponent<UIComponent>();
@@ -206,10 +240,6 @@ void InitCombatUI()
 	enemyHpComp->SetTexture("Assets/UI/HP_GAUGE.png");
 	enemyHpComp->SetColor(200, 200, 0);
 
-	// Enemy Attack
-
-
-	// Wind UI
 	Wind = new GameObject();
 	Wind->AddComponent<UIComponent>();
 	UIComponent* windComp = Wind->GetComponent<UIComponent>();
@@ -225,7 +255,6 @@ void InitCombatUI()
 	windFrameComp->SetTexture("Assets/UI/windFrame.png");
 	windFrameComp->SetColor(0, 0, 0);
 
-	// Wind Direction Arrow
 	WindDirection = new GameObject();
 	WindDirection->AddComponent<UIComponent>();
 	UIComponent* transWindDirect = WindDirection->GetComponent<UIComponent>();
@@ -233,18 +262,17 @@ void InitCombatUI()
 	transWindDirect->SetPos({ -725, 400 });
 	transWindDirect->SetTexture("./Assets/UI/windArrow.png");
 	transWindDirect->SetColor(1, 1, 1);
-	SubtitleComp::AddSubtitle({ {(f32) - 0.85,(f32)0.82}, 1, "WindPower", (f32)0.2, 0, 0, 1});
+	SubtitleComp::AddSubtitle({ {(f32)-0.85,(f32)0.82}, 1, "WindPower", (f32)0.2, 0, 0, 1 });
 
 }
 
-void UpdateCombatUI()
+void CombatUI::UpdateCombatUI()
 {
 	GameObject* player = GameObjectManager::GetInstance().GetObj("player");
 	GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
 	GameObject* directionArrow = GameObjectManager::GetInstance().GetObj("directionArrow");
 
-
-	if (CombatComp::state==CombatComp::STATE::COMBAT|| CombatComp::state == CombatComp::STATE::RESET|| CombatComp::state == CombatComp::STATE::READY|| CombatComp::state == CombatComp::STATE::KILLENEMY)
+	if (CombatComp::state == CombatComp::STATE::COMBAT || CombatComp::state == CombatComp::STATE::RESET || CombatComp::state == CombatComp::STATE::READY || CombatComp::state == CombatComp::STATE::KILLENEMY || CombatComp::state == CombatComp::STATE::CLEAR)
 	{
 		if (directionArrow) {
 			float angle = directionArrow->GetComponent<CombatComp>()->data.windAngle;
@@ -294,13 +322,27 @@ void UpdateCombatUI()
 	}
 	if (SubtitleComp::FindSubtitle("WindPower"))
 	{
-		SubtitleComp::ModifySubtitle("WindPower",std::to_string((int)directionArrow->GetComponent<CombatComp>()->data.windPower));		
+		SubtitleComp::ModifySubtitle("WindPower", std::to_string((int)directionArrow->GetComponent<CombatComp>()->data.windPower));
 	}
-
+	if (SubtitleComp::FindSubtitle("Bigger"))
+	{
+		SubtitleComp::ModifySubtitle("Bigger", std::to_string((int)player->GetComponent<PlayerComp>()->playerData->inventory.GetItemCount(Inventory::Big)));
+	}
+	if (SubtitleComp::FindSubtitle("stun"))
+	{
+		SubtitleComp::ModifySubtitle("stun", std::to_string((int)player->GetComponent<PlayerComp>()->playerData->inventory.GetItemCount(Inventory::Stun)));
+	}
+	if (SubtitleComp::FindSubtitle("StraightArrow"))
+	{
+		SubtitleComp::ModifySubtitle("StraightArrow", std::to_string((int)player->GetComponent<PlayerComp>()->playerData->inventory.GetItemCount(Inventory::Straight)));
+	}
+	if (SubtitleComp::FindSubtitle("Orbit"))
+	{
+		SubtitleComp::ModifySubtitle("Orbit", std::to_string((int)player->GetComponent<PlayerComp>()->playerData->inventory.GetItemCount(Inventory::Orbit)));
+	}
 }
 
-void ExitCombatUI()
+void CombatUI::ExitCombatUI()
 {
 	SubtitleComp::ClearSubtitle();
 }
-
