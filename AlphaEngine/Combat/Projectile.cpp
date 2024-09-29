@@ -225,8 +225,16 @@ void Projectile::Update()
                 //AEGfxSetCamPosition(ptf->GetPos().x, ptf->GetPos().y);
                 Camera::GetInstance().SetPos(ptf->GetPos().x, ptf->GetPos().y);
 
-                Particle p(5, 2, 1, { 255, 255, 0 });
-                p.Explosion(ptf->GetPos(), {-velocityX, 50.f}, {-velocityX * 10, 200.f});
+                if (CombatComp::itemState.find(Inventory::Item::Stun)->second)
+                {
+                    Particle p(5, 0.5f, 1, { 255, 255, 0 });
+                    p.Explosion(ptf->GetPos(), { -velocityX, 50.f }, { -velocityX * 10, 200.f });
+                }
+                else if (CombatComp::itemState.find(Inventory::Item::Straight)->second)
+                {
+                    Particle p(5, 0.5f, 1, { 255, 0, 255 });
+                    p.Explosion(ptf->GetPos(), { -velocityX, 50.f }, { -velocityX * 10, 200.f });
+                }
 
                 // 시간 증가
                 time += timeStep;
