@@ -277,9 +277,10 @@ void CombatComp::FireAnArrow(TURN turn, GameObject& directionArrow)
 void CombatComp::ItemCheck()
 {
 	GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
+
 	if (itemState.find(Inventory::Item::Big)->second)
 	{
-		enemy->GetComponent<TransformComp>()->SetScale({ 90, 90 });
+		/*enemy->GetComponent<TransformComp>()->SetScale({ 90, 90 });
 		enemy->GetComponent<TransformComp>()->SetPos({
 			enemy->GetComponent<TransformComp>()->GetPos().x,
 			enemy->GetComponent<TransformComp>()->GetPos().y + 30 });
@@ -287,21 +288,26 @@ void CombatComp::ItemCheck()
 		enemy->GetComponent<ColliderComp>()->SetScale({ 90, 90 });
 		enemy->GetComponent<ColliderComp>()->SetPos({
 			enemy->GetComponent<ColliderComp>()->GetPos().x,
-			enemy->GetComponent<ColliderComp>()->GetPos().y + 30 });
+			enemy->GetComponent<ColliderComp>()->GetPos().y + 30 });*/
+
+		enemy->GetComponent<EnemyComp>()->big = true;
 	}
 	else
 	{
+		enemy->GetComponent<EnemyComp>()->big = false;
 		enemy->GetComponent<TransformComp>()->SetScale({ 50, 50 });
 		enemy->GetComponent<ColliderComp>()->SetScale({ 50, 50 });
 	}
+
 	if (itemState.find(Inventory::Item::Stun)->second)
 	{
-
+		//enemy->GetComponent<EnemyComp>()->stun = true;
 	}
 	else
 	{
-
+		//enemy->GetComponent<EnemyComp>()->stun = false;
 	}
+
 	if (itemState.find(Inventory::Item::Straight)->second)
 	{
 
@@ -1167,7 +1173,6 @@ void CombatComp::Update()
 				pComp->playerData->inventory.isGBY = false;
 				state = COMBAT;
 				turn = TURN::PLAYERTURN;
-
 			}
 		}
 		else

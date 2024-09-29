@@ -21,9 +21,15 @@ public:
 	void RandomMove();
 	int GetMovegauge();
 
+	bool big = false;
+	bool stun = false;
+
 	void AddHp(float value);
 
 	bool isCliff();
+
+	void StunEffect();
+	void BigEffect();
 
 	EnemyComp(GameObject* _owner);
 	~EnemyComp();

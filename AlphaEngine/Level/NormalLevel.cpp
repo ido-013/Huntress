@@ -101,6 +101,23 @@ void level::NormalLevel::Update()
 	UpdateBackground();
 	Weather::GetInstance().Update();
 
+#ifdef _DEBUG
+	if (AEInputCheckTriggered(AEVK_F1))
+	{
+		enemy->GetComponent<EnemyComp>()->big = true;
+	}
+
+	if (AEInputCheckTriggered(AEVK_F2))
+	{
+		enemy->GetComponent<EnemyComp>()->stun = true;
+	}
+
+	if (AEInputCheckTriggered(AEVK_F3))
+	{
+		player->GetComponent<PlayerComp>()->GBY = true;
+	}
+#endif
+
 	if (CombatComp::state == CombatComp::CLEAR)
 	{
 		if (level == 10)

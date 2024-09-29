@@ -6,7 +6,9 @@
       "compData": {
         "audio": [
           "./Assets/Audio/bow-loading.mp3",
-          "./Assets/Audio/bow-release.mp3"
+          "./Assets/Audio/bow-release.mp3",
+          "./Assets/Audio/power_up_grab.mp3",
+          "./Assets/Audio/electric_zap_001.mp3"
         ],
         "volume": 0.5,
         "pitch": 1.0

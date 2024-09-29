@@ -44,6 +44,118 @@ bool EnemyComp::isCliff()
 	return cliffChecker->GetComponent<ColliderComp>()->isCollision;
 }
 
+void EnemyComp::StunEffect()
+{
+	static float timer = 0;
+	static bool preStun = false;
+
+	if (preStun != stun)
+	{
+		if (stun == false)
+		{
+			timer = 0;
+		}
+		else
+		{
+			owner->GetComponent<AudioComp>()->playAudio(0, "./Assets/Audio/electric_zap_001.mp3", 1.f);
+		}
+
+		preStun = stun;
+	}
+
+	if (stun)
+	{
+		timer += (float)AEFrameRateControllerGetFrameTime();
+
+		SpriteComp* s = owner->GetComponent<SpriteComp>();
+
+		if (timer < 0.1f)
+		{
+			s->SetAlpha(0.3f);
+		}
+
+		else if (timer < 0.2f)
+		{
+			s->SetAlpha(1.f);
+		}
+
+		else if (timer < 0.3f)
+		{
+			s->SetAlpha(0.3f);
+		}
+
+		else
+		{
+			s->SetAlpha(1.f);
+			stun = false;
+		}
+	}
+}
+
+void EnemyComp::BigEffect()
+{
+	static float timer = 0;
+	static bool preBig = false;
+
+	if (preBig != big)
+	{
+		if (big == false)
+		{
+			timer = 0;
+		}
+		else
+		{
+			owner->GetComponent<AudioComp>()->playAudio(0, "./Assets/Audio/power_up_grab.mp3", 0.3f, 0.6f);
+		}
+
+		preBig = big;
+	}
+
+	if (big)
+	{
+		timer += (float)AEFrameRateControllerGetFrameTime();
+
+		TransformComp* t = owner->GetComponent<TransformComp>();
+		ColliderComp* c = owner->GetComponent<ColliderComp>();
+		
+		if (timer < 0.1f)
+		{
+			t->SetScale({ 90, 90 });
+			t->SetPos({ t->GetPos().x, t->GetPos().y + 30 });
+			c->SetCollider();
+		}
+
+		else if (timer < 0.2f)
+		{
+			t->SetScale({ 50, 50 });
+			t->SetPos({ t->GetPos().x, t->GetPos().y - 30 });
+			c->SetCollider();
+		}
+
+		else if (timer < 0.3f)
+		{
+			t->SetScale({ 90, 90 });
+			t->SetPos({ t->GetPos().x, t->GetPos().y + 30 });
+			c->SetCollider();
+		}
+
+		else if (timer < 0.4f)
+		{
+			t->SetScale({ 50, 50 });
+			t->SetPos({ t->GetPos().x, t->GetPos().y - 30 });
+			c->SetCollider();
+		}
+
+		else
+		{
+			t->SetScale({ 90, 90 });
+			t->SetPos({ t->GetPos().x, t->GetPos().y + 30 });
+			c->SetCollider();
+			big = false;
+		}
+	}
+}
+
 void EnemyComp::RandomMove() // 투사체가 맞지 않는다고 판정된 경우
 {
 	TransformComp* pt = GameObjectManager::GetInstance().GetObj("player")->GetComponent<TransformComp>();
@@ -94,6 +206,7 @@ void EnemyComp::Update()
 	if (enemyData->hp == 0)
 	{
 		a->SetAnimation(false, 1, "die");
+		return;
 	}
 
 	else if (CombatComp::turn == CombatComp::ENEMYTURN && Projectile::isLaunchProjectile)
@@ -120,6 +233,9 @@ void EnemyComp::Update()
 
 	if (CombatComp::isCombat)
 	{
+		BigEffect();
+		StunEffect();
+
 		if (isMove)
 		{
 			RandomMove();
