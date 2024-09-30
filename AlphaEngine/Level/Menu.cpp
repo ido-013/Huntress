@@ -113,7 +113,6 @@ void level::Menu::Init() {
         GSM::GameStateManager::GetInstance().ChangeLevel(nullptr);
         });
 
-
     quitBtn->SetOnHoverFunction([quitUI]() {
   
         quitUI->SetScale({ 500, 100 });
@@ -125,9 +124,9 @@ void level::Menu::Init() {
         });
     CtrUI.InitControlUI();
     // 자막 추가
-    SubtitleComp::AddSubtitle({ {-0.15f,-0.27f}, 1, "START", 0.2f, 0, 0, 1 });
-    SubtitleComp::AddSubtitle({ {-0.15f,-0.495f}, 1, "Control", 0.2f, 0, 0, 1 });
-    SubtitleComp::AddSubtitle({ {-0.11f,-0.72f}, 1, "EXIT", 0.2f, 0, 0, 1 });
+    SubtitleComp::AddSubtitle({ {-0.2f,-0.27f}, 1, "START", 0.2f, 0, 0, 1 });
+    SubtitleComp::AddSubtitle({ {-0.2f,-0.495f}, 1, "Control", 0.2f, 0, 0, 1 });
+    SubtitleComp::AddSubtitle({ {-0.2f,-0.72f}, 1, "EXIT", 0.2f, 0, 0, 1 });
 }
 
 
