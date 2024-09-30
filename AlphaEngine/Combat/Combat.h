@@ -115,6 +115,7 @@ public:
 	static int orbitCircleCount;
 	std::vector<GameObject*> orbitDots;
 	void InitOrbit();
+	void ModifyOrbitAngle();
 	void SetOrbitAlpha(bool isView);
 	void ShowOrbit();
 

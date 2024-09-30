@@ -183,9 +183,9 @@ void StoreUI::InitStoreUI(GameObject* player) {
     // Store Items (Full Potion, Small Potion, Health, Attack, Defense)
     CreateStoreItem("Defense Upgrade", "Assets/UI/DefenseUp.png","Assets/UI/ArmorupInfo.png", {400, -100}, 15, [player]() {
         PlayerComp* playerComp = player->GetComponent<PlayerComp>();
-        if (playerComp->playerData->gold >= 15) {
+        if (playerComp->playerData->gold >= 10) {
             playerComp->playerData->armor += 1;
-            playerComp->playerData->gold -= 15;
+            playerComp->playerData->gold -= 10;
             SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, "Defense Increased!", 0, 1, 0, 1}, 2, 0.7, 0.7 });
             PLAY_AUDIO_PURCHASE;
         }
