@@ -725,7 +725,7 @@ void CombatComp::Update()
 		{
 			case PLAYERTURN: // player turn
 //#ifdef _DEBUG
-				if (AEInputCheckTriggered(AEVK_5)) // big
+				if (AEInputCheckTriggered(AEVK_1)) // big
 				{
 					if (!isItemUsed)
 					{
@@ -747,7 +747,7 @@ void CombatComp::Update()
 					else
 						SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[11], 1, 0, 0, 1}, 2, 0.7, 0.7 });
 				}
-				if (AEInputCheckTriggered(AEVK_6)) // stun
+				if (AEInputCheckTriggered(AEVK_2)) // stun
 				{
 					if (!isItemUsed)
 					{
@@ -775,7 +775,7 @@ void CombatComp::Update()
 						SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[11], 1, 0, 0, 1}, 2, 0.7, 0.7 });
 					}
 				}
-				if (AEInputCheckTriggered(AEVK_7)) // straight
+				if (AEInputCheckTriggered(AEVK_3)) // straight
 				{
 					if (!isItemUsed)
 					{
@@ -797,7 +797,7 @@ void CombatComp::Update()
 					else
 						SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[11], 1, 0, 0, 1}, 2, 0.7, 0.7 });
 				}
-				if (AEInputCheckTriggered(AEVK_8)) // orbit
+				if (AEInputCheckTriggered(AEVK_4)) // orbit
 				{
 					if (!isItemUsed)
 					{
