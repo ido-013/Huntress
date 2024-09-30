@@ -94,6 +94,7 @@ void level::NormalLevel::Init()
 
 void level::NormalLevel::Update()
 {
+	CombatHUD.UpdateCombatUI();
 	Escmenu.UpdateEscUI(&storeUI);
 	storeUI.UpdateStoreUI();
 	UpdateBackground();
@@ -114,6 +115,7 @@ void level::NormalLevel::Update()
 	{
 		player->GetComponent<PlayerComp>()->GBY = true;
 	}
+
 #endif
 
 	if (CombatComp::state == CombatComp::CLEAR)
@@ -150,7 +152,7 @@ void level::NormalLevel::Update()
 	{
 		GSM::GameStateManager::GetInstance().ChangeLevel(new Menu);
 	}
-	CombatHUD.UpdateCombatUI();
+
 }
 
 void level::NormalLevel::Exit()

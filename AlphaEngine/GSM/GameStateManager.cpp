@@ -51,10 +51,10 @@ void GSM::GameStateManager::Update()
 
         ComponentManager<AudioComp>::GetInstance().Update();
         ComponentManager<LifetimeComp>::GetInstance().Update();
-        ButtonManager::GetInstance().Update();
-        EventManager::GetInstance().DispatchAllEvents();
-
         CollisionManager::GetInstance().Update();
+        EventManager::GetInstance().DispatchAllEvents();
+        ButtonManager::GetInstance().Update();
+    
 
         if (currentLevel)
             currentLevel->Update();

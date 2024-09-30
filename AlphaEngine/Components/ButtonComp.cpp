@@ -61,7 +61,7 @@ bool ButtonComp::IsClicked(int mouseX, int mouseY) const
 {
     // UIComponent의 알파값 확인 후 처리
     UIComponent* uiComp = owner->GetComponent<UIComponent>();
-    if (uiComp && uiComp->GetAlpha() != 1) {
+    if (uiComp && uiComp->GetAlpha()== 0) {
         return false;
     }
     // pos와 scale을 이용해 클릭 여부 확인
