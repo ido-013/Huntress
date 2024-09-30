@@ -22,7 +22,7 @@ void level::Menu::Init() {
 
     menuBg = new GameObject("menuBg");
     menuBg->AddComponent<UIComponent>();
-    menuBg->AddComponent<AudioComp>()->SetAudio("./Assets/Audio/click_effect.mp3");
+
     UIComponent* BgUI = menuBg->GetComponent<UIComponent>();
     BgUI->SetScale({ 1600, 900 });
     BgUI->SetPos({ 0, 0 });
@@ -31,6 +31,10 @@ void level::Menu::Init() {
     BgUI->SetAlpha(1);
     BgUI->SetScreenSpace(true);
 
+    AudioComp* a = menuBg->AddComponent<AudioComp>();
+    a->SetAudio("./Assets/Audio/click_effect.mp3");
+    a->SetAudio("./Assets/Audio/Main.mp3");
+    a->playAudio(-1, "./Assets/Audio/Main.mp3");
 
     Logo = new GameObject("Logo");
     Logo->AddComponent<UIComponent>();

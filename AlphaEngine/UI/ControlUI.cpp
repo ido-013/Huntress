@@ -59,7 +59,7 @@ void ControlUI::InitControlUI()
     CtlUI = new GameObject();
     CtlUI->AddComponent<UIComponent>();
     UIComponent* controlUI = CtlUI->GetComponent<UIComponent>();
-    controlUI->SetScale({ 800,400 });
+    controlUI->SetScale({ 800,550 });
     controlUI->SetPos({ 0, 0 });
     controlUI->SetTexture("Assets/UI/htp.png");
     controlUI->SetColor(0, 0, 0);

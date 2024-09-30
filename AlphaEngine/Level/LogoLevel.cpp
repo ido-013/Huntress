@@ -33,29 +33,33 @@ void level::LogoLevel::Update()
 
 	timer += dt;
 
-	if (timer < 3.f)
-	{
-		digipenLogo->GetComponent<SpriteComp>()->SetAlpha((float)timer / 3.f);
-	}
-
-	else if (timer < 5.f)
-	{
-		digipenLogo->GetComponent<SpriteComp>()->SetAlpha(1 - ((float)timer - 3.f) / 2.f);
-	}
-
-	else if (timer < 8.f)
-	{
-		teamLogo->GetComponent<SpriteComp>()->SetAlpha(((float)timer - 5.f) / 3.f);
-	}
-
-	else if (timer < 10.f)
-	{
-		teamLogo->GetComponent<SpriteComp>()->SetAlpha(1 - ((float)timer - 8.f) / 2.f);
-	}
-
+	if (AEInputCheckTriggered(AEVK_ESCAPE)) GSM::GameStateManager::GetInstance().ChangeLevel(new Menu);
 	else
 	{
-		GSM::GameStateManager::GetInstance().ChangeLevel(new Menu);
+		if (timer < 3.f)
+		{
+			digipenLogo->GetComponent<SpriteComp>()->SetAlpha((float)timer / 3.f);
+		}
+
+		else if (timer < 5.f)
+		{
+			digipenLogo->GetComponent<SpriteComp>()->SetAlpha(1 - ((float)timer - 3.f) / 2.f);
+		}
+
+		else if (timer < 8.f)
+		{
+			teamLogo->GetComponent<SpriteComp>()->SetAlpha(((float)timer - 5.f) / 3.f);
+		}
+
+		else if (timer < 10.f)
+		{
+			teamLogo->GetComponent<SpriteComp>()->SetAlpha(1 - ((float)timer - 8.f) / 2.f);
+		}
+
+		else
+		{
+			GSM::GameStateManager::GetInstance().ChangeLevel(new Menu);
+		}
 	}
 }
 

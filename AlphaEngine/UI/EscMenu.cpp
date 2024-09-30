@@ -66,8 +66,8 @@ void EscUI::InitEscUI()
     htp = new GameObject();
     htp->AddComponent<UIComponent>();
     UIComponent* htpUI = htp->GetComponent<UIComponent>();
-    htpUI->SetScale({ 800,300 });
-    htpUI->SetPos({ 0, 100 });
+    htpUI->SetScale({ 650,530 });
+    htpUI->SetPos({ 150, -30 });
     htpUI->SetTexture("Assets/UI/htp.png");
     htpUI->SetColor(0, 0, 0);
     htpUI->SetAlpha(0);
@@ -75,7 +75,7 @@ void EscUI::InitEscUI()
     RestartBtn = new GameObject();
     RestartBtn->AddComponent<UIComponent>();
     UIComponent* RestartUI = RestartBtn->GetComponent<UIComponent>();
-    RestartUI->SetPos({ -370, -100 });
+    RestartUI->SetPos({ -370, 100 });
     RestartUI->SetScale({ 330, 90 });
     RestartUI->SetTexture("Assets/UI/EscMenu.png");
     RestartUI->SetColor(0, 0, 0);
@@ -103,7 +103,7 @@ void EscUI::InitEscUI()
     QuitBtn = new GameObject();
     QuitBtn->AddComponent<UIComponent>();
     UIComponent* QuitUI = QuitBtn->GetComponent<UIComponent>();
-    QuitUI->SetPos({ -370, -200 });
+    QuitUI->SetPos({ -370, 200 });
     QuitUI->SetScale({ 330, 90 });
     QuitUI->SetTexture("Assets/UI/GameQuit.png");
     QuitUI->SetColor(0, 0, 0);

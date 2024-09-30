@@ -20,8 +20,14 @@ void level::ClearLevel::Init() {
 
     // 로고 초기화
     Credit = new GameObject("Credit");
+
     Credit->AddComponent<UIComponent>();
     UIComponent* CreditUI = Credit->GetComponent<UIComponent>();
+
+    AudioComp* a = Credit->AddComponent<AudioComp>();
+    a->SetAudio("./Assets/Audio/Credit.mp3");
+    a->playAudio(-1, "./Assets/Audio/Credit.mp3");
+
     CreditUI->SetScale({ 1600, 900 });
     CreditUI->SetPos({ 0, 0 });
     CreditUI->SetTexture("Assets/credit.png");
