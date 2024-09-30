@@ -8,11 +8,7 @@
 #include "../Components/SubtitleComp.h"
 #include "../UI/ItemInfo.h"
 #include <string>
-#define SUBTITLE {f32(-0.5), f32(0.7)}
-#define SUB_GOLD {f32(0.3), f32( 0.465)}
-#define SUB_DEF {f32(0.5),f32(- 0.46)}
-#define SUB_ATK {f32(0.25),f32(- 0.46)}
-#define SUB_HPU {f32(-0.02),f32(- 0.46)}
+
 std::string StoreUI::goldText = "";
 std::string StoreUI::atkText = "";
 std::string StoreUI::defText = "";

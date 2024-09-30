@@ -20,7 +20,7 @@ public:
 	f32 a;
 };
 
-class DissolveSubtitle
+class DissolveSubtitle	
 {
 public:
 	DissolveSubtitle(Subtitle subtitleV, f64 durationV, f64 startIntersectTimeV, f64 endIntersectTimeV);
