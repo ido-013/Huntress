@@ -16,8 +16,8 @@ void RigidbodyComp::CorrectPosByAABB(ColliderComp* oc, ColliderComp* c, float& x
 {
 	float dis[4] =
 	{
-		abs(oc->GetPos().x + oc->GetScale().x / 2 - (c->GetPos().x - c->GetScale().x / 2)),
-		abs(oc->GetPos().x - oc->GetScale().x / 2 - (c->GetPos().x + c->GetScale().x / 2)),
+		abs(oc->GetPos().x + oc->GetScale().x / 2 + 0.5f - (c->GetPos().x - c->GetScale().x / 2)),
+		abs(oc->GetPos().x - oc->GetScale().x / 2 - 0.5f - (c->GetPos().x + c->GetScale().x / 2)),
 		abs(oc->GetPos().y + oc->GetScale().y / 2 - (c->GetPos().y - c->GetScale().y / 2)),
 		abs(oc->GetPos().y - oc->GetScale().y / 2 - (c->GetPos().y + c->GetScale().y / 2))
 	};
@@ -225,7 +225,7 @@ void RigidbodyComp::Update()
 			velocity.x = 10;*/
 
 		if (oppoCollider.size() > 1)
-			c->SetPos({ c->GetPos().x, c->GetPos().y + 1 });
+			c->SetPos({ c->GetPos().x, c->GetPos().y + 1.f });
 
 		while (!oppoCollider.empty())
 		{
