@@ -555,19 +555,19 @@ void level::CombatLevel::Update()
 	UpdateBackground();
 
 #ifdef _DEBUG
-	if (AEInputCheckTriggered(AEVK_1))
+	if (AEInputCheckTriggered(AEVK_5))
 	{
 		Data::PrintPlayerData(*player->GetComponent<PlayerComp>()->playerData);
 	}
-	if (AEInputCheckTriggered(AEVK_2))
+	if (AEInputCheckTriggered(AEVK_6))
 	{
 		Data::PrintEnemyData(*enemy->GetComponent<EnemyComp>()->enemyData);
 	}
-	if (AEInputCheckTriggered(AEVK_3))
+	if (AEInputCheckTriggered(AEVK_7))
 	{
 		Data::PrintCombatData(directionArrow->GetComponent<CombatComp>()->data);
 	}
-	if (AEInputCheckTriggered(AEVK_4))
+	if (AEInputCheckTriggered(AEVK_8))
 	{
 		SubtitleComp::IntersectDissolveText({ {{0,0}, 1, "Test", 1, 1, 1, 1}, 5, 2, 2 });
 	}

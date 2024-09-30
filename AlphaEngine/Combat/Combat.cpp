@@ -724,7 +724,7 @@ void CombatComp::Update()
 		switch (CombatComp::turn)
 		{
 			case PLAYERTURN: // player turn
-#ifdef _DEBUG
+//#ifdef _DEBUG
 				if (AEInputCheckTriggered(AEVK_5)) // big
 				{
 					if (!isItemUsed)
@@ -819,7 +819,7 @@ void CombatComp::Update()
 					else
 						SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[11], 1, 0, 0, 1}, 2, 0.7, 0.7 });
 				}
-#endif // DEBUG
+//#endif // DEBUG
 
 				if (!Projectile::isLaunchProjectile)
 				{
