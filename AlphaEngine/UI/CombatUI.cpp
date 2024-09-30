@@ -179,7 +179,7 @@ void CombatUI::InitCombatUI()
 	itemIconComp1->SetColor(0, 0, 0);
 	ButtonComp* item1btn = itemIcon[1]->GetComponent<ButtonComp>();
 	item1btn->SetOnClickFunction([]() {
-	CombatComp::ItemState = CombatComp::ItemUse::Stun;
+	CombatComp::ItemState = CombatComp::ItemUse::Straight;
 
 	});
 	item1btn->SetOnHoverFunction([itemIconComp1]() {
@@ -201,7 +201,7 @@ void CombatUI::InitCombatUI()
 	itemIconComp2->SetColor(0, 0, 0);
 	ButtonComp* item2btn = itemIcon[2]->GetComponent<ButtonComp>();
 	item2btn->SetOnClickFunction([]() {	
-		CombatComp::ItemState = CombatComp::ItemUse::Straight;
+		CombatComp::ItemState = CombatComp::ItemUse::Stun;
 
 	});
 	item2btn->SetOnHoverFunction([itemIconComp2]() {
