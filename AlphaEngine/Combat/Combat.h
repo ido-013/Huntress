@@ -72,6 +72,7 @@ public:
 		PLAYERTURN = 1,
 		ENEMYTURN = 2
 	};
+
 	static TURN turn; // 0 : nobody, 1 : player, 2 : enemy
 	static TURN TurnChange();
 
@@ -111,6 +112,14 @@ public:
 	static void ItemCheck();
 	static void SetItemState(bool isUsed);
 
+	enum ItemUse {
+		Big = 0,
+		Stun = 1,
+		Straight = 2,
+		Orbit =3,
+		None =4
+	};
+	static ItemUse ItemState;
 	//orbit
 	static int orbitCircleCount;
 	std::vector<GameObject*> orbitDots;

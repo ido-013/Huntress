@@ -40,7 +40,7 @@ bool CombatComp::isChaseDirection = false;
 bool CombatComp::isReadyLaunch = false;
 bool CombatComp::isLaunched = false;
 bool CombatComp::isSetLaunchAngle = false;
-
+CombatComp::ItemUse CombatComp::ItemState = None;
 std::map<Inventory::Item, bool> CombatComp::itemState =
 {
 	{ Inventory::Item::Big,			false },
@@ -766,7 +766,7 @@ void CombatComp::Update()
 		{
 			case PLAYERTURN: // player turn
 //#ifdef _DEBUG
-				if (AEInputCheckTriggered(AEVK_1)) // big
+				if (ItemState==ItemUse::Big) // big
 				{
 					if (!isItemUsed)
 					{
@@ -787,8 +787,9 @@ void CombatComp::Update()
 					}
 					else
 						SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[11], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+					ItemState = None;
 				}
-				if (AEInputCheckTriggered(AEVK_2)) // stun
+				if (ItemState == ItemUse::Stun) // stun
 				{
 					if (!isItemUsed)
 					{
@@ -815,8 +816,9 @@ void CombatComp::Update()
 					{
 						SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[11], 1, 0, 0, 1}, 2, 0.7, 0.7 });
 					}
+					ItemState = None;
 				}
-				if (AEInputCheckTriggered(AEVK_3)) // straight
+				if (ItemState == ItemUse::Straight) // straight
 				{
 					if (!isItemUsed)
 					{
@@ -837,8 +839,9 @@ void CombatComp::Update()
 					}
 					else
 						SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[11], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+					ItemState = None;
 				}
-				if (AEInputCheckTriggered(AEVK_4)) // orbit
+				if (ItemState == ItemUse::Orbit) // orbit
 				{
 					if (!isItemUsed)
 					{
@@ -859,8 +862,9 @@ void CombatComp::Update()
 					}
 					else
 						SubtitleComp::IntersectDissolveText({ {SUBTITLE, 1, subtitleOfItem[11], 1, 0, 0, 1}, 2, 0.7, 0.7 });
+					ItemState = None;
 				}
-//#endif // DEBUG
+
 
 				if (!Projectile::isLaunchProjectile)
 				{

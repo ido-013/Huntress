@@ -17,6 +17,7 @@ void ButtonManager::RemoveAllButtons() {
 void ButtonManager::HandleClickEvent(int mouseX, int mouseY) {
     for (auto& button : buttons) {
         if (button->IsClicked(mouseX, mouseY)) {
+
             button->OnClick();  
         }
     }
