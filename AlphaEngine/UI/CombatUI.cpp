@@ -250,12 +250,17 @@ void CombatUI::InitCombatUI()
 	transWindDirect->SetTexture("./Assets/UI/windArrow.png");
 	transWindDirect->SetColor(1, 1, 1);
 	SubtitleComp::AddSubtitle({ {(f32)-0.85,(f32)0.82}, 1, "WindPower", (f32)0.2, 0, 0, 1 });
+	for (int i = 0; i < 4; i++)
+	{
+		iteminfo[i] = new ItemInfo();
+	}
 	iteminfo[0]->CreateItemInfo("OrbitUI", "Assets/UI/OrbitInfo.png");
 	iteminfo[1]->CreateItemInfo("StunUI", "Assets/UI/StunarrowInfo.png");
 	iteminfo[2]->CreateItemInfo("StraightUI", "Assets/UI/StraightarrowInfo.png");
 	iteminfo[3]->CreateItemInfo("BiggerUI", "Assets/UI/BiggerInfo.png");
-	item0btn->SetOnHoverFunction([itemIconComp0,this]() {
-		itemIconComp0->SetAlpha(float(0.7));
+	item0btn->SetOnHoverFunction([itemIconComp0,this, player]() {
+		if(player->GetComponent<PlayerComp>()->playerData->inventory.GetItemCount(Inventory::Big)!=0)
+			itemIconComp0->SetAlpha(float(0.7));
 		if (CombatComp::state != CombatComp::STATE::STORE)
 		{
 			iteminfo[0]->SetPosition("BiggerUI", itemIconComp0->GetPos());
@@ -263,62 +268,70 @@ void CombatUI::InitCombatUI()
 			
 		}
 		});
-	item0btn->SetOnHoverOutFunction([itemIconComp0,this]() {
-		itemIconComp0->SetAlpha(1);
+	item0btn->SetOnHoverOutFunction([itemIconComp0,this, player]() {
+		if (player->GetComponent<PlayerComp>()->playerData->inventory.GetItemCount(Inventory::Big) != 0)
+			itemIconComp0->SetAlpha(1);
 		if (CombatComp::state != CombatComp::STATE::STORE)
 		{
 			iteminfo[0]->SetPosition("BiggerUI", itemIconComp0->GetPos());
 			iteminfo[0]->SetoffInfo("BiggerUI");
 		}
 		});
-	item1btn->SetOnHoverFunction([itemIconComp1,this]() {
-		itemIconComp1->SetAlpha(float(0.7));
+	item1btn->SetOnHoverFunction([itemIconComp1,this, player]() {
+		if (player->GetComponent<PlayerComp>()->playerData->inventory.GetItemCount(Inventory::Straight) != 0)
+			itemIconComp1->SetAlpha(float(0.7));
 		if (CombatComp::state != CombatComp::STATE::STORE)
 		{
 			iteminfo[1]->SetPosition("StunUI", itemIconComp1->GetPos());
 			iteminfo[1]->SetonInfo("StunUI");
 		}
 		});
-	item1btn->SetOnHoverOutFunction([itemIconComp1,this]() {
-		itemIconComp1->SetAlpha(1);
+	item1btn->SetOnHoverOutFunction([itemIconComp1,this,player]() {
+		if (player->GetComponent<PlayerComp>()->playerData->inventory.GetItemCount(Inventory::Straight) != 0)
+			itemIconComp1->SetAlpha(1);
 		if (CombatComp::state != CombatComp::STATE::STORE)
 		{
 			iteminfo[1]->SetPosition("StunUI", itemIconComp1->GetPos());
 			iteminfo[1]->SetoffInfo("StunUI");
 		}
 		});
-	item2btn->SetOnHoverFunction([itemIconComp2,this]() {
-		itemIconComp2->SetAlpha(float(0.7));
+	item2btn->SetOnHoverFunction([itemIconComp2,this,player]() {
+		if (player->GetComponent<PlayerComp>()->playerData->inventory.GetItemCount(Inventory::Stun) != 0)
+			itemIconComp2->SetAlpha(float(0.7));
 		if (CombatComp::state != CombatComp::STATE::STORE)
 		{
 			iteminfo[2]->SetPosition("StraightUI", itemIconComp2->GetPos());
 			iteminfo[2]->SetoffInfo("StraightUI");
 		}
 		});
-	item2btn->SetOnHoverOutFunction([itemIconComp2,this]() {
-		itemIconComp2->SetAlpha(1);
+	item2btn->SetOnHoverOutFunction([itemIconComp2,this,player]() {
+		if (player->GetComponent<PlayerComp>()->playerData->inventory.GetItemCount(Inventory::Stun) != 0)
+			itemIconComp2->SetAlpha(1);
 		if (CombatComp::state != CombatComp::STATE::STORE)
 		{
 			iteminfo[2]->SetPosition("StraightUI", itemIconComp2->GetPos());
 			iteminfo[2]->SetoffInfo("StraightUI");
 		}
 		});
-	item3btn->SetOnHoverFunction([itemIconComp3,this]() {
-		itemIconComp3->SetAlpha(float(0.7));
+	item3btn->SetOnHoverFunction([itemIconComp3,this,player]() {
+		if (player->GetComponent<PlayerComp>()->playerData->inventory.GetItemCount(Inventory::Orbit) != 0)
+			itemIconComp3->SetAlpha(float(0.7));
 		if (CombatComp::state != CombatComp::STATE::STORE)
 		{
 			iteminfo[3]->SetPosition("BiggerUI", itemIconComp3->GetPos());
 			iteminfo[3]->SetoffInfo("BiggerUI");
 		}
 		});
-	item3btn->SetOnHoverOutFunction([itemIconComp3,this]() {
-		itemIconComp3->SetAlpha(1);
+	item3btn->SetOnHoverOutFunction([itemIconComp3,this,player]() {
+		if (player->GetComponent<PlayerComp>()->playerData->inventory.GetItemCount(Inventory::Orbit) != 0)
+			itemIconComp3->SetAlpha(1);
 		if (CombatComp::state != CombatComp::STATE::STORE)
 		{
 			iteminfo[3]->SetPosition("BiggerUI", itemIconComp3->GetPos());
 			iteminfo[3]->SetoffInfo("BiggerUI");
 		}
 		});
+
 }
 
 void CombatUI::UpdateCombatUI()
@@ -452,4 +465,8 @@ void CombatUI::UpdateCombatUI()
 void CombatUI::ExitCombatUI()
 {
 	SubtitleComp::ClearSubtitle();
+	for (int i = 0; i < 4; i++)
+	{
+		delete iteminfo[i];
+	}
 }

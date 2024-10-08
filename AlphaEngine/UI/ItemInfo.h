@@ -10,6 +10,7 @@ class ItemInfo
 	bool isVisible = false;
 public:
 	~ItemInfo();
+
 	void CreateItemInfo(const std::string& name, const std::string& texturePath);
 	void SetonInfo(const std::string& name);
 	void SetoffInfo(const std::string& name);

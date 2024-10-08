@@ -38,7 +38,8 @@ public:
 
     //    ButtonClickEvent* clickEvent = dynamic_cast<ButtonClickEvent*>(event);
     //    if (clickEvent) {
-    //        std::cout << "Button clicked and event handled in OnEvent!" << std::endl;
+    //        std::
+    // << "Button clicked and event handled in OnEvent!" << std::endl;
 
     //    }
     //}

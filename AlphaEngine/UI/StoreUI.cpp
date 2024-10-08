@@ -386,7 +386,7 @@ void StoreUI::UpdateStoreUI() {
         goldText = "GOLD : " + std::to_string(GameObjectManager::GetInstance().GetObj("player")->GetComponent<PlayerComp>()->playerData->gold);
         SubtitleComp::ModifySubtitle("goldText", goldText);
     }
-    std::cout << isHover << std::endl;
+
     if (SubtitleComp::FindSubtitle("atkText")) {
         if (!isHover)
             atkText = std::to_string((int)GameObjectManager::GetInstance().GetObj("player")->GetComponent<PlayerComp>()->playerData->damage);

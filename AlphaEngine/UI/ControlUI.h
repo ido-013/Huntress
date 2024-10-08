@@ -14,6 +14,7 @@ public:
 	void SetControlUI();
 	void Setoff();
 	void Setmenu();
+
 	void InitControlUI();
 	void UpdateControlUI();
 	void ExitControlUI();
