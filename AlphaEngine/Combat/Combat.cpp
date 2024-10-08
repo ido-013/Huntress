@@ -62,7 +62,7 @@ void CombatComp::DataUpdate()
 }
 
 CombatComp::CombatComp(GameObject* _owner) : EngineComponent(_owner),
-pAngle(RAD90), eAngle(RAD90), pVelocity(0), eVelocity(0), pPower((int)(PLAYER_POWER_LIMIT / 2)), ePower((int)(PLAYER_POWER_LIMIT / 2)), AICombatSystemApplyWind(true), angleInterval(0), AICombatSystemObjectivePointCount(0), AICombatSystemEnemyGrade(Data::EnemyData::GRADE::Normal)
+pAngle(RAD90), eAngle(RAD90), pVelocity(0), eVelocity(0), pPower((int)(PLAYER_POWER_MIN)), ePower((int)(PLAYER_POWER_MAX / 2)), AICombatSystemApplyWind(true), angleInterval(0), AICombatSystemObjectivePointCount(0), AICombatSystemEnemyGrade(Data::EnemyData::GRADE::Normal)
 {
 	
 }
@@ -621,7 +621,7 @@ CombatComp::RESULT CombatComp::EnemyAICombatSystem()
 	ePower = 1.0f;
 
 
-	while (ePower <= PLAYER_POWER_LIMIT)
+	while (ePower <= PLAYER_POWER_MAX)
 	{
 		float t = 0.0f;
 		AEVec2 ptf = e;
@@ -884,7 +884,7 @@ void CombatComp::Update()
 				}
 				if (AEInputCheckTriggered(AEVK_W))
 				{
-					if (directionArrow->GetComponent<CombatComp>()->pPower <= PLAYER_POWER_LIMIT)
+					if (directionArrow->GetComponent<CombatComp>()->pPower <= PLAYER_POWER_MAX)
 					{
 						directionArrow->GetComponent<CombatComp>()->pPower += 1;
 						std::cout << "Increase Player Power : " << directionArrow->GetComponent<CombatComp>()->pPower << std::endl;
@@ -892,7 +892,7 @@ void CombatComp::Update()
 				}
 				if (AEInputCheckTriggered(AEVK_S))
 				{
-					if (directionArrow->GetComponent<CombatComp>()->pPower > DEFAULT_POWER)
+					if (directionArrow->GetComponent<CombatComp>()->pPower > PLAYER_POWER_MIN)
 					{
 						directionArrow->GetComponent<CombatComp>()->pPower -= 1;
 						std::cout << "Decrease Player Power : " << directionArrow->GetComponent<CombatComp>()->pPower << std::endl;

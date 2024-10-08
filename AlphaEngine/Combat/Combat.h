@@ -13,7 +13,8 @@
 #define SHOW_ENEMY_ORBIT false
 
 #define DEFAULT_POWER 1.f
-#define PLAYER_POWER_LIMIT 24.f // 25
+#define PLAYER_POWER_MIN 15.f // 25
+#define PLAYER_POWER_MAX 24.f // 25
 #define ENEMY_POWER_LIMIT 19.f // 20
 
 #define ANGLE_LIMIT AEDegToRad(120.f)
@@ -40,9 +41,9 @@
 	#define DISTANCE_ARANGE_4 1500
 	#define DISTANCE_ARANGE_5 1800
 
-#define DEFAULT_ORBIT_CIRCLE_COUNT 120
+#define DEFAULT_ORBIT_CIRCLE_COUNT 150
 #define DEBUG_ORBIT_CIRCLE_COUNT 200
-#define USE_ITEM_ORBIT_CIRCLE_COUNT 120
+#define USE_ITEM_ORBIT_CIRCLE_COUNT 150
 
 class CombatComp : public EngineComponent
 {
@@ -62,7 +63,7 @@ public:
 	static int ArrowCount;
 
 	const float directionArrowWidth = 42;
-	const float directionArrowHeight = 80 / (DEFAULT_POWER + PLAYER_POWER_LIMIT); // * 1~25
+	const float directionArrowHeight = 80 / (DEFAULT_POWER + PLAYER_POWER_MAX); // * 1~25
 
 	CombatComp(GameObject* _owner); 
 	~CombatComp();
