@@ -5,7 +5,7 @@
 
 #define PADDING 20
 
-Camera::Camera() : world_to_ndc_xform()
+Camera::Camera() : world_to_ndc_xform(), preState()
 {
 }
 
@@ -66,7 +66,7 @@ void Camera::Update()
 			y = AEClamp(y, minY, maxY);
 
 			//Press Space
-			if (AEInputCheckTriggered(AEVK_SPACE))
+			if (AEInputCheckTriggered(AEVK_SPACE) || preState == CombatComp::READY)
 			{
 				AEVec2 playerPos = GameObjectManager::GetInstance().GetObj("player")->GetComponent<TransformComp>()->GetPos();
 				x = playerPos.x;
@@ -85,6 +85,8 @@ void Camera::Update()
 
 	AEMtx33ScaleApply(&world_to_ndc_xform[0], &world_to_ndc_xform[0], 2 / height, 2 / height);
 	AEMtx33ScaleApply(&world_to_ndc_xform[1], &world_to_ndc_xform[1], 0.1f / height, 0.1f / height);
+
+	preState = CombatComp::state;
 }
 
 void Camera::GetPos(float* px, float* py)

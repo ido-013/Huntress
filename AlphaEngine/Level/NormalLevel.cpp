@@ -68,7 +68,6 @@ void level::NormalLevel::Init()
 {
 	CombatComp::blocks.reserve(200);
 	Serializer::GetInstance().LoadLevel("./Assets/Level/test" + std::to_string(level) + ".lvl");
-	Camera::GetInstance().fix = true;
 	CombatComp::isHit = false;
 	CombatComp::isItemUsed = false;
 	CombatComp::SetItemState(false);

@@ -82,6 +82,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	// reset the system modules
 	AESysReset();
+
 #ifdef NDEBUG
 	GSM::GameStateManager::GetInstance().ChangeLevel(new level::LogoLevel);
 #else

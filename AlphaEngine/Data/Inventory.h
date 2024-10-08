@@ -6,7 +6,7 @@
 #define ITEM_LIMIT 3
 
 static std::string subtitleOfItem[12] {
-	"Uses Bigger and Bigger", 
+	"Using Bigger and Bigger", 
 	"Uses Stun Arrow",
 	"Uses Straight Arrow",
 	"Uses Show orbit",
