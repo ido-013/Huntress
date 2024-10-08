@@ -7,16 +7,16 @@
 
 static std::string subtitleOfItem[12] {
 	"Using Bigger and Bigger", 
-	"Uses Stun Arrow",
-	"Uses Straight Arrow",
-	"Uses Show orbit",
-	"This item is not enough",
-	"Purchases Bigger and Bigger",
-	"Purchases Stun Arrow",
-	"Purchases Straight Arrow",
-	"Purchases Show orbit",
+	"Using Stun Arrow",
+	"Using Straight Arrow",
+	"Using Show orbit",
+	"Can't use it now",
+	"Purchasing Bigger and Bigger",
+	"Purchasing Stun Arrow",
+	"Purchasing Straight Arrow",
+	"Purchasing Show orbit",
 	"Items has reached its limit",
-	"This item is already used",
+	"Already buy it now",
 	"Already used items"
 };
 
