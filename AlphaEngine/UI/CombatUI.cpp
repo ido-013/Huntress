@@ -257,16 +257,17 @@ void CombatUI::InitCombatUI()
 		itemIconComp0->SetAlpha(float(0.7));
 		if (CombatComp::state != CombatComp::STATE::STORE)
 		{
-			iteminfo[0]->SetPosition("OrbitUI", itemIconComp0->GetPos());
-			iteminfo[0]->SetonInfo("OrbitUI");
+			iteminfo[0]->SetPosition("BiggerUI", itemIconComp0->GetPos());
+			iteminfo[0]->SetonInfo("BiggerUI");
+			
 		}
 		});
 	item0btn->SetOnHoverOutFunction([itemIconComp0,this]() {
 		itemIconComp0->SetAlpha(1);
 		if (CombatComp::state != CombatComp::STATE::STORE)
 		{
-			iteminfo[0]->SetPosition("OrbitUI", itemIconComp0->GetPos());
-			iteminfo[0]->SetoffInfo("OrbitUI");
+			iteminfo[0]->SetPosition("BiggerUI", itemIconComp0->GetPos());
+			iteminfo[0]->SetoffInfo("BiggerUI");
 		}
 		});
 	item1btn->SetOnHoverFunction([itemIconComp1,this]() {
@@ -405,56 +406,46 @@ void CombatUI::UpdateCombatUI()
 	{
 		SubtitleComp::ModifySubtitle("Orbit", std::to_string((int)player->GetComponent<PlayerComp>()->playerData->inventory.GetItemCount(Inventory::Orbit)));
 	}
-	if (CombatComp::isItemUsed)
-	{
-		for (int i = 0; i < 4; i++) {
-			item[i]->GetComponent<UIComponent>()->SetAlpha(0.2f);
-			itemIcon[i]->GetComponent<UIComponent>()->SetAlpha(0.2f);
-			SubtitleComp::ModifySubtitle("Bigger", 0.2f);
-			SubtitleComp::ModifySubtitle("stun", 0.2f);
-			SubtitleComp::ModifySubtitle("StraightArrow", 0.2f);
-			SubtitleComp::ModifySubtitle("Orbit", 0.2f);
-		}
-	}
-	else
-		if(item[0]->GetComponent<UIComponent>()->GetAlpha()!=1)
-		{
-			for (int i = 0; i < 4; i++) {
-				item[i]->GetComponent<UIComponent>()->SetAlpha(1);
-				itemIcon[i]->GetComponent<UIComponent>()->SetAlpha(1);
-				SubtitleComp::ModifySubtitle("Bigger", 1);
-				SubtitleComp::ModifySubtitle("stun", 1);
-				SubtitleComp::ModifySubtitle("StraightArrow", 1);
-				SubtitleComp::ModifySubtitle("Orbit", 1);
-			}
-	}
-	
+	// Set alpha based on whether an item is used
 	float alpha = CombatComp::isItemUsed ? 0.2f : 1.0f;
 
-	// Apply alpha to all items and subtitles
+	// Apply alpha to all items and subtitles if the alpha needs to change
 	for (int i = 0; i < 4; i++) {
-		item[i]->GetComponent<UIComponent>()->SetAlpha(alpha);
-		itemIcon[i]->GetComponent<UIComponent>()->SetAlpha(alpha);
+		if (item[i]->GetComponent<UIComponent>()->GetAlpha() != alpha) {
+			item[i]->GetComponent<UIComponent>()->SetAlpha(alpha);
+			itemIcon[i]->GetComponent<UIComponent>()->SetAlpha(alpha);
+		}
 	}
+
+	// Update subtitles only if they need to change
 	SubtitleComp::ModifySubtitle("Bigger", alpha);
 	SubtitleComp::ModifySubtitle("stun", alpha);
 	SubtitleComp::ModifySubtitle("StraightArrow", alpha);
 	SubtitleComp::ModifySubtitle("Orbit", alpha);
+
+	// Array of inventory data for checking item counts
+
+
 	InventoryCheck inventoryChecks[4] = {
-	{0, Inventory::Big, "Bigger"},
-	{2, Inventory::Stun, "stun"},
-	{1, Inventory::Straight, "StraightArrow"},
-	{3, Inventory::Orbit, "Orbit"}
+		{0, Inventory::Big, "Bigger"},
+		{2, Inventory::Stun, "stun"},
+		{1, Inventory::Straight, "StraightArrow"},
+		{3, Inventory::Orbit, "Orbit"}
 	};
+
+	// Check inventory counts and set alpha accordingly
 	for (const auto& check : inventoryChecks) {
 		int count = (int)player->GetComponent<PlayerComp>()->playerData->inventory.GetItemCount(check.type);
-		float alpha = (count == 0) ? 0.2f : 1.0f;
+		float newAlpha = (count == 0) ? 0.2f : 1.0f;
 
-		item[check.index]->GetComponent<UIComponent>()->SetAlpha(alpha);
-		itemIcon[check.index]->GetComponent<UIComponent>()->SetAlpha(alpha);
-		SubtitleComp::ModifySubtitle(check.subtitleName, alpha);
+		// Update only if the current alpha is different from the new alpha
+		if (item[check.index]->GetComponent<UIComponent>()->GetAlpha() != newAlpha) {
+			item[check.index]->GetComponent<UIComponent>()->SetAlpha(newAlpha);
+			itemIcon[check.index]->GetComponent<UIComponent>()->SetAlpha(newAlpha);
+			SubtitleComp::ModifySubtitle(check.subtitleName, newAlpha);
+		}
 	}
-	
+
 }
 
 void CombatUI::ExitCombatUI()
