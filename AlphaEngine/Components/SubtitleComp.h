@@ -51,7 +51,7 @@ public:
 	static void AddSubtitle(Subtitle subtitle);
 	static bool FindSubtitle(std::string str);
 	static void ModifySubtitle(std::string str1, std::string str2);
-	static void ModifySubtitle(std::string str1, bool Alpha);
+	static void ModifySubtitle(std::string str1, float Alpha);
 	static void RemoveSubtitle(std::string str);
 	static void ClearSubtitle();
 

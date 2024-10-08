@@ -5,7 +5,7 @@
 #include <functional>
 
 #define SUBTITLE {f32(-0.5), f32(0.7)}
-#define SUB_GOLD {f32(0.3), f32( 0.465)}
+#define SUB_GOLD {f32(0.25), f32( 0.43)}
 #define SUB_DEF {f32(0.5),f32(- 0.46)}
 #define SUB_ATK {f32(0.25),f32(- 0.46)}
 #define SUB_HPU {f32(-0.02),f32(- 0.46)}

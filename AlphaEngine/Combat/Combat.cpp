@@ -270,7 +270,8 @@ void CombatComp::FireAnArrow(TURN turn, GameObject& directionArrow)
 	projectile->GetComponent<ColliderComp>()->SetCollider();
 
 	isReadyLaunch = false;
-	isLaunched = true;
+	if(turn== PLAYERTURN)
+		isLaunched = true;
 	CombatComp::ArrowCount++;
 }
 

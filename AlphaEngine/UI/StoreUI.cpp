@@ -144,7 +144,7 @@ void StoreUI::CloseStore() {
 void StoreUI::InitStoreUI(GameObject* player) {
     CombatComp::isCombat = false;
  
-    SubtitleComp::AddSubtitle({ SUB_GOLD, float(0.6), "goldText", f32(0.9), f32(0.9), f32(0), 1 });
+    SubtitleComp::AddSubtitle({ SUB_GOLD, float(0.82), "goldText", f32(1), f32(0.9), f32(0.2), 1 });
 #ifdef _DEBUG
     SubtitleComp::AddSubtitle({ SUB_DEF, float(0.6), "defText", f32(0.9), f32(0), f32(0), 1 });
     SubtitleComp::AddSubtitle({ SUB_ATK, float(0.6), "atkText", f32(0.9), f32(0), f32(0), 1 });
@@ -293,6 +293,8 @@ void StoreUI::InitStoreUI(GameObject* player) {
             PLAY_AUDIO_ERROR;
         }
         });
+
+
     CreateStoreItem("Orbit", "Assets/UI/Orbit.png","Assets/UI/OrbitInfo.png", { -200, -100 }, 15, [player]() {
         PlayerComp* playerComp = player->GetComponent<PlayerComp>();
         if (playerComp->playerData->gold >= 7) {

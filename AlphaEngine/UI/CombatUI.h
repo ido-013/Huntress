@@ -1,8 +1,10 @@
 #pragma once
 #include "../GameObject/GameObject.h"
-
+#include "../Data/Inventory.h"
+#include "ItemInfo.h"
 class CombatUI
 {
+
 	GameObject* UIBAR = nullptr;
 	GameObject* PowerFrame = nullptr;
 	GameObject* Power = nullptr;
@@ -22,13 +24,18 @@ class CombatUI
 	GameObject* PreDirection = nullptr;
 	GameObject* Wind = nullptr;
 	GameObject* WindFrame = nullptr;
+	ItemInfo* iteminfo[4] = { nullptr };
 public:
+	struct InventoryCheck {
+		int index;
+		Inventory::Item type;
+		const char* subtitleName;
+	};
 	~CombatUI();
 	void InitCombatUI();
 	void UpdateCombatUI();
 	void ExitCombatUI();
-	void Seton();
-	void Setoff();
+
 
 
 };
