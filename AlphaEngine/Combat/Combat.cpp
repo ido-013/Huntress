@@ -1242,6 +1242,7 @@ void CombatComp::Update()
 		if (pComp->playerData->inventory.isGBY)
 		{
 			//부활 연출 필요
+			pComp->GBY = true;
 			pComp->playerData->hp = pComp->playerData->maxLife;
 			pComp->playerData->inventory.isGBY = false;
 			state = COMBAT;
