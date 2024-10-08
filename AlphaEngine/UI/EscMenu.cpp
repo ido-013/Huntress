@@ -133,7 +133,7 @@ void EscUI::UpdateEscUI(StoreUI* storeUI) {
 
         if (storeUI && storeUI->getOpen()) {
             SubtitleComp::ModifySubtitle("goldText", 0);
-   
+           
             storeUI->StoreOnEsc();
         }
         else if (storeUI && storeUI->getisEsc()) {

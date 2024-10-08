@@ -12,6 +12,7 @@
 #include "../Components/SubtitleComp.h"
 #include "../Data/Inventory.h"
 #include "ItemInfo.h"
+#include "ESC"
 
 
 CombatUI::~CombatUI()
