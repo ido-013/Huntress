@@ -22,6 +22,8 @@ private:
 	float speed = 400;
 	float height = 2;
 
+	CombatComp::STATE preState;
+
 	AEMtx33 world_to_ndc_xform[2];
 
 public:

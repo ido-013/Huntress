@@ -254,9 +254,13 @@ void Projectile::Update()
             {
                 bga->playAudio(0, "./Assets/Audio/foot-step-snow.mp3", 0.2f, 0.5f);
             }
-            else if (colState == Character)
+            else if (colState == Character && CombatComp::turn == CombatComp::PLAYERTURN)
             {
                 bga->playAudio(0, "./Assets/Audio/weapon-arrow-shot.mp3", 0.35f);
+            }
+            else if (colState == Character && CombatComp::turn == CombatComp::ENEMYTURN)
+            {
+                bga->playAudio(0, "./Assets/Audio/weapon-arrow-shot.mp3", 0.35f, 0.6f);
             }
             
             isLaunchProjectile = false;

@@ -1239,9 +1239,10 @@ void CombatComp::Update()
 		TransformComp* etf = GetEnemyTransform();
 		PlayerComp* pComp = player->GetComponent<PlayerComp>();
 
-		if (pComp->playerData->inventory.isGBY)
+		if (pComp->playerData->inventory.isGBY && pComp->playerData->hp <= 0)
 		{
 			//부활 연출 필요
+			pComp->GBY = true;
 			pComp->playerData->hp = pComp->playerData->maxLife;
 			pComp->playerData->inventory.isGBY = false;
 			state = COMBAT;

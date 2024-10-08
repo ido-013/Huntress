@@ -144,7 +144,7 @@
       "type": "PlayerComp",
       "compData": {
         "speed": 150.0,
-        "maxMovementGauge": 800
+        "maxMovementGauge": 1000
       }
     },
     {
