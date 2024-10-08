@@ -29,6 +29,7 @@ class StoreUI {
     std::vector<StoreItem> storeItems;
     std::vector<GameObject*> itemFrames;
     GameObject* storePopup = nullptr;
+    GameObject* goldBold = nullptr;
     GameObject* closeBtn = nullptr;
  
 

@@ -117,6 +117,7 @@ void StoreUI::SetUIVisibility(bool isVisible) {
         item.itemObj->GetComponent<UIComponent>()->SetAlpha(alphaValue);
     }
     closeBtn->GetComponent<UIComponent>()->SetAlpha(alphaValue);
+    goldBold->GetComponent<UIComponent>()->SetAlpha(alphaValue);
 }
 
 void StoreUI::OpenStore() {
@@ -156,6 +157,14 @@ void StoreUI::InitStoreUI(GameObject* player) {
     popupUI->SetPos({ 0, 0 });
     popupUI->SetTexture("Assets/UI/Storebg.png");
     popupUI->SetAlpha(0);
+
+    goldBold = new GameObject();
+    goldBold->AddComponent<UIComponent>();
+    UIComponent* goldUI = goldBold->GetComponent<UIComponent>();
+    goldUI->SetScale({ 280, 57 });
+    goldUI->SetPos({ 305, 210 });
+    goldUI->SetTexture("Assets/UI/Menu.png");
+    goldUI->SetAlpha(0);
 
     // Initialize Close Button
     closeBtn = new GameObject();
