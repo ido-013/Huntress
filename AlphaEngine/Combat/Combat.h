@@ -41,9 +41,8 @@
 	#define DISTANCE_ARANGE_4 1500
 	#define DISTANCE_ARANGE_5 1800
 
-#define DEFAULT_ORBIT_CIRCLE_COUNT 150
-#define DEBUG_ORBIT_CIRCLE_COUNT 200
-#define USE_ITEM_ORBIT_CIRCLE_COUNT 150
+#define DEFAULT_ORBIT_CIRCLE_COUNT 200
+#define MIN_ORBIT_CIRCLE_COUNT 60 
 
 class CombatComp : public EngineComponent
 {
@@ -100,7 +99,8 @@ public:
 		KILLPLAYER = 6,
 		KILLENEMY = 7,
 		RESET = 8,
-		STUN = 9
+		STUN = 9,
+		EXPLAIN = 10,
 	};
 	static STATE state;
 	void checkState();
