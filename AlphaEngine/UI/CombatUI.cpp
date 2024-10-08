@@ -12,7 +12,7 @@
 #include "../Components/SubtitleComp.h"
 #include "../Data/Inventory.h"
 #include "ItemInfo.h"
-#include "ESC"
+
 
 
 CombatUI::~CombatUI()
@@ -44,8 +44,8 @@ void CombatUI::InitCombatUI()
 	Power = new GameObject();
 	Power->AddComponent<UIComponent>();
 	UIComponent* powerComp = Power->GetComponent<UIComponent>();
-	powerComp->SetScale({ 700 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (PLAYER_POWER_LIMIT + DEFAULT_POWER))), 80 });
-	powerComp->SetPos({ 250 - (700 - 700 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (PLAYER_POWER_LIMIT + DEFAULT_POWER)))) / 2 , -280 });
+	powerComp->SetScale({ 700 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower() - PLAYER_POWER_MIN) * (1 / (PLAYER_POWER_MAX + DEFAULT_POWER - PLAYER_POWER_MIN))), 80 });
+	powerComp->SetPos({ 250 - (700 - 700 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower() - PLAYER_POWER_MIN) * (1 / (PLAYER_POWER_MAX + DEFAULT_POWER - PLAYER_POWER_MIN)))) / 2 , -280 });
 	powerComp->SetTexture("Assets/UI/MOVE_GAUGE.png");
 	powerComp->SetColor(255, 0, 0);
 
@@ -365,8 +365,8 @@ void CombatUI::UpdateCombatUI()
 					moveComp->SetPos({ 250.f - (700 - 700 * (float(player->GetComponent<PlayerComp>()->GetMovegauge()) * 0.001f)) / 2 , -380 });
 
 					UIComponent* powerComp = Power->GetComponent<UIComponent>();
-					powerComp->SetScale({ 700 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (PLAYER_POWER_LIMIT + DEFAULT_POWER))), 80 });
-					powerComp->SetPos({ 250.f - (700 - 700 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower()) * (1 / (PLAYER_POWER_LIMIT + DEFAULT_POWER)))) / 2 , -280 });
+					powerComp->SetScale({ 700 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower() - PLAYER_POWER_MIN) * (1 / (PLAYER_POWER_MAX + DEFAULT_POWER - PLAYER_POWER_MIN))), 80 });
+					powerComp->SetPos({ 250 - (700 - 700 * (float(directionArrow->GetComponent<CombatComp>()->GetPlayerPower() - PLAYER_POWER_MIN) * (1 / (PLAYER_POWER_MAX + DEFAULT_POWER - PLAYER_POWER_MIN)))) / 2 , -280 });
 
 					}
 			

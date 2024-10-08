@@ -33,7 +33,12 @@ void level::LogoLevel::Update()
 
 	timer += dt;
 
-	if (timer < 3.f)
+	if (AEInputCheckTriggered(AEVK_ESCAPE) || AEInputCheckTriggered(AEVK_SPACE) || AEInputCheckTriggered(AEVK_LBUTTON)) 
+	{
+		GSM::GameStateManager::GetInstance().ChangeLevel(new Menu);
+	}
+
+	else if (timer < 3.f)
 	{
 		digipenLogo->GetComponent<SpriteComp>()->SetAlpha((float)timer / 3.f);
 	}
@@ -51,11 +56,6 @@ void level::LogoLevel::Update()
 	else if (timer < 10.f)
 	{
 		teamLogo->GetComponent<SpriteComp>()->SetAlpha(1 - ((float)timer - 8.f) / 2.f);
-	}
-
-	else
-	{
-		GSM::GameStateManager::GetInstance().ChangeLevel(new Menu);
 	}
 }
 

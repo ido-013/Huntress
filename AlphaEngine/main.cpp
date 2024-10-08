@@ -83,9 +83,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// reset the system modules
 	AESysReset();
 
-	//GSM::GameStateManager::GetInstance().ChangeLevel(new level::LogoLevel);
+#ifdef NDEBUG
+	GSM::GameStateManager::GetInstance().ChangeLevel(new level::LogoLevel);
+#else
 	GSM::GameStateManager::GetInstance().ChangeLevel(new level::Menu);
-	//GSM::GameStateManager::GetInstance().ChangeLevel(new level::CombatLevel(0));
+#endif
 
 	// Game Loop
 	while (gsm.ShouldExit() == false && gGameRunning)

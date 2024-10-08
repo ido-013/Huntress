@@ -10,6 +10,8 @@
 #include "../UI/ItemInfo.h"
 #include <string>
 
+bool isHover = false;
+
 std::string StoreUI::goldText = "";
 std::string StoreUI::atkText = "";
 std::string StoreUI::defText = "";
@@ -53,7 +55,8 @@ std::string StoreUI::hpuText = "";
         ui->SetColor(0, 0, 0);
         ui->SetScale({ 120, 120 });
         item.info->SetoffInfo(name);
-        if (outHover) {outHover(ui);}
+        if (outHover) { outHover(ui); }
+        else isHover = true;
         });
     storeItems.push_back(item);
 }
@@ -122,11 +125,9 @@ void StoreUI::OpenStore() {
     SetUIVisibility(true);
 
     SubtitleComp::ModifySubtitle("goldText", 1);
-#ifdef _DEBUG
     SubtitleComp::ModifySubtitle("atkText", 1);
     SubtitleComp::ModifySubtitle("defText", 1);
     SubtitleComp::ModifySubtitle("hpuText", 1);
-#endif
 }
 
 void StoreUI::CloseStore() {
@@ -134,22 +135,19 @@ void StoreUI::CloseStore() {
     SetUIVisibility(false);
 
     SubtitleComp::ModifySubtitle("goldText",0);
-#ifdef _DEBUG
     SubtitleComp::ModifySubtitle("atkText", 0);
     SubtitleComp::ModifySubtitle("defText", 0);
     SubtitleComp::ModifySubtitle("hpuText", 0);
-#endif
 }
 
 void StoreUI::InitStoreUI(GameObject* player) {
     CombatComp::isCombat = false;
  
-    SubtitleComp::AddSubtitle({ SUB_GOLD, float(0.82), "goldText", f32(1), f32(0.9), f32(0.2), 1 });
-#ifdef _DEBUG
-    SubtitleComp::AddSubtitle({ SUB_DEF, float(0.6), "defText", f32(0.9), f32(0), f32(0), 1 });
-    SubtitleComp::AddSubtitle({ SUB_ATK, float(0.6), "atkText", f32(0.9), f32(0), f32(0), 1 });
-    SubtitleComp::AddSubtitle({ SUB_HPU, float(0.6), "hpuText", f32(0.9), f32(0), f32(0), 1 });
-#endif
+    SubtitleComp::AddSubtitle({ SUB_GOLD, float(0.6), "goldText", f32(0.9), f32(0.9), f32(0), 1 });
+    SubtitleComp::AddSubtitle({ SUB_DEF, float(0.4), "defText", f32(0), f32(0), f32(0), 0.8f });
+    SubtitleComp::AddSubtitle({ SUB_ATK, float(0.4), "atkText", f32(0), f32(0), f32(0), 0.8f });
+    SubtitleComp::AddSubtitle({ SUB_HPU, float(0.4), "hpuText", f32(0), f32(0), f32(0), 0.8f });
+
     // Initialize Store Popup
     storePopup = new GameObject();
     storePopup->AddComponent<UIComponent>();
@@ -293,8 +291,6 @@ void StoreUI::InitStoreUI(GameObject* player) {
             PLAY_AUDIO_ERROR;
         }
         });
-
-
     CreateStoreItem("Orbit", "Assets/UI/Orbit.png","Assets/UI/OrbitInfo.png", { -200, -100 }, 15, [player]() {
         PlayerComp* playerComp = player->GetComponent<PlayerComp>();
         if (playerComp->playerData->gold >= 7) {
@@ -390,22 +386,34 @@ void StoreUI::UpdateStoreUI() {
         goldText = "GOLD : " + std::to_string(GameObjectManager::GetInstance().GetObj("player")->GetComponent<PlayerComp>()->playerData->gold);
         SubtitleComp::ModifySubtitle("goldText", goldText);
     }
-#ifdef _DEBUG
-
+    std::cout << isHover << std::endl;
     if (SubtitleComp::FindSubtitle("atkText")) {
-        atkText = std::to_string((int)GameObjectManager::GetInstance().GetObj("player")->GetComponent<PlayerComp>()->playerData->damage);
-        SubtitleComp::ModifySubtitle("atkText", atkText);
+        if (!isHover)
+            atkText = std::to_string((int)GameObjectManager::GetInstance().GetObj("player")->GetComponent<PlayerComp>()->playerData->damage);
+        else
+            atkText = "";
 
+        SubtitleComp::ModifySubtitle("atkText", atkText);
     }
     if (SubtitleComp::FindSubtitle("defText")) {
-        defText = std::to_string((int)GameObjectManager::GetInstance().GetObj("player")->GetComponent<PlayerComp>()->playerData->armor);
+        if (!isHover)
+            defText = std::to_string((int)GameObjectManager::GetInstance().GetObj("player")->GetComponent<PlayerComp>()->playerData->armor);
+        else
+            defText = "";
+
         SubtitleComp::ModifySubtitle("defText", defText);
     }
     if (SubtitleComp::FindSubtitle("hpuText")) {
-        hpuText = std::to_string((int)GameObjectManager::GetInstance().GetObj("player")->GetComponent<PlayerComp>()->playerData->maxLife);
+        if (!isHover)
+            hpuText = std::to_string((int)GameObjectManager::GetInstance().GetObj("player")->GetComponent<PlayerComp>()->playerData->maxLife);
+        else
+            hpuText = "";
+
         SubtitleComp::ModifySubtitle("hpuText", hpuText);
     }
-#endif
+
+    isHover = false;
+
     GameObject* player = GameObjectManager::GetInstance().GetObj("player");
     GameObject* enemy = GameObjectManager::GetInstance().GetObj("enemy");
     GameObject* HP_ = GameObjectManager::GetInstance().GetObj("HP");
