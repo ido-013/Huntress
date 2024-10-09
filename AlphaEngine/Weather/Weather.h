@@ -2,7 +2,7 @@
 #include "../GameObject/GameObject.h"
 #include "AEVec2.h"
 
-constexpr int size = 200;
+constexpr int size = 100;
 
 class Weather
 {
