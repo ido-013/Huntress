@@ -75,9 +75,9 @@ void GSM::GameStateManager::Exit()
     SubtitleComp::DestroyFont();
     EventManager::GetInstance().DeleteUndispahchEvent();
     GameObjectManager::GetInstance().RemoveAllObject();
+    Weather::GetInstance().ClearWeather();
     ButtonManager::GetInstance().RemoveAllButtons();
     ResourceManager::GetInstance().UnloadAllResource();
-    Weather::GetInstance().ClearWeather();
 }
 
 void GSM::GameStateManager::ChangeLevel(BaseLevel* newLvl)

@@ -435,7 +435,8 @@ void CombatComp::SetOrbitAlpha(bool isView)
 		}
 		else if (i < MIN_ORBIT_CIRCLE_COUNT)
 		{
-			GameObjectManager::GetInstance().GetObj("directionArrow")->GetComponent<CombatComp>()->orbitDots[i]->GetComponent<SpriteComp>()->SetAlpha(isView);
+			if (i % 4 == 0)
+				GameObjectManager::GetInstance().GetObj("directionArrow")->GetComponent<CombatComp>()->orbitDots[i]->GetComponent<SpriteComp>()->SetAlpha(isView);
 		}
 		else
 		{
@@ -464,6 +465,7 @@ void CombatComp::InitOrbit()
 			dot->GetComponent<TransformComp>()->SetScale({ 15.f, 15.f });
 
 		dot->GetComponent<SpriteComp>()->SetTexture("./Assets/ArrowUI.png");
+		dot->GetComponent<SpriteComp>()->SetColor(255, 0, 0);
 		dot->GetComponent<SpriteComp>()->SetAlpha(0);
 
 		GameObjectManager::GetInstance().GetObj("directionArrow")->GetComponent<CombatComp>()->orbitDots.push_back(dot);

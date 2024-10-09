@@ -26,23 +26,21 @@ level::NormalLevel::NormalLevel(int _level) : level(_level)
 	unsigned char r = 255;
 	unsigned char g = 255;
 	unsigned char b = 255;
-	float maxTimer = 0.3f;
+	float maxTimer = 0.6f;
 
 	switch (level)
 	{
 	case 1:
-		maxTimer = 0.2f;
 	case 3:
 	case 7:
 		r = 224;
 		g = 202;
 		b = 141;
 		break;
-	case 8:
-	case 10:
-		maxTimer = 0.05f;
 	case 2:
 	case 4:
+	case 8:
+	case 10:
 		r = 255;
 		g = 255;
 		b = 255;
@@ -56,7 +54,7 @@ level::NormalLevel::NormalLevel(int _level) : level(_level)
 		break;
 	}
 
-	Weather::GetInstance().ChangeWeather({ -4000, -2500 }, { 4000, -300 }, { 10, 10 }, r, g, b, 0.3f, maxTimer);
+	Weather::GetInstance().ChangeWeather({ -4000, -2500 }, { 4000, -300 }, { 10, 10 }, r, g, b, 0.3f, 0.6f);
 }
 
 level::NormalLevel::~NormalLevel()

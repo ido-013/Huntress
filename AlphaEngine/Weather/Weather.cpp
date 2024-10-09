@@ -61,6 +61,8 @@ void Weather::ChangeWind(AEVec2 windVec)
 {	
 	RigidbodyComp* rb = nullptr;
 
+	windVec = { windVec.x - AERandFloat() * 10.f, windVec.y + AERandFloat() * 10.f};
+
 	for (int i = 0; i < size; i++)
 	{
 		if (go[i] != nullptr)
