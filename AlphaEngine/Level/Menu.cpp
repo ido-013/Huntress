@@ -9,6 +9,7 @@
 #include <iostream>
 #include "CombatLevel.h"
 #include "NormalLevel.h"
+#include "TutorialLevel.h"
 #include "../GameObjectManager/GameObjectManager.h"
 #include "../GSM/GameStateManager.h"
 #include "../GameObjectManager/GameObjectManager.h"
@@ -16,6 +17,7 @@
 #include "../Camera/Camera.h"
 #include "../UI/ControlUI.h"
 ControlUI CtrUI;
+bool Tuto = false;
 #define PLAY_AUDIO_CLICK GameObjectManager::GetInstance().GetObj("menuBg")->GetComponent<AudioComp>()->playAudio(0, "./Assets/Audio/click_effect.mp3")
 void level::Menu::Init() {
     Camera::GetInstance().SetPos(0, 0);
@@ -61,7 +63,14 @@ void level::Menu::Init() {
 
     startBtn->SetOnClickFunction([]() {
         PLAY_AUDIO_CLICK;
-        GSM::GameStateManager::GetInstance().ChangeLevel(new level::NormalLevel(1));
+        if (Tuto)
+            GSM::GameStateManager::GetInstance().ChangeLevel(new level::NormalLevel(1));
+        else
+        {
+            GSM::GameStateManager::GetInstance().ChangeLevel(new level::TutorialLevel);
+            Tuto = true;
+        }
+    
         });
 
 

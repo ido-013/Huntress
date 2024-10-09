@@ -118,6 +118,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClCompile Include="Level\ClearLevel.cpp" />
     <ClCompile Include="Level\LogoLevel.cpp" />
     <ClCompile Include="Level\OverLevel.cpp" />
+    <ClCompile Include="Level\TutorialLevel.cpp" />
     <ClCompile Include="Tile\Tile.cpp" />
     <ClCompile Include="Components\ColliderComp.cpp" />
     <ClCompile Include="Event\ButtonClickEvent.cpp" />
@@ -177,6 +178,7 @@ xcopy "$(SolutionDir)Extern\AlphaEngine\lib\fmod.dll" "$(OutDir)" /s /r /y /q</C
     <ClInclude Include="Components\UIComp.h" />
     <ClInclude Include="Data\Data.h" />
     <ClInclude Include="Data\DataManager.h" />
+    <ClInclude Include="Level\TutorialLevel.h" />
     <ClInclude Include="UI\EscMenu.h" />
     <ClInclude Include="Event\Button.h" />
     <ClInclude Include="Event\ButtonClickEvent.h" />

@@ -25,8 +25,6 @@
 
 int CombatComp::orbitCircleCount = DEFAULT_ORBIT_CIRCLE_COUNT + 1;
 
-bool Tuto = false;
-
 float delayTime = 0.2f;  // 2초 딜레이
 float elapsedTime = 0.0f;  // 경과 시간 저장
 f64 CombatComp::currTime = 0;
@@ -373,23 +371,16 @@ void CombatComp::checkState()
 
 void CombatComp::ResetCombat()
 {
-	if (!Tuto)
-	{
-		state = EXPLAIN;
-	}
-	else
-	{
-		isCombat = true;
-		state = READY;
+	isCombat = true;
+	state = READY;
 
-		turn = PLAYERTURN;
-		Projectile::isLaunchProjectile = false;
-		isDrawDirection = false;
-		isChaseDirection = true;
-		isReadyLaunch = false;
-		currTime = 0;
-		ArrowCount = 0;
-	}
+	turn = PLAYERTURN;
+	Projectile::isLaunchProjectile = false;
+	isDrawDirection = false;
+	isChaseDirection = true;
+	isReadyLaunch = false;
+	currTime = 0;
+	ArrowCount = 0;
 }
 
 bool CombatComp::ObstacleCollisionCheck(std::vector<AEVec2>& coords)
@@ -1086,14 +1077,6 @@ void CombatComp::Update()
 		}
 		DataUpdate();
 		checkState();
-	}
-	else if (state == EXPLAIN)
-	{
-		if (AEInputCheckTriggered(AEVK_SPACE))
-		{
-			Tuto = true;
-			ResetCombat();
-		}
 	}
 	else if (isCombat && state == READY)
 	{

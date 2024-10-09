@@ -100,7 +100,6 @@ public:
 		KILLENEMY = 7,
 		RESET = 8,
 		STUN = 9,
-		EXPLAIN = 10,
 	};
 	static STATE state;
 	void checkState();

@@ -189,6 +189,9 @@
     <ClCompile Include="Weather\Weather.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Level\TutorialLevel.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GSM\GameStateManager.h">
@@ -414,6 +417,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Weather\Weather.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Level\TutorialLevel.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
