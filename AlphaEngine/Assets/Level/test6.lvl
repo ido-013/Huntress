@@ -4280,10 +4280,10 @@
     ]
   },
   "enemyData": {
-    "maxLife": 30.0,
-    "hp": 30.0,
-    "damage": 0.0,
-    "armor": 0.0,
+    "maxLife": 40.0,
+    "hp": 40.0,
+    "damage": 5.0,
+    "armor": 2.0,
     "grade": 0
   },
   "backgroundFileName": "./Assets/Background/BG6.png"

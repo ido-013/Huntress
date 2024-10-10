@@ -1614,9 +1614,9 @@
     ]
   },
   "enemyData": {
-    "maxLife": 60.0,
-    "hp": 60.0,
-    "damage": 4.0,
+    "maxLife": 50.0,
+    "hp": 50.0,
+    "damage": 5.0,
     "armor": 3.0,
     "grade": 1
   },

@@ -3908,10 +3908,10 @@
     ]
   },
   "enemyData": {
-    "maxLife": 120.0,
-    "hp": 120.0,
-    "damage": 9.0,
-    "armor": 5.0,
+    "maxLife": 100.0,
+    "hp": 100.0,
+    "damage": 17.0,
+    "armor": 3.0,
     "grade": 2
   },
   "backgroundFileName": "./Assets/Background/BG8.png"

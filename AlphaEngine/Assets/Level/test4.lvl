@@ -4127,8 +4127,8 @@
   "enemyData": {
     "maxLife": 30.0,
     "hp": 30.0,
-    "damage": 0.0,
-    "armor": 0.0,
+    "damage": 2.0,
+    "armor": 1.0,
     "grade": 0
   },
   "backgroundFileName": "./Assets/Background/BG4.png"
