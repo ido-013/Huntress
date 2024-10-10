@@ -418,7 +418,7 @@ bool CombatComp::ObstacleCollisionCheck(std::vector<AEVec2>& coords)
 
 void CombatComp::SetOrbitAlpha(bool isView)
 {
-	for (int i = 0; i < CombatComp::orbitCircleCount-1; i++)
+	for (int i = 0; i < CombatComp::orbitCircleCount-1; i += 4)
 	{
 		if (i < 10)
 		{
@@ -426,8 +426,7 @@ void CombatComp::SetOrbitAlpha(bool isView)
 		}
 		else if (i < MIN_ORBIT_CIRCLE_COUNT)
 		{
-			if (i % 4 == 0)
-				GameObjectManager::GetInstance().GetObj("directionArrow")->GetComponent<CombatComp>()->orbitDots[i]->GetComponent<SpriteComp>()->SetAlpha(isView);
+			GameObjectManager::GetInstance().GetObj("directionArrow")->GetComponent<CombatComp>()->orbitDots[i]->GetComponent<SpriteComp>()->SetAlpha(isView);
 		}
 		else
 		{
