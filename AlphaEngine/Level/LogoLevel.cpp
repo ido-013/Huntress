@@ -57,6 +57,11 @@ void level::LogoLevel::Update()
 	{
 		teamLogo->GetComponent<SpriteComp>()->SetAlpha(1 - ((float)timer - 8.f) / 2.f);
 	}
+
+	else
+	{
+		GSM::GameStateManager::GetInstance().ChangeLevel(new Menu);
+	}
 }
 
 void level::LogoLevel::Exit() 

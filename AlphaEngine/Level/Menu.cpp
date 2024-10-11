@@ -144,7 +144,7 @@ void level::Menu::Init() {
 
 
 void level::Menu::Update() {
-
+    CtrUI.UpdateControlUI();
 }
 
 void level::Menu::Exit() {

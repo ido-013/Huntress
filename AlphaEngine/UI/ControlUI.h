@@ -5,7 +5,7 @@
 class ControlUI {
 	GameObject* BgUI = nullptr;
 	GameObject* CtlUI = nullptr;
-	GameObject* CloseBtn = nullptr;
+	//GameObject* CloseBtn = nullptr;
 	GameObject* controlFrame = nullptr;
 	bool isOpen = true;
 

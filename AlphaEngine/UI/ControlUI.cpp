@@ -9,11 +9,11 @@ void ControlUI::SetUIVisibility(bool isVisible)
     float alphaValue = isVisible ? 1.f : 0.f;
     UIComponent* backgroundUI = BgUI->GetComponent<UIComponent>();
     UIComponent* controlUI = CtlUI->GetComponent<UIComponent>();
-    UIComponent* CloseUI = CloseBtn->GetComponent<UIComponent>();
+    //UIComponent* CloseUI = CloseBtn->GetComponent<UIComponent>();
 
     backgroundUI->SetAlpha((float)alphaValue);
     controlUI->SetAlpha((float)alphaValue);
-    CloseUI->SetAlpha((float)alphaValue);
+  /*  CloseUI->SetAlpha((float)alphaValue);*/
 
 }
 
@@ -67,7 +67,7 @@ void ControlUI::InitControlUI()
 
 
 
-    CloseBtn = new GameObject();
+    /*CloseBtn = new GameObject();
     CloseBtn->AddComponent<UIComponent>();
     UIComponent* CloseUI = CloseBtn->GetComponent<UIComponent>();
     CloseUI->SetScale({ 50,50 });
@@ -77,16 +77,19 @@ void ControlUI::InitControlUI()
     CloseUI->SetAlpha(0);
     CloseBtn->AddComponent<ButtonComp>();
     ButtonComp* CloseButton = CloseBtn->GetComponent<ButtonComp>();
-    CloseButton->SetOnClickFunction([this]() {
-        Setmenu();
-        Setoff(); 
-        });
+    CloseButton->SetOnClickFunction([this]()*/ 
+
 
 
 }
 
 void ControlUI::UpdateControlUI()
 {
+    if (AEInputCheckTriggered(AEVK_ESCAPE))
+    {
+        Setmenu();
+        Setoff();
+    }
 }
 
 void ControlUI::ExitControlUI()
